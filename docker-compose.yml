@@ -33,6 +33,29 @@ services:
     volumes:
       - ${USERPROFILE}\bagetter-data:/data:rw
 
+  pihole:
+    image: pihole/pihole:latest
+    dns:
+      - 127.0.0.1
+      - 9.9.9.9
+      - 9.9.9.10
+    environment:
+      DNS1: 9.9.9.9
+      DNS2: 9.9.9.10
+      TZ: UTC
+      WEBPASSWORD: ${PIHOLE_WEB_PASSWORD:-76c9eca2bced3e751a47c188afe6fd9d}
+    labels:
+      traefik.http.routers.pihole-router.rule: Host(`pihole`)
+      traefik.http.routers.pihole-router.tls: "true"
+      traefik.http.services.pihole-service.loadbalancer.server.port: "80"
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+    volumes:
+      - ${USERPROFILE}\pihole-data\data\:/etc/pihole/:rw
+      - ${USERPROFILE}\pihole-data\dnsmasq\:/etc/dnsmasq.d/:rw
+
   traefik:
     image: traefik:latest
     command:

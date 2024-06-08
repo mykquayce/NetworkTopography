@@ -14,3 +14,6 @@ GET https://baget/v3/index.json
 
 ###
 GET https://nuget/v3/index.json
+
+###
+GET https://pihole/admin/login.php
