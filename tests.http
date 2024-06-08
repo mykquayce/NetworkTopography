@@ -17,3 +17,6 @@ GET https://nuget/v3/index.json
 
 ###
 GET https://pihole/admin/login.php
+
+###
+GET https://planka
