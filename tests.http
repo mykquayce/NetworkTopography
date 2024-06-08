@@ -8,3 +8,9 @@ client_id=client1&client_secret=secret1&grant_type=client_credentials
 
 ###
 GET https://traefik/dashboard/
+
+###
+GET https://baget/v3/index.json
+
+###
+GET https://nuget/v3/index.json

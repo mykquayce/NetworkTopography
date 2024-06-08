@@ -22,6 +22,17 @@ services:
       - source: localhost_key
         target: /etc/certs/localhost.key
 
+  nuget:
+    image: bagetter/bagetter:latest
+    environment:
+      ApiKey: ${NuGetServerApiKey:-8e7b324ee43b689f77c2f95b099fd6f5}
+    labels:
+      traefik.http.routers.nuget-router.rule: Host(`baget`) || Host(`nuget`)
+      traefik.http.routers.nuget-router.tls: "true"
+      traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
+    volumes:
+      - ${USERPROFILE}\bagetter-data:/data:rw
+
   traefik:
     image: traefik:latest
     command:
