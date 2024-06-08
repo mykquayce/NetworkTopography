@@ -12,13 +12,37 @@ services:
       Clients:0:AllowedScopes:0: scope1
       Clients:0:ClientId: client1
       Clients:0:ClientSecrets:0:Value: WxFhjC5EAnh30M0JIe0Wa58Xb1BYf8kedTTdKUbbd9Y=
-    ports:
-      - 80:80/tcp
+    labels:
+      traefik.http.routers.identityserver-router.rule: Host(`identityserver`)
+      traefik.http.routers.identityserver-router.tls: "true"
+      traefik.http.services.identityserver-service.loadbalancer.server.port: "80"
     secrets:
       - source: localhost_crt
         target: /etc/certs/localhost.crt
       - source: localhost_key
         target: /etc/certs/localhost.key
+
+  traefik:
+    image: traefik:latest
+    command:
+      - --api.insecure=true
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    labels:
+      traefik.http.routers.traefik-router.rule: Host(`traefik`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    ports:
+      - 443:443/tcp
+    secrets:
+      - source: localhost_crt
+        target: /etc/certs/localhost.crt
+      - source: localhost_key
+        target: /etc/certs/localhost.key
+    volumes:
+      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
 secrets:
   localhost_crt:
