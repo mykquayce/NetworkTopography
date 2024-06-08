@@ -1,0 +1,27 @@
+services:
+  identityserver:
+    image: eassbhhtgu/identity-server:latest
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      HTTP_PORTS: "80"
+      Kestrel:Certificates:Default:KeyPath: /etc/certs/localhost.key
+      Kestrel:Certificates:Default:Path: /etc/certs/localhost.crt
+
+      ApiScopes:0:Name: scope1
+      Clients:0:AllowedGrantTypes:0: client_credentials
+      Clients:0:AllowedScopes:0: scope1
+      Clients:0:ClientId: client1
+      Clients:0:ClientSecrets:0:Value: WxFhjC5EAnh30M0JIe0Wa58Xb1BYf8kedTTdKUbbd9Y=
+    ports:
+      - 80:80/tcp
+    secrets:
+      - source: localhost_crt
+        target: /etc/certs/localhost.crt
+      - source: localhost_key
+        target: /etc/certs/localhost.key
+
+secrets:
+  localhost_crt:
+    file: ${USERPROFILE}\.aspnet\https\localhost.crt
+  localhost_key:
+    file: ${USERPROFILE}\.aspnet\https\localhost.key
