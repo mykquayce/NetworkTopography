@@ -20,3 +20,6 @@ GET https://pihole/admin/login.php
 
 ###
 GET https://planka
+
+###
+GET https://networkdiscovery/api/router
