@@ -1,4 +1,17 @@
 services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    environment:
+      GF_ENABLE_GZIP: "true"
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    labels:
+      traefik.http.routers.grafana-router.rule: Host(`grafana`)
+      traefik.http.routers.grafana-router.tls: "true"
+      traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
+    volumes:
+      - ${USERPROFILE}\grafana-data\:/var/lib/grafana/:rw
+
   identityserver:
     image: eassbhhtgu/identity-server:latest
     environment:

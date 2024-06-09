@@ -26,3 +26,6 @@ GET https://networkdiscovery/api/router
 
 ###
 GET https://prometheus/graph/
+
+###
+GET https://grafana/login
