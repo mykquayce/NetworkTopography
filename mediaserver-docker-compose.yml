@@ -1,0 +1,78 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    labels:
+      traefik.http.routers.jellyfin-router.rule: Host(`jellyfin`)
+      traefik.http.routers.jellyfin-router.tls: "true"
+      traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
+    volumes:
+      - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
+      - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
+      - D:\anime\:/media/anime/:ro
+      - D:\films\:/media/films/:ro
+      - D:\tvshows\:/media/tv/:ro
+      - D:\videos\:/media/videos/:ro
+      - E:\music\:/media/music/:ro
+      - E:\pictures\:/media/pictures/:ro
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Etc/UTC
+      WEBUI_PORT: "8080"
+      TORRENTING_PORT: "6881"
+    labels:
+      traefik.http.routers.qbittorrent-router.rule: Host(`qbittorrent`)
+      traefik.http.routers.qbittorrent-router.tls: "true"
+      traefik.http.services.qbittorrent-service.loadbalancer.server.port: "8080"
+    ports:
+      - 6881:6881/tcp
+      - 6881:6881/udp
+    volumes:
+      - ${USERPROFILE}\qbittorrent-data\:/config/:rw
+      - E:\Downloads\:/downloads/:rw
+
+  sickgear:
+    image: sickgear/sickgear:latest
+    labels:
+      traefik.http.routers.sickgear-router.rule: Host(`sickgear`)
+      traefik.http.routers.sickgear-router.tls: "true"
+      traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
+    volumes:
+      - ${USERPROFILE}\sickgear-data\:/data/:rw
+      - D:\anime\:/media/anime/:rw
+      - D:\films\:/media/films/:rw
+      - D:\tvshows\:/media/tv/:rw
+      - D:\videos\:/media/videos/:rw
+      - E:\music\:/media/music/:rw
+      - E:\pictures\:/media/pictures/:rw
+
+  traefik:
+    image: traefik:latest
+    command:
+      - --api.insecure=true
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    labels:
+      traefik.http.routers.traefik-router.rule: Host(`traefik`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    ports:
+      - 443:443/tcp
+    secrets:
+      - source: localhost_crt
+        target: /etc/certs/localhost.crt
+      - source: localhost_key
+        target: /etc/certs/localhost.key
+    volumes:
+      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+
+secrets:
+  localhost_crt:
+    file: ${USERPROFILE}\.aspnet\https\localhost.crt
+  localhost_key:
+    file: ${USERPROFILE}\.aspnet\https\localhost.key
