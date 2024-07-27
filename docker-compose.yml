@@ -6,6 +6,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_USERS_ALLOW_SIGN_UP: "false"
     labels:
+      traefik.http.routers.grafana-router.entrypoints: websecure
       traefik.http.routers.grafana-router.rule: Host(`grafana`)
       traefik.http.routers.grafana-router.tls: "true"
       traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
@@ -26,6 +27,7 @@ services:
       Clients:0:ClientId: client1
       Clients:0:ClientSecrets:0:Value: WxFhjC5EAnh30M0JIe0Wa58Xb1BYf8kedTTdKUbbd9Y=
     labels:
+      traefik.http.routers.identityserver-router.entrypoints: websecure
       traefik.http.routers.identityserver-router.rule: Host(`identityserver`)
       traefik.http.routers.identityserver-router.tls: "true"
       traefik.http.services.identityserver-service.loadbalancer.server.port: "80"
@@ -52,6 +54,7 @@ services:
       Router:Port: 22
       Router:Username: root
     labels:
+      traefik.http.routers.networkdiscovery-router.entrypoints: websecure
       traefik.http.routers.networkdiscovery-router.rule: Host(`networkdiscovery`)
       traefik.http.routers.networkdiscovery-router.tls: "true"
       traefik.http.services.networkdiscovery-service.loadbalancer.server.port: "8080"
@@ -63,6 +66,7 @@ services:
     environment:
       ApiKey: ${NuGetServerApiKey:-8e7b324ee43b689f77c2f95b099fd6f5}
     labels:
+      traefik.http.routers.nuget-router.entrypoints: websecure
       traefik.http.routers.nuget-router.rule: Host(`baget`) || Host(`nuget`)
       traefik.http.routers.nuget-router.tls: "true"
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
@@ -81,13 +85,15 @@ services:
       TZ: UTC
       WEBPASSWORD: ${PIHOLE_WEB_PASSWORD:-76c9eca2bced3e751a47c188afe6fd9d}
     labels:
+      traefik.http.routers.pihole-router.entrypoints: websecure
       traefik.http.routers.pihole-router.rule: Host(`pihole`)
       traefik.http.routers.pihole-router.tls: "true"
       traefik.http.services.pihole-service.loadbalancer.server.port: "80"
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 67:67/udp
+      traefik.tcp.routers.pihole-router.entrypoints: dnstcp
+      traefik.tcp.routers.pihole-router.rule: HostSNI(`*`)
+      traefik.tcp.services.pihole-service.loadbalancer.server.port: "53"
+      traefik.udp.routers.pihole-router.entrypoints: dnsudp
+      traefik.udp.services.pihole-service.loadbalancer.server.port: "53"
     volumes:
       - ${USERPROFILE}\pihole-data\data\:/etc/pihole/:rw
       - ${USERPROFILE}\pihole-data\dnsmasq\:/etc/dnsmasq.d/:rw
@@ -124,6 +130,7 @@ services:
       DEFAULT_ADMIN_PASSWORD: demo
       DEFAULT_ADMIN_USERNAME: demo
     labels:
+      traefik.http.routers.planka-router.entrypoints: websecure
       traefik.http.routers.planka-router.rule: Host(`planka`)
       traefik.http.routers.planka-router.tls: "true"
       traefik.http.services.planka-service.loadbalancer.server.port: "1337"
@@ -152,6 +159,7 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     labels:
+      traefik.http.routers.prometheus-router.entrypoints: websecure
       traefik.http.routers.prometheus-router.rule: Host(`prometheus`)
       traefik.http.routers.prometheus-router.tls: "true"
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
@@ -164,6 +172,7 @@ services:
       REGISTRY_HTTP_SECRET: ${DOCKER_REGISTRY_HTTP_SECRET:-b3879bfc703da640b9e74cc001d05a4dz}
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data/
     labels:
+      traefik.http.routers.registry-router.entrypoints: websecure
       traefik.http.routers.registry-router.rule: Host(`registry`) || Host(`registry.fbc.local`)
       traefik.http.routers.registry-router.tls: "true"
       traefik.http.services.registry-service.loadbalancer.server.port: "5000"
@@ -177,6 +186,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
       EndPoints:NetworkDiscovery: http://networkdiscovery:8080/
     labels:
+      traefik.http.routers.tplink-router.entrypoints: websecure
       traefik.http.routers.tplink-router.rule: Host(`tplink`)
       traefik.http.routers.tplink-router.tls: "true"
       traefik.http.services.tplink-service.loadbalancer.server.port: "8080"
@@ -187,8 +197,13 @@ services:
   traefik:
     image: traefik:latest
     command:
+      # - --accesslog=true
       - --api.insecure=true
+      - --entrypoints.dnstcp.address=:53/tcp
+      - --entrypoints.dnsudp.address=:53/udp
       - --entrypoints.websecure.address=:443
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
       - --metrics.prometheus=true
       - --metrics.prometheus.addentrypointslabels=true
       - --metrics.prometheus.addrouterslabels=true
@@ -196,10 +211,13 @@ services:
       - --providers.docker
       - --providers.file.directory=/etc/traefik/dynamic_conf/
     labels:
+      traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     ports:
+      - 53:53/tcp
+      - 53:53/udp
       - 443:443/tcp
     secrets:
       - source: localhost_crt
