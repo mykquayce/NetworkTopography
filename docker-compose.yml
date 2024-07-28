@@ -1,4 +1,81 @@
 services:
+  asndenier:
+    image: eassbhhtgu/asndenier:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+    environment:
+      DOTNET_ENVIRONMENT: Production
+
+      #ASNNumbers:amazon:0: 7224
+      #ASNNumbers:amazon:1: 8987
+      #ASNNumbers:amazon:2: 14618
+      #ASNNumbers:amazon:3: 16509
+      #ASNNumbers:amazon:4: 62785
+
+      ASNNumbers:apple:0: 714
+      ASNNumbers:apple:1: 6185
+
+      ASNNumbers:disney:0: 8137
+      ASNNumbers:disney:1: 11251
+      ASNNumbers:disney:2: 22604
+      ASNNumbers:disney:3: 23344
+      ASNNumbers:disney:4: 29736
+      ASNNumbers:disney:5: 398849
+
+      ASNNumbers:epicgames:0: 4356
+      ASNNumbers:epicgames:1: 395701
+      ASNNumbers:epicgames:2: 397645
+
+      ASNNumbers:facebook:0: 32934
+      ASNNumbers:facebook:1: 54115
+      ASNNumbers:facebook:2: 63293
+
+      ASNNumbers:king:0: 62094
+
+      ASNNumbers:netease:0: 45062
+      ASNNumbers:netease:1: 131659
+      ASNNumbers:netease:2: 137263
+
+      ASNNumbers:netflix:0: 2906
+      ASNNumbers:netflix:1: 40027
+      ASNNumbers:netflix:2: 55095
+
+      ASNNumbers:sky:0: 5607
+      ASNNumbers:sky:1: 7922
+      ASNNumbers:sky:2: 39627
+      ASNNumbers:sky:3: 41012
+      ASNNumbers:sky:4: 207163
+      ASNNumbers:sky:5: 212465
+
+      ASNNumbers:tencent:0: 45090
+
+      ASNNumbers:tiktok:0: 138699
+      ASNNumbers:tiktok:1: 396986
+
+      #ASNNumbers:twitch:0: 46489
+
+      ASNNumbers:twitter:0: 13414
+      ASNNumbers:twitter:1: 35995
+      ASNNumbers:twitter:2: 63179
+      ASNNumbers:twitter:3: 63194
+
+      ASNNumbers:whatsapp:0: 11917
+
+      Interval:Count: "0.25"
+      Interval:Unit: Days
+
+      Router:Host: 192.168.1.10
+      Router:Port: "22"
+      Router:UserName: root
+      Router:PathToPrivateKey: /run/secrets/id_rsa
+
+    secrets:
+    - source: id_rsa
+
   grafana:
     image: grafana/grafana-oss:latest
     environment:
