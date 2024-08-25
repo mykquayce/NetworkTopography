@@ -1,20 +1,4 @@
 services:
-  jellyfin:
-    image: jellyfin/jellyfin:latest
-    labels:
-      traefik.http.routers.jellyfin-router.rule: Host(`jellyfin`)
-      traefik.http.routers.jellyfin-router.tls: "true"
-      traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
-    volumes:
-      - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
-      - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
-      - D:\anime\:/media/anime/:ro
-      - D:\films\:/media/films/:ro
-      - D:\tvshows\:/media/tv/:ro
-      - D:\videos\:/media/videos/:ro
-      - E:\music\:/media/music/:ro
-      - E:\pictures\:/media/pictures/:ro
-
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     environment:
@@ -54,6 +38,8 @@ services:
     command:
       - --api.insecure=true
       - --entrypoints.websecure.address=:443
+      # TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC
+      - --log.level=ERROR
       - --providers.docker
       - --providers.file.directory=/etc/traefik/dynamic_conf/
     labels:
