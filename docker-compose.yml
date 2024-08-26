@@ -280,6 +280,6 @@ secrets:
   crl_crt:
     file: ${USERPROFILE}\.aspnet\https\crl.crt
   localhost_crt:
-    file: ${USERPROFILE}\.aspnet\https\localhost.crt
+    file: ${USERPROFILE}\.aspnet\https\server1.crt
   localhost_key:
-    file: ${USERPROFILE}\.aspnet\https\localhost.key
+    file: ${USERPROFILE}\.aspnet\https\server1.key

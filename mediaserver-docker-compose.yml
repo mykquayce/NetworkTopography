@@ -59,6 +59,6 @@ services:
 
 secrets:
   localhost_crt:
-    file: ${USERPROFILE}\.aspnet\https\localhost.crt
+    file: ${USERPROFILE}\.aspnet\https\mediaserver1.crt
   localhost_key:
-    file: ${USERPROFILE}\.aspnet\https\localhost.key
+    file: ${USERPROFILE}\.aspnet\https\mediaserver1.key
