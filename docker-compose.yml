@@ -76,6 +76,15 @@ services:
     secrets:
     - source: id_rsa
 
+  certificates:
+    image: httpd:alpine
+    labels:
+      traefik.http.routers.apache-router.rule: Host(`certificates`)
+      traefik.http.services.apache-service.loadbalancer.server.port: "80"
+    secrets:
+      - source: crl_crt
+        target: /usr/local/apache2/htdocs/crl.crt
+
   grafana:
     image: grafana/grafana-oss:latest
     environment:
@@ -236,6 +245,7 @@ services:
     command:
       # - --accesslog=true
       - --api.insecure=true
+      - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
@@ -251,6 +261,7 @@ services:
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     ports:
+      - 80:80/tcp
       - 443:443/tcp
     secrets:
       - source: localhost_crt
@@ -266,6 +277,8 @@ secrets:
     file: ${USERPROFILE}\.ssh\id_rsa
   ca_crt:
     file: ${USERPROFILE}\.aspnet\https\ca.crt
+  crl_crt:
+    file: ${USERPROFILE}\.aspnet\https\crl.crt
   localhost_crt:
     file: ${USERPROFILE}\.aspnet\https\localhost.crt
   localhost_key:
