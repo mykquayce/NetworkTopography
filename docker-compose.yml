@@ -150,46 +150,6 @@ services:
     volumes:
       - ${USERPROFILE}\bagetter-data:/data:rw
 
-  pihole:
-    image: pihole/pihole:latest
-    dns:
-      - 127.0.0.1
-      - 9.9.9.9
-      - 9.9.9.10
-    environment:
-      DNS1: 9.9.9.9
-      DNS2: 9.9.9.10
-      TZ: UTC
-      WEBPASSWORD: ${PIHOLE_WEB_PASSWORD:-76c9eca2bced3e751a47c188afe6fd9d}
-    labels:
-      traefik.http.routers.pihole-router.entrypoints: websecure
-      traefik.http.routers.pihole-router.rule: Host(`pihole`)
-      traefik.http.routers.pihole-router.tls: "true"
-      traefik.http.services.pihole-service.loadbalancer.server.port: "80"
-      traefik.tcp.routers.pihole-router.entrypoints: dnstcp
-      traefik.tcp.routers.pihole-router.rule: HostSNI(`*`)
-      traefik.tcp.services.pihole-service.loadbalancer.server.port: "53"
-      traefik.udp.routers.pihole-router.entrypoints: dnsudp
-      traefik.udp.services.pihole-service.loadbalancer.server.port: "53"
-    volumes:
-      - ${USERPROFILE}\pihole-data\data\:/etc/pihole/:rw
-      - ${USERPROFILE}\pihole-data\dnsmasq\:/etc/dnsmasq.d/:rw
-
-  pihole-exporter:
-    image: ekofr/pihole-exporter:latest
-    healthcheck:
-      test:
-        - CMD
-        - wget
-        - --tries=1
-        - --spider
-        - http://localhost:9617/metrics
-    environment:
-      INTERVAL: 90s
-      PIHOLE_HOSTNAME: pihole
-      PIHOLE_PASSWORD: ${PIHOLE_WEB_PASSWORD:-76c9eca2bced3e751a47c188afe6fd9d}
-      PORT: "9617"
-
   planka:
     image: ghcr.io/plankanban/planka:latest
     deploy:
@@ -276,8 +236,6 @@ services:
     command:
       # - --accesslog=true
       - --api.insecure=true
-      - --entrypoints.dnstcp.address=:53/tcp
-      - --entrypoints.dnsudp.address=:53/udp
       - --entrypoints.websecure.address=:443
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
@@ -293,8 +251,6 @@ services:
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     ports:
-      - 53:53/tcp
-      - 53:53/udp
       - 443:443/tcp
     secrets:
       - source: localhost_crt
