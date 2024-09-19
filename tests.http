@@ -29,3 +29,6 @@ GET https://prometheus/graph/
 
 ###
 GET https://grafana/login
+
+###
+GET https://homeassistant

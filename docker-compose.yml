@@ -99,6 +99,15 @@ services:
     volumes:
       - ${USERPROFILE}\grafana-data\:/var/lib/grafana/:rw
 
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    labels:
+      traefik.http.routers.homeassistant-router.entrypoints: websecure
+      traefik.http.routers.homeassistant-router.rule: Host(`homeassistant`)
+      traefik.http.routers.homeassistant-router.tls: "true"
+      traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
+    volumes:
+      - ${USERPROFILE}\homeassistant\:/config/:rw
   identityserver:
     image: eassbhhtgu/identity-server:latest
     environment:
