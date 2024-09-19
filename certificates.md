@@ -20,7 +20,7 @@ openssl ca -config ./openssl.cnf -gencrl -keyfile ./ca.key -cert ./ca.crt -out .
 server1 cert
 ```
 openssl req -newkey rsa:4096 -nodes -keyout ./server1.key -subj "/C=UK/ST=Manchester/L=Manchester/O=fbc/OU=systems/CN=server1" -config ./openssl.cnf -out ./server1.csr
-openssl x509 -req -extfile <(printf "crlDistributionPoints=URI:http://certificates/crl.crt\nsubjectAltName=DNS:api,DNS:baget,DNS:grafana,DNS:homeautomation,DNS:host.docker.internal,DNS:identityserver,DNS:localhost,DNS:mariadb,DNS:networkdiscovery,DNS:networktest,DNS:nuget,DNS:pihole,DNS:planka,DNS:prometheus,DNS:registry,DNS:registry.local,DNS:tplink,DNS:traefik") -days 365 -in ./server1.csr -CA ./ca.crt -CAkey ./ca.key -CAcreateserial -out ./server1.crt
+openssl x509 -req -extfile <(printf "crlDistributionPoints=URI:http://certificates/crl.crt\nsubjectAltName=DNS:api,DNS:baget,DNS:grafana,DNS:homeassistant,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:localhost,DNS:mariadb,DNS:networkdiscovery,DNS:networktest,DNS:nuget,DNS:pihole,DNS:planka,DNS:prometheus,DNS:registry,DNS:registry.local,DNS:router1,DNS:tplink,DNS:traefik") -days 365 -in ./server1.csr -CA ./ca.crt -CAkey ./ca.key -CAcreateserial -out ./server1.crt
 ```
 mediaserver1 cert
 ```
