@@ -237,11 +237,12 @@ services:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data/
     labels:
       traefik.http.routers.registry-router.entrypoints: websecure
-      traefik.http.routers.registry-router.rule: Host(`registry`) || Host(`registry.fbc.local`)
+      traefik.http.routers.registry-router.rule: Host(`registry`) || Host(`registry.local`)
       traefik.http.routers.registry-router.tls: "true"
       traefik.http.services.registry-service.loadbalancer.server.port: "5000"
     volumes:
-      - ${USERPROFILE}\registry-data\:/data/:rw
+      - ${USERPROFILE}\registry-data\data\:/data/:rw
+      - ${USERPROFILE}\registry-data\library\:/var/lib/registry/:rw
 
   tplink:
     image: eassbhhtgu/tplinkrelayapi:latest
