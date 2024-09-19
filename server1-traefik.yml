@@ -1,11 +1,5 @@
 http:
   routers:
-    jellyfin-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`jellyfin`)"
-      service: "jellyfin-service"
-      tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
@@ -19,10 +13,6 @@ http:
       service: "router1-service"
       tls: "true"
   services:
-    jellyfin-service:
-      loadBalancer:
-        servers:
-        - url: "http://host.docker.internal:8096/"
     pihole-service:
       loadBalancer:
         servers:

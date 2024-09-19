@@ -28,6 +28,7 @@ services:
       - ${USERPROFILE}\sickgear-data\:/data/:rw
       - D:\anime\:/media/anime/:rw
       - D:\films\:/media/films/:rw
+      - D:\Red-Letter Media\:/media/Red-Letter Media/:rw
       - D:\tvshows\:/media/tv/:rw
       - D:\videos\:/media/videos/:rw
       - E:\music\:/media/music/:rw
@@ -54,7 +55,7 @@ services:
       - source: localhost_key
         target: /etc/certs/localhost.key
     volumes:
-      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
+      - ./mediaserver1-traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock
 
 secrets:
