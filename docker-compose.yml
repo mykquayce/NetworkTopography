@@ -108,6 +108,15 @@ services:
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
     volumes:
       - ${USERPROFILE}\homeassistant\:/config/:rw
+
+  httpbin:
+    image: mccutchen/go-httpbin:latest
+    labels:
+      traefik.http.routers.httpbin-router.entrypoints: websecure
+      traefik.http.routers.httpbin-router.rule: Host(`httpbin`)
+      traefik.http.routers.httpbin-router.tls: "true"
+      traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
+
   identityserver:
     image: eassbhhtgu/identity-server:latest
     environment:

@@ -31,4 +31,7 @@ GET https://prometheus/graph/
 GET https://grafana/login
 
 ###
+GET https://httpbin/status/418
+
+###
 GET https://homeassistant
