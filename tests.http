@@ -35,3 +35,6 @@ GET https://httpbin/status/418
 
 ###
 GET https://homeassistant
+
+###
+GET https://speedtest/admin/login
