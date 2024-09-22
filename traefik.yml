@@ -1,0 +1,58 @@
+http:
+  routers:
+    jellyfin-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`jellyfin`)"
+      service: "jellyfin-service"
+      tls: "true"
+    pihole-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`pihole`)"
+      service: "pihole-service"
+      tls: "true"
+    qbittorrent-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`qbittorrent`)"
+      service: "qbittorrent-service"
+      tls: "true"
+    router1-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`router1`)"
+      service: "router1-service"
+      tls: "true"
+    sickgear-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`sickgear`)"
+      service: "sickgear-service"
+      tls: "true"
+  services:
+    jellyfin-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8096/"
+    pihole-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.80"
+    qbittorrent-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8080/"
+    router1-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.10"
+    sickgear-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8081/"
+
+tls:
+  certificates:
+    - certFile: /etc/certs/localhost.crt
+      keyFile: /etc/certs/localhost.key
