@@ -1,0 +1,3 @@
+crlDistributionPoints=URI:http://certificates/crl.crt
+
+subjectAltName=DNS:database,DNS:directory,DNS:dylan3,DNS:gaining,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:jellyfin,DNS:localhost,DNS:losing,DNS:totsco,DNS:traefik

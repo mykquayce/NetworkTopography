@@ -1,29 +1,30 @@
+this uses the two directory mappings:
+
+| host | container |
+| :-: | :-: |
+| . | ~/certs/ |
+| ~\\.aspnet\https\ | /opt/certs/ |
+
 prep
 ```
-docker pull alpine:latest
-docker run --interactive=true --rm --tty=true --volume "${env:userprofile}\.aspnet\https\:/root/ca/:rw" alpine:latest sh
-apk add openssl
-cd /root/ca/
-touch ./index.txt
-echo 01 > ./serial
-echo 01 > ./crlnumber
+.\launch.ps1
 ```
 authority cert
 ```
-openssl genrsa -aes256 -out ./ca.key 4096
-openssl req -new -x509 -days 365 -key ./ca.key -subj "/C=UK/ST=Manchester/L=Manchester/O=fbc/OU=systems/CN=fbc.gov" -config ./openssl.cnf -out ./ca.crt
+touch ./index.txt
+echo 01 > /opt/certs/serial
+echo 01 > /opt/certs/crlnumber
+openssl genrsa -aes256 -out /opt/certs/ca.key 4096
+openssl req -new -x509 -days 365 -key /opt/certs/ca.key -subj "/C=UK/ST=Manchester/L=Manchester/O=fbc/OU=systems/CN=fbc.gov" -config ./openssl.cnf -out /opt/certs/ca.crt
 ```
 revocation list
 ```
-openssl ca -config ./openssl.cnf -gencrl -keyfile ./ca.key -cert ./ca.crt -out ./crl.crt
+openssl ca -config ./openssl.cnf -gencrl -keyfile /opt/certs/ca.key -cert /opt/certs/ca.crt -out /opt/certs/crl.crt
 ```
-server1 cert
+certs
+
+run these (will prompt for the passphrase)
 ```
-openssl req -newkey rsa:4096 -nodes -keyout ./server1.key -subj "/C=UK/ST=Manchester/L=Manchester/O=fbc/OU=systems/CN=server1" -config ./openssl.cnf -out ./server1.csr
-openssl x509 -req -extfile <(printf "crlDistributionPoints=URI:http://certificates/crl.crt\nsubjectAltName=DNS:api,DNS:baget,DNS:grafana,DNS:homeassistant,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:jellyfin,DNS:localhost,DNS:mariadb,DNS:networkdiscovery,DNS:networktest,DNS:nuget,DNS:pihole,DNS:planka,DNS:prometheus,DNS:qbittorrent,DNS:registry,DNS:registry.local,DNS:router1,DNS:sickgear,DNS:tplink,DNS:traefik") -days 365 -in ./server1.csr -CA ./ca.crt -CAkey ./ca.key -CAcreateserial -out ./server1.crt
-```
-dev1 cert
-```
-openssl req -newkey rsa:4096 -nodes -keyout ./dev1.key -subj "/C=UK/ST=Manchester/L=Manchester/O=fbc/OU=systems/CN=dev1" -config ./openssl.cnf -out ./dev1.csr
-openssl x509 -req -extfile <(printf "crlDistributionPoints=URI:http://certificates/crl.crt\nsubjectAltName=DNS:database,DNS:directory,DNS:dylan3,DNS:gaining,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:jellyfin,DNS:localhost,DNS:losing,DNS:totsco,DNS:traefik") -days 365 -in ./dev1.csr -CA ./ca.crt -CAkey ./ca.key -CAcreateserial -out ./dev1.crt
+./server1.sh
+./dev1.sh
 ```
