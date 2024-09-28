@@ -31,6 +31,14 @@
         siteMonitor: https://sickgear
 
 - Server:
+    - Change Detection:
+        href: https://changedetection/
+        icon: changedetection-io.png
+        siteMonitor: http://changedetection:5000
+        widget:
+          type: changedetectionio
+          url: http://changedetection:5000
+          key: b907fb20b376747d27db01e8e4056ce7
     - Docker Registry:
         href: https://registry/
         icon: docker-moby.svg
