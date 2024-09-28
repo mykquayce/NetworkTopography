@@ -85,6 +85,16 @@ services:
       - source: crl_crt
         target: /usr/local/apache2/htdocs/crl.crt
 
+  changedetection:
+    image: dgtlmoon/changedetection.io:latest
+    labels:
+      traefik.http.routers.changedetection-router.entrypoints: websecure
+      traefik.http.routers.changedetection-router.rule: Host(`changedetection`)
+      traefik.http.routers.changedetection-router.tls: "true"
+      traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
+    volumes:
+      - ${USERPROFILE}\changedetection-data\:/datastore/:rw
+
   grafana:
     image: grafana/grafana-oss:latest
     environment:
