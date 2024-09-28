@@ -41,3 +41,6 @@ GET https://speedtest/admin/login
 
 ###
 GET https://homepage
+
+###
+GET https://changedetection
