@@ -44,3 +44,7 @@ GET https://homepage
 
 ###
 GET https://changedetection
+
+###
+GET https://whatsupdocker
+
