@@ -70,6 +70,13 @@
         widget:
           type: traefik
           url: https://traefik
+    - What's Up Docker:
+        href: https://whatsupdocker/
+        icon: whats-up-docker.svg
+        siteMonitor: http://whatsupdocker:3000
+        widget:
+          type: whatsupdocker
+          url: http://whatsupdocker:3000
 
 - Network:
     - Main Router:

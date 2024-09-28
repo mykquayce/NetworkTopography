@@ -330,6 +330,25 @@ services:
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock
 
+  whatsupdocker:
+    image: fmartinou/whats-up-docker:latest
+    healthcheck:
+      test: wget --no-verbose --tries=1 --no-check-certificate --spider http://localhost:3000
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    labels:
+      traefik.http.routers.whatsupdocker-router.entrypoints: websecure
+      traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker`)
+      traefik.http.routers.whatsupdocker-router.tls: "true"
+      traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"
+      wud.link.template: https://github.com/fmartinou/whats-up-docker/releases/tag/$${major}.$${minor}.$${patch}
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${USERPROFILE}\whatsupdocker-data\:/store/:rw
+
 secrets:
   id_rsa:
     file: ${USERPROFILE}\.ssh\id_rsa
