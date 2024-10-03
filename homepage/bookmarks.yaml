@@ -3,16 +3,26 @@
 # https://gethomepage.dev/configs/bookmarks
 
 - Developer:
-    - Github:
-        - abbr: GH
-          href: https://github.com/
+    - GitHub:
+        - description: Let's build from here
+          href: https://github.com/dashboard
+          icon: github-light.png
 
 - Social:
     - Reddit:
-        - abbr: RE
-          href: https://reddit.com/
+        - description: The front page of the internet
+          href: https://old.reddit.com/r/popular/?geo_filter=GLOBAL
+          icon: reddit.svg
+    - /v/:
+        - description: Video Games
+          href: https://boards.4chan.org/v/catalog
+          icon: /icons/4chan.ico
 
 - Entertainment:
+    - Twitch:
+        - description: You're already one of us
+          href: https://www.twitch.tv/directory/following
+          icon: twitch.svg
     - YouTube:
-        - abbr: YT
-          href: https://youtube.com/
+        - href: https://www.youtube.com/feed/subscriptions
+          icon: youtube.svg
