@@ -109,6 +109,18 @@ services:
     volumes:
       - ${USERPROFILE}\homeassistant\:/config/:rw
 
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    labels:
+      traefik.http.routers.homepage-router.entrypoints: websecure
+      traefik.http.routers.homepage-router.rule: Host(`homepage`)
+      traefik.http.routers.homepage-router.tls: "true"
+      traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
+    volumes:
+      - .\homepage\:/app/config/:rw
+      - .\homepage\icons\:/app/public/icons/:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   httpbin:
     image: mccutchen/go-httpbin:latest
     labels:

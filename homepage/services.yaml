@@ -1,0 +1,79 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+- Media Server:
+    - Jellyfin:
+        href: https://jellyfin/web/
+        icon: jellyfin.svg
+        siteMonitor: https://jellyfin/health
+        widget:
+          type: jellyfin
+          url: https://jellyfin
+          key: 8c70503628304809803c593fa339b921
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          # showEpisodeNumber: true # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - qBittorrent:
+        href: https://qbittorrent
+        icon: qbittorrent.svg
+        siteMonitor: https://qbittorrent
+        widget:
+          type: qbittorrent
+          url: https://qbittorrent
+          username: admin
+          password: password
+    - Sick Gear:
+        href: https://sickgear/
+        icon: sickbeard.svg
+        siteMonitor: https://sickgear
+
+- Server:
+    - Docker Registry:
+        href: https://registry/
+        icon: docker-moby.svg
+        siteMonitor: http://registry:5000/v2/_catalog
+    - Home Assistant:
+        href: https://homeassistant/
+        icon: home-assistant.svg
+        siteMonitor: http://homeassistant:8123
+    - httpbin:
+        href: https://httpbin/
+        icon: /icons/httpbin.png
+        siteMonitor: http://httpbin:8080
+    - NuGet:
+        href: https://nuget/
+        icon: microsoft.svg
+        siteMonitor: http://nuget:8080/v3/index.json
+    - Planka:
+        href: https://planka/
+        icon: planka.svg
+        siteMonitor: http://planka:1337
+    - Speedtest:
+        href: https://speedtest/
+        icon: openspeedtest.png
+        siteMonitor: http://speedtest-tracker/api/healthcheck
+    - Traefik:
+        href: https://traefik/dashboard/
+        icon: traefik-proxy.svg
+        siteMonitor: https://traefik/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik
+
+- Network:
+    - Main Router:
+        href: https://router1/
+        icon: router.svg
+        siteMonitor: https://router1
+    - Pi-hole:
+        href: https://pihole/admin
+        icon: pi-hole.svg
+        siteMonitor: https://pihole/admin
+        widget:
+          type: pihole
+          url: https://pihole
+          # version: 6 # required if running v6 or higher, defaults to 5
+          key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
