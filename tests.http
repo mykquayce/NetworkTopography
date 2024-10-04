@@ -38,3 +38,6 @@ GET https://homeassistant
 
 ###
 GET https://speedtest/admin/login
+
+###
+GET https://homepage
