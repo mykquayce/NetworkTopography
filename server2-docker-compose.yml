@@ -1,0 +1,16 @@
+services:
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable
+    environment:
+      FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:-d2553245df3caca802ffe5dfb8d85a22}
+    ports:
+      - 5000:5000/tcp
+    restart: unless-stopped
+    shm_size: "128mb"
+    volumes:
+      - ${userprofile}\frigate-data\config\:/config:rw
+      - ${userprofile}\frigate-data\media\:/media/frigate:rw
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000

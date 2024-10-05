@@ -1,5 +1,11 @@
 http:
   routers:
+    frigate-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`frigate`)"
+      service: "frigate-service"
+      tls: "true"
     jellyfin-router:
       entryPoints:
         - "websecure"
@@ -37,6 +43,10 @@ http:
       service: "sickgear-service"
       tls: "true"
   services:
+    frigate-service:
+      loadBalancer:
+        servers:
+        - url: "http://marshall:5000/"
     jellyfin-service:
       loadBalancer:
         servers:
