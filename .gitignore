@@ -1,1 +1,5 @@
 /homepage/logs
+
+!frigate/
+frigate/*
+!frigate/config.yml

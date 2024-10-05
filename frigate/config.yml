@@ -1,0 +1,44 @@
+version: 0.14
+
+cameras:
+  front:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://eb1c8c8ca9b39878b905ffdca96f75f6:50cad44169ec827c556012f1faa5cc0d@192.168.1.220:554/stream1
+          roles:
+            - detect
+        - path: rtsp://eb1c8c8ca9b39878b905ffdca96f75f6:50cad44169ec827c556012f1faa5cc0d@192.168.1.220:554/stream2
+          roles:
+            - record
+    detect:
+      enabled: true
+      width: 2560
+      height: 1440
+  garden:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://eb1c8c8ca9b39878b905ffdca96f75f6:50cad44169ec827c556012f1faa5cc0d@192.168.1.104:554/stream1
+          roles:
+            - detect
+        - path: rtsp://eb1c8c8ca9b39878b905ffdca96f75f6:50cad44169ec827c556012f1faa5cc0d@192.168.1.104:554/stream2
+          roles:
+            - record
+    detect:
+      enabled: true
+      width: 2560
+      height: 1440
+
+mqtt:
+  enabled: false
+
+record:
+  enabled: True
+  retain:
+    days: 3
+    mode: motion
+  events:
+    retain:
+      default: 30
+      mode: motion

@@ -95,6 +95,25 @@ services:
     volumes:
       - ${USERPROFILE}\changedetection-data\:/datastore/:rw
 
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable
+    environment:
+      FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:-d2553245df3caca802ffe5dfb8d85a22}
+    labels:
+      traefik.http.routers.frigate-router.entrypoints: websecure
+      traefik.http.routers.frigate-router.rule: Host(`frigate`)
+      traefik.http.routers.frigate-router.tls: "true"
+      traefik.http.services.frigate-service.loadbalancer.server.port: "5000"
+    restart: unless-stopped
+    shm_size: "128mb"
+    volumes:
+      - .\frigate\:/config/:rw
+      - ${userprofile}\frigate-data\:/media/frigate:rw
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+
   grafana:
     image: grafana/grafana-oss:latest
     environment:
