@@ -50,3 +50,6 @@ GET https://whatsupdocker
 
 ###
 GET https://metube
+
+###
+GET https://frigate

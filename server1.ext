@@ -1,3 +1,3 @@
 crlDistributionPoints=URI:http://certificates/crl.crt
 
-subjectAltName=DNS:api,DNS:baget,DNS:changedetection,DNS:grafana,DNS:homeassistant,DNS:homepage,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:jellyfin,DNS:localhost,DNS:mariadb,DNS:metube,DNS:networkdiscovery,DNS:networktest,DNS:nuget,DNS:pihole,DNS:planka,DNS:prometheus,DNS:qbittorrent,DNS:registry,DNS:registry.local,DNS:router1,DNS:sickgear,DNS:speedtest,DNS:tplink,DNS:traefik,DNS:whatsupdocker
+subjectAltName=DNS:api,DNS:baget,DNS:changedetection,DNS:frigate,DNS:grafana,DNS:homeassistant,DNS:homepage,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:jellyfin,DNS:localhost,DNS:mariadb,DNS:metube,DNS:networkdiscovery,DNS:networktest,DNS:nuget,DNS:pihole,DNS:planka,DNS:prometheus,DNS:qbittorrent,DNS:registry,DNS:registry.local,DNS:router1,DNS:sickgear,DNS:speedtest,DNS:tplink,DNS:traefik,DNS:whatsupdocker
