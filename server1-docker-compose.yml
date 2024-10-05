@@ -117,7 +117,7 @@ services:
       traefik.http.routers.homeassistant-router.tls: "true"
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
     volumes:
-      - ${USERPROFILE}\homeassistant\:/config/:rw
+      - ${USERPROFILE}\homeassistant-data\:/config/:rw
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
