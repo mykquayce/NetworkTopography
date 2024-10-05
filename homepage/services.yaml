@@ -47,6 +47,14 @@
         href: https://registry/
         icon: docker-moby.svg
         siteMonitor: http://registry:5000/v2/_catalog
+    - Frigate:
+        href: https://frigate/
+        icon: frigate.svg
+        siteMonitor: https://frigate
+        widget:
+          type: frigate
+          url: https://frigate
+          enableRecentEvents: true
     - Home Assistant:
         href: https://homeassistant/
         icon: home-assistant.svg
