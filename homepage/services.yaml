@@ -16,6 +16,10 @@
           enableUser: true # optional, defaults to false
           # showEpisodeNumber: true # optional, defaults to false
           expandOneStreamToTwoRows: false # optional, defaults to true
+    - MeTube:
+        href: https://metube/
+        icon: metube.svg
+        siteMonitor: https://metube
     - qBittorrent:
         href: https://qbittorrent
         icon: qbittorrent.svg
