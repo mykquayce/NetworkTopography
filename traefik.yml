@@ -6,6 +6,12 @@ http:
       rule: "Host(`jellyfin`)"
       service: "jellyfin-service"
       tls: "true"
+    metube-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`metube`)"
+      service: "metube-service"
+      tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
@@ -35,6 +41,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8096/"
+    metube-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8082/"
     pihole-service:
       loadBalancer:
         servers:
