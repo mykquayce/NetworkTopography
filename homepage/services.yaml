@@ -51,6 +51,10 @@
         href: https://httpbin/
         icon: /icons/httpbin.png
         siteMonitor: http://httpbin:8080
+    - MeTube:
+        href: https://metube/
+        icon: metube.svg
+        siteMonitor: https://metube
     - NuGet:
         href: https://nuget/
         icon: microsoft.svg
