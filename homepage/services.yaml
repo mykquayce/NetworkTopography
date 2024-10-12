@@ -95,6 +95,14 @@
         widget:
           type: traefik
           url: https://traefik
+    - Uptime Kuma:
+        href: https://uptimekuma/dashboard/
+        icon: uptime-kuma.svg
+        siteMonitor: http://uptimekuma:3001/dashboard/
+        widget:
+          type: uptimekuma
+          url: http:///uptimekuma:3001
+          slug: statuspageslug
     - What's Up Docker:
         href: https://whatsupdocker/
         icon: whats-up-docker.svg
