@@ -345,6 +345,17 @@ services:
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock
 
+  uptimekuma:
+    image: louislam/uptime-kuma:latest
+    labels:
+      traefik.http.routers.uptimekuma-router.entrypoints: websecure
+      traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma`)
+      traefik.http.routers.uptimekuma-router.tls: "true"
+      traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
+    volumes:
+      - ${USERPROFILE}\uptimekuma-data\:/app/data/:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   whatsupdocker:
     image: fmartinou/whats-up-docker:latest
     healthcheck:
