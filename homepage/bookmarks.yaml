@@ -19,6 +19,9 @@
           icon: /icons/4chan.ico
 
 - Entertainment:
+    - Pocket Casts:
+        - href: https://play.pocketcasts.com/podcasts
+          icon: /icons/pocketcasts.svg
     - Twitch:
         - description: You're already one of us
           href: https://www.twitch.tv/directory/following
