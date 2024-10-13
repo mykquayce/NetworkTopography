@@ -95,6 +95,10 @@
         widget:
           type: traefik
           url: https://traefik
+    - Trilium:
+        href: https://trilium/
+        icon: trilium.svg
+        siteMonitor: http://trilium:8080/login
     - Uptime Kuma:
         href: https://uptimekuma/dashboard/
         icon: uptime-kuma.svg
