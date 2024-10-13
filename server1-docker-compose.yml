@@ -345,6 +345,16 @@ services:
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock
 
+  trilium:
+    image: triliumnext/notes:latest
+    labels:
+      traefik.http.routers.trilium-router.entrypoints: websecure
+      traefik.http.routers.trilium-router.rule: Host(`trilium`)
+      traefik.http.routers.trilium-router.tls: "true"
+      traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
+    volumes:
+      - ${USERPROFILE}\trilium-data\:/home/node/trilium-data/:rw
+
   uptimekuma:
     image: louislam/uptime-kuma:latest
     labels:

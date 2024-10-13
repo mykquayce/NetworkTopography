@@ -56,3 +56,6 @@ GET https://frigate
 
 ###
 GET https://uptimekuma/dashboard
+
+###
+GET https://trilium/login
