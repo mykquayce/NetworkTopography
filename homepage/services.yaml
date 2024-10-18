@@ -100,6 +100,11 @@
         icon: /icons/httpbin.png
         ping: httpbin
         siteMonitor: http://httpbin:8080
+    - ntfy:
+        href: https://ntfy/
+        icon: ntfy-light.png
+        ping: ntfy
+        siteMonitor: http://ntfy
     - NuGet:
         href: https://nuget/
         icon: microsoft.svg

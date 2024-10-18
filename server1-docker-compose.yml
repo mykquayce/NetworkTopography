@@ -202,6 +202,23 @@ services:
     secrets:
     - source: id_rsa
 
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    command:
+      - serve
+    environment:
+      TZ: UTC
+    labels:
+      traefik.http.routers.ntfy-router.entrypoints: websecure
+      traefik.http.routers.ntfy-router.rule: Host(`ntfy`)
+      traefik.http.routers.ntfy-router.tls: "true"
+      traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
+    ports:
+      - 27346:80/tcp
+    volumes:
+      - ${USERPROFILE}\ntfy-data\cache\:/var/cache/ntfy/:rw
+      - .\ntfy.yml:/etc/ntfy/server.yml:ro
+
   nuget:
     image: bagetter/bagetter:latest
     environment:
