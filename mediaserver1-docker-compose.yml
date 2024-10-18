@@ -1,4 +1,15 @@
 services:
+  glances3:
+    image: nicolargo/glances:latest
+    environment:
+      GLANCES_OPT: -w
+    pid: host
+    ports:
+      - 61208:61208/tcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
   metube:
     image: ghcr.io/alexta69/metube:latest
     environment:

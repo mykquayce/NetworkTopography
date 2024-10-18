@@ -95,6 +95,20 @@ services:
     volumes:
       - ${USERPROFILE}\changedetection-data\:/datastore/:rw
 
+  glances1:
+    image: nicolargo/glances:latest
+    environment:
+      GLANCES_OPT: -w
+    labels:
+      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.rule: Host(`glances1`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
   grafana:
     image: grafana/grafana-oss:latest
     environment:
@@ -129,6 +143,7 @@ services:
     volumes:
       - .\homepage\:/app/config/:rw
       - .\homepage\icons\:/app/public/icons/:ro
+      - .\homepage\images\:/app/public/images/:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   httpbin:

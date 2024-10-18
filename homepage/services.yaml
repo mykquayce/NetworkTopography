@@ -3,9 +3,22 @@
 # https://gethomepage.dev/configs/services
 
 - Media Server:
+    - Glances:
+        href: https://glances3/
+        icon: glances.png
+        ping: ahti
+        siteMonitor: http://ahti:61208
+        widget:
+          type: glances
+          url: http://ahti:61208
+          version: 4
+          metric: network:eth0
+          refreshInterval: 5000
+          pointsLimit: 15
     - Jellyfin:
         href: https://jellyfin/web/
         icon: jellyfin.svg
+        ping: ahti
         siteMonitor: https://jellyfin/health
         widget:
           type: jellyfin
@@ -19,10 +32,12 @@
     - MeTube:
         href: https://metube/
         icon: metube.svg
+        ping: ahti
         siteMonitor: https://metube
     - qBittorrent:
         href: https://qbittorrent
         icon: qbittorrent.svg
+        ping: ahti
         siteMonitor: https://qbittorrent
         widget:
           type: qbittorrent
@@ -32,12 +47,14 @@
     - Sick Gear:
         href: https://sickgear/
         icon: sickbeard.svg
+        ping: ahti
         siteMonitor: https://sickgear
 
-- Server:
+- Server 1:
     - Change Detection:
         href: https://changedetection/
         icon: changedetection-io.png
+        ping: changedetection
         siteMonitor: http://changedetection:5000
         widget:
           type: changedetectionio
@@ -46,18 +63,24 @@
     - Docker Registry:
         href: https://registry/
         icon: docker-moby.svg
+        ping: registry
         siteMonitor: http://registry:5000/v2/_catalog
-    - Frigate:
-        href: https://frigate/
-        icon: frigate.svg
-        siteMonitor: https://frigate
+    - Glances:
+        href: https://glances1/
+        icon: glances.png
+        ping: glances1
+        siteMonitor: http://glances1:61208
         widget:
-          type: frigate
-          url: https://frigate
-          enableRecentEvents: true
+          type: glances
+          url: http://glances1:61208
+          version: 4
+          metric: network:eth0
+          refreshInterval: 5000
+          pointsLimit: 15
     - Home Assistant:
         href: https://homeassistant/
         icon: home-assistant.svg
+        ping: homeassistant
         siteMonitor: http://homeassistant:8123
         widget:
           type: homeassistant
@@ -75,22 +98,27 @@
     - httpbin:
         href: https://httpbin/
         icon: /icons/httpbin.png
+        ping: httpbin
         siteMonitor: http://httpbin:8080
     - NuGet:
         href: https://nuget/
         icon: microsoft.svg
+        ping: nuget
         siteMonitor: http://nuget:8080/v3/index.json
     - Planka:
         href: https://planka/
         icon: planka.svg
+        ping: planka
         siteMonitor: http://planka:1337
     - Speedtest:
         href: https://speedtest/
         icon: openspeedtest.png
+        ping: speedtest-tracker
         siteMonitor: http://speedtest-tracker/api/healthcheck
     - Traefik:
         href: https://traefik/dashboard/
         icon: traefik-proxy.svg
+        ping: traefik
         siteMonitor: https://traefik/dashboard/
         widget:
           type: traefik
@@ -98,31 +126,68 @@
     - Trilium:
         href: https://trilium/
         icon: trilium.svg
+        ping: trilium
         siteMonitor: http://trilium:8080/login
     - Uptime Kuma:
         href: https://uptimekuma/dashboard/
         icon: uptime-kuma.svg
+        ping: uptimekuma
         siteMonitor: http://uptimekuma:3001/dashboard/
         widget:
           type: uptimekuma
           url: http:///uptimekuma:3001
           slug: statuspageslug
+    - Uptime Kuma (Work):
+        href: https://uptimekuma/dashboard/
+        icon: uptime-kuma.svg
+        ping: http://uptimekuma
+        siteMonitor: http://uptimekuma:3001/dashboard/
+        widget:
+          type: uptimekuma
+          url: http:///uptimekuma:3001
+          slug: work
     - What's Up Docker:
         href: https://whatsupdocker/
         icon: whats-up-docker.svg
+        ping: whatsupdocker
         siteMonitor: http://whatsupdocker:3000
         widget:
           type: whatsupdocker
           url: http://whatsupdocker:3000
 
+- Server 2:
+    - Frigate:
+        href: https://frigate/
+        icon: frigate.svg
+        ping: marshall
+        siteMonitor: https://frigate
+        widget:
+          type: frigate
+          url: https://frigate
+          enableRecentEvents: true
+    - Glances:
+        href: https://glances2/
+        icon: glances.png
+        ping: marshall
+        siteMonitor: http://marshall:61208
+        widget:
+          type: glances
+          url: http://marshall:61208
+          version: 4
+          metric: network:eth0
+          refreshInterval: 5000
+          pointsLimit: 15
+
 - Network:
     - Main Router:
         href: https://router1/
         icon: router.svg
+        ping: router1
         siteMonitor: https://router1
     - Pi-hole:
         href: https://pihole/admin
         icon: pi-hole.svg
+        ping: pihole
         siteMonitor: https://pihole/admin
         widget:
           type: pihole

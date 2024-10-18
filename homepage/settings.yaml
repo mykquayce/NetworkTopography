@@ -2,7 +2,32 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/settings
 
+background: /images/control.png
+
+cardBlur: sm # sm, "", md, etc... see https://tailwindcss.com/docs/backdrop-blur
+
+color: zinc # amber, blue, cyan, emerald, fuchsia, gray, green, indigo, lime, neutral, pink, purple, red, rose, sky, slate, stone, teal, violet, white, yellow, zinc
+
+disableCollapse: true
+
+headerStyle: boxed
+
+layout:
+  Media Server:
+    columns: 5
+    style: row
+    fiveColumns: true
+  Server 1:
+    columns: 4
+    style: row
+  Server 2:
+    columns: 2
+    useEqualHeights: true # overrides global setting
+    style: row
+
 providers:
   finnhub: crs8q5pr01qvrlsu2gsgcrs8q5pr01qvrlsu2gt0
   openweathermap: openweathermapapikey
   weatherapi: weatherapiapikey
+
+statusStyle: "dot"
