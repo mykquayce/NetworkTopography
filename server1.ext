@@ -1,3 +1,39 @@
 crlDistributionPoints=URI:http://certificates/crl.crt
+subjectAltName = @alt_names
 
-subjectAltName=DNS:api,DNS:baget,DNS:changedetection,DNS:frigate,DNS:grafana,DNS:homeassistant,DNS:homepage,DNS:host.docker.internal,DNS:httpbin,DNS:identityserver,DNS:jellyfin,DNS:localhost,DNS:mariadb,DNS:metube,DNS:networkdiscovery,DNS:networktest,DNS:nuget,DNS:pihole,DNS:planka,DNS:prometheus,DNS:qbittorrent,DNS:registry,DNS:registry.local,DNS:router1,DNS:sickgear,DNS:speedtest,DNS:tplink,DNS:traefik,DNS:trilium,DNS:uptimekuma,DNS:whatsupdocker
+[alt_names]
+DNS.1 = api
+DNS.2 = baget
+DNS.3 = changedetection
+DNS.4 = frigate
+DNS.5 = glances1
+DNS.6 = glances2
+DNS.7 = glances3
+DNS.8 = grafana
+DNS.9 = homeassistant
+DNS.10 = homepage
+DNS.11 = host.docker.internal
+DNS.12 = httpbin
+DNS.13 = identityserver
+DNS.14 = jellyfin
+DNS.15 = localhost
+DNS.16 = mariadb
+DNS.17 = metube
+DNS.18 = networkdiscovery
+DNS.19 = networktest
+DNS.20 = nuget
+DNS.21 = pihole
+DNS.22 = planka
+DNS.23 = prometheus
+DNS.24 = qbittorrent
+DNS.25 = registry
+DNS.26 = registry.local
+DNS.27 = router1
+DNS.28 = sickgear
+DNS.29 = speedtest
+DNS.30 = tplink
+DNS.31 = traefik
+DNS.32 = trilium
+DNS.33 = uptimekuma
+DNS.34 = whatsupdocker
+
