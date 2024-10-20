@@ -2,19 +2,72 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services
 
-- Media Server:
-    - Glances:
+- monitoring:
+    - ahti:
         href: https://glances3/
         icon: glances.png
         ping: ahti
-        siteMonitor: http://ahti:61208
+        siteMonitor: https://glances3/api/4/status
+    - marshall:
+        href: https://glances2/
+        icon: glances.png
+        ping: marshall
+        siteMonitor: https://glances2/api/4/status
+    - pope:
+        href: https://glances1/
+        icon: glances.png
+        ping: glances1
+        siteMonitor: http://glances1:61208/api/4/status
+    - ahti cpu:
         widget:
           type: glances
+          metric: cpu
+          pointsLimit: 100
+          refreshInterval: 3000
           url: http://ahti:61208
           version: 4
+    - marshall cpu:
+        widget:
+          type: glances
+          metric: cpu
+          pointsLimit: 100
+          refreshInterval: 3000
+          url: https://glances2
+          version: 4
+    - pope cpu:
+        widget:
+          type: glances
+          metric: cpu
+          pointsLimit: 100
+          refreshInterval: 3000
+          url: http://glances1:61208
+          version: 4
+    - ahti eth0:
+        widget:
+          type: glances
           metric: network:eth0
-          refreshInterval: 5000
-          pointsLimit: 15
+          pointsLimit: 100
+          refreshInterval: 3000
+          url: https://glances3
+          version: 4
+    - marshall eth0:
+        widget:
+          type: glances
+          metric: network:eth0
+          pointsLimit: 100
+          refreshInterval: 3000
+          url: https://glances2
+          version: 4
+    - pope eth0:
+        widget:
+          type: glances
+          metric: network:eth0
+          pointsLimit: 100
+          refreshInterval: 3000
+          url: http://glances1:61208
+          version: 4
+
+- Media Server:
     - Jellyfin:
         href: https://jellyfin/web/
         icon: jellyfin.svg
@@ -50,7 +103,7 @@
         ping: ahti
         siteMonitor: https://sickgear
 
-- Server 1:
+- Services:
     - Change Detection:
         href: https://changedetection/
         icon: changedetection-io.png
@@ -65,18 +118,15 @@
         icon: docker-moby.svg
         ping: registry
         siteMonitor: http://registry:5000/v2/_catalog
-    - Glances:
-        href: https://glances1/
-        icon: glances.png
-        ping: glances1
-        siteMonitor: http://glances1:61208
+    - Frigate:
+        href: https://frigate/
+        icon: frigate.svg
+        ping: marshall
+        siteMonitor: https://frigate
         widget:
-          type: glances
-          url: http://glances1:61208
-          version: 4
-          metric: network:eth0
-          refreshInterval: 5000
-          pointsLimit: 15
+          type: frigate
+          url: https://frigate
+          enableRecentEvents: true
     - Home Assistant:
         href: https://homeassistant/
         icon: home-assistant.svg
@@ -115,6 +165,16 @@
         icon: microsoft.svg
         ping: nuget
         siteMonitor: http://nuget:8080/v3/index.json
+    - Pi-hole:
+        href: https://pihole/admin
+        icon: pi-hole.svg
+        ping: pihole
+        siteMonitor: https://pihole/admin
+        widget:
+          type: pihole
+          url: https://pihole
+          # version: 6 # required if running v6 or higher, defaults to 5
+          key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
     - Planka:
         href: https://planka/
         icon: planka.svg
@@ -164,43 +224,3 @@
         widget:
           type: whatsupdocker
           url: http://whatsupdocker:3000
-
-- Server 2:
-    - Frigate:
-        href: https://frigate/
-        icon: frigate.svg
-        ping: marshall
-        siteMonitor: https://frigate
-        widget:
-          type: frigate
-          url: https://frigate
-          enableRecentEvents: true
-    - Glances:
-        href: https://glances2/
-        icon: glances.png
-        ping: marshall
-        siteMonitor: http://marshall:61208
-        widget:
-          type: glances
-          url: http://marshall:61208
-          version: 4
-          metric: network:eth0
-          refreshInterval: 5000
-          pointsLimit: 15
-
-- Network:
-    - Main Router:
-        href: https://router1/
-        icon: router.svg
-        ping: router1
-        siteMonitor: https://router1
-    - Pi-hole:
-        href: https://pihole/admin
-        icon: pi-hole.svg
-        ping: pihole
-        siteMonitor: https://pihole/admin
-        widget:
-          type: pihole
-          url: https://pihole
-          # version: 6 # required if running v6 or higher, defaults to 5
-          key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional

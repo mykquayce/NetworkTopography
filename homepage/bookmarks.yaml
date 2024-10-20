@@ -7,6 +7,12 @@
         - description: Let's build from here
           href: https://github.com/dashboard
           icon: github-light.png
+    - Microsoft Learn | Shows:
+        - href: https://learn.microsoft.com/en-us/shows/
+          icon: microsoft.svg
+    - Router 1:
+        - href: https://router1/
+          icon: router.svg
 
 - Social:
     - Reddit:
