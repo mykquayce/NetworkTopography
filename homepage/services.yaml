@@ -100,6 +100,11 @@
         icon: /icons/httpbin.png
         ping: httpbin
         siteMonitor: http://httpbin:8080
+    - moodist:
+        href: https://moodist/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
+        icon: /icons/moodist.svg
+        ping: moodist
+        siteMonitor: http://moodist:8080
     - ntfy:
         href: https://ntfy/
         icon: ntfy-light.png
