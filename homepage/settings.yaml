@@ -13,16 +13,21 @@ disableCollapse: true
 headerStyle: boxed
 
 layout:
-  Media Server:
-    columns: 5
+  Developer:
+  Social:
+  Entertainment:
+  monitoring:
+    columns: 3
     style: row
-    fiveColumns: true
-  Server 1:
+  Media Server:
     columns: 4
     style: row
-  Server 2:
+    fiveColumns: true
+  Services:
+    columns: 4
+    style: row
+  Network:
     columns: 2
-    useEqualHeights: true # overrides global setting
     style: row
 
 providers:

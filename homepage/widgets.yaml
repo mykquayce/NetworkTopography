@@ -1,26 +1,9 @@
 ---
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/service-widgets
-- stocks:
-    provider: finnhub
-    color: true # optional, defaults to true
-    cache: 5 # optional, default caches results for 1 minute
-    watchlist:
-      - GME
-      - AMC
-      - NVDA
-      - AMD
-      - TSM
-      - MSFT
-      - AAPL
-      - BRK.A
 
-- datetime:
-    text_size: md
-    format:
-      dateStyle: long
-      timeStyle: medium
-      hourCycle: h23
+- logo:
+    icon: homepage.png
 
 - search:
     provider: brave
@@ -35,11 +18,3 @@
     cache: 5
     format:
       maximumFractionDigits: 1
-
-- resources:
-    cpu: true
-    memory: true
-    disk: /app/public/icons/
-    uptime: true
-    refresh: 5000
-    expanded: true
