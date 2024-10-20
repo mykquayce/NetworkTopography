@@ -178,6 +178,17 @@ services:
       - source: localhost_key
         target: /etc/certs/localhost.key
 
+  moodist:
+    image: ghcr.io/remvze/moodist:latest
+    labels:
+      traefik.http.routers.moodist-router.entrypoints: websecure
+      traefik.http.routers.moodist-router.rule: Host(`moodist`)
+      traefik.http.routers.moodist-router.tls: "true"
+      traefik.http.services.moodist-service.loadbalancer.server.port: "8080"
+    logging:
+      options:
+        max-size: 1g
+
   networkdiscovery:
     image: eassbhhtgu/networkdiscoveryapi:latest
     environment:
