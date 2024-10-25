@@ -36,6 +36,12 @@ http:
       rule: "Host(`pihole`)"
       service: "pihole-service"
       tls: "true"
+    prowlarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`prowlarr`)"
+      service: "prowlarr-service"
+      tls: "true"
     qbittorrent-router:
       entryPoints:
         - "websecure"
@@ -53,6 +59,18 @@ http:
         - "websecure"
       rule: "Host(`sickgear`)"
       service: "sickgear-service"
+      tls: "true"
+    sabnzbd-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`sabnzbd`)"
+      service: "sabnzbd-service"
+      tls: "true"
+    sonarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`sonarr`)"
+      service: "sonarr-service"
       tls: "true"
   services:
     frigate-service:
@@ -79,6 +97,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.80"
+    prowlarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:9696/"
     qbittorrent-service:
       loadBalancer:
         servers:
@@ -87,10 +109,18 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.10"
+    sabnzbd-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8083/"
     sickgear-service:
       loadBalancer:
         servers:
         - url: "http://ahti:8081/"
+    sonarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8989/"
 
 tls:
   certificates:
