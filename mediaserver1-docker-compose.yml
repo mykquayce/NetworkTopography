@@ -24,6 +24,17 @@ services:
       - ${USERPROFILE}\metube-data\:/data/:rw
       - E:\Downloads\YouTube\:/downloads/:rw
 
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Etc/UTC
+    ports:
+      - 9696:9696/tcp
+    volumes:
+      - ${USERPROFILE}\prowlarr-data\:/config/:rw
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     environment:
@@ -40,6 +51,19 @@ services:
       - ${USERPROFILE}\qbittorrent-data\:/config/:rw
       - E:\Downloads\:/downloads/:rw
 
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    environment:
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Etc/UTC
+    ports:
+      - 8083:8080/tcp
+    volumes:
+      - ${USERPROFILE}\sabnzbd-data\:/config/:rw
+      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
+      - E:\Downloads\sabnzbd\incomplete\:/config/Downloads/incomplete/:rw
+
   sickgear:
     image: sickgear/sickgear:latest
     ports:
@@ -53,3 +77,16 @@ services:
       - D:\videos\:/media/videos/:rw
       - E:\music\:/media/music/:rw
       - E:\pictures\:/media/pictures/:rw
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    environment:
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Etc/UTC
+    ports:
+      - 8989:8989/tcp
+    volumes:
+      - ${USERPROFILE}\sonarr-data\:/config/:rw
+      - D:\tvshows\:/tv/:rw
+      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw

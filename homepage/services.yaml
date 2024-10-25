@@ -87,6 +87,15 @@
         icon: metube.svg
         ping: ahti
         siteMonitor: https://metube
+    - Prowlarr:
+        href: https://prowlarr/
+        icon: prowlarr.svg
+        ping: prowlarr
+        siteMonitor: https://prowlarr
+        widget:
+          type: prowlarr
+          url: https://prowlarr
+          key: 8fb67584ab6f42b09e02d93fd3f0e1d3
     - qBittorrent:
         href: https://qbittorrent
         icon: qbittorrent.svg
@@ -97,11 +106,30 @@
           url: https://qbittorrent
           username: admin
           password: password
+    - SABnzbd:
+        href: https://sabnzbd/
+        icon: sabnzbd-alt.svg
+        ping: ahti
+        siteMonitor: https://sabnzbd
+        widget:
+          type: sabnzbd
+          url: https://sabnzbd
+          key: 5949065fc49247269b110d8ce426e195
     - Sick Gear:
         href: https://sickgear/
         icon: sickbeard.svg
         ping: ahti
         siteMonitor: https://sickgear
+    - Sonarr:
+        href: https://sonarr/
+        icon: sonarr.svg
+        ping: sonarr
+        siteMonitor: https://sonarr
+        widget:
+          type: sonarr
+          url: https://sonarr
+          key: 26b7b613fbed470eaa2b273997c94938
+          enableQueue: true
 
 - Services:
     - Change Detection:
