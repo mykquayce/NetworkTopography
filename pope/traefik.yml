@@ -6,17 +6,17 @@ http:
       rule: "Host(`frigate`)"
       service: "frigate-service"
       tls: "true"
-    glances2-router:
+    glances-ahti-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances2`)"
-      service: "glances2-service"
+      rule: "Host(`glances-ahti`)"
+      service: "glances-ahti-service"
       tls: "true"
-    glances3-router:
+    glances-marshall-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances3`)"
-      service: "glances3-service"
+      rule: "Host(`glances-marshall`)"
+      service: "glances-marshall-service"
       tls: "true"
     jellyfin-router:
       entryPoints:
@@ -77,14 +77,14 @@ http:
       loadBalancer:
         servers:
         - url: "http://marshall:5000/"
-    glances2-service:
-      loadBalancer:
-        servers:
-        - url: "http://marshall:61208/"
-    glances3-service:
+    glances-ahti-service:
       loadBalancer:
         servers:
         - url: "http://ahti:61208/"
+    glances-marshall-service:
+      loadBalancer:
+        servers:
+        - url: "http://marshall:61208/"
     jellyfin-service:
       loadBalancer:
         servers:

@@ -95,33 +95,19 @@ services:
     volumes:
       - ${USERPROFILE}\changedetection-data\:/datastore/:rw
 
-  glances1:
+  glances:
     image: nicolargo/glances:latest
     environment:
       GLANCES_OPT: -w
     labels:
       traefik.http.routers.glances-router.entrypoints: websecure
-      traefik.http.routers.glances-router.rule: Host(`glances1`)
+      traefik.http.routers.glances-router.rule: Host(`glances-pope`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
-
-  grafana:
-    image: grafana/grafana-oss:latest
-    environment:
-      GF_ENABLE_GZIP: "true"
-      GF_SECURITY_ADMIN_PASSWORD: admin
-      GF_USERS_ALLOW_SIGN_UP: "false"
-    labels:
-      traefik.http.routers.grafana-router.entrypoints: websecure
-      traefik.http.routers.grafana-router.rule: Host(`grafana`)
-      traefik.http.routers.grafana-router.tls: "true"
-      traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
-    volumes:
-      - ${USERPROFILE}\grafana-data\:/var/lib/grafana/:rw
 
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
@@ -188,30 +174,6 @@ services:
     logging:
       options:
         max-size: 1g
-
-  networkdiscovery:
-    image: eassbhhtgu/networkdiscoveryapi:latest
-    environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      Aliases:keylight: 3c6a9d14d765
-      Aliases:lightstrip: 3c6a9d187071
-      Aliases:vr front: 28ee52eb0aa4
-      Aliases:vr rear: 003192e1a474
-      Aliases:philipshue: ecb5fa18e324
-      Aliases:philipshuebridge: ecb5fa18e324
-      Aliases:globalcache: 000c1e059cad
-      Aliases:irblaster: 000c1e059cad
-      Router:Host: 192.168.1.10
-      Router:PathToPrivateKey: /run/secrets/id_rsa
-      Router:Port: 22
-      Router:Username: root
-    labels:
-      traefik.http.routers.networkdiscovery-router.entrypoints: websecure
-      traefik.http.routers.networkdiscovery-router.rule: Host(`networkdiscovery`)
-      traefik.http.routers.networkdiscovery-router.tls: "true"
-      traefik.http.services.networkdiscovery-service.loadbalancer.server.port: "8080"
-    secrets:
-    - source: id_rsa
 
   ntfy:
     image: binwiederhier/ntfy:latest
@@ -282,18 +244,6 @@ services:
       retries: 5
     volumes:
       - ${USERPROFILE}\planka-data\db:/var/lib/postgresql/data:rw
-
-  prometheus:
-    image: prom/prometheus:latest
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
-    labels:
-      traefik.http.routers.prometheus-router.entrypoints: websecure
-      traefik.http.routers.prometheus-router.rule: Host(`prometheus`)
-      traefik.http.routers.prometheus-router.tls: "true"
-      traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
   registry:
     image: registry:latest
@@ -436,6 +386,6 @@ secrets:
   crl_crt:
     file: ${USERPROFILE}\.aspnet\https\crl.crt
   localhost_crt:
-    file: ${USERPROFILE}\.aspnet\https\server1.crt
+    file: ${USERPROFILE}\.aspnet\https\server.crt
   localhost_key:
-    file: ${USERPROFILE}\.aspnet\https\server1.key
+    file: ${USERPROFILE}\.aspnet\https\server.key

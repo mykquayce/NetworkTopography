@@ -8,14 +8,14 @@ services:
     restart: unless-stopped
     shm_size: "128mb"
     volumes:
-      - ${userprofile}\frigate-data\config\:/config:rw
-      - ${userprofile}\frigate-data\media\:/media/frigate:rw
+      - ~/.frigate/config/:/config/:rw
+      - ~/.frigate/media/:/media/frigate/:rw
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
           size: 1000000000
 
-  glances2:
+  glances:
     image: nicolargo/glances:latest
     environment:
       GLANCES_OPT: -w

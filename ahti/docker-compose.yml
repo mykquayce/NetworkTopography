@@ -1,5 +1,5 @@
 services:
-  glances3:
+  glances:
     image: nicolargo/glances:latest
     environment:
       GLANCES_OPT: -w
