@@ -4,27 +4,27 @@
 
 - monitoring:
     - ahti:
-        href: https://glances3/
+        href: https://glances-ahti/
         icon: glances.png
-        ping: ahti
-        siteMonitor: https://glances3/api/4/status
+        ping: glances-ahti
+        siteMonitor: https://glances-ahti/api/4/status
     - marshall:
-        href: https://glances2/
+        href: https://glances-marshall/
         icon: glances.png
-        ping: marshall
-        siteMonitor: https://glances2/api/4/status
+        ping: glances-marshall
+        siteMonitor: https://glances-marshall/api/4/status
     - pope:
-        href: https://glances1/
+        href: https://glances-pope/
         icon: glances.png
-        ping: glances1
-        siteMonitor: http://glances1:61208/api/4/status
+        ping: glances-pope
+        siteMonitor: https://glances-pope/api/4/status
     - ahti cpu:
         widget:
           type: glances
           metric: cpu
           pointsLimit: 100
           refreshInterval: 3000
-          url: http://ahti:61208
+          url: https://glances-ahti
           version: 4
     - marshall cpu:
         widget:
@@ -32,7 +32,7 @@
           metric: cpu
           pointsLimit: 100
           refreshInterval: 3000
-          url: https://glances2
+          url: https://glances-marshall
           version: 4
     - pope cpu:
         widget:
@@ -40,7 +40,7 @@
           metric: cpu
           pointsLimit: 100
           refreshInterval: 3000
-          url: http://glances1:61208
+          url: https://glances-pope
           version: 4
     - ahti eth0:
         widget:
@@ -48,7 +48,7 @@
           metric: network:eth0
           pointsLimit: 100
           refreshInterval: 3000
-          url: https://glances3
+          url: https://glances-ahti
           version: 4
     - marshall eth0:
         widget:
@@ -56,7 +56,7 @@
           metric: network:eth0
           pointsLimit: 100
           refreshInterval: 3000
-          url: https://glances2
+          url: https://glances-marshall
           version: 4
     - pope eth0:
         widget:
@@ -64,7 +64,7 @@
           metric: network:eth0
           pointsLimit: 100
           refreshInterval: 3000
-          url: http://glances1:61208
+          url: https://glances-pope
           version: 4
 
 - Media Server:
