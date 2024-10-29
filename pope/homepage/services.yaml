@@ -244,6 +244,16 @@
           type: uptimekuma
           url: http:///uptimekuma:3001
           slug: work
+    - Vikunja:
+        href: https://vikunja/
+        icon: vikunja.svg
+        ping: vikunja
+        siteMonitor: http://vikunja:3456
+        widget:
+          type: vikunja
+          url: http://vikunja:3456
+          key: tk_a44cad21abd01102306dd754bc9527ef01b8b0cc
+          enableTaskList: true
     - What's Up Docker:
         href: https://whatsupdocker/
         icon: whats-up-docker.svg

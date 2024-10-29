@@ -40,4 +40,5 @@ DNS.35 = tplink
 DNS.36 = traefik
 DNS.37 = trilium
 DNS.38 = uptimekuma
-DNS.39 = whatsupdocker
+DNS.39 = vikunja
+DNS.40 = whatsupdocker
