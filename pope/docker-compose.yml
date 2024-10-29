@@ -359,6 +359,17 @@ services:
       - ${USERPROFILE}\uptimekuma-data\:/app/data/:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  vikunja:
+    image: vikunja/vikunja:latest
+    labels:
+      traefik.http.routers.vikunja-router.entrypoints: websecure
+      traefik.http.routers.vikunja-router.rule: Host(`vikunja`)
+      traefik.http.routers.vikunja-router.tls: "true"
+      traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
+    volumes:
+     - ${userprofile}\vikunja-data\db\:/db/:rw
+     - ${userprofile}\vikunja-data\files\:/app/vikunja/files/:rw
+
   whatsupdocker:
     image: fmartinou/whats-up-docker:latest
     healthcheck:
