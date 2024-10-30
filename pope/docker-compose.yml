@@ -95,6 +95,18 @@ services:
     volumes:
       - ${USERPROFILE}\changedetection-data\:/datastore/:rw
 
+  dozzle:
+    image: amir20/dozzle:latest
+    environment:
+      DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007
+    labels:
+      traefik.http.routers.dozzle-router.entrypoints: websecure
+      traefik.http.routers.dozzle-router.rule: Host(`dozzle`)
+      traefik.http.routers.dozzle-router.tls: "true"
+      traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   glances:
     image: nicolargo/glances:latest
     environment:

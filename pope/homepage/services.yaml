@@ -146,6 +146,12 @@
         icon: docker-moby.svg
         ping: registry
         siteMonitor: http://registry:5000/v2/_catalog
+    - Dozzle:
+        description: A lightweight, open-source, and secure log viewer for Docker.
+        href: https://dozzle/
+        icon: dozzle.svg
+        ping: dozzle
+        siteMonitor: http://dozzle:8080/healthcheck
     - Frigate:
         href: https://frigate/
         icon: frigate.svg
