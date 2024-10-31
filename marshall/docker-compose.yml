@@ -1,11 +1,12 @@
 services:
   frigate:
     image: ghcr.io/blakeblackshear/frigate:stable
+    devices:
+      - /dev/apex_0:/dev/apex_0
     environment:
       FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:-d2553245df3caca802ffe5dfb8d85a22}
     ports:
       - 5000:5000/tcp
-    restart: unless-stopped
     shm_size: "128mb"
     volumes:
       - ~/.frigate/config/:/config/:rw
