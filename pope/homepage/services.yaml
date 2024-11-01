@@ -56,6 +56,16 @@
           enableUser: true # optional, defaults to false
           # showEpisodeNumber: true # optional, defaults to false
           expandOneStreamToTwoRows: false # optional, defaults to true
+    - Lidarr:
+        description: Looks and smells like Sonarr but made for music
+        href: https://lidarr/
+        icon: lidarr.svg
+        ping: ahti
+        siteMonitor: https://lidarr
+        widget:
+          type: lidarr
+          url: https://lidarr
+          key: 660391ff2d8d478ea0b95c9330745daf
     - MeTube:
         description: Web UI for youtube-dl / yt-dlp
         href: https://metube/
@@ -83,6 +93,17 @@
           url: https://qbittorrent
           username: admin
           password: password
+    - Radarr:
+        description: Movie organizer/manager for usenet and torrent users
+        href: https://radarr/
+        icon: radarr-light.png
+        ping: ahti
+        siteMonitor: https://radarr
+        widget:
+          type: radarr
+          url: https://radarr
+          key: 5f8d3784c8c54ff6b49c3b6f4700d649
+          enableQueue: true # optional, defaults to false
     - SABnzbd:
         description: Free and easy binary newsreader
         href: https://sabnzbd/
