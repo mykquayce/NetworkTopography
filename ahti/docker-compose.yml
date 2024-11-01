@@ -18,6 +18,18 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    environment:
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Etc/UTC
+    ports:
+      - 8686:8686/tcp
+    volumes:
+      - ${USERPROFILE}\lidarr-data\:/config/:rw
+      - E:\Music\:/music/:rw
+
   metube:
     image: ghcr.io/alexta69/metube:latest
     environment:
@@ -58,6 +70,18 @@ services:
     volumes:
       - ${USERPROFILE}\qbittorrent-data\:/config/:rw
       - E:\Downloads\:/downloads/:rw
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    environment:
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Etc/UTC
+    ports:
+      - 7878:7878/tcp
+    volumes:
+      - ${USERPROFILE}\radarr-data/:/config/:rw
+      - D:\Films\:/movies/:rw
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest

@@ -30,6 +30,12 @@ http:
       rule: "Host(`metube`)"
       service: "metube-service"
       tls: "true"
+    lidarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`lidarr`)"
+      service: "lidarr-service"
+      tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
@@ -47,6 +53,12 @@ http:
         - "websecure"
       rule: "Host(`qbittorrent`)"
       service: "qbittorrent-service"
+      tls: "true"
+    radarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`radarr`)"
+      service: "radarr-service"
       tls: "true"
     router1-router:
       entryPoints:
@@ -89,6 +101,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8096/"
+    lidarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8686/"
     metube-service:
       loadBalancer:
         servers:
@@ -101,6 +117,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:9696/"
+    radarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:7878/"
     qbittorrent-service:
       loadBalancer:
         servers:
