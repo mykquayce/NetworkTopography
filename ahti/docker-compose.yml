@@ -18,6 +18,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    ports:
+      - 8096:8096/tcp
+    volumes:
+      - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
+      - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
+      - D:\anime\:/media/anime/:ro
+      - D:\films\:/media/films/:ro
+      - D:\streamers\:/media/streamers/:ro
+      - D:\tvshows\:/media/tv/:ro
+      - D:\videos\:/media/videos/:ro
+      - E:\music\:/media/music/:ro
+      - E:\pictures\:/media/pictures/:ro
+
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     environment:
