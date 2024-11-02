@@ -50,11 +50,11 @@
         widget:
           type: jellyfin
           url: https://jellyfin
-          key: 8c70503628304809803c593fa339b921
+          key: 5fe7b340a49c445e85c028594fa7e57e
           enableBlocks: true # optional, defaults to false
           enableNowPlaying: true # optional, defaults to true
           enableUser: true # optional, defaults to false
-          # showEpisodeNumber: true # optional, defaults to false
+          showEpisodeNumber: false # optional, defaults to false
           expandOneStreamToTwoRows: false # optional, defaults to true
     - Lidarr:
         description: Looks and smells like Sonarr but made for music
