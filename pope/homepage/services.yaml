@@ -165,6 +165,17 @@
           type: frigate
           url: https://frigate
           enableRecentEvents: true
+    - Grafana:
+        description: The open and composable observability and data visualization platform
+        href: https://grafana/
+        icon: grafana.svg
+        ping: grafana
+        siteMonitor: http://grafana:3000
+        widget:
+          type: grafana
+          url: http://grafana:3000
+          username: admin
+          password: 06daab76a3828eddf82ad342c9cdf1a7
     - Home Assistant:
         description: Open-source home automation platform
         href: https://homeassistant/
@@ -225,6 +236,15 @@
         icon: planka.svg
         ping: planka
         siteMonitor: http://planka:1337
+    - Prometheus:
+        description: The Prometheus monitoring system and time series database
+        href: https://prometheus/
+        icon: prometheus.svg
+        ping: prometheus
+        siteMonitor: http://prometheus:9090
+        widget:
+          type: prometheus
+          url: http://prometheus:9090
     - Speedtest:
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest/

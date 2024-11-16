@@ -17,5 +17,7 @@ scrape_configs:
 
     static_configs:
       - targets: ['localhost:9090']
-      - targets: ['pihole-exporter:9617']
-      - targets: ['traefik:8080']
+      - targets: ['host.docker.internal:9273']
+      - targets: ['ahti:9273']
+      - targets: ['marshall:9273']
+
