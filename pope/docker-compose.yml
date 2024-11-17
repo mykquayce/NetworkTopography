@@ -190,6 +190,14 @@ services:
       - source: localhost_key
         target: /etc/certs/localhost.key
 
+  it-tools:
+    image: ghcr.io/corentinth/it-tools:latest
+    labels:
+      traefik.http.routers.it-tools-router.entrypoints: websecure
+      traefik.http.routers.it-tools-router.rule: Host(`it-tools`)
+      traefik.http.routers.it-tools-router.tls: "true"
+      traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
+
   moodist:
     image: ghcr.io/remvze/moodist:latest
     labels:
