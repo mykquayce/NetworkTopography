@@ -27,11 +27,21 @@ services:
       - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
       - D:\anime\:/media/anime/:ro
       - D:\films\:/media/films/:ro
-      - D:\streamers\:/media/streamers/:ro
+      - E:\streamers\:/media/streamers/:ro
       - D:\tvshows\:/media/tv/:ro
       - D:\videos\:/media/videos/:ro
       - E:\music\:/media/music/:ro
       - E:\pictures\:/media/pictures/:ro
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    environment:
+      LOG_LEVEL: debug
+      TZ: UTC
+    ports:
+      - 5055:5055/tcp
+    volumes:
+      - ~/jellyseerr-data/:/app/config/:rw
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest

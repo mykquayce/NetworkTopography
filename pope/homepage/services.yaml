@@ -56,6 +56,16 @@
           enableUser: true # optional, defaults to false
           showEpisodeNumber: false # optional, defaults to false
           expandOneStreamToTwoRows: false # optional, defaults to true
+    - Jellyseerr:
+        description: Request management and media discovery tool for the Jellyfin ecosystem
+        href: https://jellyseerr/
+        icon: jellyseerr.svg
+        ping: ahti
+        siteMonitor: https://jellyseerr
+        widget:
+          type: jellyseerr
+          url: https://jellyseerr
+          key: MTczMTgzMzY3MDAxMThlNGE3N2EwLWQ2NWItNDgxNi04Y2VjLWE1YzAzN2FkMjc4NQ==
     - Lidarr:
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr/

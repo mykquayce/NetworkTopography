@@ -24,6 +24,12 @@ http:
       rule: "Host(`jellyfin`)"
       service: "jellyfin-service"
       tls: "true"
+    jellyseerr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`jellyseerr`)"
+      service: "jellyseerr-service"
+      tls: "true"
     metube-router:
       entryPoints:
         - "websecure"
@@ -101,6 +107,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8096/"
+    jellyseerr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:5055/"
     lidarr-service:
       loadBalancer:
         servers:
