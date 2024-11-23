@@ -90,6 +90,12 @@ http:
       rule: "Host(`sonarr`)"
       service: "sonarr-service"
       tls: "true"
+    switch1-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`switch1`)"
+      service: "switch1-service"
+      tls: "true"
     tubearchivist-router:
       entryPoints:
         - "websecure"
@@ -157,6 +163,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8989/"
+    switch1-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.189/"
     tubearchivist-service:
       loadBalancer:
         servers:

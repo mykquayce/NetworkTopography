@@ -13,6 +13,9 @@
     - Router 1:
         - href: https://router1/
           icon: router.svg
+    - Switch 1:
+        - href: https://switch1/
+          icon: router.svg
 
 - Social:
     - Reddit:
