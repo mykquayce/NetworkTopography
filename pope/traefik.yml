@@ -90,6 +90,12 @@ http:
       rule: "Host(`sonarr`)"
       service: "sonarr-service"
       tls: "true"
+    tubearchivist-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`tubearchivist`)"
+      service: "tubearchivist-service"
+      tls: "true"
   services:
     frigate-service:
       loadBalancer:
@@ -151,6 +157,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8989/"
+    tubearchivist-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8000/"
 
 tls:
   certificates:

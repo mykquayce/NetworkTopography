@@ -32,6 +32,7 @@ services:
       - D:\videos\:/media/videos/:ro
       - E:\music\:/media/music/:ro
       - E:\pictures\:/media/pictures/:ro
+      - E:\Videos\youtube\:/media/tubearchivist/:ro
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -147,3 +148,56 @@ services:
       - ${USERPROFILE}\sonarr-data\:/config/:rw
       - D:\tvshows\:/tv/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
+
+  tubearchivist:
+    image: bbilly1/tubearchivist:latest
+    depends_on:
+      - tubearchivist-elasticsearch
+      - tubearchivist-redis
+    environment:
+      HOST_UID: "1000"
+      HOST_GID: "1000"
+      TZ: UTC
+      TA_HOST: tubearchivist
+      TA_USERNAME: admin
+      TA_PASSWORD: 4ab932e08d326ade362f1520c7aaf998405728c979c5924d4b9c3b9c41d65757
+      ES_URL: http://tubearchivist-elasticsearch:9200
+      ELASTIC_PASSWORD: ec8695effcf7d6c99b3f62303a1f74026ec481746815a10a84f3a5e5ee1103fc
+      REDIS_HOST: tubearchivist-redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    ports:
+      - 8000:8000/tcp
+    volumes:
+      - E:\Videos\youtube\:/youtube/:rw
+      - ${userprofile}\tubearchivist-data\cache\:/cache/:rw
+
+  tubearchivist-elasticsearch:
+    image: bbilly1/tubearchivist-es:latest
+    environment:
+      ELASTIC_PASSWORD: ec8695effcf7d6c99b3f62303a1f74026ec481746815a10a84f3a5e5ee1103fc
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      xpack.security.enabled: "true"
+      discovery.type: single-node
+      path.repo: /usr/share/elasticsearch/data/snapshot
+    expose:
+      - "9200"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ${userprofile}\tubearchivist-data\elasticsearch\:/usr/share/elasticsearch/data/:rw
+
+  tubearchivist-redis:
+    image: redis/redis-stack-server:latest
+    depends_on:
+      - tubearchivist-elasticsearch
+    expose:
+      - "6379"
+    volumes:
+      - ${userprofile}\tubearchivist-data\redis\:/data/:rw
