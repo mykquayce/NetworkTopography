@@ -247,6 +247,17 @@
         icon: dozzle.svg
         ping: host.docker.internal
         siteMonitor: http://dozzle:8080/healthcheck
+    - FreshRSS:
+        description: A free, self-hostable news aggregator
+        href: https://freshrss/
+        icon: freshrss.svg
+        ping: host.docker.internal
+        siteMonitor: http://freshrss/i/
+        widget:
+          type: freshrss
+          url: http://freshrss
+          username: df208eb1b2ee8171
+          password: f79376b034765b37cc1c97404ab035846167cd9a2e7924e60116aeec0e04a55c
     - Frigate:
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate/
