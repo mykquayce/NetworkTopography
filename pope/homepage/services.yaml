@@ -6,7 +6,7 @@
     - ahti:
         href: https://glances-ahti/
         icon: glances.png
-        ping: glances-ahti
+        ping: ahti
         siteMonitor: https://glances-ahti/api/4/status
         widget:
           type: glances
@@ -18,7 +18,7 @@
     - marshall:
         href: https://glances-marshall/
         icon: glances.png
-        ping: glances-marshall
+        ping: marshall
         siteMonitor: https://glances-marshall/api/4/status
         widget:
           type: glances
@@ -30,7 +30,7 @@
     - pope:
         href: https://glances-pope/
         icon: glances.png
-        ping: glances-pope
+        ping: host.docker.internal
         siteMonitor: https://glances-pope/api/4/status
         widget:
           type: glances
@@ -86,7 +86,7 @@
         description: Indexer manager / proxy
         href: https://prowlarr/
         icon: prowlarr.svg
-        ping: prowlarr
+        ping: ahti
         siteMonitor: https://prowlarr
         widget:
           type: prowlarr
@@ -134,7 +134,7 @@
         description: Usenet and BitTorrent PVR
         href: https://sonarr/
         icon: sonarr.svg
-        ping: sonarr
+        ping: ahti
         siteMonitor: https://sonarr
         widget:
           type: sonarr
@@ -157,7 +157,7 @@
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection/
         icon: changedetection-io.png
-        ping: changedetection
+        ping: host.docker.internal
         siteMonitor: http://changedetection:5000
         widget:
           type: changedetectionio
@@ -167,13 +167,13 @@
         description: UI for your private docker registry
         href: https://registry/
         icon: docker-moby.svg
-        ping: registry
+        ping: host.docker.internal
         siteMonitor: http://registry:5000/v2/_catalog
     - Dozzle:
         description: Real-time log viewer for docker containers
         href: https://dozzle/
         icon: dozzle.svg
-        ping: dozzle
+        ping: host.docker.internal
         siteMonitor: http://dozzle:8080/healthcheck
     - Frigate:
         description: NVR with realtime local object detection for IP cameras
@@ -189,7 +189,7 @@
         description: The open and composable observability and data visualization platform
         href: https://grafana/
         icon: grafana.svg
-        ping: grafana
+        ping: host.docker.internal
         siteMonitor: http://grafana:3000
         widget:
           type: grafana
@@ -200,7 +200,7 @@
         description: Open-source home automation platform
         href: https://homeassistant/
         icon: home-assistant.svg
-        ping: homeassistant
+        ping: host.docker.internal
         siteMonitor: http://homeassistant:8123
         widget:
           type: homeassistant
@@ -219,37 +219,37 @@
         description: A simple HTTP Request & Response Service
         href: https://httpbin/
         icon: /icons/httpbin.png
-        ping: httpbin
+        ping: host.docker.internal
         siteMonitor: http://httpbin:8080
     - IT-Tools:
         description: Collection of handy online tools for developers, with great UX
         href: https://it-tools/
         icon: it-tools.svg
-        ping: it-tools
+        ping: host.docker.internal
         siteMonitor: http://it-tools
     - moodist:
         description: Ambient sounds for focus and calm
         href: https://moodist/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
         icon: /icons/moodist.svg
-        ping: moodist
+        ping: host.docker.internal
         siteMonitor: http://moodist:8080
     - ntfy:
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy/
         icon: ntfy-light.png
-        ping: ntfy
+        ping: host.docker.internal
         siteMonitor: http://ntfy
     - NuGet:
         description: A lightweight NuGet and symbol server
         href: https://nuget/
         icon: microsoft.svg
-        ping: nuget
+        ping: host.docker.internal
         siteMonitor: http://nuget:8080/v3/index.json
     - Pi-hole:
         description: A blackhole for Internet advertisements
         href: https://pihole/admin
         icon: pi-hole.svg
-        ping: pihole
+        ping: 192.168.1.80
         siteMonitor: https://pihole/admin
         widget:
           type: pihole
@@ -260,13 +260,13 @@
         description: Realtime kanban board for workgroups
         href: https://planka/
         icon: planka.svg
-        ping: planka
+        ping: host.docker.internal
         siteMonitor: http://planka:1337
     - Prometheus:
         description: The Prometheus monitoring system and time series database
         href: https://prometheus/
         icon: prometheus.svg
-        ping: prometheus
+        ping: host.docker.internal
         siteMonitor: http://prometheus:9090
         widget:
           type: prometheus
@@ -275,13 +275,13 @@
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest/
         icon: openspeedtest.png
-        ping: speedtest-tracker
+        ping: host.docker.internal
         siteMonitor: http://speedtest-tracker/api/healthcheck
     - Traefik:
         description: HTTP reverse proxy and load balancer
         href: https://traefik/dashboard/
         icon: traefik-proxy.svg
-        ping: traefik
+        ping: host.docker.internal
         siteMonitor: https://traefik/dashboard/
         widget:
           type: traefik
@@ -290,13 +290,13 @@
         description: Hierarchical note taking application
         href: https://trilium/
         icon: trilium.svg
-        ping: trilium
+        ping: host.docker.internal
         siteMonitor: http://trilium:8080/login
     - Uptime Kuma:
         description: Self-hosted website monitoring tool
         href: https://uptimekuma/dashboard/
         icon: uptime-kuma.svg
-        ping: uptimekuma
+        ping: host.docker.internal
         siteMonitor: http://uptimekuma:3001/dashboard/
         widget:
           type: uptimekuma
@@ -306,7 +306,7 @@
         description: Self-hosted website monitoring tool
         href: https://uptimekuma/dashboard/
         icon: uptime-kuma.svg
-        ping: http://uptimekuma
+        ping: host.docker.internal
         siteMonitor: http://uptimekuma:3001/dashboard/
         widget:
           type: uptimekuma
@@ -316,7 +316,7 @@
         description: The to-do app to organize your life
         href: https://vikunja/
         icon: vikunja.svg
-        ping: vikunja
+        ping: host.docker.internal
         siteMonitor: http://vikunja:3456
         widget:
           type: vikunja
@@ -327,7 +327,7 @@
         description: Gets you notified when a new version of your Docker Container is available
         href: https://whatsupdocker/
         icon: whats-up-docker.svg
-        ping: whatsupdocker
+        ping: host.docker.internal
         siteMonitor: http://whatsupdocker:3000
         widget:
           type: whatsupdocker
