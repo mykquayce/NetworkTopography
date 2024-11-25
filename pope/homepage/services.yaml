@@ -9,36 +9,108 @@
         ping: ahti
         siteMonitor: https://glances-ahti/api/4/status
         widget:
-          type: glances
-          metric: network:eth0
-          pointsLimit: 100
-          refreshInterval: 3000
-          url: https://glances-ahti
-          version: 4
+          type: prometheusmetric
+          url: http://prometheus:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='ahti'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='ahti'}[5m])
+            - label: D
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='ahti',path='\\D:'}
+            - label: E
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='ahti',path='\\E:'}
     - marshall:
         href: https://glances-marshall/
         icon: glances.png
         ping: marshall
         siteMonitor: https://glances-marshall/api/4/status
         widget:
-          type: glances
-          metric: network:eth0
-          pointsLimit: 100
-          refreshInterval: 3000
-          url: https://glances-marshall
-          version: 4
+          type: prometheusmetric
+          url: http://prometheus:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='marshall'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='marshall'}[5m])
+            - label: free disk
+              format:
+                type: bytes
+                options:
+                  maximumFractionDigits: 1
+              query: disk_free{host='marshall',path='/'}
+            - label: disk used
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='marshall',path='/'}
     - pope:
         href: https://glances-pope/
         icon: glances.png
         ping: host.docker.internal
         siteMonitor: https://glances-pope/api/4/status
         widget:
-          type: glances
-          metric: network:eth0
-          pointsLimit: 100
-          refreshInterval: 3000
-          url: https://glances-pope
-          version: 4
+          type: prometheusmetric
+          url: http://prometheus:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='pope'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='pope'}[5m])
+            - label: free disk
+              format:
+                type: bytes
+                options:
+                  maximumFractionDigits: 1
+              query: disk_free{host='pope',path='\\C:'}
+            - label: disk used
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='pope',path='\\C:'}
 
 - Media Server:
     - Jellyfin:
