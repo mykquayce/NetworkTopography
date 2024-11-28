@@ -89,7 +89,7 @@ services:
     image: dgtlmoon/changedetection.io:latest
     labels:
       traefik.http.routers.changedetection-router.entrypoints: websecure
-      traefik.http.routers.changedetection-router.rule: Host(`changedetection`)
+      traefik.http.routers.changedetection-router.rule: Host(`changedetection.fbc.local`)
       traefik.http.routers.changedetection-router.tls: "true"
       traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
     volumes:
@@ -101,7 +101,7 @@ services:
       DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007
     labels:
       traefik.http.routers.dozzle-router.entrypoints: websecure
-      traefik.http.routers.dozzle-router.rule: Host(`dozzle`)
+      traefik.http.routers.dozzle-router.rule: Host(`dozzle.fbc.local`)
       traefik.http.routers.dozzle-router.tls: "true"
       traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
     volumes:
@@ -114,7 +114,7 @@ services:
       TZ: UTC
     labels:
       traefik.http.routers.freshrss-router.entrypoints: websecure
-      traefik.http.routers.freshrss-router.rule: Host(`freshrss`)
+      traefik.http.routers.freshrss-router.rule: Host(`freshrss.fbc.local`)
       traefik.http.routers.freshrss-router.tls: "true"
       traefik.http.services.freshrss-service.loadbalancer.server.port: "80"
     logging:
@@ -129,7 +129,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.http.routers.glances-router.entrypoints: websecure
-      traefik.http.routers.glances-router.rule: Host(`glances-pope`)
+      traefik.http.routers.glances-router.rule: Host(`glances-pope.fbc.local`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     pid: host
@@ -145,7 +145,7 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
     labels:
       traefik.http.routers.grafana-router.entrypoints: websecure
-      traefik.http.routers.grafana-router.rule: Host(`grafana`)
+      traefik.http.routers.grafana-router.rule: Host(`grafana.fbc.local`)
       traefik.http.routers.grafana-router.tls: "true"
       traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
     volumes:
@@ -155,7 +155,7 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     labels:
       traefik.http.routers.homeassistant-router.entrypoints: websecure
-      traefik.http.routers.homeassistant-router.rule: Host(`homeassistant`)
+      traefik.http.routers.homeassistant-router.rule: Host(`homeassistant.fbc.local`)
       traefik.http.routers.homeassistant-router.tls: "true"
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
     volumes:
@@ -165,7 +165,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     labels:
       traefik.http.routers.homepage-router.entrypoints: websecure
-      traefik.http.routers.homepage-router.rule: Host(`homepage`)
+      traefik.http.routers.homepage-router.rule: Host(`homepage.fbc.local`)
       traefik.http.routers.homepage-router.tls: "true"
       traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
     volumes:
@@ -178,7 +178,7 @@ services:
     image: mccutchen/go-httpbin:latest
     labels:
       traefik.http.routers.httpbin-router.entrypoints: websecure
-      traefik.http.routers.httpbin-router.rule: Host(`httpbin`)
+      traefik.http.routers.httpbin-router.rule: Host(`httpbin.fbc.local`)
       traefik.http.routers.httpbin-router.tls: "true"
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
 
@@ -197,7 +197,7 @@ services:
       Clients:0:ClientSecrets:0:Value: WxFhjC5EAnh30M0JIe0Wa58Xb1BYf8kedTTdKUbbd9Y=
     labels:
       traefik.http.routers.identityserver-router.entrypoints: websecure
-      traefik.http.routers.identityserver-router.rule: Host(`identityserver`)
+      traefik.http.routers.identityserver-router.rule: Host(`identityserver.fbc.local`)
       traefik.http.routers.identityserver-router.tls: "true"
       traefik.http.services.identityserver-service.loadbalancer.server.port: "80"
     secrets:
@@ -210,7 +210,7 @@ services:
     image: ghcr.io/corentinth/it-tools:latest
     labels:
       traefik.http.routers.it-tools-router.entrypoints: websecure
-      traefik.http.routers.it-tools-router.rule: Host(`it-tools`)
+      traefik.http.routers.it-tools-router.rule: Host(`it-tools.fbc.local`)
       traefik.http.routers.it-tools-router.tls: "true"
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
 
@@ -218,7 +218,7 @@ services:
     image: ghcr.io/remvze/moodist:latest
     labels:
       traefik.http.routers.moodist-router.entrypoints: websecure
-      traefik.http.routers.moodist-router.rule: Host(`moodist`)
+      traefik.http.routers.moodist-router.rule: Host(`moodist.fbc.local`)
       traefik.http.routers.moodist-router.tls: "true"
       traefik.http.services.moodist-service.loadbalancer.server.port: "8080"
     logging:
@@ -233,7 +233,7 @@ services:
       TZ: UTC
     labels:
       traefik.http.routers.ntfy-router.entrypoints: websecure
-      traefik.http.routers.ntfy-router.rule: Host(`ntfy`)
+      traefik.http.routers.ntfy-router.rule: Host(`ntfy.fbc.local`)
       traefik.http.routers.ntfy-router.tls: "true"
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
     ports:
@@ -248,7 +248,7 @@ services:
       ApiKey: ${NuGetServerApiKey:-8e7b324ee43b689f77c2f95b099fd6f5}
     labels:
       traefik.http.routers.nuget-router.entrypoints: websecure
-      traefik.http.routers.nuget-router.rule: Host(`baget`) || Host(`nuget`)
+      traefik.http.routers.nuget-router.rule: Host(`baget.fbc.local`) || Host(`nuget.fbc.local`)
       traefik.http.routers.nuget-router.tls: "true"
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
     volumes:
@@ -263,7 +263,7 @@ services:
         max_attempts: 10
         window: 60s
     environment:
-      BASE_URL: https://planka
+      BASE_URL: https://planka.fbc.local
       DATABASE_URL: postgresql://postgres@planka-db/planka
       SECRET_KEY: ${PLANKA_DB_PASSWORD:-c1ce607f5d65cbb3c68092651627426b}
       DEFAULT_ADMIN_EMAIL: demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted
@@ -272,7 +272,7 @@ services:
       DEFAULT_ADMIN_USERNAME: demo
     labels:
       traefik.http.routers.planka-router.entrypoints: websecure
-      traefik.http.routers.planka-router.rule: Host(`planka`)
+      traefik.http.routers.planka-router.rule: Host(`planka.fbc.local`)
       traefik.http.routers.planka-router.tls: "true"
       traefik.http.services.planka-service.loadbalancer.server.port: "1337"
     volumes:
@@ -301,7 +301,7 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
     labels:
       traefik.http.routers.prometheus-router.entrypoints: websecure
-      traefik.http.routers.prometheus-router.rule: Host(`prometheus`)
+      traefik.http.routers.prometheus-router.rule: Host(`prometheus.fbc.local`)
       traefik.http.routers.prometheus-router.tls: "true"
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
     volumes:
@@ -333,7 +333,7 @@ services:
       TAGLIST_PAGE_SIZE: "100"
     labels:
       traefik.http.routers.registry-ui-router.entrypoints: websecure
-      traefik.http.routers.registry-ui-router.rule: Host(`registry`) || Host(`registry.local`)
+      traefik.http.routers.registry-ui-router.rule: Host(`registry.fbc.local`)
       traefik.http.routers.registry-ui-router.tls: "true"
       traefik.http.services.registry-service.loadbalancer.server.port: "80"
 
@@ -342,32 +342,17 @@ services:
     environment:
       APP_KEY: base64:F2MCnwpty7/bHkZ1bqWEM8IAD05w0nNxWQQa0cBVwfE=
       APP_TIMEZONE: UTC
-      APP_URL: https://speedtest
+      APP_URL: https://speedtest.fbc.local
       DB_CONNECTION: sqlite
       SPEEDTEST_SCHEDULE: 0 0,3,6,9,12,15,18,21 * * * #every 3rd hour
       SPEEDTEST_SERVERS: 3504, 40628, 48181, 59135
       PRUNE_RESULTS_OLDER_THAN: 28 #28 days
     labels:
-      traefik.http.routers.speedtest-router.rule: Host(`speedtest`)
+      traefik.http.routers.speedtest-router.rule: Host(`speedtest.fbc.local`)
       traefik.http.routers.speedtest-router.tls: "true"
       traefik.http.services.speedtest-service.loadbalancer.server.port: "80"
     volumes:
       - ${USERPROFILE}\speedtest-data\:/config/:rw
-
-  tplink:
-    image: eassbhhtgu/tplinkrelayapi:latest
-    entrypoint: bash -c "/usr/sbin/update-ca-certificates && dotnet TPLinkRelayApi.Api.dll"
-    environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      EndPoints:NetworkDiscovery: http://networkdiscovery:8080/
-    labels:
-      traefik.http.routers.tplink-router.entrypoints: websecure
-      traefik.http.routers.tplink-router.rule: Host(`tplink`)
-      traefik.http.routers.tplink-router.tls: "true"
-      traefik.http.services.tplink-service.loadbalancer.server.port: "8080"
-    secrets:
-      - source: ca_crt
-        target: /usr/local/share/ca-certificates/ca.crt
 
   traefik:
     image: traefik:latest
@@ -386,7 +371,7 @@ services:
       - --providers.file.directory=/etc/traefik/dynamic_conf/
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
-      traefik.http.routers.traefik-router.rule: Host(`traefik`)
+      traefik.http.routers.traefik-router.rule: Host(`traefik.fbc.local`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     ports:
@@ -405,7 +390,7 @@ services:
     image: triliumnext/notes:latest
     labels:
       traefik.http.routers.trilium-router.entrypoints: websecure
-      traefik.http.routers.trilium-router.rule: Host(`trilium`)
+      traefik.http.routers.trilium-router.rule: Host(`trilium.fbc.local`)
       traefik.http.routers.trilium-router.tls: "true"
       traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
     volumes:
@@ -415,7 +400,7 @@ services:
     image: louislam/uptime-kuma:latest
     labels:
       traefik.http.routers.uptimekuma-router.entrypoints: websecure
-      traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma`)
+      traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.fbc.local`)
       traefik.http.routers.uptimekuma-router.tls: "true"
       traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
     volumes:
@@ -426,7 +411,7 @@ services:
     image: vikunja/vikunja:latest
     labels:
       traefik.http.routers.vikunja-router.entrypoints: websecure
-      traefik.http.routers.vikunja-router.rule: Host(`vikunja`)
+      traefik.http.routers.vikunja-router.rule: Host(`vikunja.fbc.local`)
       traefik.http.routers.vikunja-router.tls: "true"
       traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
     volumes:
@@ -443,7 +428,7 @@ services:
       start_period: 10s
     labels:
       traefik.http.routers.whatsupdocker-router.entrypoints: websecure
-      traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker`)
+      traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker.fbc.local`)
       traefik.http.routers.whatsupdocker-router.tls: "true"
       traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"
       wud.link.template: https://github.com/fmartinou/whats-up-docker/releases/tag/$${major}.$${minor}.$${patch}
