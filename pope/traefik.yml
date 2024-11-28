@@ -3,103 +3,103 @@ http:
     frigate-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`frigate`)"
+      rule: "Host(`frigate.fbc.local`)"
       service: "frigate-service"
       tls: "true"
     glances-ahti-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances-ahti`)"
+      rule: "Host(`glances-ahti.fbc.local`)"
       service: "glances-ahti-service"
       tls: "true"
     glances-marshall-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances-marshall`)"
+      rule: "Host(`glances-marshall.fbc.local`)"
       service: "glances-marshall-service"
       tls: "true"
     jellyfin-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`jellyfin`)"
+      rule: "Host(`jellyfin.fbc.local`)"
       service: "jellyfin-service"
       tls: "true"
     jellyseerr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`jellyseerr`)"
+      rule: "Host(`jellyseerr.fbc.local`)"
       service: "jellyseerr-service"
       tls: "true"
     metube-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`metube`)"
+      rule: "Host(`metube.fbc.local`)"
       service: "metube-service"
       tls: "true"
     lidarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`lidarr`)"
+      rule: "Host(`lidarr.fbc.local`)"
       service: "lidarr-service"
       tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`pihole`)"
+      rule: "Host(`pihole.fbc.local`)"
       service: "pihole-service"
       tls: "true"
     prowlarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`prowlarr`)"
+      rule: "Host(`prowlarr.fbc.local`)"
       service: "prowlarr-service"
       tls: "true"
     qbittorrent-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`qbittorrent`)"
+      rule: "Host(`qbittorrent.fbc.local`)"
       service: "qbittorrent-service"
       tls: "true"
     radarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`radarr`)"
+      rule: "Host(`radarr.fbc.local`)"
       service: "radarr-service"
       tls: "true"
     router1-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`router1`)"
+      rule: "Host(`router1.fbc.local`)"
       service: "router1-service"
       tls: "true"
     sickgear-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`sickgear`)"
+      rule: "Host(`sickgear.fbc.local`)"
       service: "sickgear-service"
       tls: "true"
     sabnzbd-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`sabnzbd`)"
+      rule: "Host(`sabnzbd.fbc.local`)"
       service: "sabnzbd-service"
       tls: "true"
     sonarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`sonarr`)"
+      rule: "Host(`sonarr.fbc.local`)"
       service: "sonarr-service"
       tls: "true"
     switch1-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`switch1`)"
+      rule: "Host(`switch1.fbc.local`)"
       service: "switch1-service"
       tls: "true"
     tubearchivist-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`tubearchivist`)"
+      rule: "Host(`tubearchivist.fbc.local`)"
       service: "tubearchivist-service"
       tls: "true"
   services:
