@@ -4,10 +4,10 @@
 
 - monitoring:
     - ahti:
-        href: https://glances-ahti/
+        href: https://glances-ahti.fbc.local/
         icon: glances.png
         ping: ahti
-        siteMonitor: https://glances-ahti/api/4/status
+        siteMonitor: https://glances-ahti.fbc.local/api/4/status
         widget:
           type: prometheusmetric
           url: http://prometheus:9090
@@ -40,10 +40,10 @@
                   maximumFractionDigits: 1
               query: disk_used_percent{host='ahti',path='\\E:'}
     - marshall:
-        href: https://glances-marshall/
+        href: https://glances-marshall.fbc.local/
         icon: glances.png
         ping: marshall
-        siteMonitor: https://glances-marshall/api/4/status
+        siteMonitor: https://glances-marshall.fbc.local/api/4/status
         widget:
           type: prometheusmetric
           url: http://prometheus:9090
@@ -76,10 +76,10 @@
                   maximumFractionDigits: 1
               query: disk_used_percent{host='marshall',path='/'}
     - pope:
-        href: https://glances-pope/
+        href: https://glances-pope.fbc.local/
         icon: glances.png
         ping: host.docker.internal
-        siteMonitor: https://glances-pope/api/4/status
+        siteMonitor: https://glances-pope.fbc.local/api/4/status
         widget:
           type: prometheusmetric
           url: http://prometheus:9090
@@ -115,13 +115,13 @@
 - Media Server:
     - Jellyfin:
         description: Your media, on your terms
-        href: https://jellyfin/web/
+        href: https://jellyfin.fbc.local/web/
         icon: jellyfin.svg
         ping: ahti
-        siteMonitor: https://jellyfin/health
+        siteMonitor: https://jellyfin.fbc.local/health
         widget:
           type: jellyfin
-          url: https://jellyfin
+          url: https://jellyfin.fbc.local
           key: 5fe7b340a49c445e85c028594fa7e57e
           enableBlocks: true # optional, defaults to false
           enableNowPlaying: true # optional, defaults to true
@@ -130,104 +130,104 @@
           expandOneStreamToTwoRows: false # optional, defaults to true
     - Jellyseerr:
         description: Request management and media discovery tool for the Jellyfin ecosystem
-        href: https://jellyseerr/
+        href: https://jellyseerr.fbc.local/
         icon: jellyseerr.svg
         ping: ahti
-        siteMonitor: https://jellyseerr
+        siteMonitor: https://jellyseerr.fbc.local
         widget:
           type: jellyseerr
-          url: https://jellyseerr
+          url: https://jellyseerr.fbc.local
           key: MTczMTgzMzY3MDAxMThlNGE3N2EwLWQ2NWItNDgxNi04Y2VjLWE1YzAzN2FkMjc4NQ==
     - Lidarr:
         description: Looks and smells like Sonarr but made for music
-        href: https://lidarr/
+        href: https://lidarr.fbc.local/
         icon: lidarr.svg
         ping: ahti
-        siteMonitor: https://lidarr
+        siteMonitor: https://lidarr.fbc.local
         widget:
           type: lidarr
-          url: https://lidarr
+          url: https://lidarr.fbc.local
           key: 660391ff2d8d478ea0b95c9330745daf
     - MeTube:
         description: Web UI for youtube-dl / yt-dlp
-        href: https://metube/
+        href: https://metube.fbc.local/
         icon: metube.svg
         ping: ahti
-        siteMonitor: https://metube
+        siteMonitor: https://metube.fbc.local
     - Prowlarr:
         description: Indexer manager / proxy
-        href: https://prowlarr/
+        href: https://prowlarr.fbc.local/
         icon: prowlarr.svg
         ping: ahti
-        siteMonitor: https://prowlarr
+        siteMonitor: https://prowlarr.fbc.local
         widget:
           type: prowlarr
-          url: https://prowlarr
+          url: https://prowlarr.fbc.local
           key: 8fb67584ab6f42b09e02d93fd3f0e1d3
     - qBittorrent:
         description: A BitTorrent client in Qt
-        href: https://qbittorrent
+        href: https://qbittorrent.fbc.local
         icon: qbittorrent.svg
         ping: ahti
-        siteMonitor: https://qbittorrent
+        siteMonitor: https://qbittorrent.fbc.local
         widget:
           type: qbittorrent
-          url: https://qbittorrent
+          url: https://qbittorrent.fbc.local
           username: admin
           password: password
     - Radarr:
         description: Movie organizer/manager for usenet and torrent users
-        href: https://radarr/
+        href: https://radarr.fbc.local/
         icon: radarr-light.png
         ping: ahti
-        siteMonitor: https://radarr
+        siteMonitor: https://radarr.fbc.local
         widget:
           type: radarr
-          url: https://radarr
+          url: https://radarr.fbc.local
           key: 5f8d3784c8c54ff6b49c3b6f4700d649
           enableQueue: true # optional, defaults to false
     - SABnzbd:
         description: Free and easy binary newsreader
-        href: https://sabnzbd/
+        href: https://sabnzbd.fbc.local/
         icon: sabnzbd-alt.svg
         ping: ahti
-        siteMonitor: https://sabnzbd
+        siteMonitor: https://sabnzbd.fbc.local
         widget:
           type: sabnzbd
-          url: https://sabnzbd
+          url: https://sabnzbd.fbc.local
           key: 5949065fc49247269b110d8ce426e195
     - Sick Gear:
         description: Fully automate TV enjoyment
-        href: https://sickgear/
+        href: https://sickgear.fbc.local/
         icon: sickbeard.svg
         ping: ahti
-        siteMonitor: https://sickgear
+        siteMonitor: https://sickgear.fbc.local
     - Sonarr:
         description: Usenet and BitTorrent PVR
-        href: https://sonarr/
+        href: https://sonarr.fbc.local/
         icon: sonarr.svg
         ping: ahti
-        siteMonitor: https://sonarr
+        siteMonitor: https://sonarr.fbc.local
         widget:
           type: sonarr
-          url: https://sonarr
+          url: https://sonarr.fbc.local
           key: 26b7b613fbed470eaa2b273997c94938
           enableQueue: true
     - Tube Archivist:
         description: Your self hosted YouTube media server
-        href: https://tubearchivist/
+        href: https://tubearchivist.fbc.local/
         icon: tube-archivist.png
         ping: ahti
-        siteMonitor: https://tubearchivist/health
+        siteMonitor: https://tubearchivist.fbc.local/health
         widget:
           type: tubearchivist
-          url: https://tubearchivist
+          url: https://tubearchivist.fbc.local
           key: 7d1f478d86cd99b39a8f0e6ed1fd2b626bb1aa45
 
 - Services:
     - Change Detection:
         description: Web page change detection, website watcher, restock monitor and notification service
-        href: https://changedetection/
+        href: https://changedetection.fbc.local/
         icon: changedetection-io.png
         ping: host.docker.internal
         siteMonitor: http://changedetection:5000
@@ -237,19 +237,19 @@
           key: b907fb20b376747d27db01e8e4056ce7
     - Docker Registry:
         description: UI for your private docker registry
-        href: https://registry/
+        href: https://registry.fbc.local/
         icon: docker-moby.svg
         ping: host.docker.internal
         siteMonitor: http://registry:5000/v2/_catalog
     - Dozzle:
         description: Real-time log viewer for docker containers
-        href: https://dozzle/
+        href: https://dozzle.fbc.local/
         icon: dozzle.svg
         ping: host.docker.internal
         siteMonitor: http://dozzle:8080/healthcheck
     - FreshRSS:
         description: A free, self-hostable news aggregator
-        href: https://freshrss/
+        href: https://freshrss.fbc.local/
         icon: freshrss.svg
         ping: host.docker.internal
         siteMonitor: http://freshrss/i/
@@ -260,17 +260,17 @@
           password: f79376b034765b37cc1c97404ab035846167cd9a2e7924e60116aeec0e04a55c
     - Frigate:
         description: NVR with realtime local object detection for IP cameras
-        href: https://frigate/
+        href: https://frigate.fbc.local/
         icon: frigate.svg
         ping: marshall
-        siteMonitor: https://frigate
+        siteMonitor: https://frigate.fbc.local
         widget:
           type: frigate
-          url: https://frigate
+          url: https://frigate.fbc.local
           enableRecentEvents: true
     - Grafana:
         description: The open and composable observability and data visualization platform
-        href: https://grafana/
+        href: https://grafana.fbc.local/
         icon: grafana.svg
         ping: host.docker.internal
         siteMonitor: http://grafana:3000
@@ -281,7 +281,7 @@
           password: 06daab76a3828eddf82ad342c9cdf1a7
     - Home Assistant:
         description: Open-source home automation platform
-        href: https://homeassistant/
+        href: https://homeassistant.fbc.local/
         icon: home-assistant.svg
         ping: host.docker.internal
         siteMonitor: http://homeassistant:8123
@@ -300,54 +300,54 @@
               state: sensor.pc_current_consumption
     - httpbin:
         description: A simple HTTP Request & Response Service
-        href: https://httpbin/
+        href: https://httpbin.fbc.local/
         icon: /icons/httpbin.png
         ping: host.docker.internal
         siteMonitor: http://httpbin:8080
     - IT-Tools:
         description: Collection of handy online tools for developers, with great UX
-        href: https://it-tools/
+        href: https://it-tools.fbc.local/
         icon: it-tools.svg
         ping: host.docker.internal
         siteMonitor: http://it-tools
     - moodist:
         description: Ambient sounds for focus and calm
-        href: https://moodist/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
+        href: https://moodist.fbc.local/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
         icon: /icons/moodist.svg
         ping: host.docker.internal
         siteMonitor: http://moodist:8080
     - ntfy:
         description: Send push notifications to your phone or desktop via PUT/POST
-        href: https://ntfy/
+        href: https://ntfy.fbc.local/
         icon: ntfy-light.png
         ping: host.docker.internal
         siteMonitor: http://ntfy
     - NuGet:
         description: A lightweight NuGet and symbol server
-        href: https://nuget/
+        href: https://nuget.fbc.local/
         icon: microsoft.svg
         ping: host.docker.internal
         siteMonitor: http://nuget:8080/v3/index.json
     - Pi-hole:
         description: A blackhole for Internet advertisements
-        href: https://pihole/admin
+        href: https://pihole.fbc.local/admin
         icon: pi-hole.svg
         ping: 192.168.1.80
-        siteMonitor: https://pihole/admin
+        siteMonitor: https://pihole.fbc.local/admin
         widget:
           type: pihole
-          url: https://pihole
+          url: https://pihole.fbc.local
           # version: 6 # required if running v6 or higher, defaults to 5
           key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
     - Planka:
         description: Realtime kanban board for workgroups
-        href: https://planka/
+        href: https://planka.fbc.local/
         icon: planka.svg
         ping: host.docker.internal
         siteMonitor: http://planka:1337
     - Prometheus:
         description: The Prometheus monitoring system and time series database
-        href: https://prometheus/
+        href: https://prometheus.fbc.local/
         icon: prometheus.svg
         ping: host.docker.internal
         siteMonitor: http://prometheus:9090
@@ -356,28 +356,28 @@
           url: http://prometheus:9090
     - Speedtest:
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
-        href: https://speedtest/
+        href: https://speedtest.fbc.local/
         icon: openspeedtest.png
         ping: host.docker.internal
         siteMonitor: http://speedtest-tracker/api/healthcheck
     - Traefik:
         description: HTTP reverse proxy and load balancer
-        href: https://traefik/dashboard/
+        href: https://traefik.fbc.local/dashboard/
         icon: traefik-proxy.svg
         ping: host.docker.internal
-        siteMonitor: https://traefik/dashboard/
+        siteMonitor: https://traefik.fbc.local/dashboard/
         widget:
           type: traefik
-          url: https://traefik
+          url: https://traefik.fbc.local
     - Trilium:
         description: Hierarchical note taking application
-        href: https://trilium/
+        href: https://trilium.fbc.local/
         icon: trilium.svg
         ping: host.docker.internal
         siteMonitor: http://trilium:8080/login
     - Uptime Kuma:
         description: Self-hosted website monitoring tool
-        href: https://uptimekuma/dashboard/
+        href: https://uptimekuma.fbc.local/dashboard/
         icon: uptime-kuma.svg
         ping: host.docker.internal
         siteMonitor: http://uptimekuma:3001/dashboard/
@@ -387,7 +387,7 @@
           slug: statuspageslug
     - Uptime Kuma (Work):
         description: Self-hosted website monitoring tool
-        href: https://uptimekuma/dashboard/
+        href: https://uptimekuma.fbc.local/dashboard/
         icon: uptime-kuma.svg
         ping: host.docker.internal
         siteMonitor: http://uptimekuma:3001/dashboard/
@@ -397,7 +397,7 @@
           slug: work
     - Vikunja:
         description: The to-do app to organize your life
-        href: https://vikunja/
+        href: https://vikunja.fbc.local/
         icon: vikunja.svg
         ping: host.docker.internal
         siteMonitor: http://vikunja:3456
@@ -408,7 +408,7 @@
           enableTaskList: true
     - What's Up Docker:
         description: Gets you notified when a new version of your Docker Container is available
-        href: https://whatsupdocker/
+        href: https://whatsupdocker.fbc.local/
         icon: whats-up-docker.svg
         ping: host.docker.internal
         siteMonitor: http://whatsupdocker:3000
