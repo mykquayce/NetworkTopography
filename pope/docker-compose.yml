@@ -76,6 +76,24 @@ services:
     secrets:
     - source: id_rsa
 
+  authelia:
+    image: authelia/authelia:latest
+    environment:
+      - TZ=UTC
+    healthcheck:
+      disable: true
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.authelia-middleware.forwardauth.address: http://authelia:9091/api/verify?rd=https%3A%2F%2Fauthelia.fbc.local
+      traefik.http.middlewares.authelia-middleware.forwardauth.authResponseHeaders: Remote-User,Remote-Groups,Remote-Name,Remote-Email
+      traefik.http.middlewares.authelia-middleware.forwardauth.trustForwardHeader: "true"
+      traefik.http.routers.authelia-router.entrypoints: websecure
+      traefik.http.routers.authelia-router.rule: Host(`authelia.fbc.local`)
+      traefik.http.routers.authelia-router.tls: "true"
+      traefik.http.services.authelia-service.loadbalancer.server.port: "9091"
+    volumes:
+      - ./authelia/:/config/:rw
+
   certificates:
     image: httpd:alpine
     labels:
@@ -89,6 +107,7 @@ services:
     image: dgtlmoon/changedetection.io:latest
     labels:
       traefik.http.routers.changedetection-router.entrypoints: websecure
+      traefik.http.routers.changedetection-router.middlewares: authelia-middleware
       traefik.http.routers.changedetection-router.rule: Host(`changedetection.fbc.local`)
       traefik.http.routers.changedetection-router.tls: "true"
       traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
@@ -101,6 +120,7 @@ services:
       DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007
     labels:
       traefik.http.routers.dozzle-router.entrypoints: websecure
+      traefik.http.routers.dozzle-router.middlewares: authelia-middleware
       traefik.http.routers.dozzle-router.rule: Host(`dozzle.fbc.local`)
       traefik.http.routers.dozzle-router.tls: "true"
       traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
@@ -129,6 +149,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.middlewares: authelia-middleware
       traefik.http.routers.glances-router.rule: Host(`glances-pope.fbc.local`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
@@ -165,6 +186,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     labels:
       traefik.http.routers.homepage-router.entrypoints: websecure
+      traefik.http.routers.homepage-router.middlewares: authelia-middleware
       traefik.http.routers.homepage-router.rule: Host(`homepage.fbc.local`)
       traefik.http.routers.homepage-router.tls: "true"
       traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
@@ -178,6 +200,7 @@ services:
     image: mccutchen/go-httpbin:latest
     labels:
       traefik.http.routers.httpbin-router.entrypoints: websecure
+      traefik.http.routers.httpbin-router.middlewares: authelia-middleware
       traefik.http.routers.httpbin-router.rule: Host(`httpbin.fbc.local`)
       traefik.http.routers.httpbin-router.tls: "true"
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
@@ -210,6 +233,7 @@ services:
     image: ghcr.io/corentinth/it-tools:latest
     labels:
       traefik.http.routers.it-tools-router.entrypoints: websecure
+      traefik.http.routers.it-tools-router.middlewares: authelia-middleware
       traefik.http.routers.it-tools-router.rule: Host(`it-tools.fbc.local`)
       traefik.http.routers.it-tools-router.tls: "true"
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
@@ -218,6 +242,7 @@ services:
     image: ghcr.io/remvze/moodist:latest
     labels:
       traefik.http.routers.moodist-router.entrypoints: websecure
+      traefik.http.routers.moodist-router.middlewares: authelia-middleware
       traefik.http.routers.moodist-router.rule: Host(`moodist.fbc.local`)
       traefik.http.routers.moodist-router.tls: "true"
       traefik.http.services.moodist-service.loadbalancer.server.port: "8080"
@@ -233,6 +258,7 @@ services:
       TZ: UTC
     labels:
       traefik.http.routers.ntfy-router.entrypoints: websecure
+      traefik.http.routers.ntfy-router.middlewares: authelia-middleware
       traefik.http.routers.ntfy-router.rule: Host(`ntfy.fbc.local`)
       traefik.http.routers.ntfy-router.tls: "true"
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
@@ -301,6 +327,7 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
     labels:
       traefik.http.routers.prometheus-router.entrypoints: websecure
+      traefik.http.routers.prometheus-router.middlewares: authelia-middleware
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.fbc.local`)
       traefik.http.routers.prometheus-router.tls: "true"
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
@@ -333,6 +360,7 @@ services:
       TAGLIST_PAGE_SIZE: "100"
     labels:
       traefik.http.routers.registry-ui-router.entrypoints: websecure
+      traefik.http.routers.registry-ui-router.middlewares: authelia-middleware
       traefik.http.routers.registry-ui-router.rule: Host(`registry.fbc.local`)
       traefik.http.routers.registry-ui-router.tls: "true"
       traefik.http.services.registry-service.loadbalancer.server.port: "80"
@@ -371,6 +399,7 @@ services:
       - --providers.file.directory=/etc/traefik/dynamic_conf/
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.middlewares: authelia-middleware
       traefik.http.routers.traefik-router.rule: Host(`traefik.fbc.local`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
@@ -400,6 +429,7 @@ services:
     image: louislam/uptime-kuma:latest
     labels:
       traefik.http.routers.uptimekuma-router.entrypoints: websecure
+      traefik.http.routers.uptimekuma-router.middlewares: authelia-middleware
       traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.fbc.local`)
       traefik.http.routers.uptimekuma-router.tls: "true"
       traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
@@ -428,6 +458,7 @@ services:
       start_period: 10s
     labels:
       traefik.http.routers.whatsupdocker-router.entrypoints: websecure
+      traefik.http.routers.whatsupdocker-router.middlewares: authelia-middleware
       traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker.fbc.local`)
       traefik.http.routers.whatsupdocker-router.tls: "true"
       traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"

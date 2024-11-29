@@ -1,1 +1,3 @@
-/homepage/logs
+/pope/authelia/db.sqlite3
+/pope/authelia/notification.txt
+/pope/homepage/logs
