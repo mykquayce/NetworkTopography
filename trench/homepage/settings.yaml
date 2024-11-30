@@ -17,7 +17,7 @@ layout:
   Social:
   Entertainment:
   monitoring:
-    columns: 3
+    columns: 2
     style: row
   Media Server:
     columns: 4
