@@ -20,4 +20,4 @@ scrape_configs:
       - targets: ['host.docker.internal:9273']
       - targets: ['ahti:9273']
       - targets: ['marshall:9273']
-
+      - targets: ['pope:9273']

@@ -1,0 +1,105 @@
+services:
+  certificates:
+    image: httpd:alpine
+    labels:
+      traefik.http.routers.apache-router.rule: Host(`certificates`)
+      traefik.http.services.apache-service.loadbalancer.server.port: "80"
+    secrets:
+      - source: crl_crt
+        target: /usr/local/apache2/htdocs/crl.crt
+
+  dozzle:
+    image: amir20/dozzle:latest
+    environment:
+      DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007,pope:7007
+    labels:
+      traefik.http.routers.dozzle-router.entrypoints: websecure
+      traefik.http.routers.dozzle-router.rule: Host(`dozzle.fbc.local`)
+      traefik.http.routers.dozzle-router.tls: "true"
+      traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  glances:
+    image: nicolargo/glances:latest
+    environment:
+      GLANCES_OPT: -w
+    labels:
+      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.rule: Host(`glances-trench.fbc.local`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    labels:
+      traefik.http.routers.homepage-router.entrypoints: websecure
+      traefik.http.routers.homepage-router.rule: Host(`homepage.fbc.local`)
+      traefik.http.routers.homepage-router.tls: "true"
+      traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
+    volumes:
+      - .\homepage\:/app/config/:rw
+      - .\homepage\icons\:/app/public/icons/:ro
+      - .\homepage\images\:/app/public/images/:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    labels:
+      traefik.http.routers.prometheus-router.entrypoints: websecure
+      traefik.http.routers.prometheus-router.rule: Host(`prometheus.fbc.local`)
+      traefik.http.routers.prometheus-router.tls: "true"
+      traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
+    ports:
+      - 9090:9090/tcp
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ~/prometheus-data/:/prometheus/:rw
+
+  traefik:
+    image: traefik:latest
+    command:
+      - --accesslog=true
+      - --api.insecure=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=DEBUG
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --providers.docker
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    labels:
+      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.rule: Host(`traefik.fbc.local`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+    secrets:
+      - source: localhost_crt
+        target: /etc/certs/localhost.crt
+      - source: localhost_key
+        target: /etc/certs/localhost.key
+    volumes:
+      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+
+secrets:
+  ca_crt:
+    file: ${USERPROFILE}\.aspnet\https\ca.crt
+  crl_crt:
+    file: ${USERPROFILE}\.aspnet\https\crl.crt
+  localhost_crt:
+    file: ${USERPROFILE}\.aspnet\https\server.crt
+  localhost_key:
+    file: ${USERPROFILE}\.aspnet\https\server.key
