@@ -90,6 +90,12 @@ http:
       rule: "Host(`moodist.fbc.local`)"
       service: "moodist-service"
       tls: "true"
+    n8n-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`n8n.fbc.local`)"
+      service: "n8n-service"
+      tls: "true"
     ntfy-router:
       entryPoints:
         - "websecure"
@@ -275,6 +281,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:8082/"
+    n8n-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:5678/"
     ntfy-service:
       loadBalancer:
         servers:

@@ -172,6 +172,18 @@ services:
     ports:
       - 8082:8080/tcp
 
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    environment:
+       GENERIC_TIMEZONE: UTC
+       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "false"
+       N8N_PROXY_HOPS: "1"
+       TZ: UTC
+    ports:
+      - 5678:5678/tcp
+    volumes:
+      - ~/.n8n/:/home/node/.n8n/:rw
+
   ntfy:
     image: binwiederhier/ntfy:latest
     command:
