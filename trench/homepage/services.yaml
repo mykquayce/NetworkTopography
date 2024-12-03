@@ -352,6 +352,12 @@
         icon: /icons/moodist.svg
         ping: pope
         siteMonitor: http://pope:8082
+    - n8n:
+        description: Secure, AI-native workflow automation
+        href: https://n8n.fbc.local/
+        icon: n8n.svg
+        ping: pope
+        siteMonitor: http://pope:5678
     - ntfy:
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.fbc.local/
