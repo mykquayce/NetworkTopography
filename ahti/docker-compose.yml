@@ -25,11 +25,11 @@ services:
     volumes:
       - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
       - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
-      - D:\anime\:/media/anime/:ro
-      - D:\films\:/media/films/:ro
+      - E:\anime\:/media/anime/:ro
+      - E:\films\:/media/films/:ro
       - E:\streamers\:/media/streamers/:ro
       - D:\tvshows\:/media/tv/:ro
-      - D:\videos\:/media/videos/:ro
+      - E:\videos\:/media/videos/:ro
       - E:\music\:/media/music/:ro
       - E:\pictures\:/media/pictures/:ro
       - E:\Videos\youtube\:/media/tubearchivist/:ro
@@ -107,7 +107,7 @@ services:
       - 7878:7878/tcp
     volumes:
       - ${USERPROFILE}\radarr-data/:/config/:rw
-      - D:\Films\:/movies/:rw
+      - E:\Films\:/movies/:rw
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -128,11 +128,10 @@ services:
       - 8081:8081/tcp
     volumes:
       - ${USERPROFILE}\sickgear-data\:/data/:rw
-      - D:\anime\:/media/anime/:rw
-      - D:\films\:/media/films/:rw
-      - D:\Red-Letter Media\:/media/Red-Letter Media/:rw
+      - E:\anime\:/media/anime/:rw
+      - E:\films\:/media/films/:rw
       - D:\tvshows\:/media/tv/:rw
-      - D:\videos\:/media/videos/:rw
+      - E:\videos\:/media/videos/:rw
       - E:\music\:/media/music/:rw
       - E:\pictures\:/media/pictures/:rw
 
