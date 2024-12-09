@@ -276,7 +276,7 @@ services:
       APP_TIMEZONE: UTC
       APP_URL: https://speedtest.bob.house
       DB_CONNECTION: sqlite
-      SPEEDTEST_SCHEDULE: 0 0,3,6,9,12,15,18,21 * * * #every 3rd hour
+      SPEEDTEST_SCHEDULE: 0 */3 * * * #every 3rd hour
       SPEEDTEST_SERVERS: 3504, 40628, 48181, 59135
       PRUNE_RESULTS_OLDER_THAN: 28 #28 days
     ports:
