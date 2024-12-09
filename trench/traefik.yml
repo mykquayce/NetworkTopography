@@ -174,11 +174,11 @@ http:
       rule: "Host(`sonarr.bob.house`)"
       service: "sonarr-service"
       tls: "true"
-    speedtest-tracker-router:
+    speedtest-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`speedtest-tracker.bob.house`)"
-      service: "speedtest-tracker-service"
+      rule: "Host(`speedtest.bob.house`)"
+      service: "speedtest-service"
       tls: "true"
     switch1-router:
       entryPoints:
@@ -333,7 +333,7 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8989/"
-    speedtest-tracker-service:
+    speedtest-service:
       loadBalancer:
         servers:
         - url: "http://pope:84/"
