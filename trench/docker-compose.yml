@@ -56,16 +56,16 @@ services:
   traefik:
     image: traefik:latest
     command:
-      - --accesslog=true
+      # - --accesslog=true
       - --api.insecure=true
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.email=${CF_API_EMAIL:?missing cloudflare email address}
       - --certificatesresolvers.cloudflare.acme.storage=/acme.json
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
-      - --log.level=DEBUG
+      - --log.level=INFO
       - --metrics.prometheus=true
       - --metrics.prometheus.addentrypointslabels=true
       - --metrics.prometheus.addrouterslabels=true
