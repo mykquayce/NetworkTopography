@@ -1,0 +1,363 @@
+http:
+  routers:
+    changedetection-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`changedetection.bob.house`)"
+      service: "changedetection-service"
+      tls: "true"
+    freshrss-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`freshrss.bob.house`)"
+      service: "freshrss-service"
+      tls: "true"
+    frigate-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`frigate.bob.house`)"
+      service: "frigate-service"
+      tls: "true"
+    glances-ahti-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`glances-ahti.bob.house`)"
+      service: "glances-ahti-service"
+      tls: "true"
+    glances-marshall-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`glances-marshall.bob.house`)"
+      service: "glances-marshall-service"
+      tls: "true"
+    glances-pope-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`glances-pope.bob.house`)"
+      service: "glances-pope-service"
+      tls: "true"
+    grafana-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`grafana.bob.house`)"
+      service: "grafana-service"
+      tls: "true"
+    jellyfin-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`jellyfin.bob.house`)"
+      service: "jellyfin-service"
+      tls: "true"
+    jellyseerr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`jellyseerr.bob.house`)"
+      service: "jellyseerr-service"
+      tls: "true"
+    homeassistant-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`homeassistant.bob.house`)"
+      service: "homeassistant-service"
+      tls: "true"
+    httpbin-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`httpbin.bob.house`)"
+      service: "httpbin-service"
+      tls: "true"
+    identityserver-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`identityserver.bob.house`)"
+      service: "identityserver-service"
+      tls: "true"
+    it-tools-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`it-tools.bob.house`)"
+      service: "it-tools-service"
+      tls: "true"
+    metube-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`metube.bob.house`)"
+      service: "metube-service"
+      tls: "true"
+    moodist-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`moodist.bob.house`)"
+      service: "moodist-service"
+      tls: "true"
+    n8n-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`n8n.bob.house`)"
+      service: "n8n-service"
+      tls: "true"
+    ntfy-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`ntfy.bob.house`)"
+      service: "ntfy-service"
+      tls: "true"
+    nuget-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`baget.bob.house`) || Host(`nuget.bob.house`)"
+      service: "nuget-service"
+      tls: "true"
+    lidarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`lidarr.bob.house`)"
+      service: "lidarr-service"
+      tls: "true"
+    pihole-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`pihole.bob.house`)"
+      service: "pihole-service"
+      tls: "true"
+    planka-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`planka.bob.house`)"
+      service: "planka-service"
+      tls: "true"
+    prowlarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`prowlarr.bob.house`)"
+      service: "prowlarr-service"
+      tls: "true"
+    qbittorrent-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`qbittorrent.bob.house`)"
+      service: "qbittorrent-service"
+      tls: "true"
+    radarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`radarr.bob.house`)"
+      service: "radarr-service"
+      tls: "true"
+    registry-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`registry.bob.house`)"
+      service: "registry-service"
+      tls: "true"
+    router1-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`router1.bob.house`)"
+      service: "router1-service"
+      tls: "true"
+    sickgear-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`sickgear.bob.house`)"
+      service: "sickgear-service"
+      tls: "true"
+    sabnzbd-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`sabnzbd.bob.house`)"
+      service: "sabnzbd-service"
+      tls: "true"
+    sonarr-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`sonarr.bob.house`)"
+      service: "sonarr-service"
+      tls: "true"
+    speedtest-tracker-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`speedtest-tracker.bob.house`)"
+      service: "speedtest-tracker-service"
+      tls: "true"
+    switch1-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`switch1.bob.house`)"
+      service: "switch1-service"
+      tls: "true"
+    trilium-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`trilium.bob.house`)"
+      service: "trilium-service"
+      tls: "true"
+    tubearchivist-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`tubearchivist.bob.house`)"
+      service: "tubearchivist-service"
+      tls: "true"
+    uptimekuma-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`uptimekuma.bob.house`)"
+      service: "uptimekuma-service"
+      tls: "true"
+    vikunja-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`vikunja.bob.house`)"
+      service: "vikunja-service"
+      tls: "true"
+    whatsupdocker-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`whatsupdocker.bob.house`)"
+      service: "whatsupdocker-service"
+      tls: "true"
+  services:
+    changedetection-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:5000/"
+    freshrss-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope/"
+    frigate-service:
+      loadBalancer:
+        servers:
+        - url: "http://marshall:5000/"
+    glances-ahti-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:61208/"
+    glances-marshall-service:
+      loadBalancer:
+        servers:
+        - url: "http://marshall:61208/"
+    glances-pope-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:61208/"
+    grafana-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3000/"
+    homeassistant-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:8123/"
+    httpbin-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:8081/"
+    identityserver-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:81/"
+    it-tools-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:82/"
+    jellyfin-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8096/"
+    jellyseerr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:5055/"
+    lidarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8686/"
+    metube-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8082/"
+    moodist-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:8082/"
+    n8n-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:5678/"
+    ntfy-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:27346/"
+    nuget-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:8083/"
+    pihole-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.80"
+    planka-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:1337/"
+    prowlarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:9696/"
+    radarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:7878/"
+    registry-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:83/"
+    qbittorrent-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8080/"
+    router1-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.10"
+    sabnzbd-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8083/"
+    sickgear-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8081/"
+    sonarr-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8989/"
+    speedtest-tracker-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:84/"
+    switch1-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.189/"
+    trilium-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:8084/"
+    tubearchivist-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8000/"
+    uptimekuma-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3001/"
+    vikunja-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3456/"
+    whatsupdocker-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3002/"
