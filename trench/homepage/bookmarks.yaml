@@ -11,10 +11,10 @@
         - href: https://learn.microsoft.com/en-us/shows/
           icon: microsoft.svg
     - Router 1:
-        - href: https://router1.fbc.local/
+        - href: https://router1.bob.house/
           icon: router.svg
     - Switch 1:
-        - href: https://switch1.fbc.local/
+        - href: https://switch1.bob.house/
           icon: router.svg
 
 - Social:
