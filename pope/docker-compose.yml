@@ -200,11 +200,6 @@ services:
     image: bagetter/bagetter:latest
     environment:
       ApiKey: ${NuGetServerApiKey:-8e7b324ee43b689f77c2f95b099fd6f5}
-    labels:
-      traefik.http.routers.nuget-router.entrypoints: websecure
-      traefik.http.routers.nuget-router.rule: Host(`baget.fbc.local`) || Host(`nuget.fbc.local`)
-      traefik.http.routers.nuget-router.tls: "true"
-      traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
     ports:
       - 8083:8080/tcp
     volumes:
@@ -219,7 +214,7 @@ services:
         max_attempts: 10
         window: 60s
     environment:
-      BASE_URL: https://planka.fbc.local
+      BASE_URL: https://planka.bob.house
       DATABASE_URL: postgresql://postgres@planka-db/planka
       SECRET_KEY: ${PLANKA_DB_PASSWORD:-c1ce607f5d65cbb3c68092651627426b}
       DEFAULT_ADMIN_EMAIL: demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted
@@ -279,7 +274,7 @@ services:
     environment:
       APP_KEY: base64:F2MCnwpty7/bHkZ1bqWEM8IAD05w0nNxWQQa0cBVwfE=
       APP_TIMEZONE: UTC
-      APP_URL: https://speedtest.fbc.local
+      APP_URL: https://speedtest.bob.house
       DB_CONNECTION: sqlite
       SPEEDTEST_SCHEDULE: 0 0,3,6,9,12,15,18,21 * * * #every 3rd hour
       SPEEDTEST_SERVERS: 3504, 40628, 48181, 59135
@@ -291,11 +286,6 @@ services:
 
   trilium:
     image: triliumnext/notes:latest
-    labels:
-      traefik.http.routers.trilium-router.entrypoints: websecure
-      traefik.http.routers.trilium-router.rule: Host(`trilium.fbc.local`)
-      traefik.http.routers.trilium-router.tls: "true"
-      traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
     ports:
       - 8084:8080/tcp
     volumes:
