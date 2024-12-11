@@ -1,5 +1,7 @@
-if (!(Test-Path '.\trench\acme.json')) {
-	New-Item -Force -ItemType file -Path '.\trench\acme.json';
+if (!(Test-Path '~/.certs/acme.json')) {
+	New-Item -Force -ItemType file -Path '~/.certs/acme.json';
 }
 
-wsl --exec chmod 600 ./trench/acme.json
+Push-Location '~/.certs/'
+wsl --exec chmod -v 600 ./acme.json
+Pop-Location

@@ -60,7 +60,7 @@ services:
       - --api.insecure=true
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --certificatesresolvers.cloudflare.acme.email=${CF_API_EMAIL:?missing cloudflare email address}
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/acme.json
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
@@ -73,8 +73,8 @@ services:
       - --providers.docker
       - --providers.file.directory=/etc/traefik/dynamic_conf/
     environment:
-      CF_API_EMAIL: ${CF_API_EMAIL:?missing cloudflare email address}
-      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN:?missing cloudflare api token}
+      CF_API_EMAIL: mail@bob.codes
+      CF_DNS_API_TOKEN_FILE: /CF_DNS_API_TOKEN
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
@@ -86,7 +86,8 @@ services:
     ports:
       - 443:443/tcp
     volumes:
-      - ./acme.json:/acme.json:rw
+      - ~/.certs/acme.json:/acme.json:rw
+      - ~/.certs/CF_DNS_API_TOKEN:/CF_DNS_API_TOKEN:ro
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
