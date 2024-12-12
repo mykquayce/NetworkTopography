@@ -319,11 +319,11 @@
         description: Open-source home automation platform
         href: https://homeassistant.bob.house/
         icon: home-assistant.svg
-        ping: pope
-        siteMonitor: http://pope:8123
+        ping: host.docker.internal
+        siteMonitor: http://homeassistant:8123
         widget:
           type: homeassistant
-          url: http://pope:8123
+          url: http://homeassistant:8123
           key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDZiOTUyYzYyOWU0ZDliYjFhMDVhMDMwYTAxOTdkNCIsImlhdCI6MTcyODkxODM0NywiZXhwIjoyMDQ0Mjc4MzQ3fQ.1jiQ_KHIzSI60IXJSJPYv6MOGahpinzaempeW__lLi4
           custom:
             - label: spotlight

@@ -126,13 +126,6 @@ services:
     volumes:
       - ~/grafana-data/:/var/lib/grafana/:rw
 
-  homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
-    ports:
-      - 8123:8123/tcp
-    volumes:
-      - ${USERPROFILE}\homeassistant-data\:/config/:rw
-
   httpbin:
     image: mccutchen/go-httpbin:latest
     ports:
