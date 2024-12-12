@@ -3,217 +3,217 @@ http:
     changedetection-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`changedetection.fbc.local`)"
+      rule: "Host(`changedetection.bob.house`)"
       service: "changedetection-service"
       tls: "true"
     freshrss-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`freshrss.fbc.local`)"
+      rule: "Host(`freshrss.bob.house`)"
       service: "freshrss-service"
       tls: "true"
     frigate-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`frigate.fbc.local`)"
+      rule: "Host(`frigate.bob.house`)"
       service: "frigate-service"
       tls: "true"
     glances-ahti-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances-ahti.fbc.local`)"
+      rule: "Host(`glances-ahti.bob.house`)"
       service: "glances-ahti-service"
       tls: "true"
     glances-marshall-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances-marshall.fbc.local`)"
+      rule: "Host(`glances-marshall.bob.house`)"
       service: "glances-marshall-service"
       tls: "true"
     glances-pope-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`glances-pope.fbc.local`)"
+      rule: "Host(`glances-pope.bob.house`)"
       service: "glances-pope-service"
       tls: "true"
     grafana-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`grafana.fbc.local`)"
+      rule: "Host(`grafana.bob.house`)"
       service: "grafana-service"
       tls: "true"
     jellyfin-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`jellyfin.fbc.local`)"
+      rule: "Host(`jellyfin.bob.house`)"
       service: "jellyfin-service"
       tls: "true"
     jellyseerr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`jellyseerr.fbc.local`)"
+      rule: "Host(`jellyseerr.bob.house`)"
       service: "jellyseerr-service"
       tls: "true"
     homeassistant-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`homeassistant.fbc.local`)"
+      rule: "Host(`homeassistant.bob.house`)"
       service: "homeassistant-service"
       tls: "true"
     httpbin-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`httpbin.fbc.local`)"
+      rule: "Host(`httpbin.bob.house`)"
       service: "httpbin-service"
       tls: "true"
     identityserver-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`identityserver.fbc.local`)"
+      rule: "Host(`identityserver.bob.house`)"
       service: "identityserver-service"
       tls: "true"
     it-tools-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`it-tools.fbc.local`)"
+      rule: "Host(`it-tools.bob.house`)"
       service: "it-tools-service"
       tls: "true"
     metube-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`metube.fbc.local`)"
+      rule: "Host(`metube.bob.house`)"
       service: "metube-service"
       tls: "true"
     moodist-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`moodist.fbc.local`)"
+      rule: "Host(`moodist.bob.house`)"
       service: "moodist-service"
       tls: "true"
     n8n-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`n8n.fbc.local`)"
+      rule: "Host(`n8n.bob.house`)"
       service: "n8n-service"
       tls: "true"
     ntfy-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`ntfy.fbc.local`)"
+      rule: "Host(`ntfy.bob.house`)"
       service: "ntfy-service"
       tls: "true"
     nuget-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`baget`) || Host(`nuget`) || Host(`baget.fbc.local`) || Host(`nuget.fbc.local`)"
+      rule: "Host(`baget.bob.house`) || Host(`nuget.bob.house`)"
       service: "nuget-service"
       tls: "true"
     lidarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`lidarr.fbc.local`)"
+      rule: "Host(`lidarr.bob.house`)"
       service: "lidarr-service"
       tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`pihole.fbc.local`)"
+      rule: "Host(`pihole.bob.house`)"
       service: "pihole-service"
       tls: "true"
     planka-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`planka.fbc.local`)"
+      rule: "Host(`planka.bob.house`)"
       service: "planka-service"
       tls: "true"
     prowlarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`prowlarr.fbc.local`)"
+      rule: "Host(`prowlarr.bob.house`)"
       service: "prowlarr-service"
       tls: "true"
     qbittorrent-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`qbittorrent.fbc.local`)"
+      rule: "Host(`qbittorrent.bob.house`)"
       service: "qbittorrent-service"
       tls: "true"
     radarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`radarr.fbc.local`)"
+      rule: "Host(`radarr.bob.house`)"
       service: "radarr-service"
       tls: "true"
     registry-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`registry.fbc.local`)"
+      rule: "Host(`registry.bob.house`)"
       service: "registry-service"
       tls: "true"
     router1-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`router1.fbc.local`)"
+      rule: "Host(`router1.bob.house`)"
       service: "router1-service"
       tls: "true"
     sickgear-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`sickgear.fbc.local`)"
+      rule: "Host(`sickgear.bob.house`)"
       service: "sickgear-service"
       tls: "true"
     sabnzbd-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`sabnzbd.fbc.local`)"
+      rule: "Host(`sabnzbd.bob.house`)"
       service: "sabnzbd-service"
       tls: "true"
     sonarr-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`sonarr.fbc.local`)"
+      rule: "Host(`sonarr.bob.house`)"
       service: "sonarr-service"
       tls: "true"
-    speedtest-tracker-router:
+    speedtest-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`speedtest-tracker.fbc.local`)"
-      service: "speedtest-tracker-service"
+      rule: "Host(`speedtest.bob.house`)"
+      service: "speedtest-service"
       tls: "true"
     switch1-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`switch1.fbc.local`)"
+      rule: "Host(`switch1.bob.house`)"
       service: "switch1-service"
       tls: "true"
     trilium-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`trilium.fbc.local`)"
+      rule: "Host(`trilium.bob.house`)"
       service: "trilium-service"
       tls: "true"
     tubearchivist-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`tubearchivist.fbc.local`)"
+      rule: "Host(`tubearchivist.bob.house`)"
       service: "tubearchivist-service"
       tls: "true"
     uptimekuma-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`uptimekuma.fbc.local`)"
+      rule: "Host(`uptimekuma.bob.house`)"
       service: "uptimekuma-service"
       tls: "true"
     vikunja-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`vikunja.fbc.local`)"
+      rule: "Host(`vikunja.bob.house`)"
       service: "vikunja-service"
       tls: "true"
     whatsupdocker-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`whatsupdocker.fbc.local`)"
+      rule: "Host(`whatsupdocker.bob.house`)"
       service: "whatsupdocker-service"
       tls: "true"
   services:
@@ -333,7 +333,7 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8989/"
-    speedtest-tracker-service:
+    speedtest-service:
       loadBalancer:
         servers:
         - url: "http://pope:84/"
@@ -361,8 +361,3 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:3002/"
-
-tls:
-  certificates:
-    - certFile: /etc/certs/localhost.crt
-      keyFile: /etc/certs/localhost.key

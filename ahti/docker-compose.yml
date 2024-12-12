@@ -32,7 +32,7 @@ services:
       - E:\videos\:/media/videos/:ro
       - E:\music\:/media/music/:ro
       - E:\pictures\:/media/pictures/:ro
-      - E:\Videos\youtube\:/media/tubearchivist/:ro
+      - E:\youtube\:/media/tubearchivist/:ro
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -157,7 +157,7 @@ services:
       HOST_UID: "1000"
       HOST_GID: "1000"
       TZ: UTC
-      TA_HOST: tubearchivist.fbc.local
+      TA_HOST: tubearchivist.bob.house
       TA_USERNAME: admin
       TA_PASSWORD: 4ab932e08d326ade362f1520c7aaf998405728c979c5924d4b9c3b9c41d65757
       ES_URL: http://tubearchivist-elasticsearch:9200
@@ -172,7 +172,7 @@ services:
     ports:
       - 8000:8000/tcp
     volumes:
-      - E:\Videos\youtube\:/youtube/:rw
+      - E:\youtube\:/youtube/:rw
       - ${userprofile}\tubearchivist-data\cache\:/cache/:rw
 
   tubearchivist-elasticsearch:
