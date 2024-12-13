@@ -284,14 +284,6 @@ services:
     volumes:
       - ${USERPROFILE}\trilium-data\:/home/node/trilium-data/:rw
 
-  uptimekuma:
-    image: louislam/uptime-kuma:latest
-    ports:
-      - 3001:3001/tcp
-    volumes:
-      - ${USERPROFILE}\uptimekuma-data\:/app/data/:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   vikunja:
     image: vikunja/vikunja:latest
     ports:

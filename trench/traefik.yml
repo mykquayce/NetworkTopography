@@ -192,12 +192,6 @@ http:
       rule: "Host(`tubearchivist.bob.house`)"
       service: "tubearchivist-service"
       tls: "true"
-    uptimekuma-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`uptimekuma.bob.house`)"
-      service: "uptimekuma-service"
-      tls: "true"
     vikunja-router:
       entryPoints:
         - "websecure"
@@ -339,10 +333,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8000/"
-    uptimekuma-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3001/"
     vikunja-service:
       loadBalancer:
         servers:
