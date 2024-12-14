@@ -126,13 +126,6 @@ services:
     volumes:
       - ~/grafana-data/:/var/lib/grafana/:rw
 
-  homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
-    ports:
-      - 8123:8123/tcp
-    volumes:
-      - ${USERPROFILE}\homeassistant-data\:/config/:rw
-
   httpbin:
     image: mccutchen/go-httpbin:latest
     ports:
@@ -290,14 +283,6 @@ services:
       - 8084:8080/tcp
     volumes:
       - ${USERPROFILE}\trilium-data\:/home/node/trilium-data/:rw
-
-  uptimekuma:
-    image: louislam/uptime-kuma:latest
-    ports:
-      - 3001:3001/tcp
-    volumes:
-      - ${USERPROFILE}\uptimekuma-data\:/app/data/:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   vikunja:
     image: vikunja/vikunja:latest

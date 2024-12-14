@@ -25,6 +25,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    labels:
+      traefik.http.routers.homeassistant-router.entrypoints: websecure
+      traefik.http.routers.homeassistant-router.rule: Host(`homeassistant.bob.house`)
+      traefik.http.routers.homeassistant-router.tls: "true"
+      traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
+    volumes:
+      - ~/.homeassistant/:/config/:rw
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     labels:
@@ -90,4 +100,15 @@ services:
       - ~/.certs/CF_DNS_API_TOKEN:/CF_DNS_API_TOKEN:ro
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  uptimekuma:
+    image: louislam/uptime-kuma:latest
+    labels:
+      traefik.http.routers.uptimekuma-router.entrypoints: websecure
+      traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.bob.house`)
+      traefik.http.routers.uptimekuma-router.tls: "true"
+      traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
+    volumes:
+      - ~/.uptimekuma/:/app/data/:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
