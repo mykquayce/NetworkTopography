@@ -54,12 +54,6 @@ http:
       rule: "Host(`jellyseerr.bob.house`)"
       service: "jellyseerr-service"
       tls: "true"
-    homeassistant-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`homeassistant.bob.house`)"
-      service: "homeassistant-service"
-      tls: "true"
     httpbin-router:
       entryPoints:
         - "websecure"
@@ -198,12 +192,6 @@ http:
       rule: "Host(`tubearchivist.bob.house`)"
       service: "tubearchivist-service"
       tls: "true"
-    uptimekuma-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`uptimekuma.bob.house`)"
-      service: "uptimekuma-service"
-      tls: "true"
     vikunja-router:
       entryPoints:
         - "websecure"
@@ -245,10 +233,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:3000/"
-    homeassistant-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8123/"
     httpbin-service:
       loadBalancer:
         servers:
@@ -349,10 +333,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8000/"
-    uptimekuma-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3001/"
     vikunja-service:
       loadBalancer:
         servers:
