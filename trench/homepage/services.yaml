@@ -2,7 +2,7 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services
 
-- monitoring:
+- Monitoring:
     - ahti:
         href: https://glances-ahti.bob.house/
         icon: glances.png
@@ -148,6 +148,92 @@
                   maximumFractionDigits: 1
               query: disk_used_percent{host='trench',path='\\C:'}
 
+- Essentials:
+    - Dozzle:
+        description: Real-time log viewer for docker containers
+        href: https://dozzle.bob.house/
+        icon: dozzle.svg
+        ping: host.docker.internal
+        siteMonitor: http://dozzle:8080/healthcheck
+    - Frigate:
+        description: NVR with realtime local object detection for IP cameras
+        href: https://frigate.bob.house/
+        icon: frigate.svg
+        ping: marshall.fbc.local
+        siteMonitor: http://marshall.fbc.local:5000
+        widget:
+          type: frigate
+          url: http://marshall.fbc.local:5000
+          enableRecentEvents: false
+    - Home Assistant:
+        description: Open-source home automation platform
+        href: https://homeassistant.bob.house/
+        icon: home-assistant.svg
+        ping: host.docker.internal
+        siteMonitor: http://homeassistant:8123
+        widget:
+          type: homeassistant
+          url: http://homeassistant:8123
+          key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDZiOTUyYzYyOWU0ZDliYjFhMDVhMDMwYTAxOTdkNCIsImlhdCI6MTcyODkxODM0NywiZXhwIjoyMDQ0Mjc4MzQ3fQ.1jiQ_KHIzSI60IXJSJPYv6MOGahpinzaempeW__lLi4
+          custom:
+            - label: spotlight
+              state: light.keylight
+            - label: nanoleaf
+              state: light.shapes_0324
+            - label: bedroom
+              state: light.bedroom_main
+            - label: pc
+              state: sensor.pc_current_consumption
+    - Pi-hole:
+        description: A blackhole for Internet advertisements
+        href: https://pihole.bob.house/admin
+        icon: pi-hole.svg
+        ping: 192.168.1.80
+        siteMonitor: https://pihole.bob.house/admin
+        widget:
+          type: pihole
+          url: https://pihole.bob.house
+          # version: 6 # required if running v6 or higher, defaults to 5
+          key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
+    - Prometheus:
+        description: The Prometheus monitoring system and time series database
+        href: https://prometheus.bob.house/
+        icon: prometheus.svg
+        ping: host.docker.internal
+        siteMonitor: http://prometheus:9090
+        widget:
+          type: prometheus
+          url: http://prometheus:9090
+    - Traefik:
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: host.docker.internal
+        siteMonitor: https://traefik.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik.bob.house
+    - Uptime Kuma:
+        description: Self-hosted website monitoring tool
+        href: https://uptimekuma.bob.house/dashboard/
+        icon: uptime-kuma.svg
+        ping: host.docker.internal
+        siteMonitor: http://uptimekuma:3001/dashboard/
+        widget:
+          type: uptimekuma
+          url: http://uptimekuma:3001
+          slug: statuspageslug
+    - Uptime Kuma (Work):
+        description: Self-hosted website monitoring tool
+        href: https://uptimekuma.bob.house/dashboard/
+        icon: uptime-kuma.svg
+        ping: host.docker.internal
+        siteMonitor: http://uptimekuma:3001/dashboard/
+        widget:
+          type: uptimekuma
+          url: http://uptimekuma:3001
+          slug: work
+
 - Media Server:
     - Jellyfin:
         description: Your media, on your terms
@@ -277,12 +363,6 @@
         icon: docker-moby.svg
         ping: pope
         siteMonitor: http://pope:83
-    - Dozzle:
-        description: Real-time log viewer for docker containers
-        href: https://dozzle.bob.house/
-        icon: dozzle.svg
-        ping: host.docker.internal
-        siteMonitor: http://dozzle:8080/healthcheck
     - FreshRSS:
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/
@@ -294,16 +374,6 @@
           url: http://pope
           username: df208eb1b2ee8171
           password: f79376b034765b37cc1c97404ab035846167cd9a2e7924e60116aeec0e04a55c
-    - Frigate:
-        description: NVR with realtime local object detection for IP cameras
-        href: https://frigate.bob.house/
-        icon: frigate.svg
-        ping: marshall.fbc.local
-        siteMonitor: http://marshall.fbc.local:5000
-        widget:
-          type: frigate
-          url: http://marshall.fbc.local:5000
-          enableRecentEvents: true
     - Grafana:
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -315,25 +385,6 @@
           url: http://pope:3000
           username: admin
           password: 06daab76a3828eddf82ad342c9cdf1a7
-    - Home Assistant:
-        description: Open-source home automation platform
-        href: https://homeassistant.bob.house/
-        icon: home-assistant.svg
-        ping: host.docker.internal
-        siteMonitor: http://homeassistant:8123
-        widget:
-          type: homeassistant
-          url: http://homeassistant:8123
-          key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDZiOTUyYzYyOWU0ZDliYjFhMDVhMDMwYTAxOTdkNCIsImlhdCI6MTcyODkxODM0NywiZXhwIjoyMDQ0Mjc4MzQ3fQ.1jiQ_KHIzSI60IXJSJPYv6MOGahpinzaempeW__lLi4
-          custom:
-            - label: spotlight
-              state: light.keylight
-            - label: nanoleaf
-              state: light.shapes_0324
-            - label: bedroom
-              state: light.bedroom_main
-            - label: pc
-              state: sensor.pc_current_consumption
     - httpbin:
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/
@@ -370,73 +421,24 @@
         icon: microsoft.svg
         ping: pope
         siteMonitor: http://pope:8083/v3/index.json
-    - Pi-hole:
-        description: A blackhole for Internet advertisements
-        href: https://pihole.bob.house/admin
-        icon: pi-hole.svg
-        ping: 192.168.1.80
-        siteMonitor: https://pihole.bob.house/admin
-        widget:
-          type: pihole
-          url: https://pihole.bob.house
-          # version: 6 # required if running v6 or higher, defaults to 5
-          key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
     - Planka:
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
         icon: planka.svg
         ping: pope
         siteMonitor: http://pope:1337
-    - Prometheus:
-        description: The Prometheus monitoring system and time series database
-        href: https://prometheus.bob.house/
-        icon: prometheus.svg
-        ping: host.docker.internal
-        siteMonitor: http://prometheus:9090
-        widget:
-          type: prometheus
-          url: http://prometheus:9090
     - Speedtest:
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
         ping: pope
         siteMonitor: http://pope:84/api/healthcheck
-    - Traefik:
-        description: HTTP reverse proxy and load balancer
-        href: https://traefik.bob.house/dashboard/
-        icon: traefik-proxy.svg
-        ping: host.docker.internal
-        siteMonitor: https://traefik.bob.house/dashboard/
-        widget:
-          type: traefik
-          url: https://traefik.bob.house
     - Trilium:
         description: Hierarchical note taking application
         href: https://trilium.bob.house/
         icon: trilium.svg
         ping: pope
         siteMonitor: http://pope:8084/login
-    - Uptime Kuma:
-        description: Self-hosted website monitoring tool
-        href: https://uptimekuma.bob.house/dashboard/
-        icon: uptime-kuma.svg
-        ping: host.docker.internal
-        siteMonitor: http://uptimekuma:3001/dashboard/
-        widget:
-          type: uptimekuma
-          url: http://uptimekuma:3001
-          slug: statuspageslug
-    - Uptime Kuma (Work):
-        description: Self-hosted website monitoring tool
-        href: https://uptimekuma.bob.house/dashboard/
-        icon: uptime-kuma.svg
-        ping: host.docker.internal
-        siteMonitor: http://uptimekuma:3001/dashboard/
-        widget:
-          type: uptimekuma
-          url: http://uptimekuma:3001
-          slug: work
     - Vikunja:
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
