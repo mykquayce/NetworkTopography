@@ -16,8 +16,11 @@ layout:
   Developer:
   Social:
   Entertainment:
-  monitoring:
+  Monitoring:
     columns: 2
+    style: row
+  Essentials:
+    columns: 4
     style: row
   Media Server:
     columns: 4
