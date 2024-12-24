@@ -198,12 +198,6 @@ http:
       rule: "Host(`trilium.bob.house`)"
       service: "trilium-service"
       tls: "true"
-    tubearchivist-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`tubearchivist.bob.house`)"
-      service: "tubearchivist-service"
-      tls: "true"
     vikunja-router:
       entryPoints:
         - "websecure"
@@ -349,10 +343,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:8084/"
-    tubearchivist-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8000/"
     vikunja-service:
       loadBalancer:
         servers:

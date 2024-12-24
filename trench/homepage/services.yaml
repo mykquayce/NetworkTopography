@@ -335,16 +335,6 @@
           url: https://sonarr.bob.house
           key: 26b7b613fbed470eaa2b273997c94938
           enableQueue: true
-    - Tube Archivist:
-        description: Your self hosted YouTube media server
-        href: https://tubearchivist.bob.house/
-        icon: tube-archivist.png
-        ping: ahti
-        siteMonitor: https://tubearchivist.bob.house/health
-        widget:
-          type: tubearchivist
-          url: https://tubearchivist.bob.house
-          key: 7d1f478d86cd99b39a8f0e6ed1fd2b626bb1aa45
 
 - Services:
     - Change Detection:
