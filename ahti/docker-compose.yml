@@ -54,6 +54,7 @@ services:
       - 8686:8686/tcp
     volumes:
       - ${USERPROFILE}\lidarr-data\:/config/:rw
+      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
       - E:\Music\:/music/:rw
 
   metube:
@@ -107,6 +108,7 @@ services:
       - 7878:7878/tcp
     volumes:
       - ${USERPROFILE}\radarr-data/:/config/:rw
+      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
       - E:\Films\:/movies/:rw
 
   sabnzbd:
