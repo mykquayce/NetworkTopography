@@ -236,6 +236,19 @@ services:
     volumes:
       - ${USERPROFILE}\planka-data\db:/var/lib/postgresql/data:rw
 
+  readeck:
+    image: codeberg.org/readeck/readeck:latest
+    environment:
+      READECK_LOG_LEVEL: info
+      READECK_SERVER_HOST: 0.0.0.0
+      READECK_SERVER_PORT: "8000"
+      READECK_SERVER_PREFIX: /
+      READECK_ALLOWED_HOSTS: localhost,pope,readeck.bob.house
+    ports:
+      - 8000:8000/tcp
+    volumes:
+      - ~/.readeck/:/readeck/:rw
+
   registry:
     image: registry:latest
     environment:
