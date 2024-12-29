@@ -276,6 +276,12 @@
         icon: metube.svg
         ping: ahti
         siteMonitor: https://metube.bob.house
+    - Pinchflat:
+        description: Your next YouTube media manager
+        href: https://pinchflat.bob.house/
+        icon: pinchflat.png
+        ping: ahti
+        siteMonitor: https://pinchflat.bob.house
     - Prowlarr:
         description: Indexer manager / proxy
         href: https://prowlarr.bob.house/

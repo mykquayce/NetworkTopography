@@ -71,6 +71,16 @@ services:
       - ${USERPROFILE}\metube-data\:/data/:rw
       - E:\Downloads\YouTube\:/downloads/:rw
 
+  pinchflat:
+    image: ghcr.io/kieraneglin/pinchflat:latest
+    environment:
+      TZ: Etc\UTC
+    ports:
+      - 8945:8945/tcp
+    volumes:
+      - ~/.pinchflat/:/config/:rw
+      - E:\YouTube\:/downloads/:rw
+
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     environment:
