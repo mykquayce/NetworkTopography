@@ -120,6 +120,12 @@ http:
       rule: "Host(`pihole.bob.house`)"
       service: "pihole-service"
       tls: "true"
+    pinchflat-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`pinchflat.bob.house`)"
+      service: "pinchflat-service"
+      tls: "true"
     planka-router:
       entryPoints:
         - "websecure"
@@ -291,6 +297,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.80"
+    pinchflat-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:8945/"
     planka-service:
       loadBalancer:
         servers:
