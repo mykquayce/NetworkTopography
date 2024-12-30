@@ -177,6 +177,21 @@ services:
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
 
+  netbootxyz:
+    image: lscr.io/linuxserver/netbootxyz:latest
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      PORT_RANGE: 30000:30010
+      SUBFOLDER: /
+      TZ: Etc/UTC
+    ports:
+      - 69:69/udp
+      - 3003:3000/tcp
+    volumes:
+      - ~/.netbootxyz/config/:/config/:rw
+      - ~/.netbootxyz/assets/:/assets/:rw
+
   ntfy:
     image: binwiederhier/ntfy:latest
     command:
