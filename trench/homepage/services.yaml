@@ -409,6 +409,12 @@
         icon: n8n.svg
         ping: pope
         siteMonitor: http://pope:5678
+    - netboot.xyz:
+        description: Your favourite operating systems in one place
+        href: https://netboot.bob.house/
+        icon: netboot.svg
+        ping: pope
+        siteMonitor: http://pope:3003
     - ntfy:
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/

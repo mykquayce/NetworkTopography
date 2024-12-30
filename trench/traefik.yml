@@ -90,6 +90,12 @@ http:
       rule: "Host(`n8n.bob.house`)"
       service: "n8n-service"
       tls: "true"
+    netboot-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`netboot.bob.house`)"
+      service: "netboot-service"
+      tls: "true"
     ntfy-router:
       entryPoints:
         - "websecure"
@@ -275,6 +281,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:5678/"
+    netboot-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3003/"
     ntfy-service:
       loadBalancer:
         servers:
