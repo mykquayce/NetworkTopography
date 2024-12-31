@@ -144,12 +144,6 @@ http:
       rule: "Host(`qbittorrent.bob.house`)"
       service: "qbittorrent-service"
       tls: "true"
-    readeck-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`readeck.bob.house`)"
-      service: "readeck-service"
-      tls: "true"
     radarr-router:
       entryPoints:
         - "websecure"
@@ -321,10 +315,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8080/"
-    readeck-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8000/"
     router1-service:
       loadBalancer:
         servers:
