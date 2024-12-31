@@ -407,6 +407,12 @@
           url: http://pope:3000
           username: admin
           password: 06daab76a3828eddf82ad342c9cdf1a7
+    - hoarder:
+        description: A self-hostable bookmark-everything app
+        href: https://hoarder.bob.house/
+        icon: hoarder-light.png
+        ping: pope
+        siteMonitor: http://pope:3004
     - httpbin:
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/

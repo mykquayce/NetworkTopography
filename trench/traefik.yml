@@ -54,6 +54,12 @@ http:
       rule: "Host(`jellyseerr.bob.house`)"
       service: "jellyseerr-service"
       tls: "true"
+    hoarder-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`hoarder.bob.house`)"
+      service: "hoarder-service"
+      tls: "true"
     httpbin-router:
       entryPoints:
         - "websecure"
@@ -239,6 +245,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:3000/"
+    hoarder-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3004/"
     httpbin-service:
       loadBalancer:
         servers:
