@@ -149,6 +149,16 @@
               query: disk_used_percent{host='trench',path='\\C:'}
 
 - Essentials:
+    - Authentik:
+        description: Bring all of your authentication into a unified platform
+        href: https://authentik.bob.house
+        icon: authentik.png
+        ping: host.docker.internal
+        siteMonitor: http://authentik-server:9000
+        widget:
+          type: authentik
+          url: http://authentik-server:9000
+          key: y3sqmkhTYYu63dEqpRysessaEOo8KzxCnulD7SuVAwnk1FRo4QrERPtU4ZZX
     - Dozzle:
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
