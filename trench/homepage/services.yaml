@@ -149,6 +149,16 @@
               query: disk_used_percent{host='trench',path='\\C:'}
 
 - Essentials:
+    - Authentik:
+        description: Bring all of your authentication into a unified platform
+        href: https://authentik.bob.house
+        icon: authentik.png
+        ping: host.docker.internal
+        siteMonitor: http://authentik-server:9000
+        widget:
+          type: authentik
+          url: http://authentik-server:9000
+          key: y3sqmkhTYYu63dEqpRysessaEOo8KzxCnulD7SuVAwnk1FRo4QrERPtU4ZZX
     - Dozzle:
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
@@ -195,6 +205,29 @@
           url: https://pihole.bob.house
           # version: 6 # required if running v6 or higher, defaults to 5
           key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
+    - Portainer:
+        description: Making Docker and Kubernetes management easy
+        href: https://portainer.bob.house/
+        icon: portainer.svg
+        ping: host.docker.internal
+        siteMonitor: http://portainer:9000
+        widgets:
+          - type: portainer
+            url: http://portainer:9000
+            env: 4
+            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+          - type: portainer
+            url: http://portainer:9000
+            env: 5
+            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+          - type: portainer
+            url: http://portainer:9000
+            env: 3
+            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+          - type: portainer
+            url: http://portainer:9000
+            env: 2
+            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
     - Prometheus:
         description: The Prometheus monitoring system and time series database
         href: https://prometheus.bob.house/
@@ -219,20 +252,13 @@
         icon: uptime-kuma.svg
         ping: host.docker.internal
         siteMonitor: http://uptimekuma:3001/dashboard/
-        widget:
-          type: uptimekuma
-          url: http://uptimekuma:3001
-          slug: statuspageslug
-    - Uptime Kuma (IOT):
-        description: Self-hosted website monitoring tool
-        href: https://uptimekuma.bob.house/dashboard/
-        icon: uptime-kuma.svg
-        ping: host.docker.internal
-        siteMonitor: http://uptimekuma:3001/dashboard/
-        widget:
-          type: uptimekuma
-          url: http://uptimekuma:3001
-          slug: iot
+        widgets:
+          - type: uptimekuma
+            url: http://uptimekuma:3001
+            slug: statuspageslug
+          - type: uptimekuma
+            url: http://uptimekuma:3001
+            slug: iot
 
 - Media Server:
     - Jellyfin:
