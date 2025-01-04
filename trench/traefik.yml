@@ -54,6 +54,12 @@ http:
       rule: "Host(`jellyseerr.bob.house`)"
       service: "jellyseerr-service"
       tls: "true"
+    hoarder-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`hoarder.bob.house`)"
+      service: "hoarder-service"
+      tls: "true"
     httpbin-router:
       entryPoints:
         - "websecure"
@@ -143,12 +149,6 @@ http:
         - "websecure"
       rule: "Host(`qbittorrent.bob.house`)"
       service: "qbittorrent-service"
-      tls: "true"
-    readeck-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`readeck.bob.house`)"
-      service: "readeck-service"
       tls: "true"
     radarr-router:
       entryPoints:
@@ -245,6 +245,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:3000/"
+    hoarder-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:3004/"
     httpbin-service:
       loadBalancer:
         servers:
@@ -321,10 +325,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8080/"
-    readeck-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8000/"
     router1-service:
       loadBalancer:
         servers:
