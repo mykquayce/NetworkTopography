@@ -126,6 +126,39 @@ services:
     volumes:
       - ~/grafana-data/:/var/lib/grafana/:rw
 
+  hoarder:
+    image: ghcr.io/hoarder-app/hoarder:latest
+    environment:
+      BROWSER_WEB_URL: http://hoarder-chrome:9222
+      DATA_DIR: /data
+      MEILI_ADDR: http://hoarder-meilisearch:7700
+      MEILI_MASTER_KEY: 34257a2741f77a1b738890d954e0ff14f09d03ebec6cca7e9d89459353186fb8
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: c72c311cf5d7fd0f69120e058147cad564ad92b34a5e2955421fd845d191730d
+    ports:
+      - 3004:3000/tcp
+    volumes:
+      - ./.hoarder/data/:/data/:rw
+
+  hoarder-chrome:
+    image: gcr.io/zenika-hub/alpine-chrome:latest
+    command:
+      - --disable-dev-shm-usage
+      - --disable-gpu
+      - --hide-scrollbars
+      - --no-sandbox
+      - --remote-debugging-address=0.0.0.0
+      - --remote-debugging-port=9222
+
+  hoarder-meilisearch:
+    image: getmeili/meilisearch:latest
+    environment:
+      MEILI_ADDR: http://127.0.0.1:7700
+      MEILI_MASTER_KEY: 34257a2741f77a1b738890d954e0ff14f09d03ebec6cca7e9d89459353186fb8
+      MEILI_NO_ANALYTICS: "true"
+    volumes:
+      - ./.hoarder/meilisearch/:/meili_data/:rw
+
   httpbin:
     image: mccutchen/go-httpbin:latest
     ports:
@@ -259,19 +292,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
       - C:\:/host/:rw
-
-  readeck:
-    image: codeberg.org/readeck/readeck:latest
-    environment:
-      READECK_LOG_LEVEL: info
-      READECK_SERVER_HOST: 0.0.0.0
-      READECK_SERVER_PORT: "8000"
-      READECK_SERVER_PREFIX: /
-      READECK_ALLOWED_HOSTS: localhost,pope,readeck.bob.house
-    ports:
-      - 8000:8000/tcp
-    volumes:
-      - ~/.readeck/:/readeck/:rw
 
   registry:
     image: registry:latest
