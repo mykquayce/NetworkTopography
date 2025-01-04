@@ -119,8 +119,10 @@ services:
     image: grafana/grafana-oss:latest
     environment:
       GF_ENABLE_GZIP: "true"
-      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?grafana admin password required}
       GF_USERS_ALLOW_SIGN_UP: "false"
+    env_file:
+      - .env
     ports:
       - 3000:3000/tcp
     volumes:
@@ -132,9 +134,11 @@ services:
       BROWSER_WEB_URL: http://hoarder-chrome:9222
       DATA_DIR: /data
       MEILI_ADDR: http://hoarder-meilisearch:7700
-      MEILI_MASTER_KEY: 34257a2741f77a1b738890d954e0ff14f09d03ebec6cca7e9d89459353186fb8
+      MEILI_MASTER_KEY: ${HOARDER_MEILI_MASTER_KEY:?hoarder meili key required}
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: c72c311cf5d7fd0f69120e058147cad564ad92b34a5e2955421fd845d191730d
+      NEXTAUTH_SECRET: ${HOARDER_NEXTAUTH_SECRET:?hoarder auth key required}
+    env_file:
+      - .env
     ports:
       - 3004:3000/tcp
     volumes:
@@ -154,8 +158,10 @@ services:
     image: getmeili/meilisearch:latest
     environment:
       MEILI_ADDR: http://127.0.0.1:7700
-      MEILI_MASTER_KEY: 34257a2741f77a1b738890d954e0ff14f09d03ebec6cca7e9d89459353186fb8
+      MEILI_MASTER_KEY: ${HOARDER_MEILI_MASTER_KEY:?hoarder meili key required}
       MEILI_NO_ANALYTICS: "true"
+    env_file:
+      - .env
     volumes:
       - ./.hoarder/meilisearch/:/meili_data/:rw
 
@@ -240,7 +246,9 @@ services:
   nuget:
     image: bagetter/bagetter:latest
     environment:
-      ApiKey: ${NuGetServerApiKey:-8e7b324ee43b689f77c2f95b099fd6f5}
+      ApiKey: ${NUGET_API_KEY:-8e7b324ee43b689f77c2f95b099fd6f5}
+    env_file:
+      - .env
     ports:
       - 8083:8080/tcp
     volumes:
@@ -262,6 +270,8 @@ services:
       DEFAULT_ADMIN_NAME: Demo Demo
       DEFAULT_ADMIN_PASSWORD: demo
       DEFAULT_ADMIN_USERNAME: demo
+    env_file:
+      - .env
     ports:
       - 1337:1337/tcp
     volumes:
@@ -298,6 +308,8 @@ services:
     environment:
       REGISTRY_HTTP_SECRET: ${DOCKER_REGISTRY_HTTP_SECRET:-b3879bfc703da640b9e74cc001d05a4dz}
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data/
+    env_file:
+      - .env
     volumes:
       - ${USERPROFILE}\registry-data\data\:/data/:rw
       - ${USERPROFILE}\registry-data\library\:/var/lib/registry/:rw
@@ -322,13 +334,15 @@ services:
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
     environment:
-      APP_KEY: base64:F2MCnwpty7/bHkZ1bqWEM8IAD05w0nNxWQQa0cBVwfE=
+      APP_KEY: ${SPEEDTEST_TRACKER_APP_KEY:?speedtest-tracker key required}
       APP_TIMEZONE: UTC
       APP_URL: https://speedtest.bob.house
       DB_CONNECTION: sqlite
       SPEEDTEST_SCHEDULE: 0 */3 * * * #every 3rd hour
       SPEEDTEST_SERVERS: 3504, 40628, 48181, 59135
       PRUNE_RESULTS_OLDER_THAN: 28 #28 days
+    env_file:
+      - .env
     ports:
       - 84:80/tcp
     volumes:
