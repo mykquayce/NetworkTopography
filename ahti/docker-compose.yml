@@ -18,6 +18,28 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      VPN_SERVICE_PROVIDER: protonvpn
+      VPN_TYPE: openvpn
+      OPENVPN_USER: ${OPENVPN_USER:?openvpn user required}
+      OPENVPN_PASSWORD: ${OPENVPN_PASSWORD:?openvpn password required}
+      SERVER_COUNTRIES: ${OPENVPN_COUNTRIES:?openvpn countries required}
+      TZ: Etc/UTC
+      UPDATER_PERIOD: 24h
+    env_file:
+      - .env
+    ports:
+      - 9696:9696/tcp # prowlar
+      - 6881:6881/tcp # qbittorrent
+      - 6881:6881/udp
+      - 8080:8080/tcp
+
   jellyfin:
     image: jellyfin/jellyfin:latest
     ports:
@@ -92,27 +114,29 @@ services:
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
+    depends_on:
+      gluetun:
+        condition: service_healthy
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Etc/UTC
-    ports:
-      - 9696:9696/tcp
+    network_mode: service:gluetun
     volumes:
       - ${USERPROFILE}\prowlarr-data\:/config/:rw
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
+    depends_on:
+      gluetun:
+        condition: service_healthy
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Etc/UTC
       WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
-    ports:
-      - 6881:6881/tcp
-      - 6881:6881/udp
-      - 8080:8080/tcp
+    network_mode: service:gluetun
     volumes:
       - ${USERPROFILE}\qbittorrent-data\:/config/:rw
       - E:\Downloads\:/downloads/:rw
