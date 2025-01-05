@@ -385,6 +385,12 @@
         icon: docker-moby.svg
         ping: pope
         siteMonitor: http://pope:83
+    - Donetick:
+        description: Simplify Tasks & Chores, Together
+        href: https://donetick.bob.house/
+        icon: /icons/donetick.svg
+        ping: pope
+        siteMonitor: http://pope:2021
     - FreshRSS:
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/

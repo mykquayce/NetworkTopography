@@ -83,6 +83,17 @@ services:
     volumes:
       - ${USERPROFILE}\changedetection-data\:/datastore/:rw
 
+  donetick:
+    image: donetick/donetick:latest
+    environment:
+      DT_ENV: selfhosted
+      DT_SQLITE_PATH: /donetick-data/donetick.db
+    ports:
+      - 2021:2021/tcp
+    volumes:
+      - ~/.donetick/:/donetick-data/:rw
+      - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
+
   dozzle:
     image: amir20/dozzle:latest
     command: agent

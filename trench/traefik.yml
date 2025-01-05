@@ -6,6 +6,12 @@ http:
       rule: "Host(`changedetection.bob.house`)"
       service: "changedetection-service"
       tls: "true"
+    donetick-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`donetick.bob.house`)"
+      service: "donetick-service"
+      tls: "true"
     freshrss-router:
       entryPoints:
         - "websecure"
@@ -221,6 +227,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:5000/"
+    donetick-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:2021/"
     freshrss-service:
       loadBalancer:
         servers:
