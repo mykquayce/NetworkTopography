@@ -34,7 +34,7 @@ layout:
     style: row
 
 providers:
-  finnhub: crs8q5pr01qvrlsu2gsgcrs8q5pr01qvrlsu2gt0
+  finnhub: {{HOMEPAGE_VAR_PROVIDERS_FINNHUB}}
   openweathermap: openweathermapapikey
   weatherapi: weatherapiapikey
 

@@ -158,7 +158,7 @@
         widget:
           type: authentik
           url: http://authentik-server:9000
-          key: y3sqmkhTYYu63dEqpRysessaEOo8KzxCnulD7SuVAwnk1FRo4QrERPtU4ZZX
+          key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
     - Dozzle:
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
@@ -184,7 +184,7 @@
         widget:
           type: homeassistant
           url: http://homeassistant:8123
-          key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDZiOTUyYzYyOWU0ZDliYjFhMDVhMDMwYTAxOTdkNCIsImlhdCI6MTcyODkxODM0NywiZXhwIjoyMDQ0Mjc4MzQ3fQ.1jiQ_KHIzSI60IXJSJPYv6MOGahpinzaempeW__lLi4
+          key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
           custom:
             - label: spotlight
               state: light.keylight
@@ -204,7 +204,7 @@
           type: pihole
           url: https://pihole.bob.house
           # version: 6 # required if running v6 or higher, defaults to 5
-          key: 3e8964b5fabacdb7cb983a50c7d92f4fc80a52f9d9875ae6ac2dbeab5ee134b9 # optional
+          key: {{HOMEPAGE_VAR_PIHOLE_KEY}} # optional
     - Portainer:
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
@@ -215,19 +215,19 @@
           - type: portainer
             url: http://portainer:9000
             env: 4
-            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: http://portainer:9000
             env: 5
-            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: http://portainer:9000
             env: 3
-            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: http://portainer:9000
             env: 2
-            key: ptr_p9zxDD87yloAA/uJsSw3YBE3OqkHs/1SoSQlapc0VS0=
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus:
         description: The Prometheus monitoring system and time series database
         href: https://prometheus.bob.house/
@@ -270,7 +270,7 @@
         widget:
           type: jellyfin
           url: https://jellyfin.bob.house
-          key: 5fe7b340a49c445e85c028594fa7e57e
+          key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
           enableBlocks: true # optional, defaults to false
           enableNowPlaying: true # optional, defaults to true
           enableUser: true # optional, defaults to false
@@ -285,7 +285,7 @@
         widget:
           type: jellyseerr
           url: https://jellyseerr.bob.house
-          key: MTczMTgzMzY3MDAxMThlNGE3N2EwLWQ2NWItNDgxNi04Y2VjLWE1YzAzN2FkMjc4NQ==
+          key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
     - Lidarr:
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
@@ -295,7 +295,7 @@
         widget:
           type: lidarr
           url: https://lidarr.bob.house
-          key: 660391ff2d8d478ea0b95c9330745daf
+          key: {{HOMEPAGE_VAR_LIDARR_KEY}}
     - MeTube:
         description: Web UI for youtube-dl / yt-dlp
         href: https://metube.bob.house/
@@ -317,7 +317,7 @@
         widget:
           type: prowlarr
           url: https://prowlarr.bob.house
-          key: 8fb67584ab6f42b09e02d93fd3f0e1d3
+          key: {{HOMEPAGE_VAR_PROWLARR_KEY}}
     - qBittorrent:
         description: A BitTorrent client in Qt
         href: https://qbittorrent.bob.house
@@ -327,8 +327,8 @@
         widget:
           type: qbittorrent
           url: https://qbittorrent.bob.house
-          username: admin
-          password: password
+          username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
+          password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
     - Radarr:
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
@@ -338,7 +338,7 @@
         widget:
           type: radarr
           url: https://radarr.bob.house
-          key: 5f8d3784c8c54ff6b49c3b6f4700d649
+          key: {{HOMEPAGE_VAR_RADARR_KEY}}
           enableQueue: true # optional, defaults to false
     - SABnzbd:
         description: Free and easy binary newsreader
@@ -349,7 +349,7 @@
         widget:
           type: sabnzbd
           url: https://sabnzbd.bob.house
-          key: 5949065fc49247269b110d8ce426e195
+          key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
     - Sick Gear:
         description: Fully automate TV enjoyment
         href: https://sickgear.bob.house/
@@ -365,7 +365,7 @@
         widget:
           type: sonarr
           url: https://sonarr.bob.house
-          key: 26b7b613fbed470eaa2b273997c94938
+          key: {{HOMEPAGE_VAR_SONARR_KEY}}
           enableQueue: true
 
 - Services:
@@ -378,7 +378,7 @@
         widget:
           type: changedetectionio
           url: http://pope:5000
-          key: b907fb20b376747d27db01e8e4056ce7
+          key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
     - Docker Registry:
         description: UI for your private docker registry
         href: https://registry.bob.house/
@@ -394,8 +394,8 @@
         widget:
           type: freshrss
           url: http://pope
-          username: df208eb1b2ee8171
-          password: f79376b034765b37cc1c97404ab035846167cd9a2e7924e60116aeec0e04a55c
+          username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
+          password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
     - Grafana:
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -405,8 +405,8 @@
         widget:
           type: grafana
           url: http://pope:3000
-          username: admin
-          password: 06daab76a3828eddf82ad342c9cdf1a7
+          username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+          password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
     - hoarder:
         description: A self-hostable bookmark-everything app
         href: https://hoarder.bob.house/
@@ -482,7 +482,7 @@
         widget:
           type: vikunja
           url: http://pope:3456
-          key: tk_a44cad21abd01102306dd754bc9527ef01b8b0cc
+          key: {{HOMEPAGE_VAR_VIKUNJA_KEY}}
           enableTaskList: true
     - What's Up Docker:
         description: Gets you notified when a new version of your Docker Container is available
