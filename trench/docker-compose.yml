@@ -122,6 +122,8 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    env_file:
+      - ./.env
     labels:
       traefik.http.routers.homepage-router.entrypoints: websecure
       traefik.http.routers.homepage-router.rule: Host(`homepage.bob.house`)
