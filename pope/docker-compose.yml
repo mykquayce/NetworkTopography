@@ -267,12 +267,9 @@ services:
 
   planka:
     image: ghcr.io/plankanban/planka:latest
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 10
-        window: 60s
+    depends_on:
+      planka-db:
+        condition: service_healthy
     environment:
       BASE_URL: https://planka.bob.house
       DATABASE_URL: postgresql://postgres@planka-db/planka
@@ -281,6 +278,11 @@ services:
       DEFAULT_ADMIN_NAME: Demo Demo
       DEFAULT_ADMIN_PASSWORD: demo
       DEFAULT_ADMIN_USERNAME: demo
+      OIDC_ISSUER: https://authentik.bob.house/application/o/planka/
+      OIDC_CLIENT_ID: ${PLANKA_OIDC_CLIENT_ID:?planka oidc client secret id required}
+      OIDC_CLIENT_SECRET: ${PLANKA_OIDC_CLIENT_SECRET:?planka oidc client secret required}
+      OIDC_SCOPES: openid profile email
+      OIDC_ADMIN_ROLES: authentik Admins
     env_file:
       - .env
     ports:
