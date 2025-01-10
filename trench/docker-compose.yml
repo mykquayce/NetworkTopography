@@ -119,6 +119,11 @@ services:
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
     volumes:
       - ~/.homeassistant/:/config/:rw
+      - ./homeassistant/automations.yaml:/config/automations.yaml:rw
+      - ./homeassistant/configuration.yaml:/config/configuration.yaml:rw
+      - ./homeassistant/scenes.yaml:/config/scenes.yaml:rw
+      - ./homeassistant/scripts.yaml:/config/scripts.yaml:rw
+      - ./homeassistant/secrets.yaml:/config/secrets.yaml:rw
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
