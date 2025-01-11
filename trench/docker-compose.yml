@@ -13,6 +13,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    networks:
+      authentik: null
     volumes:
       - ~/.authentik/postgres/:/var/lib/postgresql/data/:rw
 
@@ -25,6 +27,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 3s
+    networks:
+      authentik: null
     volumes:
       - ~/.authentik/redis/:/data/:rw
 
@@ -50,6 +54,10 @@ services:
       traefik.http.routers.authentik-router.rule: Host(`authentik.bob.house`)
       traefik.http.routers.authentik-router.tls: "true"
       traefik.http.services.authentik-service.loadbalancer.server.port: "9000"
+    networks:
+      authentik: null
+      _proxy:
+        ipv4_address: 172.18.0.3
     volumes:
       - ~/.authentik/media/:/media/:rw
       - ~/.authentik/custom-templates/:/templates/:rw
@@ -77,6 +85,8 @@ services:
     # Removing `user: root` also prevents the worker from fixing the permissions
     # on the mounted folders, so when removing this make sure the folders have the correct UID/GID
     # (1000:1000 by default)
+    networks:
+      authentik: null
     user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
@@ -93,6 +103,9 @@ services:
       traefik.http.routers.dozzle-router.rule: Host(`dozzle.bob.house`)
       traefik.http.routers.dozzle-router.tls: "true"
       traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.4
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
@@ -105,6 +118,9 @@ services:
       traefik.http.routers.glances-router.rule: Host(`glances-trench.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.5
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -117,6 +133,9 @@ services:
       traefik.http.routers.homeassistant-router.rule: Host(`homeassistant.bob.house`)
       traefik.http.routers.homeassistant-router.tls: "true"
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.6
     volumes:
       - ~/.homeassistant/:/config/:rw
       - ./homeassistant/automations.yaml:/config/automations.yaml:rw
@@ -134,6 +153,9 @@ services:
       traefik.http.routers.homepage-router.rule: Host(`homepage.bob.house`)
       traefik.http.routers.homepage-router.tls: "true"
       traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.7
     volumes:
       - .\homepage\:/app/config/:rw
       - .\homepage\icons\:/app/public/icons/:ro
@@ -147,6 +169,9 @@ services:
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
       traefik.http.routers.portainer-router.tls: "true"
       traefik.http.services.portainer-service.loadbalancer.server.port: "9000"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.8
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - ~/.portainer/:/data/:rw
@@ -160,6 +185,9 @@ services:
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.bob.house`)
       traefik.http.routers.prometheus-router.tls: "true"
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.9
     ports:
       - 9090:9090/tcp
     volumes:
@@ -195,6 +223,9 @@ services:
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
       traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.2
     ports:
       - 443:443/tcp
     volumes:
@@ -211,6 +242,19 @@ services:
       traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.bob.house`)
       traefik.http.routers.uptimekuma-router.tls: "true"
       traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
+    networks:
+      _proxy:
+        ipv4_address: 172.18.0.10
     volumes:
       - ~/.uptimekuma/:/app/data/:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  _proxy:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/26
+  authentik:
+    driver: bridge
+    internal: "true"
