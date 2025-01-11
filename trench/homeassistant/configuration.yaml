@@ -12,7 +12,7 @@ scene: !include scenes.yaml
 
 http:
   use_x_forwarded_for: true
-  trusted_proxies: 172.18.0.10 # needs to be the ip of Traefik
+  trusted_proxies: 172.18.0.2 # needs to be the ip of Traefik
 
 homeassistant:
   auth_providers:
