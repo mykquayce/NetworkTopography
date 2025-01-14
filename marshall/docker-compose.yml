@@ -9,14 +9,13 @@ services:
 
   frigate:
     image: ghcr.io/blakeblackshear/frigate:stable
-    devices:
-      - /dev/apex_0:/dev/apex_0
-    environment:
-      FRIGATE_RTSP_PASSWORD: ${FRIGATE_RTSP_PASSWORD:-d2553245df3caca802ffe5dfb8d85a22}
+    env_file:
+      - ./.env
     ports:
       - 5000:5000/tcp
     shm_size: "128mb"
     volumes:
+      - ./frigate.yaml:/config/config.yaml:rw
       - ~/.frigate/config/:/config/:rw
       - ~/.frigate/media/:/media/frigate/:rw
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
