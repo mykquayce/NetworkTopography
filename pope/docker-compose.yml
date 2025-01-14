@@ -106,6 +106,12 @@ services:
     image: freshrss/freshrss:latest
     environment:
       CRON_MIN: 3,33
+      OIDC_ENABLED: "1"
+      OIDC_PROVIDER_METADATA_URL: https://authentik.bob.house/application/o/freshrss/.well-known/openid-configuration
+      OIDC_CLIENT_ID: JfGymYkQvKfsAvppRqCN9hq2nPBLV5dgManr2sWU
+      OIDC_CLIENT_SECRET: I8zINKUxspk7oJhQ6I1ssnxAkrW6xoPSiebdj2srP9T6GH2LqIrkX27gQMRIoQ25FZvu1UgHd70AvYtt4oidqXSSohwhUzgdEno1NfIrdNMQnMUeL1UlBoiIJLwl3b6S
+      OIDC_X_FORWARDED_HEADERS: X-Forwarded-Port X-Forwarded-Proto X-Forwarded-Host
+      OIDC_SCOPES: openid email profile
       TZ: UTC
     logging:
       options:
