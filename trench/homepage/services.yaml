@@ -42,7 +42,7 @@
     - marshall:
         href: https://glances-marshall.bob.house/
         icon: glances.png
-        ping: marshall.bob.house
+        ping: marshall
         siteMonitor: https://glances-marshall.bob.house/api/4/status
         widget:
           type: prometheusmetric
@@ -68,13 +68,13 @@
                 type: bytes
                 options:
                   maximumFractionDigits: 1
-              query: disk_free{host='marshall',path='/'}
+              query: disk_free{host='marshall',path='\\C:'}
             - label: disk used
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
-              query: disk_used_percent{host='marshall',path='/'}
+              query: disk_used_percent{host='marshall',path='\\C:'}
     - pope:
         href: https://glances-pope.bob.house/
         icon: glances.png
@@ -332,7 +332,7 @@
     - Radarr:
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
-        icon: radarr-light.png
+        icon: radarr.svg
         ping: ahti
         siteMonitor: https://radarr.bob.house
         widget:
@@ -343,7 +343,7 @@
     - SABnzbd:
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
-        icon: sabnzbd-alt.svg
+        icon: sabnzbd.svg
         ping: ahti
         siteMonitor: https://sabnzbd.bob.house
         widget:
@@ -372,7 +372,7 @@
     - Change Detection:
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection.bob.house/
-        icon: changedetection-io.png
+        icon: changedetection.svg
         ping: pope
         siteMonitor: http://pope:5000
         widget:
@@ -397,11 +397,6 @@
         icon: freshrss.svg
         ping: pope
         siteMonitor: http://pope:80/i/
-        widget:
-          type: freshrss
-          url: http://pope
-          username: {{HOMEPAGE_VAR_FRESHRSS_USERNAME}}
-          password: {{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}
     - Grafana:
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -452,7 +447,7 @@
     - ntfy:
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/
-        icon: ntfy-light.png
+        icon: ntfy.svg
         ping: pope
         siteMonitor: http://pope:27346
     - NuGet:
