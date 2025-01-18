@@ -136,10 +136,9 @@ services:
     image: grafana/grafana-oss:latest
     environment:
       GF_ENABLE_GZIP: "true"
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?grafana admin password required}
       GF_USERS_ALLOW_SIGN_UP: "false"
     env_file:
-      - .env
+      - ~/Configurations/grafana.env
     ports:
       - 3000:3000/tcp
     volumes:
@@ -151,11 +150,9 @@ services:
       BROWSER_WEB_URL: http://hoarder-chrome:9222
       DATA_DIR: /data
       MEILI_ADDR: http://hoarder-meilisearch:7700
-      MEILI_MASTER_KEY: ${HOARDER_MEILI_MASTER_KEY:?hoarder meili key required}
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: ${HOARDER_NEXTAUTH_SECRET:?hoarder auth key required}
     env_file:
-      - .env
+      - ~/Configurations/hoarder.env
     ports:
       - 3004:3000/tcp
     volumes:
@@ -175,10 +172,9 @@ services:
     image: getmeili/meilisearch:latest
     environment:
       MEILI_ADDR: http://127.0.0.1:7700
-      MEILI_MASTER_KEY: ${HOARDER_MEILI_MASTER_KEY:?hoarder meili key required}
       MEILI_NO_ANALYTICS: "true"
     env_file:
-      - .env
+      - ~/Configurations/hoarder.env
     volumes:
       - ~/.hoarder/meilisearch/:/meili_data/:rw
 
@@ -262,10 +258,8 @@ services:
 
   nuget:
     image: bagetter/bagetter:latest
-    environment:
-      ApiKey: ${NUGET_API_KEY:-8e7b324ee43b689f77c2f95b099fd6f5}
     env_file:
-      - .env
+      - ~/Configurations/nuget.env
     ports:
       - 8083:8080/tcp
     volumes:
@@ -279,18 +273,15 @@ services:
     environment:
       BASE_URL: https://planka.bob.house
       DATABASE_URL: postgresql://postgres@planka-db/planka
-      SECRET_KEY: ${PLANKA_DB_PASSWORD:-c1ce607f5d65cbb3c68092651627426b}
       DEFAULT_ADMIN_EMAIL: demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted
       DEFAULT_ADMIN_NAME: Demo Demo
       DEFAULT_ADMIN_PASSWORD: demo
       DEFAULT_ADMIN_USERNAME: demo
       OIDC_ISSUER: https://authentik.bob.house/application/o/planka/
-      OIDC_CLIENT_ID: ${PLANKA_OIDC_CLIENT_ID:?planka oidc client secret id required}
-      OIDC_CLIENT_SECRET: ${PLANKA_OIDC_CLIENT_SECRET:?planka oidc client secret required}
       OIDC_SCOPES: openid profile email
       OIDC_ADMIN_ROLES: authentik Admins
     env_file:
-      - .env
+      - ~/Configurations/planka.env
     ports:
       - 1337:1337/tcp
     volumes:
@@ -325,10 +316,9 @@ services:
   registry:
     image: registry:latest
     environment:
-      REGISTRY_HTTP_SECRET: ${DOCKER_REGISTRY_HTTP_SECRET:-b3879bfc703da640b9e74cc001d05a4dz}
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data/
     env_file:
-      - .env
+      - ~/Configurations/registry.env
     volumes:
       - ${USERPROFILE}\registry-data\data\:/data/:rw
       - ${USERPROFILE}\registry-data\library\:/var/lib/registry/:rw
@@ -353,7 +343,6 @@ services:
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
     environment:
-      APP_KEY: ${SPEEDTEST_TRACKER_APP_KEY:?speedtest-tracker key required}
       APP_TIMEZONE: UTC
       APP_URL: https://speedtest.bob.house
       DB_CONNECTION: sqlite
@@ -361,7 +350,7 @@ services:
       SPEEDTEST_SERVERS: 3504, 40628, 48181, 59135
       PRUNE_RESULTS_OLDER_THAN: 28 #28 days
     env_file:
-      - .env
+      - ~/Configurations/speedtest-tracker.env
     ports:
       - 84:80/tcp
     volumes:

@@ -25,15 +25,10 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
-      VPN_SERVICE_PROVIDER: protonvpn
-      VPN_TYPE: openvpn
-      OPENVPN_USER: ${OPENVPN_USER:?openvpn user required}
-      OPENVPN_PASSWORD: ${OPENVPN_PASSWORD:?openvpn password required}
-      SERVER_COUNTRIES: ${OPENVPN_COUNTRIES:?openvpn countries required}
       TZ: Etc/UTC
       UPDATER_PERIOD: 24h
     env_file:
-      - .env
+      - ~/Configurations/gluetun.env
     ports:
       - 8096:8096/tcp # jellyfin
       - 5055:5055/tcp # jellyseerr
