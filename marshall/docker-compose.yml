@@ -10,7 +10,7 @@ services:
   frigate:
     image: ghcr.io/blakeblackshear/frigate:stable
     env_file:
-      - ./.env
+      - ~/Configurations/frigate.env
     ports:
       - 5000:5000/tcp
     shm_size: "128mb"

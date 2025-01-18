@@ -1,12 +1,8 @@
 services:
   authentik-postgresql:
     image: docker.io/library/postgres:alpine
-    environment:
-      POSTGRES_DB: ${AUTHENTIK_POSTGRES_DB:-authentik}
-      POSTGRES_PASSWORD: ${AUTHENTIK_POSTGRES_PASSWORD:?database password required}
-      POSTGRES_USER: ${AUTHENTIK_POSTGRES_USER:-authentik}
     env_file:
-      - .env
+      - ~/Configurations/authentik.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 20s
@@ -43,12 +39,8 @@ services:
     environment:
       AUTHENTIK_REDIS__HOST: authentik-redis
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
-      AUTHENTIK_POSTGRESQL__NAME: ${AUTHENTIK_POSTGRES_DB:-authentik}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${AUTHENTIK_POSTGRES_PASSWORD:?postgres database password required}
-      AUTHENTIK_POSTGRESQL__USER: ${AUTHENTIK_POSTGRES_USER:-authentik}
-      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?authentik secret key required}
     env_file:
-      - .env
+      - ~/Configurations/authentik.env
     labels:
       traefik.http.routers.authentik-router.entrypoints: websecure
       traefik.http.routers.authentik-router.rule: Host(`authentik.bob.house`)
@@ -73,12 +65,8 @@ services:
     environment:
       AUTHENTIK_REDIS__HOST: authentik-redis
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
-      AUTHENTIK_POSTGRESQL__NAME: ${AUTHENTIK_POSTGRES_DB:-authentik}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${AUTHENTIK_POSTGRES_PASSWORD:?postgres database password required}
-      AUTHENTIK_POSTGRESQL__USER: ${AUTHENTIK_POSTGRES_USER:-authentik}
-      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?authentik secret key required}
     env_file:
-      - .env
+      - ~/Configurations/authentik.env
     # `user: root` and the docker socket volume are optional.
     # See more for the docker socket integration here:
     # https://goauthentik.io/docs/outposts/integrations/docker
@@ -147,7 +135,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     env_file:
-      - ./.env
+      - ~/Configurations/homepage.env
     labels:
       traefik.http.routers.homepage-router.entrypoints: websecure
       traefik.http.routers.homepage-router.rule: Host(`homepage.bob.house`)
