@@ -159,6 +159,12 @@
           type: authentik
           url: http://authentik-server:9000
           key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
+    - Baïkal:
+        description: A lightweight CalDAV+CardDAV server
+        href: https://baikal.bob.house
+        icon: baikal.png
+        ping: host.docker.internal
+        siteMonitor: http://baikal
     - Dozzle:
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
