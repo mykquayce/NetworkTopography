@@ -15,6 +15,23 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  ffmpeg-webhook:
+    image: alpine:latest
+    command: /bin/sh -c "chmod +x /ffmpeg.sh \
+      && chmod +x /ffprobe.sh \
+      && dos2unix /ffmpeg.sh \
+      && dos2unix /ffprobe.sh \
+      && apk add ffmpeg webhook \
+      && webhook -hooks /hooks.yaml -verbose"
+    hostname: ffmpeg-webhook
+    ports:
+      - 9000:9000/tcp
+    volumes:
+      - ./ffmpeg-webhook/ffmpeg.sh:/ffmpeg.sh:rw
+      - ./ffmpeg-webhook/ffprobe.sh:/ffprobe.sh:rw
+      - ./ffmpeg-webhook/hooks.yaml:/hooks.yaml:ro
+      - E:\YouTube\:/videos/:rw
+
   glances:
     image: nicolargo/glances:latest
     environment:
