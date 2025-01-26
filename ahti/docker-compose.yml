@@ -18,36 +18,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
-  gluetun:
-    image: qmcgaw/gluetun:latest
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    environment:
-      TZ: Etc/UTC
-      UPDATER_PERIOD: 24h
-    env_file:
-      - ~/Configurations/gluetun.env
-    ports:
-      - 8096:8096/tcp # jellyfin
-      - 5055:5055/tcp # jellyseerr
-      - 8686:8686/tcp # lidarr
-      - 9696:9696/tcp # prowlar
-      - 6881:6881/tcp # qbittorrent
-      - 6881:6881/udp
-      - 8080:8082/tcp
-      - 7878:7878/tcp # radarr
-      - 8083:8080/tcp # sabnzbd
-      - 8081:8081/tcp # sickgear
-      - 8989:8989/tcp # sonarr
-
   jellyfin:
     image: jellyfin/jellyfin:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
-    network_mode: service:gluetun
+    ports:
+      - 8096:8096/tcp
     volumes:
       - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
       - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
@@ -62,26 +36,22 @@ services:
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       LOG_LEVEL: debug
       TZ: UTC
-    network_mode: service:gluetun
+    ports:
+      - 5055:5055/tcp
     volumes:
       - ~/jellyseerr-data/:/app/config/:rw
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    network_mode: service:gluetun
+    ports:
+      - 8686:8686/tcp
     volumes:
       - ${USERPROFILE}\lidarr-data\:/config/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
@@ -123,43 +93,39 @@ services:
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Etc/UTC
-    network_mode: service:gluetun
+    ports:
+      - 9696:9696/tcp
     volumes:
       - ${USERPROFILE}\prowlarr-data\:/config/:rw
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Etc/UTC
-      WEBUI_PORT: "8082"
+      WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
-    network_mode: service:gluetun
+    ports:
+      - 6881:6881/tcp
+      - 6881:6881/udp
+      - 8080:8080/tcp
     volumes:
       - ${USERPROFILE}\qbittorrent-data\:/config/:rw
       - E:\Downloads\:/downloads/:rw
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    network_mode: service:gluetun
+    ports:
+      - 7878:7878/tcp
     volumes:
       - ${USERPROFILE}\radarr-data/:/config/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
@@ -167,14 +133,12 @@ services:
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    network_mode: service:gluetun
+    ports:
+      - 8083:8080/tcp
     volumes:
       - ${USERPROFILE}\sabnzbd-data\:/config/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
@@ -182,10 +146,8 @@ services:
 
   sickgear:
     image: sickgear/sickgear:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
-    network_mode: service:gluetun
+    ports:
+      - 8081:8081/tcp
     volumes:
       - ${USERPROFILE}\sickgear-data\:/data/:rw
       - E:\anime\:/media/anime/:rw
@@ -197,14 +159,12 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    network_mode: service:gluetun
+    ports:
+      - 8989:8989/tcp
     volumes:
       - ${USERPROFILE}\sonarr-data\:/config/:rw
       - D:\tvshows\:/tv/:rw
