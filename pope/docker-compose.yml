@@ -136,6 +136,7 @@ services:
     image: grafana/grafana-oss:latest
     environment:
       GF_ENABLE_GZIP: "true"
+      GF_SERVER_ROOT_URL: https://grafana.bob.house
       GF_USERS_ALLOW_SIGN_UP: "false"
     env_file:
       - ~/Configurations/grafana.env

@@ -408,7 +408,7 @@
         href: https://grafana.bob.house/
         icon: grafana.svg
         ping: pope
-        siteMonitor: http://pope:3000
+        siteMonitor: https://grafana.bob.house
         widget:
           type: grafana
           url: http://pope:3000
