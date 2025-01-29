@@ -32,7 +32,7 @@ services:
       - E:\videos\:/media/videos/:rw
       - E:\music\:/media/music/:rw
       - E:\pictures\:/media/pictures/:rw
-      - E:\youtube\:/media/tubearchivist/:rw
+      - E:\youtube\:/media/youtube/:rw
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
