@@ -210,6 +210,38 @@ services:
     ports:
       - 82:80/tcp
 
+  miniflux:
+    image: miniflux/miniflux:latest
+    depends_on:
+      miniflux-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://miniflux:secret@miniflux-db/miniflux?sslmode=disable
+      RUN_MIGRATIONS: "1"
+      CREATE_ADMIN: "1"
+      ADMIN_USERNAME: admin
+      OAUTH2_PROVIDER: oidc
+      OAUTH2_REDIRECT_URL: https://miniflux.bob.house/oauth2/oidc/callback
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://authentik.bob.house/application/o/miniflux/
+      OAUTH2_USER_CREATION: "1"
+    env_file:
+      - ~/Configurations/miniflux.env
+    ports:
+      - 8085:8080/tcp
+
+  miniflux-db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: miniflux
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: miniflux
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "miniflux"]
+      interval: 10s
+      start_period: 30s
+    volumes:
+      - ~/.miniflux/:/var/lib/postgresql/data/:rw
+
   moodist:
     image: ghcr.io/remvze/moodist:latest
     logging:
