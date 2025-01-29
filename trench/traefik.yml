@@ -90,6 +90,12 @@ http:
       rule: "Host(`metube.bob.house`)"
       service: "metube-service"
       tls: "true"
+    miniflux-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`miniflux.bob.house`)"
+      service: "miniflux-service"
+      tls: "true"
     moodist-router:
       entryPoints:
         - "websecure"
@@ -287,6 +293,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8082/"
+    miniflux-service:
+      loadBalancer:
+        servers:
+        - url: "http://pope:8085/"
     moodist-service:
       loadBalancer:
         servers:

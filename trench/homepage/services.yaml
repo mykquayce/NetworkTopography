@@ -432,6 +432,16 @@
         icon: it-tools.svg
         ping: pope
         siteMonitor: http://pope:82
+    - miniflux:
+        description: Minimalist and opinionated feed reader
+        href: https://miniflux.bob.house
+        icon: miniflux-light.webp
+        ping: pope
+        siteMonitor: http://pope:8085
+        widget:
+          type: miniflux
+          url: http://pope:8085
+          key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
     - moodist:
         description: Ambient sounds for focus and calm
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
