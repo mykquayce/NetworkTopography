@@ -1,0 +1,36 @@
+- id: health
+  execute-command: echo
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: string
+      name: -n
+    - source: string
+      name: Healthy
+- id: ffmpeg
+  execute-command: /app/ffmpeg.sh
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: url
+      name: input
+    - source: url
+      name: output
+- id: ffprobe
+  execute-command: /app/ffprobe.sh
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: url
+      name: input
+- id: list
+  execute-command: /app/list.sh
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: url
+      name: channel
+- id: pgrep
+  execute-command: pgrep
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: string
+      name: -al
+    - source: url
+      name: pattern
