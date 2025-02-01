@@ -26,6 +26,14 @@
   pass-arguments-to-command:
     - source: url
       name: channel
+- id: rename
+  execute-command: mv
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: url
+      name: source
+    - source: url
+      name: destination
 - id: pgrep
   execute-command: pgrep
   include-command-output-in-response: true
