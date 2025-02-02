@@ -99,6 +99,12 @@ services:
     command: agent
     environment:
       DOZZLE_HOSTNAME: pope
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      start_interval: 5s
     ports:
       - 7007:7007/tcp
     volumes:

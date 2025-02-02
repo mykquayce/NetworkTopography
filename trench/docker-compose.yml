@@ -88,6 +88,12 @@ services:
     environment:
       DOZZLE_HOSTNAME: trench
       DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007,pope:7007
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      start_interval: 5s
     labels:
       traefik.http.routers.dozzle-router.entrypoints: websecure
       traefik.http.routers.dozzle-router.rule: Host(`dozzle.bob.house`)
