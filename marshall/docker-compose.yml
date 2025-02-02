@@ -2,6 +2,8 @@ services:
   dozzle:
     image: amir20/dozzle:latest
     command: agent
+    environment:
+      DOZZLE_HOSTNAME: marshall
     ports:
       - 7007:7007/tcp
     volumes:

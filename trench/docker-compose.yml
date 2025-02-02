@@ -86,6 +86,7 @@ services:
   dozzle:
     image: amir20/dozzle:latest
     environment:
+      DOZZLE_HOSTNAME: trench
       DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007,pope:7007
     labels:
       traefik.http.routers.dozzle-router.entrypoints: websecure
