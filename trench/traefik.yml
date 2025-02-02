@@ -12,6 +12,12 @@ http:
       rule: "Host(`donetick.bob.house`)"
       service: "donetick-service"
       tls: "true"
+    ffmpeg-webhook-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`ffmpeg-webhook.bob.house`)"
+      service: "ffmpeg-webhook-service"
+      tls: "true"
     freshrss-router:
       entryPoints:
         - "websecure"
@@ -237,6 +243,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:2021/"
+    ffmpeg-webhook-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:9000/"
     freshrss-service:
       loadBalancer:
         servers:
