@@ -217,6 +217,14 @@ services:
     ports:
       - 82:80/tcp
 
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    environment:
+      MTX_RTSPTRANSPORTS: tcp
+      WEBRTCADDITIONALHOSTS: 192.168.1.60
+    ports:
+      - 8554:8554/tcp # rtsp
+
   miniflux:
     image: miniflux/miniflux:latest
     depends_on:
@@ -352,6 +360,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
       - C:\:/host/:rw
+
+  real-time-streaming:
+    image: linuxserver/ffmpeg:latest
+    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/playlist.txt' -f rtsp rtsp://mediamtx:8554/lofi
+    volumes:
+      - C:\Videos\lo-fi\:/videos/:ro
 
   registry:
     image: registry:latest
