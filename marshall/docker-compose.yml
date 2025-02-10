@@ -17,6 +17,8 @@ services:
 
   frigate:
     image: ghcr.io/blakeblackshear/frigate:stable
+    devices:
+      - /dev/apex_0:/dev/apex_0
     env_file:
       - ~/Configurations/frigate.env
     ports:
@@ -25,7 +27,7 @@ services:
     volumes:
       - ./frigate.yaml:/config/config.yaml:rw
       - ~/.frigate/config/:/config/:rw
-      - ~/.frigate/media/:/media/frigate/:rw
+      - /srv/frigate/media/:/media/frigate/:rw
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
