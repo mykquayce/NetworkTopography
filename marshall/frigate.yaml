@@ -9,6 +9,11 @@ detect:
   fps: 5
   enabled: true
 
+detectors:
+  coral:
+    type: edgetpu
+    device: pci
+
 objects:
   track:
     - cat
