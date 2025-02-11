@@ -114,6 +114,12 @@ http:
       rule: "Host(`n8n.bob.house`)"
       service: "n8n-service"
       tls: "true"
+    navidrome-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`navidrome.bob.house`)"
+      service: "navidrome-service"
+      tls: "true"
     netboot-router:
       entryPoints:
         - "websecure"
@@ -315,6 +321,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://pope:5678/"
+    navidrome-service:
+      loadBalancer:
+        servers:
+        - url: "http://ahti:4533/"
     netboot-service:
       loadBalancer:
         servers:
