@@ -13,25 +13,28 @@ disableCollapse: true
 headerStyle: boxed
 
 layout:
-  Developer:
-  Social:
-  Entertainment:
-  Monitoring:
-    columns: 2
-    style: row
   Essentials:
     columns: 4
     style: row
-  Media Server:
-    columns: 4
+    tab: Main
+  Developer:
+    tab: Main
+  Social:
+    tab: Main
+  Entertainment:
+    tab: Main
+  Servers:
+    columns: 2
     style: row
-    fiveColumns: true
+    tab: Monitoring
   Services:
     columns: 4
     style: row
-  Network:
-    columns: 2
+    tab: Monitoring
+  All:
+    columns: 4
     style: row
+    tab: All
 
 providers:
   finnhub: {{HOMEPAGE_VAR_PROVIDERS_FINNHUB}}

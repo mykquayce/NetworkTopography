@@ -2,7 +2,102 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services
 
-- Monitoring:
+- Essentials:
+    - Change Detection:
+        description: Web page change detection, website watcher, restock monitor and notification service
+        href: https://changedetection.bob.house/
+        icon: changedetection.svg
+        ping: pope
+        siteMonitor: http://pope:5000
+        widget:
+          type: changedetectionio
+          url: http://pope:5000
+          key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
+    - Frigate:
+        description: NVR with realtime local object detection for IP cameras
+        href: https://frigate.bob.house/
+        icon: frigate.svg
+        ping: marshall.fbc.local
+        siteMonitor: http://marshall.fbc.local:5000
+        widget:
+          type: frigate
+          url: http://marshall.fbc.local:5000
+          enableRecentEvents: false
+    - Grafana:
+        description: The open and composable observability and data visualization platform
+        href: https://grafana.bob.house/
+        icon: grafana.svg
+        ping: pope
+        siteMonitor: https://grafana.bob.house
+        widget:
+          type: grafana
+          url: https://grafana.bob.house
+          username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+          password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
+    - Home Assistant:
+        description: Open-source home automation platform
+        href: https://homeassistant.bob.house/
+        icon: home-assistant.svg
+        ping: host.docker.internal
+        siteMonitor: https://homeassistant.bob.house
+        widget:
+          type: homeassistant
+          url: https://homeassistant.bob.house
+          key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+          custom:
+            - label: spot
+              state: light.keylight
+            - label: strip
+              state: light.smart_light_strip_2
+            - label: wall
+              state: light.shapes_0324
+            - label: ceiling
+              state: light.bedroom_main
+    - Jellyfin:
+        description: Your media, on your terms
+        href: https://jellyfin.bob.house/web/
+        icon: jellyfin.svg
+        ping: ahti
+        siteMonitor: https://jellyfin.bob.house/health
+        widget:
+          type: jellyfin
+          url: https://jellyfin.bob.house
+          key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: false # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - miniflux:
+        description: Minimalist and opinionated feed reader
+        href: https://miniflux.bob.house
+        icon: miniflux-light.webp
+        ping: pope
+        siteMonitor: http://pope:8085
+        widget:
+          type: miniflux
+          url: http://pope:8085
+          key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
+    - Navidrome:
+        description: 🎧☁️ Your Personal Streaming Service
+        href: https://navidrome.bob.house/app/
+        icon: navidrome-light.png
+        ping: ahti
+        siteMonitor: https://metube.bob.house
+        widget:
+          type: navidrome
+          url: https://navidrome.bob.house
+          user: {{HOMEPAGE_VAR_NAVIDROME_USER}}
+          token: {{HOMEPAGE_VAR_NAVIDROME_TOKEN}}
+          salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
+    - Pinchflat:
+        description: Your next YouTube media manager
+        href: https://pinchflat.bob.house/
+        icon: pinchflat.png
+        ping: ahti
+        siteMonitor: https://pinchflat.bob.house
+
+- Servers:
     - ahti:
         href: https://glances-ahti.bob.house/
         icon: glances.png
@@ -10,7 +105,7 @@
         siteMonitor: https://glances-ahti.bob.house/api/4/status
         widget:
           type: prometheusmetric
-          url: http://prometheus:9090
+          url: https://prometheus.bob.house
           refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
           metrics:
             - label: user cpu
@@ -46,7 +141,7 @@
         siteMonitor: https://glances-marshall.bob.house/api/4/status
         widget:
           type: prometheusmetric
-          url: http://prometheus:9090
+          url: https://prometheus.bob.house
           refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
           metrics:
             - label: user cpu
@@ -68,13 +163,13 @@
                 type: bytes
                 options:
                   maximumFractionDigits: 1
-              query: disk_free{host='marshall',path='\\C:'}
+              query: disk_free{host='marshall',path='/'}
             - label: disk used
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
-              query: disk_used_percent{host='marshall',path='\\C:'}
+              query: disk_used_percent{host='marshall',path='/'}
     - pope:
         href: https://glances-pope.bob.house/
         icon: glances.png
@@ -82,7 +177,7 @@
         siteMonitor: https://glances-pope.bob.house/api/4/status
         widget:
           type: prometheusmetric
-          url: http://prometheus:9090
+          url: https://prometheus.bob.house
           refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
           metrics:
             - label: user cpu
@@ -118,7 +213,7 @@
         siteMonitor: https://glances-trench.bob.house/api/4/status
         widget:
           type: prometheusmetric
-          url: http://prometheus:9090
+          url: https://prometheus.bob.house
           refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
           metrics:
             - label: user cpu
@@ -147,59 +242,23 @@
                 options:
                   maximumFractionDigits: 1
               query: disk_used_percent{host='trench',path='\\C:'}
-
-- Essentials:
+- Services:
     - Authentik:
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
         icon: authentik.png
         ping: host.docker.internal
-        siteMonitor: http://authentik-server:9000
+        siteMonitor: https://authentik.bob.house
         widget:
           type: authentik
-          url: http://authentik-server:9000
+          url: https://authentik.bob.house
           key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
-    - Baïkal:
-        description: A lightweight CalDAV+CardDAV server
-        href: https://baikal.bob.house
-        icon: baikal.png
-        ping: host.docker.internal
-        siteMonitor: http://baikal
     - Dozzle:
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
         icon: dozzle.svg
         ping: host.docker.internal
-        siteMonitor: http://dozzle:8080/healthcheck
-    - Frigate:
-        description: NVR with realtime local object detection for IP cameras
-        href: https://frigate.bob.house/
-        icon: frigate.svg
-        ping: marshall.fbc.local
-        siteMonitor: http://marshall.fbc.local:5000
-        widget:
-          type: frigate
-          url: http://marshall.fbc.local:5000
-          enableRecentEvents: false
-    - Home Assistant:
-        description: Open-source home automation platform
-        href: https://homeassistant.bob.house/
-        icon: home-assistant.svg
-        ping: host.docker.internal
-        siteMonitor: http://homeassistant:8123
-        widget:
-          type: homeassistant
-          url: http://homeassistant:8123
-          key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
-          custom:
-            - label: spotlight
-              state: light.keylight
-            - label: nanoleaf
-              state: light.shapes_0324
-            - label: bedroom
-              state: light.bedroom_main
-            - label: pc
-              state: sensor.pc_current_consumption
+        siteMonitor: https://dozzle.bob.house/healthcheck
     - Pi-hole:
         description: A blackhole for Internet advertisements
         href: https://pihole.bob.house/admin
@@ -216,22 +275,22 @@
         href: https://portainer.bob.house/
         icon: portainer.svg
         ping: host.docker.internal
-        siteMonitor: http://portainer:9000
+        siteMonitor: https://portainer.bob.house
         widgets:
           - type: portainer
-            url: http://portainer:9000
+            url: https://portainer.bob.house
             env: 4
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
-            url: http://portainer:9000
+            url: https://portainer.bob.house
             env: 5
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
-            url: http://portainer:9000
+            url: https://portainer.bob.house
             env: 3
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
-            url: http://portainer:9000
+            url: https://portainer.bob.house
             env: 2
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus:
@@ -239,10 +298,20 @@
         href: https://prometheus.bob.house/
         icon: prometheus.svg
         ping: host.docker.internal
-        siteMonitor: http://prometheus:9090
+        siteMonitor: https://prometheus.bob.house
         widget:
           type: prometheus
-          url: http://prometheus:9090
+          url: https://prometheus.bob.house
+    - Speedtest:
+        description: Free & Open-Source HTML5 Network Performance Estimation Tool
+        href: https://speedtest.bob.house/
+        icon: openspeedtest.png
+        ping: pope
+        siteMonitor: http://pope:84/api/healthcheck
+        widget:
+          type: speedtest
+          url: http://pope:84
+          bitratePrecision: 3 # optional, default is 0
     - Traefik:
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
@@ -257,16 +326,123 @@
         href: https://uptimekuma.bob.house/dashboard/
         icon: uptime-kuma.svg
         ping: host.docker.internal
-        siteMonitor: http://uptimekuma:3001/dashboard/
+        siteMonitor: https://uptimekuma.bob.house/dashboard/
         widgets:
           - type: uptimekuma
-            url: http://uptimekuma:3001
+            url: https://uptimekuma.bob.house
             slug: statuspageslug
           - type: uptimekuma
-            url: http://uptimekuma:3001
+            url: https://uptimekuma.bob.house
             slug: iot
-
-- Media Server:
+- All:
+    - Authentik:
+        description: Bring all of your authentication into a unified platform
+        href: https://authentik.bob.house
+        icon: authentik.png
+        ping: host.docker.internal
+        siteMonitor: https://authentik.bob.house
+        widget:
+          type: authentik
+          url: https://authentik.bob.house
+          key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
+    - Baïkal:
+        description: A lightweight CalDAV+CardDAV server
+        href: https://baikal.bob.house
+        icon: baikal.png
+        ping: host.docker.internal
+        siteMonitor: https://baikal.bob.house
+    - Change Detection:
+        description: Web page change detection, website watcher, restock monitor and notification service
+        href: https://changedetection.bob.house/
+        icon: changedetection.svg
+        ping: pope
+        siteMonitor: https://changedetection.bob.house/
+        widget:
+          type: changedetectionio
+          url: https://changedetection.bob.house/
+          key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
+    - Docker Registry:
+        description: UI for your private docker registry
+        href: https://registry.bob.house/
+        icon: docker-moby.svg
+        ping: pope
+        siteMonitor: https://registry.bob.house/
+    - Donetick:
+        description: Simplify Tasks & Chores, Together
+        href: https://donetick.bob.house/
+        icon: /icons/donetick.svg
+        ping: pope
+        siteMonitor: https://donetick.bob.house/
+    - Dozzle:
+        description: Real-time log viewer for docker containers
+        href: https://dozzle.bob.house/
+        icon: dozzle.svg
+        ping: host.docker.internal
+        siteMonitor: https://dozzle.bob.house/healthcheck
+    - FreshRSS:
+        description: A free, self-hostable news aggregator
+        href: https://freshrss.bob.house/
+        icon: freshrss.svg
+        ping: pope
+        siteMonitor: https://freshrss.bob.house/i/
+    - Frigate:
+        description: NVR with realtime local object detection for IP cameras
+        href: https://frigate.bob.house/
+        icon: frigate.svg
+        ping: marshall.fbc.local
+        siteMonitor: https://frigate.bob.house/
+        widget:
+          type: frigate
+          url: https://frigate.bob.house/
+          enableRecentEvents: false
+    - Grafana:
+        description: The open and composable observability and data visualization platform
+        href: https://grafana.bob.house/
+        icon: grafana.svg
+        ping: pope
+        siteMonitor: https://grafana.bob.house
+        widget:
+          type: grafana
+          url: https://grafana.bob.house
+          username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+          password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
+    - hoarder:
+        description: A self-hostable bookmark-everything app
+        href: https://hoarder.bob.house/
+        icon: hoarder-light.png
+        ping: pope
+        siteMonitor: https://hoarder.bob.house/
+    - Home Assistant:
+        description: Open-source home automation platform
+        href: https://homeassistant.bob.house/
+        icon: home-assistant.svg
+        ping: host.docker.internal
+        siteMonitor: https://homeassistant.bob.house/
+        widget:
+          type: homeassistant
+          url: https://homeassistant.bob.house/
+          key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+          custom:
+            - label: spotlight
+              state: light.keylight
+            - label: nanoleaf
+              state: light.shapes_0324
+            - label: bedroom
+              state: light.bedroom_main
+            - label: pc
+              state: sensor.pc_current_consumption
+    - httpbin:
+        description: A simple HTTP Request & Response Service
+        href: https://httpbin.bob.house/
+        icon: /icons/httpbin.png
+        ping: pope
+        siteMonitor: https://httpbin.bob.house/
+    - IT-Tools:
+        description: Collection of handy online tools for developers, with great UX
+        href: https://it-tools.bob.house/
+        icon: it-tools.svg
+        ping: pope
+        siteMonitor: https://it-tools.bob.house/
     - Jellyfin:
         description: Your media, on your terms
         href: https://jellyfin.bob.house/web/
@@ -308,6 +484,28 @@
         icon: metube.svg
         ping: ahti
         siteMonitor: https://metube.bob.house
+    - miniflux:
+        description: Minimalist and opinionated feed reader
+        href: https://miniflux.bob.house
+        icon: miniflux-light.webp
+        ping: pope
+        siteMonitor: http://pope:8085
+        widget:
+          type: miniflux
+          url: http://pope:8085
+          key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
+    - moodist:
+        description: Ambient sounds for focus and calm
+        href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
+        icon: /icons/moodist.svg
+        ping: pope
+        siteMonitor: https://moodist.bob.house
+    - n8n:
+        description: Secure, AI-native workflow automation
+        href: https://n8n.bob.house/
+        icon: n8n.svg
+        ping: pope
+        siteMonitor: http://pope:5678
     - Navidrome:
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
@@ -320,12 +518,79 @@
           user: {{HOMEPAGE_VAR_NAVIDROME_USER}}
           token: {{HOMEPAGE_VAR_NAVIDROME_TOKEN}}
           salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
+    - netboot.xyz:
+        description: Your favourite operating systems in one place
+        href: https://netboot.bob.house/
+        icon: netboot.svg
+        ping: pope
+        siteMonitor: https://netboot.bob.house/
+    - ntfy:
+        description: Send push notifications to your phone or desktop via PUT/POST
+        href: https://ntfy.bob.house/
+        icon: ntfy.svg
+        ping: pope
+        siteMonitor: https://ntfy.bob.house/
+    - NuGet:
+        description: A lightweight NuGet and symbol server
+        href: https://nuget.bob.house/
+        icon: microsoft.svg
+        ping: pope
+        siteMonitor: https://nuget.bob.house/v3/index.json
+    - Pi-hole:
+        description: A blackhole for Internet advertisements
+        href: https://pihole.bob.house/admin
+        icon: pi-hole.svg
+        ping: 192.168.1.80
+        siteMonitor: https://pihole.bob.house/admin
+        widget:
+          type: pihole
+          url: https://pihole.bob.house
+          # version: 6 # required if running v6 or higher, defaults to 5
+          key: {{HOMEPAGE_VAR_PIHOLE_KEY}} # optional
     - Pinchflat:
         description: Your next YouTube media manager
         href: https://pinchflat.bob.house/
         icon: pinchflat.png
         ping: ahti
         siteMonitor: https://pinchflat.bob.house
+    - Planka:
+        description: Realtime kanban board for workgroups
+        href: https://planka.bob.house/
+        icon: planka.svg
+        ping: pope
+        siteMonitor: https://planka.bob.house
+    - Portainer:
+        description: Making Docker and Kubernetes management easy
+        href: https://portainer.bob.house/
+        icon: portainer.svg
+        ping: host.docker.internal
+        siteMonitor: https://portainer.bob.house/
+        widgets:
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 4
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 5
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 3
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 2
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+    - Prometheus:
+        description: The Prometheus monitoring system and time series database
+        href: https://prometheus.bob.house/
+        icon: prometheus.svg
+        ping: host.docker.internal
+        siteMonitor: https://prometheus.bob.house/
+        widget:
+          type: prometheus
+          url: https://prometheus.bob.house/
     - Prowlarr:
         description: Indexer manager / proxy
         href: https://prowlarr.bob.house/
@@ -385,136 +650,53 @@
           url: https://sonarr.bob.house
           key: {{HOMEPAGE_VAR_SONARR_KEY}}
           enableQueue: true
-
-- Services:
-    - Change Detection:
-        description: Web page change detection, website watcher, restock monitor and notification service
-        href: https://changedetection.bob.house/
-        icon: changedetection.svg
-        ping: pope
-        siteMonitor: http://pope:5000
-        widget:
-          type: changedetectionio
-          url: http://pope:5000
-          key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
-    - Docker Registry:
-        description: UI for your private docker registry
-        href: https://registry.bob.house/
-        icon: docker-moby.svg
-        ping: pope
-        siteMonitor: http://pope:83
-    - Donetick:
-        description: Simplify Tasks & Chores, Together
-        href: https://donetick.bob.house/
-        icon: /icons/donetick.svg
-        ping: pope
-        siteMonitor: http://pope:2021
-    - FreshRSS:
-        description: A free, self-hostable news aggregator
-        href: https://freshrss.bob.house/
-        icon: freshrss.svg
-        ping: pope
-        siteMonitor: http://pope:80/i/
-    - Grafana:
-        description: The open and composable observability and data visualization platform
-        href: https://grafana.bob.house/
-        icon: grafana.svg
-        ping: pope
-        siteMonitor: https://grafana.bob.house
-        widget:
-          type: grafana
-          url: http://pope:3000
-          username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
-          password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
-    - hoarder:
-        description: A self-hostable bookmark-everything app
-        href: https://hoarder.bob.house/
-        icon: hoarder-light.png
-        ping: pope
-        siteMonitor: http://pope:3004
-    - httpbin:
-        description: A simple HTTP Request & Response Service
-        href: https://httpbin.bob.house/
-        icon: /icons/httpbin.png
-        ping: pope
-        siteMonitor: http://pope:8081
-    - IT-Tools:
-        description: Collection of handy online tools for developers, with great UX
-        href: https://it-tools.bob.house/
-        icon: it-tools.svg
-        ping: pope
-        siteMonitor: http://pope:82
-    - miniflux:
-        description: Minimalist and opinionated feed reader
-        href: https://miniflux.bob.house
-        icon: miniflux-light.webp
-        ping: pope
-        siteMonitor: http://pope:8085
-        widget:
-          type: miniflux
-          url: http://pope:8085
-          key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
-    - moodist:
-        description: Ambient sounds for focus and calm
-        href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
-        icon: /icons/moodist.svg
-        ping: pope
-        siteMonitor: http://pope:8082
-    - n8n:
-        description: Secure, AI-native workflow automation
-        href: https://n8n.bob.house/
-        icon: n8n.svg
-        ping: pope
-        siteMonitor: http://pope:5678
-    - netboot.xyz:
-        description: Your favourite operating systems in one place
-        href: https://netboot.bob.house/
-        icon: netboot.svg
-        ping: pope
-        siteMonitor: http://pope:3003
-    - ntfy:
-        description: Send push notifications to your phone or desktop via PUT/POST
-        href: https://ntfy.bob.house/
-        icon: ntfy.svg
-        ping: pope
-        siteMonitor: http://pope:27346
-    - NuGet:
-        description: A lightweight NuGet and symbol server
-        href: https://nuget.bob.house/
-        icon: microsoft.svg
-        ping: pope
-        siteMonitor: http://pope:8083/v3/index.json
-    - Planka:
-        description: Realtime kanban board for workgroups
-        href: https://planka.bob.house/
-        icon: planka.svg
-        ping: pope
-        siteMonitor: http://pope:1337
     - Speedtest:
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
         ping: pope
-        siteMonitor: http://pope:84/api/healthcheck
+        siteMonitor: https://speedtest.bob.house/api/healthcheck
         widget:
           type: speedtest
-          url: http://pope:84
+          url: https://speedtest.bob.house
           bitratePrecision: 3 # optional, default is 0
+    - Traefik:
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: host.docker.internal
+        siteMonitor: https://traefik.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik.bob.house
     - Trilium:
         description: Hierarchical note taking application
         href: https://trilium.bob.house/
         icon: trilium.svg
         ping: pope
-        siteMonitor: http://pope:8084/login
+        siteMonitor: https://trilium.bob.house/login
+    - Uptime Kuma:
+        description: Self-hosted website monitoring tool
+        href: https://uptimekuma.bob.house/dashboard/
+        icon: uptime-kuma.svg
+        ping: host.docker.internal
+        siteMonitor: https://uptimekuma.bob.house/dashboard/
+        widgets:
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: statuspageslug
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: iot
     - Vikunja:
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
         icon: vikunja.svg
         ping: pope
-        siteMonitor: http://pope:3456
+        siteMonitor: https://vikunja.bob.house
         widget:
           type: vikunja
-          url: http://pope:3456
+          url: https://vikunja.bob.house
           key: {{HOMEPAGE_VAR_VIKUNJA_KEY}}
           enableTaskList: true
     - What's Up Docker:
@@ -522,7 +704,7 @@
         href: https://whatsupdocker.bob.house/
         icon: whats-up-docker.svg
         ping: pope
-        siteMonitor: http://pope:3002
+        siteMonitor: https://whatsupdocker.bob.house/
         widget:
           type: whatsupdocker
-          url: http://pope:3002
+          url: https://whatsupdocker.bob.house
