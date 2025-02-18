@@ -1,28 +1,10 @@
 http:
   routers:
-    changedetection-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`changedetection.bob.house`)"
-      service: "changedetection-service"
-      tls: "true"
-    donetick-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`donetick.bob.house`)"
-      service: "donetick-service"
-      tls: "true"
     ffmpeg-webhook-router:
       entryPoints:
         - "websecure"
       rule: "Host(`ffmpeg-webhook.bob.house`)"
       service: "ffmpeg-webhook-service"
-      tls: "true"
-    freshrss-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`freshrss.bob.house`)"
-      service: "freshrss-service"
       tls: "true"
     frigate-router:
       entryPoints:
@@ -42,18 +24,6 @@ http:
       rule: "Host(`glances-marshall.bob.house`)"
       service: "glances-marshall-service"
       tls: "true"
-    glances-pope-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`glances-pope.bob.house`)"
-      service: "glances-pope-service"
-      tls: "true"
-    grafana-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`grafana.bob.house`)"
-      service: "grafana-service"
-      tls: "true"
     jellyfin-router:
       entryPoints:
         - "websecure"
@@ -66,77 +36,17 @@ http:
       rule: "Host(`jellyseerr.bob.house`)"
       service: "jellyseerr-service"
       tls: "true"
-    hoarder-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`hoarder.bob.house`)"
-      service: "hoarder-service"
-      tls: "true"
-    httpbin-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`httpbin.bob.house`)"
-      service: "httpbin-service"
-      tls: "true"
-    identityserver-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`identityserver.bob.house`)"
-      service: "identityserver-service"
-      tls: "true"
-    it-tools-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`it-tools.bob.house`)"
-      service: "it-tools-service"
-      tls: "true"
     metube-router:
       entryPoints:
         - "websecure"
       rule: "Host(`metube.bob.house`)"
       service: "metube-service"
       tls: "true"
-    miniflux-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`miniflux.bob.house`)"
-      service: "miniflux-service"
-      tls: "true"
-    moodist-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`moodist.bob.house`)"
-      service: "moodist-service"
-      tls: "true"
-    n8n-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`n8n.bob.house`)"
-      service: "n8n-service"
-      tls: "true"
     navidrome-router:
       entryPoints:
         - "websecure"
       rule: "Host(`navidrome.bob.house`)"
       service: "navidrome-service"
-      tls: "true"
-    netboot-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`netboot.bob.house`)"
-      service: "netboot-service"
-      tls: "true"
-    ntfy-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`ntfy.bob.house`)"
-      service: "ntfy-service"
-      tls: "true"
-    nuget-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`baget.bob.house`) || Host(`nuget.bob.house`)"
-      service: "nuget-service"
       tls: "true"
     lidarr-router:
       entryPoints:
@@ -156,12 +66,6 @@ http:
       rule: "Host(`pinchflat.bob.house`)"
       service: "pinchflat-service"
       tls: "true"
-    planka-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`planka.bob.house`)"
-      service: "planka-service"
-      tls: "true"
     prowlarr-router:
       entryPoints:
         - "websecure"
@@ -179,12 +83,6 @@ http:
         - "websecure"
       rule: "Host(`radarr.bob.house`)"
       service: "radarr-service"
-      tls: "true"
-    registry-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`registry.bob.house`)"
-      service: "registry-service"
       tls: "true"
     router1-router:
       entryPoints:
@@ -210,53 +108,17 @@ http:
       rule: "Host(`sonarr.bob.house`)"
       service: "sonarr-service"
       tls: "true"
-    speedtest-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`speedtest.bob.house`)"
-      service: "speedtest-service"
-      tls: "true"
     switch1-router:
       entryPoints:
         - "websecure"
       rule: "Host(`switch1.bob.house`)"
       service: "switch1-service"
       tls: "true"
-    trilium-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`trilium.bob.house`)"
-      service: "trilium-service"
-      tls: "true"
-    vikunja-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`vikunja.bob.house`)"
-      service: "vikunja-service"
-      tls: "true"
-    whatsupdocker-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`whatsupdocker.bob.house`)"
-      service: "whatsupdocker-service"
-      tls: "true"
   services:
-    changedetection-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:5000/"
-    donetick-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:2021/"
     ffmpeg-webhook-service:
       loadBalancer:
         servers:
         - url: "http://ahti:9000/"
-    freshrss-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope/"
     frigate-service:
       loadBalancer:
         servers:
@@ -269,30 +131,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://marshall:61208/"
-    glances-pope-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:61208/"
-    grafana-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3000/"
-    hoarder-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3004/"
-    httpbin-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8081/"
-    identityserver-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:81/"
-    it-tools-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:82/"
     jellyfin-service:
       loadBalancer:
         servers:
@@ -309,34 +147,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8082/"
-    miniflux-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8085/"
-    moodist-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8082/"
-    n8n-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:5678/"
     navidrome-service:
       loadBalancer:
         servers:
         - url: "http://ahti:4533/"
-    netboot-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3003/"
-    ntfy-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:27346/"
-    nuget-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8083/"
     pihole-service:
       loadBalancer:
         servers:
@@ -345,10 +159,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8945/"
-    planka-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:1337/"
     prowlarr-service:
       loadBalancer:
         servers:
@@ -357,10 +167,6 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:7878/"
-    registry-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:83/"
     qbittorrent-service:
       loadBalancer:
         servers:
@@ -381,23 +187,7 @@ http:
       loadBalancer:
         servers:
         - url: "http://ahti:8989/"
-    speedtest-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:84/"
     switch1-service:
       loadBalancer:
         servers:
         - url: "http://192.168.1.189/"
-    trilium-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:8084/"
-    vikunja-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3456/"
-    whatsupdocker-service:
-      loadBalancer:
-        servers:
-        - url: "http://pope:3002/"
