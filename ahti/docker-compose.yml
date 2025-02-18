@@ -53,6 +53,8 @@ services:
 
   jellyfin:
     image: jellyfin/jellyfin:latest
+    healthcheck:
+      test: curl -f http://localhost:8096/health
     ports:
       - 8096:8096/tcp
     volumes:
