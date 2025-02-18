@@ -180,7 +180,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
-      - --certificatesresolvers.cloudflare.acme.storage=/acme.json
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.websecure.address=:443
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
@@ -190,9 +190,8 @@ services:
       - --metrics.prometheus.addserviceslabels=true
       - --providers.docker
       - --providers.file.directory=/etc/traefik/dynamic_conf/
-    environment:
-      CF_API_EMAIL: mail@bob.codes
-      CF_DNS_API_TOKEN_FILE: /CF_DNS_API_TOKEN
+    env_file:
+      - ~/Configurations/traefik.env
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
@@ -207,8 +206,7 @@ services:
     ports:
       - 443:443/tcp
     volumes:
-      - ~/.certs/acme.json:/acme.json:rw
-      - ~/.certs/CF_DNS_API_TOKEN:/CF_DNS_API_TOKEN:ro
+      - certificates-volume:/var/certs/:rw
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -231,3 +229,6 @@ networks:
       config:
         - subnet: 172.18.0.0/16
           ip_range: 172.18.5.0/24
+
+volumes:
+  certificates-volume:
