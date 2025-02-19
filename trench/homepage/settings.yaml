@@ -31,6 +31,10 @@ layout:
     columns: 4
     style: row
     tab: Monitoring
+  Media:
+    columns: 4
+    style: row
+    tab: Media
   All:
     columns: 4
     style: row

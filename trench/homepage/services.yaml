@@ -352,6 +352,125 @@
           - type: uptimekuma
             url: https://uptimekuma.bob.house
             slug: iot
+- Media:
+    - Jellyfin:
+        description: Your media, on your terms
+        href: https://jellyfin.bob.house/web/
+        icon: jellyfin.svg
+        ping: ahti
+        siteMonitor: https://jellyfin.bob.house/health
+        widget:
+          type: jellyfin
+          url: https://jellyfin.bob.house
+          key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: false # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - Jellyseerr:
+        description: Request management and media discovery tool for the Jellyfin ecosystem
+        href: https://jellyseerr.bob.house/
+        icon: jellyseerr.svg
+        ping: ahti
+        siteMonitor: https://jellyseerr.bob.house
+        widget:
+          type: jellyseerr
+          url: https://jellyseerr.bob.house
+          key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
+    - Lidarr:
+        description: Looks and smells like Sonarr but made for music
+        href: https://lidarr.bob.house/
+        icon: lidarr.svg
+        ping: ahti
+        siteMonitor: https://lidarr.bob.house
+        widget:
+          type: lidarr
+          url: https://lidarr.bob.house
+          key: {{HOMEPAGE_VAR_LIDARR_KEY}}
+    - MeTube:
+        description: Web UI for youtube-dl / yt-dlp
+        href: https://metube.bob.house/
+        icon: metube.svg
+        ping: ahti
+        siteMonitor: https://metube.bob.house
+    - Navidrome:
+        description: 🎧☁️ Your Personal Streaming Service
+        href: https://navidrome.bob.house/app/
+        icon: navidrome-light.png
+        ping: ahti
+        siteMonitor: https://metube.bob.house
+        widget:
+          type: navidrome
+          url: https://navidrome.bob.house
+          user: {{HOMEPAGE_VAR_NAVIDROME_USER}}
+          token: {{HOMEPAGE_VAR_NAVIDROME_TOKEN}}
+          salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
+    - Pinchflat:
+        description: Your next YouTube media manager
+        href: https://pinchflat.bob.house/
+        icon: pinchflat.png
+        ping: ahti
+        siteMonitor: https://pinchflat.bob.house
+    - Prowlarr:
+        description: Indexer manager / proxy
+        href: https://prowlarr.bob.house/
+        icon: prowlarr.svg
+        ping: ahti
+        siteMonitor: https://prowlarr.bob.house
+        widget:
+          type: prowlarr
+          url: https://prowlarr.bob.house
+          key: {{HOMEPAGE_VAR_PROWLARR_KEY}}
+    - qBittorrent:
+        description: A BitTorrent client in Qt
+        href: https://qbittorrent.bob.house
+        icon: qbittorrent.svg
+        ping: ahti
+        siteMonitor: https://qbittorrent.bob.house
+        widget:
+          type: qbittorrent
+          url: https://qbittorrent.bob.house
+          username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
+          password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
+    - Radarr:
+        description: Movie organizer/manager for usenet and torrent users
+        href: https://radarr.bob.house/
+        icon: radarr.svg
+        ping: ahti
+        siteMonitor: https://radarr.bob.house
+        widget:
+          type: radarr
+          url: https://radarr.bob.house
+          key: {{HOMEPAGE_VAR_RADARR_KEY}}
+          enableQueue: true # optional, defaults to false
+    - SABnzbd:
+        description: Free and easy binary newsreader
+        href: https://sabnzbd.bob.house/
+        icon: sabnzbd.svg
+        ping: ahti
+        siteMonitor: https://sabnzbd.bob.house
+        widget:
+          type: sabnzbd
+          url: https://sabnzbd.bob.house
+          key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
+    - Sick Gear:
+        description: Fully automate TV enjoyment
+        href: https://sickgear.bob.house/
+        icon: sickbeard.svg
+        ping: ahti
+        siteMonitor: https://sickgear.bob.house
+    - Sonarr:
+        description: Usenet and BitTorrent PVR
+        href: https://sonarr.bob.house/
+        icon: sonarr.svg
+        ping: ahti
+        siteMonitor: https://sonarr.bob.house
+        widget:
+          type: sonarr
+          url: https://sonarr.bob.house
+          key: {{HOMEPAGE_VAR_SONARR_KEY}}
+          enableQueue: true
 - All:
     - Authentik:
         description: Bring all of your authentication into a unified platform
