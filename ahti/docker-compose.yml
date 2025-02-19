@@ -19,8 +19,11 @@ services:
     build:
       context: ./ffmpeg-webhook/
       dockerfile: ./Dockerfile
-    ports:
-      - 9000:9000/tcp
+    labels:
+      traefik.http.routers.ffmpeg-webhook-router.entrypoints: websecure
+      traefik.http.routers.ffmpeg-webhook-router.rule: Host(`ffmpeg-webhook.bob.house`)
+      traefik.http.routers.ffmpeg-webhook-router.tls: "true"
+      traefik.http.services.ffmpeg-webhook-service.loadbalancer.server.port: "9000"
     volumes:
       - E:\YouTube\:/videos/:rw
 
@@ -28,9 +31,12 @@ services:
     image: nicolargo/glances:latest
     environment:
       GLANCES_OPT: -w
+    labels:
+      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.rule: Host(`glances-ahti.bob.house`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     pid: host
-    ports:
-      - 61208:61208/tcp
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
@@ -46,17 +52,24 @@ services:
       UPDATER_PERIOD: 24h
     env_file:
       - ~/Configurations/gluetun.env
+    labels:
+      traefik.http.routers.qbittorrent-router.entrypoints: websecure
+      traefik.http.routers.qbittorrent-router.rule: Host(`qbittorrent.bob.house`)
+      traefik.http.routers.qbittorrent-router.tls: "true"
+      traefik.http.services.qbittorrent-service.loadbalancer.server.port: "8080"
     ports:
       - 6881:6881/tcp # qbittorrent
       - 6881:6881/udp
-      - 8080:8080/tcp
 
   jellyfin:
     image: jellyfin/jellyfin:latest
     healthcheck:
       test: curl -f http://localhost:8096/health
-    ports:
-      - 8096:8096/tcp
+    labels:
+      traefik.http.routers.jellyfin-router.entrypoints: websecure
+      traefik.http.routers.jellyfin-router.rule: Host(`jellyfin.bob.house`)
+      traefik.http.routers.jellyfin-router.tls: "true"
+      traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
     volumes:
       - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
       - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
@@ -74,8 +87,11 @@ services:
     environment:
       LOG_LEVEL: debug
       TZ: UTC
-    ports:
-      - 5055:5055/tcp
+    labels:
+      traefik.http.routers.jellyseerr-router.entrypoints: websecure
+      traefik.http.routers.jellyseerr-router.rule: Host(`jellyseerr.bob.house`)
+      traefik.http.routers.jellyseerr-router.tls: "true"
+      traefik.http.services.jellyseerr-service.loadbalancer.server.port: "5055"
     volumes:
       - ~/jellyseerr-data/:/app/config/:rw
 
@@ -85,8 +101,11 @@ services:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    ports:
-      - 8686:8686/tcp
+    labels:
+      traefik.http.routers.lidarr-router.entrypoints: websecure
+      traefik.http.routers.lidarr-router.rule: Host(`lidarr.bob.house`)
+      traefik.http.routers.lidarr-router.tls: "true"
+      traefik.http.services.lidarr-service.loadbalancer.server.port: "8686"
     volumes:
       - ${USERPROFILE}\lidarr-data\:/config/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
@@ -100,8 +119,11 @@ services:
       STATE_DIR: /data/state/
       TEMP_DIR: /data/temp/
       YTDL_OPTIONS: '{"cookiefile":"/cookies/cookies.txt","writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"Exec","exec_cmd":"chmod 0664","when":"after_move"},{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}'
-    ports:
-      - 8082:8081/tcp
+    labels:
+      traefik.http.routers.metube-router.entrypoints: websecure
+      traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
+      traefik.http.routers.metube-router.tls: "true"
+      traefik.http.services.metube-service.loadbalancer.server.port: "8081"
     volumes:
       - ${USERPROFILE}\metube-data\:/data/:rw
       - ~/cookies.txt:/cookies/cookies.txt:ro
@@ -115,8 +137,11 @@ services:
       ND_LOGLEVEL: info
       ND_SCANSCHEDULE: 1h
       ND_SESSIONTIMEOUT: 24h
-    ports:
-      - 4533:4533/tcp
+    labels:
+      traefik.http.routers.navidrome-router.entrypoints: websecure
+      traefik.http.routers.navidrome-router.rule: Host(`navidrome.bob.house`)
+      traefik.http.routers.navidrome-router.tls: "true"
+      traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
     volumes:
       - ~/.navidrome/:/data/:rw
       - E:\music\:/music/:ro
@@ -125,8 +150,11 @@ services:
     image: ghcr.io/kieraneglin/pinchflat:latest
     environment:
       TZ: Etc\UTC
-    ports:
-      - 8945:8945/tcp
+    labels:
+      traefik.http.routers.pinchflat-router.entrypoints: websecure
+      traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
+      traefik.http.routers.pinchflat-router.tls: "true"
+      traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
     volumes:
       - ~/.pinchflat/:/config/:rw
       - E:\YouTube\:/downloads/:rw
@@ -146,8 +174,11 @@ services:
       PUID: "1000"
       PGID: "1000"
       TZ: Etc/UTC
-    ports:
-      - 9696:9696/tcp
+    labels:
+      traefik.http.routers.prowlarr-router.entrypoints: websecure
+      traefik.http.routers.prowlarr-router.rule: Host(`prowlarr.bob.house`)
+      traefik.http.routers.prowlarr-router.tls: "true"
+      traefik.http.services.prowlarr-service.loadbalancer.server.port: "9696"
     volumes:
       - ${USERPROFILE}\prowlarr-data\:/config/:rw
 
@@ -173,8 +204,11 @@ services:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    ports:
-      - 7878:7878/tcp
+    labels:
+      traefik.http.routers.radarr-router.entrypoints: websecure
+      traefik.http.routers.radarr-router.rule: Host(`radarr.bob.house`)
+      traefik.http.routers.radarr-router.tls: "true"
+      traefik.http.services.radarr-service.loadbalancer.server.port: "7878"
     volumes:
       - ${USERPROFILE}\radarr-data/:/config/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
@@ -186,8 +220,11 @@ services:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    ports:
-      - 8083:8080/tcp
+    labels:
+      traefik.http.routers.sabnzbd-router.entrypoints: websecure
+      traefik.http.routers.sabnzbd-router.rule: Host(`sabnzbd.bob.house`)
+      traefik.http.routers.sabnzbd-router.tls: "true"
+      traefik.http.services.sabnzbd-service.loadbalancer.server.port: "8080"
     volumes:
       - ${USERPROFILE}\sabnzbd-data\:/config/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
@@ -195,8 +232,11 @@ services:
 
   sickgear:
     image: sickgear/sickgear:latest
-    ports:
-      - 8081:8081/tcp
+    labels:
+      traefik.http.routers.sickgear-router.entrypoints: websecure
+      traefik.http.routers.sickgear-router.rule: Host(`sickgear.bob.house`)
+      traefik.http.routers.sickgear-router.tls: "true"
+      traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
     volumes:
       - ${USERPROFILE}\sickgear-data\:/data/:rw
       - E:\anime\:/media/anime/:rw
@@ -212,9 +252,49 @@ services:
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
-    ports:
-      - 8989:8989/tcp
+    labels:
+      traefik.http.routers.sonarr-router.entrypoints: websecure
+      traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
+      traefik.http.routers.sonarr-router.tls: "true"
+      traefik.http.services.sonarr-service.loadbalancer.server.port: "8989"
     volumes:
       - ${USERPROFILE}\sonarr-data\:/config/:rw
       - D:\tvshows\:/tv/:rw
       - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
+
+  traefik:
+    image: traefik:latest
+    command:
+      # - --accesslog=true
+      - --api.insecure=true
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.websecure.address=:443
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --providers.docker
+    env_file:
+      - ~/Configurations/traefik.env
+    labels:
+      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.rule: Host(`traefik-ahti.bob.house`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    ports:
+      - 443:443/tcp
+    volumes:
+      - certificates-volume:/var/certs/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  certificates-volume:

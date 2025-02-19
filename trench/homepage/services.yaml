@@ -8,10 +8,10 @@
         href: https://changedetection.bob.house/
         icon: changedetection.svg
         ping: pope
-        siteMonitor: http://pope:5000
+        siteMonitor: https://changedetection.bob.house
         widget:
           type: changedetectionio
-          url: http://pope:5000
+          url: https://changedetection.bob.house/
           key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
     - Frigate:
         description: NVR with realtime local object detection for IP cameras
@@ -73,10 +73,10 @@
         href: https://miniflux.bob.house
         icon: miniflux-light.webp
         ping: pope
-        siteMonitor: http://pope:8085
+        siteMonitor: https://miniflux.bob.house
         widget:
           type: miniflux
-          url: http://pope:8085
+          url: https://miniflux.bob.house
           key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
     - Navidrome:
         description: 🎧☁️ Your Personal Streaming Service
@@ -307,12 +307,12 @@
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
         ping: pope
-        siteMonitor: http://pope:84/api/healthcheck
+        siteMonitor: https://speedtest.bob.house/api/healthcheck
         widget:
           type: speedtest
-          url: http://pope:84
+          url: https://speedtest.bob.house
           bitratePrecision: 3 # optional, default is 0
-    - Traefik:
+    - Traefik (Trench):
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
         icon: traefik-proxy.svg
@@ -321,6 +321,24 @@
         widget:
           type: traefik
           url: https://traefik.bob.house
+    - Traefik (Pope):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-pope.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: pope
+        siteMonitor: https://traefik-pope.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-pope.bob.house
+    - Traefik (Ahti):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-ahti.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: ahti
+        siteMonitor: https://traefik-ahti.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-ahti.bob.house
     - Uptime Kuma:
         description: Self-hosted website monitoring tool
         href: https://uptimekuma.bob.house/dashboard/
@@ -489,10 +507,10 @@
         href: https://miniflux.bob.house
         icon: miniflux-light.webp
         ping: pope
-        siteMonitor: http://pope:8085
+        siteMonitor: https://miniflux.bob.house
         widget:
           type: miniflux
-          url: http://pope:8085
+          url: https://miniflux.bob.house
           key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
     - moodist:
         description: Ambient sounds for focus and calm
@@ -660,7 +678,25 @@
           type: speedtest
           url: https://speedtest.bob.house
           bitratePrecision: 3 # optional, default is 0
-    - Traefik:
+    - Traefik (Ahti):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-ahti.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: ahti
+        siteMonitor: https://traefik-ahti.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-ahti.bob.house
+    - Traefik (Pope):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-pope.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: pope
+        siteMonitor: https://traefik-pope.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-pope.bob.house
+    - Traefik (Trench):
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
         icon: traefik-proxy.svg
