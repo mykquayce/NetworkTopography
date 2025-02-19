@@ -259,6 +259,17 @@
         icon: dozzle.svg
         ping: host.docker.internal
         siteMonitor: https://dozzle.bob.house/healthcheck
+    - Grafana:
+        description: The open and composable observability and data visualization platform
+        href: https://grafana.bob.house/
+        icon: grafana.svg
+        ping: pope
+        siteMonitor: https://grafana.bob.house
+        widget:
+          type: grafana
+          url: https://grafana.bob.house
+          username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+          password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
     - Pi-hole:
         description: A blackhole for Internet advertisements
         href: https://pihole.bob.house/admin
