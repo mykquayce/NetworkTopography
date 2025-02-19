@@ -325,11 +325,20 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-pope.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: host.docker.internal
+        ping: pope
         siteMonitor: https://traefik-pope.bob.house/dashboard/
         widget:
           type: traefik
           url: https://traefik-pope.bob.house
+    - Traefik (Ahti):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-ahti.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: ahti
+        siteMonitor: https://traefik-ahti.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-ahti.bob.house
     - Uptime Kuma:
         description: Self-hosted website monitoring tool
         href: https://uptimekuma.bob.house/dashboard/
@@ -669,6 +678,24 @@
           type: speedtest
           url: https://speedtest.bob.house
           bitratePrecision: 3 # optional, default is 0
+    - Traefik (Ahti):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-ahti.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: ahti
+        siteMonitor: https://traefik-ahti.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-ahti.bob.house
+    - Traefik (Pope):
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-pope.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: pope
+        siteMonitor: https://traefik-pope.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-pope.bob.house
     - Traefik (Trench):
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
@@ -678,15 +705,6 @@
         widget:
           type: traefik
           url: https://traefik.bob.house
-    - Traefik (Pope):
-        description: HTTP reverse proxy and load balancer
-        href: https://traefik-pope.bob.house/dashboard/
-        icon: traefik-proxy.svg
-        ping: host.docker.internal
-        siteMonitor: https://traefik-pope.bob.house/dashboard/
-        widget:
-          type: traefik
-          url: https://traefik-pope.bob.house
     - Trilium:
         description: Hierarchical note taking application
         href: https://trilium.bob.house/
