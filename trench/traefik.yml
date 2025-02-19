@@ -1,22 +1,10 @@
 http:
   routers:
-    ffmpeg-webhook-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`ffmpeg-webhook.bob.house`)"
-      service: "ffmpeg-webhook-service"
-      tls: "true"
     frigate-router:
       entryPoints:
         - "websecure"
       rule: "Host(`frigate.bob.house`)"
       service: "frigate-service"
-      tls: "true"
-    glances-ahti-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`glances-ahti.bob.house`)"
-      service: "glances-ahti-service"
       tls: "true"
     glances-marshall-router:
       entryPoints:
@@ -24,89 +12,17 @@ http:
       rule: "Host(`glances-marshall.bob.house`)"
       service: "glances-marshall-service"
       tls: "true"
-    jellyfin-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`jellyfin.bob.house`)"
-      service: "jellyfin-service"
-      tls: "true"
-    jellyseerr-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`jellyseerr.bob.house`)"
-      service: "jellyseerr-service"
-      tls: "true"
-    metube-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`metube.bob.house`)"
-      service: "metube-service"
-      tls: "true"
-    navidrome-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`navidrome.bob.house`)"
-      service: "navidrome-service"
-      tls: "true"
-    lidarr-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`lidarr.bob.house`)"
-      service: "lidarr-service"
-      tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
       rule: "Host(`pihole.bob.house`)"
       service: "pihole-service"
       tls: "true"
-    pinchflat-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`pinchflat.bob.house`)"
-      service: "pinchflat-service"
-      tls: "true"
-    prowlarr-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`prowlarr.bob.house`)"
-      service: "prowlarr-service"
-      tls: "true"
-    qbittorrent-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`qbittorrent.bob.house`)"
-      service: "qbittorrent-service"
-      tls: "true"
-    radarr-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`radarr.bob.house`)"
-      service: "radarr-service"
-      tls: "true"
     router1-router:
       entryPoints:
         - "websecure"
       rule: "Host(`router1.bob.house`)"
       service: "router1-service"
-      tls: "true"
-    sickgear-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`sickgear.bob.house`)"
-      service: "sickgear-service"
-      tls: "true"
-    sabnzbd-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`sabnzbd.bob.house`)"
-      service: "sabnzbd-service"
-      tls: "true"
-    sonarr-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`sonarr.bob.house`)"
-      service: "sonarr-service"
       tls: "true"
     switch1-router:
       entryPoints:
@@ -115,78 +31,22 @@ http:
       service: "switch1-service"
       tls: "true"
   services:
-    ffmpeg-webhook-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:9000/"
     frigate-service:
       loadBalancer:
         servers:
         - url: "http://marshall:5000/"
-    glances-ahti-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:61208/"
     glances-marshall-service:
       loadBalancer:
         servers:
         - url: "http://marshall:61208/"
-    jellyfin-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8096/"
-    jellyseerr-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:5055/"
-    lidarr-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8686/"
-    metube-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8082/"
-    navidrome-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:4533/"
     pihole-service:
       loadBalancer:
         servers:
         - url: "http://192.168.1.80"
-    pinchflat-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8945/"
-    prowlarr-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:9696/"
-    radarr-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:7878/"
-    qbittorrent-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8080/"
     router1-service:
       loadBalancer:
         servers:
         - url: "http://192.168.1.10"
-    sabnzbd-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8083/"
-    sickgear-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8081/"
-    sonarr-service:
-      loadBalancer:
-        servers:
-        - url: "http://ahti:8989/"
     switch1-service:
       loadBalancer:
         servers:
