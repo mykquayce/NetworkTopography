@@ -168,7 +168,7 @@ services:
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - ~/prometheus-data/:/prometheus/:rw
+      - ~/.prometheus/:/prometheus/:rw
 
   traefik:
     image: traefik:latest
