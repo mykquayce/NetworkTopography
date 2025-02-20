@@ -141,9 +141,9 @@ services:
       traefik.http.routers.homepage-router.tls: "true"
       traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
     volumes:
-      - .\homepage\:/app/config/:rw
-      - .\homepage\icons\:/app/public/icons/:ro
-      - .\homepage\images\:/app/public/images/:ro
+      - ./homepage/:/app/config/:rw
+      - ./homepage/icons/:/app/public/icons/:ro
+      - ./homepage/images/:/app/public/images/:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   portainer:
@@ -168,7 +168,7 @@ services:
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - ~/prometheus-data/:/prometheus/:rw
+      - ~/.prometheus/:/prometheus/:rw
 
   traefik:
     image: traefik:latest
