@@ -103,7 +103,7 @@ services:
     image: amir20/dozzle:latest
     command: agent
     environment:
-      DOZZLE_HOSTNAME: pope
+      DOZZLE_HOSTNAME: ransom
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
@@ -462,7 +462,7 @@ services:
       - ~/Configurations/traefik.env
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
-      traefik.http.routers.traefik-router.rule: Host(`traefik-pope.bob.house`)
+      traefik.http.routers.traefik-router.rule: Host(`traefik-ransom.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
