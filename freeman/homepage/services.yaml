@@ -7,7 +7,7 @@
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection.bob.house/
         icon: changedetection.svg
-        ping: pope
+        ping: ransom.lan
         siteMonitor: https://changedetection.bob.house
         widget:
           type: changedetectionio
@@ -17,17 +17,17 @@
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate.bob.house/
         icon: frigate.svg
-        ping: marshall.fbc.local
-        siteMonitor: http://marshall.fbc.local:5000
+        ping: marshall.lan
+        siteMonitor: http://marshall.lan:5000
         widget:
           type: frigate
-          url: http://marshall.fbc.local:5000
+          url: http://marshall.lan:5000
           enableRecentEvents: false
     - Grafana:
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
         icon: grafana.svg
-        ping: pope
+        ping: ransom.lan
         siteMonitor: https://grafana.bob.house
         widget:
           type: grafana
@@ -263,7 +263,7 @@
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
         icon: grafana.svg
-        ping: pope
+        ping: ransom.lan
         siteMonitor: https://grafana.bob.house
         widget:
           type: grafana
@@ -279,7 +279,7 @@
         widget:
           type: pihole
           url: https://pihole.bob.house
-          # version: 6 # required if running v6 or higher, defaults to 5
+          version: 6 # required if running v6 or higher, defaults to 5
           key: {{HOMEPAGE_VAR_PIHOLE_KEY}} # optional
     - Portainer:
         description: Making Docker and Kubernetes management easy
@@ -290,11 +290,7 @@
         widgets:
           - type: portainer
             url: https://portainer.bob.house
-            env: 4
-            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-          - type: portainer
-            url: https://portainer.bob.house
-            env: 5
+            env: 6
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
@@ -302,7 +298,11 @@
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 2
+            env: 5
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 4
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus:
         description: The Prometheus monitoring system and time series database
@@ -317,13 +317,13 @@
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
-        ping: pope
+        ping: ransom.lan
         siteMonitor: https://speedtest.bob.house/api/healthcheck
         widget:
           type: speedtest
           url: https://speedtest.bob.house
           bitratePrecision: 3 # optional, default is 0
-    - Traefik (Trench):
+    - Traefik (Freeman):
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
         icon: traefik-proxy.svg
@@ -332,20 +332,20 @@
         widget:
           type: traefik
           url: https://traefik.bob.house
-    - Traefik (Pope):
+    - Traefik (Ransom):
         description: HTTP reverse proxy and load balancer
-        href: https://traefik-pope.bob.house/dashboard/
+        href: https://traefik-ransom.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: pope
-        siteMonitor: https://traefik-pope.bob.house/dashboard/
+        ping: ransom.lan
+        siteMonitor: https://traefik-ransom.bob.house/dashboard/
         widget:
           type: traefik
-          url: https://traefik-pope.bob.house
+          url: https://traefik-ransom.bob.house
     - Traefik (Ahti):
         description: HTTP reverse proxy and load balancer
         href: https://traefik-ahti.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: ahti
+        ping: ahti.lan
         siteMonitor: https://traefik-ahti.bob.house/dashboard/
         widget:
           type: traefik
@@ -359,10 +359,16 @@
         widgets:
           - type: uptimekuma
             url: https://uptimekuma.bob.house
-            slug: statuspageslug
+            slug: devices
           - type: uptimekuma
             url: https://uptimekuma.bob.house
             slug: iot
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: servers
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: services
 - Media:
     - Jellyfin:
         description: Your media, on your terms
@@ -850,10 +856,16 @@
         widgets:
           - type: uptimekuma
             url: https://uptimekuma.bob.house
-            slug: statuspageslug
+            slug: devices
           - type: uptimekuma
             url: https://uptimekuma.bob.house
             slug: iot
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: servers
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: services
     - Vikunja:
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/

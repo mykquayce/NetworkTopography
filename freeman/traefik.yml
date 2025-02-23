@@ -34,7 +34,7 @@ http:
     frigate-service:
       loadBalancer:
         servers:
-        - url: "http://marshall:5000/"
+        - url: "http://marshall.lan:5000/"
     glances-marshall-service:
       loadBalancer:
         servers:
