@@ -108,7 +108,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.http.routers.glances-router.entrypoints: websecure
-      traefik.http.routers.glances-router.rule: Host(`glances-trench.bob.house`)
+      traefik.http.routers.glances-router.rule: Host(`glances-freeman.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     pid: host
@@ -163,6 +163,8 @@ services:
     image: prom/prometheus:latest
     command:
       - --config.file=/etc/prometheus/prometheus.yml
+    extra_hosts:
+      - host.docker.internal=host-gateway
     labels:
       traefik.http.routers.prometheus-router.entrypoints: websecure
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.bob.house`)

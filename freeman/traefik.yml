@@ -38,7 +38,7 @@ http:
     glances-marshall-service:
       loadBalancer:
         servers:
-        - url: "http://marshall:61208/"
+        - url: "http://marshall.lan:61208/"
     pihole-service:
       loadBalancer:
         servers:

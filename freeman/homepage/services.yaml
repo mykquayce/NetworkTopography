@@ -101,7 +101,7 @@
     - ahti:
         href: https://glances-ahti.bob.house/
         icon: glances.png
-        ping: ahti
+        ping: ahti.lan
         siteMonitor: https://glances-ahti.bob.house/api/4/status
         widget:
           type: prometheusmetric
@@ -137,7 +137,7 @@
     - marshall:
         href: https://glances-marshall.bob.house/
         icon: glances.png
-        ping: marshall
+        ping: marshall.lan
         siteMonitor: https://glances-marshall.bob.house/api/4/status
         widget:
           type: prometheusmetric
@@ -170,11 +170,11 @@
                 options:
                   maximumFractionDigits: 1
               query: disk_used_percent{host='marshall',path='/'}
-    - pope:
-        href: https://glances-pope.bob.house/
+    - ransom:
+        href: https://glances-ransom.bob.house/
         icon: glances.png
-        ping: pope
-        siteMonitor: https://glances-pope.bob.house/api/4/status
+        ping: ransom.lan
+        siteMonitor: https://glances-ransom.bob.house/api/4/status
         widget:
           type: prometheusmetric
           url: https://prometheus.bob.house
@@ -186,31 +186,31 @@
                 options:
                   maximumFractionDigits: 1
                 scale: 100
-              query: rate(cpu_usage_user{host='pope'}[5m])
+              query: rate(cpu_usage_user{host='ransom'}[5m])
             - label: system cpu
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
                 scale: 100
-              query: rate(cpu_usage_system{host='pope'}[5m])
+              query: rate(cpu_usage_system{host='ransom'}[5m])
             - label: free disk
               format:
                 type: bytes
                 options:
                   maximumFractionDigits: 1
-              query: disk_free{host='pope',path='\\C:'}
+              query: disk_free{host='ransom',path='/'}
             - label: disk used
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
-              query: disk_used_percent{host='pope',path='\\C:'}
-    - trench:
-        href: https://glances-trench.bob.house/
+              query: disk_used_percent{host='ransom',path='/'}
+    - freeman:
+        href: https://glances-freeman.bob.house/
         icon: glances.png
         ping: host.docker.internal
-        siteMonitor: https://glances-trench.bob.house/api/4/status
+        siteMonitor: https://glances-freeman.bob.house/api/4/status
         widget:
           type: prometheusmetric
           url: https://prometheus.bob.house
@@ -222,26 +222,26 @@
                 options:
                   maximumFractionDigits: 1
                 scale: 100
-              query: rate(cpu_usage_user{host='trench'}[5m])
+              query: rate(cpu_usage_user{host='freeman'}[5m])
             - label: system cpu
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
                 scale: 100
-              query: rate(cpu_usage_system{host='trench'}[5m])
+              query: rate(cpu_usage_system{host='freeman'}[5m])
             - label: free disk
               format:
                 type: bytes
                 options:
                   maximumFractionDigits: 1
-              query: disk_free{host='trench',path='\\C:'}
+              query: disk_free{host='freeman',path='/'}
             - label: disk used
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
-              query: disk_used_percent{host='trench',path='\\C:'}
+              query: disk_used_percent{host='freeman',path='/'}
 - Services:
     - Authentik:
         description: Bring all of your authentication into a unified platform
