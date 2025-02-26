@@ -87,7 +87,7 @@ services:
     image: amir20/dozzle:latest
     environment:
       DOZZLE_HOSTNAME: freeman
-      DOZZLE_REMOTE_AGENT: ahti:7007,marshall:7007,ransom.lan:7007
+      DOZZLE_REMOTE_AGENT: ahti.lan:7007,marshall.lan:7007,ransom.lan:7007
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
