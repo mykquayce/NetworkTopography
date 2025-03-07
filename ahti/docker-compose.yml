@@ -146,19 +146,6 @@ services:
       - ~/.navidrome/:/data/:rw
       - E:\music\:/music/:ro
 
-  pinchflat:
-    image: ghcr.io/kieraneglin/pinchflat:latest
-    environment:
-      TZ: Etc\UTC
-    labels:
-      traefik.http.routers.pinchflat-router.entrypoints: websecure
-      traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
-      traefik.http.routers.pinchflat-router.tls: "true"
-      traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
-    volumes:
-      - ~/.pinchflat/:/config/:rw
-      - E:\YouTube\:/downloads/:rw
-
   portainer:
     image: portainer/agent:latest
     ports:
