@@ -1,0 +1,586 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+- All:
+    - Authentik: &authentik
+        description: Bring all of your authentication into a unified platform
+        href: https://authentik.bob.house
+        icon: authentik.png
+        ping: host.docker.internal
+        siteMonitor: https://authentik.bob.house
+        widget:
+          type: authentik
+          url: https://authentik.bob.house
+          key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
+    - Baïkal: &bakial
+        description: A lightweight CalDAV+CardDAV server
+        href: https://baikal.bob.house
+        icon: baikal.png
+        ping: host.docker.internal
+        siteMonitor: https://baikal.bob.house
+    - Change Detection: &changedetection
+        description: Web page change detection, website watcher, restock monitor and notification service
+        href: https://changedetection.bob.house/
+        icon: changedetection.svg
+        ping: ransom.lan
+        siteMonitor: https://changedetection.bob.house
+        widget:
+          type: changedetectionio
+          url: https://changedetection.bob.house/
+          key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
+    - Docker Registry: &dockerregistry
+        description: UI for your private docker registry
+        href: https://registry.bob.house/
+        icon: docker-moby.svg
+        ping: ransom.lan
+        siteMonitor: https://registry.bob.house/
+    - Donetick: &donetick
+        description: Simplify Tasks & Chores, Together
+        href: https://donetick.bob.house/
+        icon: /icons/donetick.svg
+        ping: ransom.lan
+        siteMonitor: https://donetick.bob.house/
+    - Dozzle: &dozzle
+        description: Real-time log viewer for docker containers
+        href: https://dozzle.bob.house/
+        icon: dozzle.svg
+        ping: host.docker.internal
+        siteMonitor: https://dozzle.bob.house/healthcheck
+    - FreshRSS: &freshrss
+        description: A free, self-hostable news aggregator
+        href: https://freshrss.bob.house/
+        icon: freshrss.svg
+        ping: ransom.lan
+        siteMonitor: https://freshrss.bob.house/i/
+    - Frigate: &frigate
+        description: NVR with realtime local object detection for IP cameras
+        href: https://frigate.bob.house/
+        icon: frigate.svg
+        ping: marshall.lan
+        siteMonitor: http://marshall.lan:5000
+        widget:
+          type: frigate
+          url: http://marshall.lan:5000
+          enableRecentEvents: false
+    - Grafana: &grafana
+        description: The open and composable observability and data visualization platform
+        href: https://grafana.bob.house/
+        icon: grafana.svg
+        ping: ransom.lan
+        siteMonitor: https://grafana.bob.house
+        widget:
+          type: grafana
+          url: https://grafana.bob.house
+          username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
+          password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
+    - hoarder: &hoarder
+        description: A self-hostable bookmark-everything app
+        href: https://hoarder.bob.house/
+        icon: hoarder-light.png
+        ping: ransom.lan
+        siteMonitor: https://hoarder.bob.house/
+    - Home Assistant: &homeassistant
+        description: Open-source home automation platform
+        href: https://homeassistant.bob.house/
+        icon: home-assistant.svg
+        ping: host.docker.internal
+        siteMonitor: https://homeassistant.bob.house
+        widget:
+          type: homeassistant
+          url: https://homeassistant.bob.house
+          key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+          custom:
+            - label: spot
+              state: light.keylight
+            - label: strip
+              state: light.smart_light_strip_2
+            - label: wall
+              state: light.shapes_0324
+            - label: ceiling
+              state: light.bedroom_main
+    - httpbin: &httpbin
+        description: A simple HTTP Request & Response Service
+        href: https://httpbin.bob.house/
+        icon: /icons/httpbin.png
+        ping: ransom.lan
+        siteMonitor: https://httpbin.bob.house/
+    - IT-Tools: &ittools
+        description: Collection of handy online tools for developers, with great UX
+        href: https://it-tools.bob.house/
+        icon: it-tools.svg
+        ping: ransom.lan
+        siteMonitor: https://it-tools.bob.house/
+    - Jellyfin: &jellyfin
+        description: Your media, on your terms
+        href: https://jellyfin.bob.house/web/
+        icon: jellyfin.svg
+        ping: ahti.lan
+        siteMonitor: https://jellyfin.bob.house/health
+        widget:
+          type: jellyfin
+          url: https://jellyfin.bob.house
+          key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: false # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - Jellyseerr: &jellyseerr
+        description: Request management and media discovery tool for the Jellyfin ecosystem
+        href: https://jellyseerr.bob.house/
+        icon: jellyseerr.svg
+        ping: ahti.lan
+        siteMonitor: https://jellyseerr.bob.house
+        widget:
+          type: jellyseerr
+          url: https://jellyseerr.bob.house
+          key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
+    - Lidarr: &lidarr
+        description: Looks and smells like Sonarr but made for music
+        href: https://lidarr.bob.house/
+        icon: lidarr.svg
+        ping: ahti.lan
+        siteMonitor: https://lidarr.bob.house
+        widget:
+          type: lidarr
+          url: https://lidarr.bob.house
+          key: {{HOMEPAGE_VAR_LIDARR_KEY}}
+    - MeTube: &metube
+        description: Web UI for youtube-dl / yt-dlp
+        href: https://metube.bob.house/
+        icon: metube.svg
+        ping: ahti.lan
+        siteMonitor: https://metube.bob.house
+    - miniflux: &miniflux
+        description: Minimalist and opinionated feed reader
+        href: https://miniflux.bob.house
+        icon: miniflux-light.webp
+        ping: ransom.lan
+        siteMonitor: https://miniflux.bob.house
+        widget:
+          type: miniflux
+          url: https://miniflux.bob.house
+          key: {{HOMEPAGE_VAR_MINIFLUX_KEY}}
+    - moodist: &moodist
+        description: Ambient sounds for focus and calm
+        href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
+        icon: /icons/moodist.svg
+        ping: ransom.lan
+        siteMonitor: https://moodist.bob.house
+    - n8n: &n8n
+        description: Secure, AI-native workflow automation
+        href: https://n8n.bob.house/
+        icon: n8n.svg
+        ping: ransom.lan
+        siteMonitor: https://n8n.bob.house/
+    - Navidrome: &navidrome
+        description: 🎧☁️ Your Personal Streaming Service
+        href: https://navidrome.bob.house/app/
+        icon: navidrome-light.png
+        ping: ahti.lan
+        siteMonitor: https://metube.bob.house
+        widget:
+          type: navidrome
+          url: https://navidrome.bob.house
+          user: {{HOMEPAGE_VAR_NAVIDROME_USER}}
+          token: {{HOMEPAGE_VAR_NAVIDROME_TOKEN}}
+          salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
+    - netboot.xyz: &netbootxyz
+        description: Your favourite operating systems in one place
+        href: https://netboot.bob.house/
+        icon: netboot.svg
+        ping: ransom.lan
+        siteMonitor: https://netboot.bob.house/
+    - ntfy: &ntfy
+        description: Send push notifications to your phone or desktop via PUT/POST
+        href: https://ntfy.bob.house/
+        icon: ntfy.svg
+        ping: ransom.lan
+        siteMonitor: https://ntfy.bob.house/
+    - NuGet: &nuget
+        description: A lightweight NuGet and symbol server
+        href: https://nuget.bob.house/
+        icon: microsoft.svg
+        ping: ransom.lan
+        siteMonitor: https://nuget.bob.house/v3/index.json
+    - Pi-hole: &pihole
+        description: A blackhole for Internet advertisements
+        href: https://pihole.bob.house/admin
+        icon: pi-hole.svg
+        ping: 192.168.1.80
+        siteMonitor: https://pihole.bob.house/admin
+        widget:
+          type: pihole
+          url: https://pihole.bob.house
+          version: 6 # required if running v6 or higher, defaults to 5
+          key: {{HOMEPAGE_VAR_PIHOLE_KEY}} # optional
+    - Pinchflat: &pinchflat
+        description: Your next YouTube media manager
+        href: https://pinchflat.bob.house/
+        icon: pinchflat.png
+        ping: ahti.lan
+        siteMonitor: https://pinchflat.bob.house
+    - Planka: &planka
+        description: Realtime kanban board for workgroups
+        href: https://planka.bob.house/
+        icon: planka.svg
+        ping: ransom.lan
+        siteMonitor: https://planka.bob.house
+    - Portainer: &portainer
+        description: Making Docker and Kubernetes management easy
+        href: https://portainer.bob.house/
+        icon: portainer.svg
+        ping: host.docker.internal
+        siteMonitor: https://portainer.bob.house
+        widgets:
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 6
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 3
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 5
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 4
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+    - Prometheus: &prometheus
+        description: The Prometheus monitoring system and time series database
+        href: https://prometheus.bob.house/
+        icon: prometheus.svg
+        ping: host.docker.internal
+        siteMonitor: https://prometheus.bob.house
+        widget:
+          type: prometheus
+          url: https://prometheus.bob.house
+    - Prowlarr: &prowlarr
+        description: Indexer manager / proxy
+        href: https://prowlarr.bob.house/
+        icon: prowlarr.svg
+        ping: ahti.lan
+        siteMonitor: https://prowlarr.bob.house
+        widget:
+          type: prowlarr
+          url: https://prowlarr.bob.house
+          key: {{HOMEPAGE_VAR_PROWLARR_KEY}}
+    - qBittorrent: &qbittorrent
+        description: A BitTorrent client in Qt
+        href: https://qbittorrent.bob.house
+        icon: qbittorrent.svg
+        ping: ahti.lan
+        siteMonitor: https://qbittorrent.bob.house
+        widget:
+          type: qbittorrent
+          url: https://qbittorrent.bob.house
+          username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
+          password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
+    - Radarr: &radarr
+        description: Movie organizer/manager for usenet and torrent users
+        href: https://radarr.bob.house/
+        icon: radarr.svg
+        ping: ahti.lan
+        siteMonitor: https://radarr.bob.house
+        widget:
+          type: radarr
+          url: https://radarr.bob.house
+          key: {{HOMEPAGE_VAR_RADARR_KEY}}
+          enableQueue: true # optional, defaults to false
+    - SABnzbd: &sabnzbd
+        description: Free and easy binary newsreader
+        href: https://sabnzbd.bob.house/
+        icon: sabnzbd.svg
+        ping: ahti.lan
+        siteMonitor: https://sabnzbd.bob.house
+        widget:
+          type: sabnzbd
+          url: https://sabnzbd.bob.house
+          key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
+    - Sick Gear: &sickgear
+        description: Fully automate TV enjoyment
+        href: https://sickgear.bob.house/
+        icon: sickbeard.svg
+        ping: ahti.lan
+        siteMonitor: https://sickgear.bob.house
+    - Sonarr: &sonarr
+        description: Usenet and BitTorrent PVR
+        href: https://sonarr.bob.house/
+        icon: sonarr.svg
+        ping: ahti.lan
+        siteMonitor: https://sonarr.bob.house
+        widget:
+          type: sonarr
+          url: https://sonarr.bob.house
+          key: {{HOMEPAGE_VAR_SONARR_KEY}}
+          enableQueue: true
+    - Speedtest: &speedtest
+        description: Free & Open-Source HTML5 Network Performance Estimation Tool
+        href: https://speedtest.bob.house/
+        icon: openspeedtest.png
+        ping: ransom.lan
+        siteMonitor: https://speedtest.bob.house/api/healthcheck
+        widget:
+          type: speedtest
+          url: https://speedtest.bob.house
+          bitratePrecision: 3 # optional, default is 0
+    - Traefik (Freeman): &traefikfreeman
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: host.docker.internal
+        siteMonitor: https://traefik.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik.bob.house
+    - Traefik (Ransom): &traefikransom
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-ransom.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: ransom.lan
+        siteMonitor: https://traefik-ransom.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-ransom.bob.house
+    - Traefik (Ahti): &traefikahti
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-ahti.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: ahti.lan
+        siteMonitor: https://traefik-ahti.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-ahti.bob.house
+    - Trilium: &trilium
+        description: Hierarchical note taking application
+        href: https://trilium.bob.house/
+        icon: trilium.svg
+        ping: ransom.lan
+        siteMonitor: https://trilium.bob.house/login
+    - Uptime Kuma: &uptimekuma
+        description: Self-hosted website monitoring tool
+        href: https://uptimekuma.bob.house/dashboard/
+        icon: uptime-kuma.svg
+        ping: host.docker.internal
+        siteMonitor: https://uptimekuma.bob.house/dashboard/
+        widgets:
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: devices
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: iot
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: servers
+          - type: uptimekuma
+            url: https://uptimekuma.bob.house
+            slug: services
+    - Vikunja: &vikunja
+        description: The to-do app to organize your life
+        href: https://vikunja.bob.house/
+        icon: vikunja.svg
+        ping: ransom.lan
+        siteMonitor: https://vikunja.bob.house
+        widget:
+          type: vikunja
+          url: https://vikunja.bob.house
+          key: {{HOMEPAGE_VAR_VIKUNJA_KEY}}
+          enableTaskList: true
+    - What's Up Docker: &whatsupdocker
+        description: Gets you notified when a new version of your Docker Container is available
+        href: https://whatsupdocker.bob.house/
+        icon: whats-up-docker.svg
+        ping: ransom.lan
+        siteMonitor: https://whatsupdocker.bob.house/
+        widget:
+          type: whatsupdocker
+          url: https://whatsupdocker.bob.house
+
+- Essentials:
+    - Change Detection: *changedetection
+    - Frigate: *frigate
+    - Grafana: *grafana
+    - Home Assistant: *homeassistant
+    - Jellyfin: *jellyfin
+    - miniflux: *miniflux
+    - Navidrome: *navidrome
+    - Pinchflat: *pinchflat
+
+- Servers:
+    - ahti:
+        href: https://glances-ahti.bob.house/
+        icon: glances.png
+        ping: ahti.lan
+        siteMonitor: https://glances-ahti.bob.house/api/4/status
+        widget:
+          type: prometheusmetric
+          url: https://prometheus.bob.house
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='ahti'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='ahti'}[5m])
+            - label: D
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='ahti',path='\\D:'}
+            - label: E
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='ahti',path='\\E:'}
+    - marshall:
+        href: https://glances-marshall.bob.house/
+        icon: glances.png
+        ping: marshall.lan
+        siteMonitor: https://glances-marshall.bob.house/api/4/status
+        widget:
+          type: prometheusmetric
+          url: https://prometheus.bob.house
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='marshall'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='marshall'}[5m])
+            - label: free disk
+              format:
+                type: bytes
+                options:
+                  maximumFractionDigits: 1
+              query: disk_free{host='marshall',path='/'}
+            - label: disk used
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='marshall',path='/'}
+    - ransom:
+        href: https://glances-ransom.bob.house/
+        icon: glances.png
+        ping: ransom.lan
+        siteMonitor: https://glances-ransom.bob.house/api/4/status
+        widget:
+          type: prometheusmetric
+          url: https://prometheus.bob.house
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='ransom'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='ransom'}[5m])
+            - label: free disk
+              format:
+                type: bytes
+                options:
+                  maximumFractionDigits: 1
+              query: disk_free{host='ransom',path='/'}
+            - label: disk used
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='ransom',path='/'}
+    - freeman:
+        href: https://glances-freeman.bob.house/
+        icon: glances.png
+        ping: host.docker.internal
+        siteMonitor: https://glances-freeman.bob.house/api/4/status
+        widget:
+          type: prometheusmetric
+          url: https://prometheus.bob.house
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='freeman'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='freeman'}[5m])
+            - label: free disk
+              format:
+                type: bytes
+                options:
+                  maximumFractionDigits: 1
+              query: disk_free{host='freeman',path='/'}
+            - label: disk used
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='freeman',path='/'}
+
+- Services:
+    - Authentik: *authentik
+    - Dozzle: *dozzle
+    - Grafana: *grafana
+    - Pi-hole: *pihole
+    - Portainer: *portainer
+    - Prometheus: *prometheus
+    - Speedtest: *speedtest
+    - Traefik (Freeman): *traefikfreeman
+    - Traefik (Ransom): *traefikransom
+    - Traefik (Ahti): *traefikahti
+    - Uptime Kuma: *uptimekuma
+
+- Media:
+    - Jellyfin: *jellyfin
+    - Jellyseerr: *jellyseerr
+    - Lidarr: *lidarr
+    - MeTube: *metube
+    - Navidrome: *navidrome
+    - Pinchflat: *pinchflat
+    - Prowlarr: *prowlarr
+    - qBittorrent: *qbittorrent
+    - Radarr: *radarr
+    - SABnzbd: *sabnzbd
+    - Sick Gear: *sickgear
+    - Sonarr: *sonarr
+
