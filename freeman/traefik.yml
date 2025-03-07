@@ -12,6 +12,12 @@ http:
       rule: "Host(`glances-marshall.bob.house`)"
       service: "glances-marshall-service"
       tls: "true"
+    netalertx-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`netalertx.bob.house`)"
+      service: "netalertx-service"
+      tls: "true"
     pihole-router:
       entryPoints:
         - "websecure"
@@ -39,6 +45,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://marshall.lan:61208/"
+    netalertx-service:
+      loadBalancer:
+        servers:
+        - url: "http://freeman.lan:20211/"
     pihole-service:
       loadBalancer:
         servers:

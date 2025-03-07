@@ -148,6 +148,25 @@ services:
       - ./homepage/images/:/app/public/images/:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  netalertx:
+    image: ghcr.io/jokob-sk/netalertx:latest
+    env_file:
+      - ~/Configurations/netalertx.env
+    environment:
+      APP_CONF_OVERRIDE: '{"SCAN_SUBNETS":["192.168.1.0/24 --interface=eno1"]}'
+      LOADED_PLUGINS: '["APPRISE","ARPSCAN","DHCPSRVS","ICMP","PIHOLE"]'
+      PGID: "300"
+      PUID: "200"
+      PORT: "20211"
+      TZ: Etc/UTC
+    network_mode: host
+    volumes:
+      - ~/.netalertx/config/:/app/config/:rw
+      - ~/.netalertx/db:/app/db/:rw
+      - ~/.netalertx/logs/:/app/log/:rw
+      - type: tmpfs
+        target: /app/api
+
   portainer:
     image: portainer/portainer-ce:latest
     labels:
