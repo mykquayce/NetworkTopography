@@ -214,6 +214,22 @@
         icon: microsoft.svg
         ping: ransom.lan
         siteMonitor: https://nuget.bob.house/v3/index.json
+    - Open WebUI: &openwebui
+        description: An extensible, feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline
+        href: https://open-webui.bob.house
+        icon: open-webui-light.webp
+        ping: ransom.lan
+        siteMonitor: https://open-webui.bob.house/
+    - Paperless-ngx: &paperlessngx
+        description: A community-supported open-source document management system
+        href: https://paperless-ngx.bob.house
+        icon: paperless-ngx.svg
+        ping: ransom.lan
+        siteMonitor: https://paperless-ngx.bob.house
+        widget:
+          type: paperlessngx
+          url: https://paperless-ngx.bob.house
+          key: {{HOMEPAGE_VAR_PAPERLESSNGX}}
     - Pi-hole: &pihole
         description: A blackhole for Internet advertisements
         href: https://pihole.bob.house/admin
