@@ -83,7 +83,7 @@ services:
       traefik.http.routers.changedetection-router.tls: "true"
       traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
     volumes:
-      - ${USERPROFILE}\changedetection-data\:/datastore/:rw
+      - ~/.changedetection/:/datastore/:rw
 
   donetick:
     image: donetick/donetick:latest
@@ -103,7 +103,7 @@ services:
     image: amir20/dozzle:latest
     command: agent
     environment:
-      DOZZLE_HOSTNAME: pope
+      DOZZLE_HOSTNAME: ransom
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
@@ -135,7 +135,7 @@ services:
       options:
         max-size: 10m
     volumes:
-      - ~/freshrss-data/:/var/www/FreshRSS/data:rw
+      - ~/.freshrss/:/var/www/FreshRSS/data:rw
 
   glances:
     image: nicolargo/glances:latest
@@ -143,7 +143,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.http.routers.glances-router.entrypoints: websecure
-      traefik.http.routers.glances-router.rule: Host(`glances-pope.bob.house`)
+      traefik.http.routers.glances-router.rule: Host(`glances-ransom.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     pid: host
@@ -165,7 +165,7 @@ services:
       traefik.http.routers.grafana-router.tls: "true"
       traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
     volumes:
-      - ~/grafana-data/:/var/lib/grafana/:rw
+      - ~/.grafana/:/var/lib/grafana/:rw
 
   hoarder:
     image: ghcr.io/hoarder-app/hoarder:latest
@@ -211,30 +211,6 @@ services:
       traefik.http.routers.httpbin-router.rule: Host(`httpbin.bob.house`)
       traefik.http.routers.httpbin-router.tls: "true"
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
-
-  identityserver:
-    image: eassbhhtgu/identity-server:latest
-    environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      HTTP_PORTS: "80"
-      Kestrel:Certificates:Default:KeyPath: /etc/certs/localhost.key
-      Kestrel:Certificates:Default:Path: /etc/certs/localhost.crt
-
-      ApiScopes:0:Name: scope1
-      Clients:0:AllowedGrantTypes:0: client_credentials
-      Clients:0:AllowedScopes:0: scope1
-      Clients:0:ClientId: client1
-      Clients:0:ClientSecrets:0:Value: WxFhjC5EAnh30M0JIe0Wa58Xb1BYf8kedTTdKUbbd9Y=
-    labels:
-      traefik.http.routers.identityserver-router.entrypoints: websecure
-      traefik.http.routers.identityserver-router.rule: Host(`identityserver.bob.house`)
-      traefik.http.routers.identityserver-router.tls: "true"
-      traefik.http.services.identityserver-service.loadbalancer.server.port: "80"
-    secrets:
-      - source: localhost_crt
-        target: /etc/certs/localhost.crt
-      - source: localhost_key
-        target: /etc/certs/localhost.key
 
   it-tools:
     image: ghcr.io/corentinth/it-tools:latest
@@ -344,8 +320,8 @@ services:
       traefik.http.routers.ntfy-router.tls: "true"
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
     volumes:
-      - ${USERPROFILE}\ntfy-data\cache\:/var/cache/ntfy/:rw
-      - .\ntfy.yml:/etc/ntfy/server.yml:ro
+      - ~/.ntfy/:/var/cache/ntfy/:rw
+      - ./ntfy.yml:/etc/ntfy/server.yml:ro
 
   nuget:
     image: bagetter/bagetter:latest
@@ -357,7 +333,7 @@ services:
       traefik.http.routers.nuget-router.tls: "true"
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
     volumes:
-      - ${USERPROFILE}\bagetter-data:/data:rw
+      - ~/.bagetter/:/data:rw
 
   planka:
     image: ghcr.io/plankanban/planka:latest
@@ -382,9 +358,9 @@ services:
       traefik.http.routers.planka-router.tls: "true"
       traefik.http.services.planka-service.loadbalancer.server.port: "1337"
     volumes:
-      - ${USERPROFILE}\planka-data\user-avatars:/app/public/user-avatars:rw
-      - ${USERPROFILE}\planka-data\project-background-images:/app/public/project-background-images:rw
-      - ${USERPROFILE}\planka-data\attachments:/app/private/attachments:rw
+      - ~/.planka/user-avatars:/app/public/user-avatars:rw
+      - ~/.planka/project-background-images:/app/public/project-background-images:rw
+      - ~/.planka/attachments/:/app/private/attachments:rw
 
   planka-db:
     image: postgres:14-alpine
@@ -399,7 +375,7 @@ services:
       interval: 10s
       retries: 5
     volumes:
-      - ${USERPROFILE}\planka-data\db:/var/lib/postgresql/data:rw
+      - ~/.planka/db:/var/lib/postgresql/data:rw
 
   portainer:
     image: portainer/agent:latest
@@ -408,13 +384,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
-      - C:\:/host/:rw
+      - /:/host/:rw
 
   real-time-streaming:
     image: linuxserver/ffmpeg:latest
-    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/playlist.txt' -loglevel error -f rtsp rtsp://mediamtx:8554/lofi
+    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/lo-fi/playlist.txt' -loglevel error -f rtsp rtsp://mediamtx:8554/lofi
     volumes:
-      - C:\Videos\lo-fi\:/videos/:ro
+      - ~/videos/:/videos/:ro
 
   registry:
     image: registry:latest
@@ -423,8 +399,8 @@ services:
     env_file:
       - ~/Configurations/registry.env
     volumes:
-      - ${USERPROFILE}\registry-data\data\:/data/:rw
-      - ${USERPROFILE}\registry-data\library\:/var/lib/registry/:rw
+      - ~/.registry/data/:/data/:rw
+      - ~/.registry/library/:/var/lib/registry/:rw
 
   registry-ui:
     image: joxit/docker-registry-ui:main
@@ -463,7 +439,7 @@ services:
       traefik.http.routers.speedtest-router.tls: "true"
       traefik.http.services.speedtest-service.loadbalancer.server.port: "80"
     volumes:
-      - ${USERPROFILE}\speedtest-data\:/config/:rw
+      - ~/.speedtest/:/config/:rw
 
   traefik:
     image: traefik:latest
@@ -486,7 +462,7 @@ services:
       - ~/Configurations/traefik.env
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
-      traefik.http.routers.traefik-router.rule: Host(`traefik-pope.bob.house`)
+      traefik.http.routers.traefik-router.rule: Host(`traefik-ransom.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
@@ -507,7 +483,7 @@ services:
       traefik.http.routers.trilium-router.tls: "true"
       traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
     volumes:
-      - ${USERPROFILE}\trilium-data\:/home/node/trilium-data/:rw
+      - ~/.trilium/:/home/node/trilium-data/:rw
 
   vikunja:
     image: vikunja/vikunja:latest
@@ -517,8 +493,8 @@ services:
       traefik.http.routers.vikunja-router.tls: "true"
       traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
     volumes:
-     - ${userprofile}\vikunja-data\db\:/db/:rw
-     - ${userprofile}\vikunja-data\files\:/app/vikunja/files/:rw
+     - ~/.vikunja/db/:/db/:rw
+     - ~/.vikunja/files/:/app/vikunja/files/:rw
 
   whatsupdocker:
     image: fmartinou/whats-up-docker:latest
@@ -537,15 +513,11 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${USERPROFILE}\whatsupdocker-data\:/store/:rw
+      - ~/.whatsupdocker/:/store/:rw
 
 secrets:
   id_rsa:
-    file: ${USERPROFILE}\.ssh\id_rsa
-  localhost_crt:
-    file: ${USERPROFILE}\.aspnet\https\server.crt
-  localhost_key:
-    file: ${USERPROFILE}\.aspnet\https\server.key
+    file: ~/.ssh/id_rsa
 
 volumes:
   certificates-volume:

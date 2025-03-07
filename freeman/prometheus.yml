@@ -18,6 +18,6 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
       - targets: ['host.docker.internal:9273']
-      - targets: ['ahti:9273']
-      - targets: ['marshall:9273']
-      - targets: ['pope:9273']
+      - targets: ['ahti.lan:9273']
+      - targets: ['marshall.lan:9273']
+      - targets: ['ransom.lan:9273']
