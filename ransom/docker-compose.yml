@@ -115,6 +115,22 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  fileflows:
+    image: revenz/fileflows:latest
+    environment:
+      TZ: Etc/UTC
+    labels:
+      traefik.http.routers.fileflows-router.entrypoints: websecure
+      traefik.http.routers.fileflows-router.rule: Host(`fileflows.bob.house`)
+      traefik.http.routers.fileflows-router.tls: "true"
+      traefik.http.services.fileflows-service.loadbalancer.server.port: "5000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ~/.fileflows/common/:/app/common/:rw
+      - ~/.fileflows/data/:/app/Data/:rw
+      - ~/.fileflows/logs/:/app/Logs/:rw
+      - ~/videos/:/media/:rw
+
   freshrss:
     image: freshrss/freshrss:latest
     environment:
@@ -412,6 +428,19 @@ services:
       retries: 10
     volumes:
       - ~/.paperless-ngx/redis/:/data/:rw
+
+  pinchflat:
+    image: ghcr.io/kieraneglin/pinchflat:latest
+    environment:
+      TZ: Etc\UTC
+    labels:
+      traefik.http.routers.pinchflat-router.entrypoints: websecure
+      traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
+      traefik.http.routers.pinchflat-router.tls: "true"
+      traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
+    volumes:
+      - ~/.pinchflat/:/config/:rw
+      - ~/videos/incoming/:/downloads/:rw
 
   planka:
     image: ghcr.io/plankanban/planka:latest
