@@ -335,6 +335,84 @@ services:
     volumes:
       - ~/.bagetter/:/data:rw
 
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ~/.ollama/:/root/.ollama/:rw
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    env_file:
+      - ~/Configurations/open-webui.env
+    labels:
+      traefik.http.routers.open-webui-router.entrypoints: websecure
+      traefik.http.routers.open-webui-router.rule: Host(`open-webui.bob.house`)
+      traefik.http.routers.open-webui-router.tls: "true"
+      traefik.http.services.open-webui-service.loadbalancer.server.port: "8080"
+    volumes:
+      - ~/.open-webui/:/app/backend/data/:rw
+
+  paperless-ngx:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    depends_on:
+      paperless-ngx-db:
+        condition: service_healthy
+        required: true
+      paperless-ngx-redis:
+        condition: service_healthy
+        required: true
+    env_file:
+      - ~/Configurations/paperless-ngx.env
+    environment:
+      PAPERLESS_DBHOST: paperless-ngx-db
+      PAPERLESS_REDIS: redis://paperless-ngx-redis:6379
+      PAPERLESS_URL: https://paperless-ngx.bob.house
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000']
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 10
+    labels:
+      traefik.http.routers.paperless-ngx-router.entrypoints: websecure
+      traefik.http.routers.paperless-ngx-router.rule: Host(`paperless-ngx.bob.house`)
+      traefik.http.routers.paperless-ngx-router.tls: "true"
+      traefik.http.services.paperless-ngx-service.loadbalancer.server.port: "8000"
+    volumes:
+      - ~/.paperless-ngx/consume/:/usr/src/paperless/consume/:rw
+      - ~/.paperless-ngx/data/:/usr/src/paperless/data/:rw
+      - ~/.paperless-ngx/media/:/usr/src/paperless/media/:rw
+      - ~/.paperless-ngx/export/:/usr/src/paperless/export/:rw
+      - ~/.paperless-ngx/media/:/usr/src/paperless/media/:rw
+
+  paperless-ngx-db:
+    image: docker.io/library/postgres:16
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperless
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 10
+    volumes:
+      - ~/.paperless-ngx/db/:/var/lib/postgresql/data/:rw
+
+  paperless-ngx-redis:
+    image: docker.io/library/redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 10
+    volumes:
+      - ~/.paperless-ngx/redis/:/data/:rw
+
   planka:
     image: ghcr.io/plankanban/planka:latest
     depends_on:
