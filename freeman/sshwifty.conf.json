@@ -1,0 +1,58 @@
+{
+  "HostName": "sshwifty.bob.house",
+  "DialTimeout": 10,
+  "Servers": [
+    {
+      "ListenInterface": "0.0.0.0",
+      "ListenPort": 8182,
+      "InitialTimeout": 3,
+      "ReadTimeout": 60,
+      "WriteTimeout": 60,
+      "HeartbeatTimeout": 20,
+      "ReadDelay": 10,
+      "WriteDelay": 10,
+      "TLSCertificateFile": "",
+      "TLSCertificateKeyFile": "",
+      "ServerMessage": ""
+    }
+  ],
+  "Presets": [
+    {
+      "Title": "freeman",
+      "Type": "SSH",
+      "Host": "freeman.lan:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:jitHOBIEk9d/YYuyjjQQHNPKj8VuH2Qq2YaE52gP+V4",
+        "Encoding": "utf-8"
+      }
+    },
+    {
+      "Title": "marshall",
+      "Type": "SSH",
+      "Host": "marshall.lan:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:7wQgn8wd2k+Qyu0ej8MvsrBNHBr5ccq5wgprI79A0fQ",
+        "Encoding": "utf-8"
+      }
+    },
+    {
+      "Title": "ransom",
+      "Type": "SSH",
+      "Host": "ransom.lan:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:RRTdJ6pwLEttUahq9GDbxp+RHHdbKseY3w9M6kN3j0c",
+        "Encoding": "utf-8"
+      }
+    }
+  ],
+  "OnlyAllowPresetRemotes": true
+}

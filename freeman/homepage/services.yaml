@@ -363,6 +363,12 @@
           type: speedtest
           url: https://speedtest.bob.house
           bitratePrecision: 3 # optional, default is 0
+    - Sshwifty: &sshwifty
+        description: WebSSH & WebTelnet client
+        href: https://sshwifty.bob.house/
+        icon: sshwifty.svg
+        ping: host.docker.internal
+        siteMonitor: https://sshwifty.bob.house/sshwifty/socket/verify
     - Traefik (Freeman): &traefikfreeman
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
@@ -602,6 +608,7 @@
     - Portainer: *portainer
     - Prometheus: *prometheus
     - Speedtest: *speedtest
+    - Sshwifty: *sshwifty
     - Traefik (Freeman): *traefikfreeman
     - Traefik (Ransom): *traefikransom
     - Traefik (Ahti): *traefikahti
