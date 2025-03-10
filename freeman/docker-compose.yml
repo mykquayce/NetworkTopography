@@ -193,6 +193,18 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ~/.prometheus/:/prometheus/:rw
 
+  sshwifty:
+    image: niruix/sshwifty:latest
+    labels:
+      traefik.http.routers.sshwifty-router.entrypoints: websecure
+      traefik.http.routers.sshwifty-router.rule: Host(`sshwifty.bob.house`)
+      traefik.http.routers.sshwifty-router.tls: "true"
+      traefik.http.services.sshwifty-service.loadbalancer.server.port: "8182"
+    user: root
+    volumes:
+      - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
+      - ~/.ssh/:/home/root/.ssh/:ro
+
   traefik:
     image: traefik:latest
     command:
