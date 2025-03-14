@@ -133,6 +133,9 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: homepage.bob.house
+      HOSTNAME: 0.0.0.0
     env_file:
       - ~/Configurations/homepage.env
     extra_hosts:

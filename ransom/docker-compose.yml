@@ -382,6 +382,7 @@ services:
     env_file:
       - ~/Configurations/paperless-ngx.env
     environment:
+      PAPERLESS_BIND_ADDR: 0.0.0.0
       PAPERLESS_DBHOST: paperless-ngx-db
       PAPERLESS_REDIS: redis://paperless-ngx-redis:6379
       PAPERLESS_URL: https://paperless-ngx.bob.house
