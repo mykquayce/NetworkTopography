@@ -204,6 +204,7 @@ services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     environment:
+      HAS_IPV6: "false"
       PGID: "1000"
       PUID: "1000"
       TZ: Etc/UTC
