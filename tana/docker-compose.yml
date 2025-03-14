@@ -25,7 +25,7 @@ services:
       traefik.http.routers.ffmpeg-webhook-router.tls: "true"
       traefik.http.services.ffmpeg-webhook-service.loadbalancer.server.port: "9000"
     volumes:
-      - E:\YouTube\:/videos/:rw
+      - /mnt/md1/youtube/:/videos/:rw
 
   glances:
     image: nicolargo/glances:latest
@@ -33,7 +33,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.http.routers.glances-router.entrypoints: websecure
-      traefik.http.routers.glances-router.rule: Host(`glances-ahti.bob.house`)
+      traefik.http.routers.glances-router.rule: Host(`glances-tana.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     pid: host
@@ -71,16 +71,16 @@ services:
       traefik.http.routers.jellyfin-router.tls: "true"
       traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
     volumes:
-      - ${USERPROFILE}\jellyfin-data\config\:/config/:rw
-      - ${USERPROFILE}\jellyfin-data\cache\:/cache/:rw
-      - E:\anime\:/media/anime/:rw
-      - E:\films\:/media/films/:rw
-      - E:\streamers\:/media/streamers/:rw
-      - D:\tvshows\:/media/tv/:rw
-      - E:\videos\:/media/videos/:rw
-      - E:\music\:/media/music/:rw
-      - E:\pictures\:/media/pictures/:rw
-      - E:\youtube\:/media/youtube/:rw
+      - ~/.jellyfin/config/:/config/:rw
+      - ~/.jellyfin/cache/:/cache/:rw
+      - /mnt/md1/anime/:/media/anime/:rw
+      - /mnt/md1/films/:/media/films/:rw
+      - /mnt/md1/streamers/:/media/streamers/:rw
+      - /mnt/md0/tvshows/:/media/tv/:rw
+      - /mnt/md1/videos/:/media/videos/:rw
+      - /mnt/md1/music/:/media/music/:rw
+      - /mnt/md1/pictures/:/media/pictures/:rw
+      - /mnt/md1/youtube/:/media/youtube/:rw
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -93,7 +93,7 @@ services:
       traefik.http.routers.jellyseerr-router.tls: "true"
       traefik.http.services.jellyseerr-service.loadbalancer.server.port: "5055"
     volumes:
-      - ~/jellyseerr-data/:/app/config/:rw
+      - ~/.jellyseerr/:/app/config/:rw
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -107,9 +107,9 @@ services:
       traefik.http.routers.lidarr-router.tls: "true"
       traefik.http.services.lidarr-service.loadbalancer.server.port: "8686"
     volumes:
-      - ${USERPROFILE}\lidarr-data\:/config/:rw
-      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
-      - E:\Music\:/music/:rw
+      - ~/.lidarr/:/config/:rw
+      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/music/:/music/:rw
 
   metube:
     image: ghcr.io/alexta69/metube:latest
@@ -125,9 +125,9 @@ services:
       traefik.http.routers.metube-router.tls: "true"
       traefik.http.services.metube-service.loadbalancer.server.port: "8081"
     volumes:
-      - ${USERPROFILE}\metube-data\:/data/:rw
+      - ~/.metube/:/data/:rw
       - ~/cookies.txt:/cookies/cookies.txt:ro
-      - E:\Downloads\YouTube\:/downloads/:rw
+      - /mnt/md1/youtube/:/downloads/:rw
 
   navidrome:
     image: deluan/navidrome:latest
@@ -144,7 +144,7 @@ services:
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
     volumes:
       - ~/.navidrome/:/data/:rw
-      - E:\music\:/music/:ro
+      - /mnt/md1/music/:/music/:ro
 
   portainer:
     image: portainer/agent:latest
@@ -153,7 +153,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
-      - C:\:/host/:rw
+      - /:/host/:rw
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -167,7 +167,7 @@ services:
       traefik.http.routers.prowlarr-router.tls: "true"
       traefik.http.services.prowlarr-service.loadbalancer.server.port: "9696"
     volumes:
-      - ${USERPROFILE}\prowlarr-data\:/config/:rw
+      - ~/.prowlarr/:/config/:rw
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -182,8 +182,8 @@ services:
       TORRENTING_PORT: "6881"
     network_mode: service:gluetun
     volumes:
-      - ${USERPROFILE}\qbittorrent-data\:/config/:rw
-      - E:\Downloads\:/downloads/:rw
+      - ~/.qbittorrent/:/config/:rw
+      - /mnt/md1/downloads/:/downloads/:rw
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -197,9 +197,9 @@ services:
       traefik.http.routers.radarr-router.tls: "true"
       traefik.http.services.radarr-service.loadbalancer.server.port: "7878"
     volumes:
-      - ${USERPROFILE}\radarr-data/:/config/:rw
-      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
-      - E:\Films\:/movies/:rw
+      - ~/.radarr/:/config/:rw
+      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/films/:/movies/:rw
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -213,9 +213,9 @@ services:
       traefik.http.routers.sabnzbd-router.tls: "true"
       traefik.http.services.sabnzbd-service.loadbalancer.server.port: "8080"
     volumes:
-      - ${USERPROFILE}\sabnzbd-data\:/config/:rw
-      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
-      - E:\Downloads\sabnzbd\incomplete\:/config/Downloads/incomplete/:rw
+      - ~/.sabnzbd/:/config/:rw
+      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/downloads/incomplete/:/config/Downloads/incomplete/:rw
 
   sickgear:
     image: sickgear/sickgear:latest
@@ -225,13 +225,13 @@ services:
       traefik.http.routers.sickgear-router.tls: "true"
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
     volumes:
-      - ${USERPROFILE}\sickgear-data\:/data/:rw
-      - E:\anime\:/media/anime/:rw
-      - E:\films\:/media/films/:rw
-      - D:\tvshows\:/media/tv/:rw
-      - E:\videos\:/media/videos/:rw
-      - E:\music\:/media/music/:rw
-      - E:\pictures\:/media/pictures/:rw
+      - ~/.sickgear/:/data/:rw
+      - /mnt/md1/anime/:/media/anime/:rw
+      - /mnt/md1/films/:/media/films/:rw
+      - /mnt/md0/tvshows/:/media/tv/:rw
+      - /mnt/md1/videos/:/media/videos/:rw
+      - /mnt/md1/music/:/media/music/:rw
+      - /mnt/md1/pictures/:/media/pictures/:rw
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -245,9 +245,9 @@ services:
       traefik.http.routers.sonarr-router.tls: "true"
       traefik.http.services.sonarr-service.loadbalancer.server.port: "8989"
     volumes:
-      - ${USERPROFILE}\sonarr-data\:/config/:rw
-      - D:\tvshows\:/tv/:rw
-      - E:\Downloads\sabnzbd\:/config/Downloads/complete/:rw
+      - ~/.sonarr/:/config/:rw
+      - /mnt/md0/tvshows/:/data/media/tvshows/:rw
+      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
 
   traefik:
     image: traefik:latest
@@ -270,7 +270,7 @@ services:
       - ~/Configurations/traefik.env
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
-      traefik.http.routers.traefik-router.rule: Host(`traefik-ahti.bob.house`)
+      traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
