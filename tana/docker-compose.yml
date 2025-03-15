@@ -27,6 +27,22 @@ services:
     volumes:
       - /mnt/md1/youtube/:/videos/:rw
 
+  fileflows:
+    image: revenz/fileflows:latest
+    environment:
+      TZ: Etc/UTC
+    labels:
+      traefik.http.routers.fileflows-router.entrypoints: websecure
+      traefik.http.routers.fileflows-router.rule: Host(`fileflows.bob.house`)
+      traefik.http.routers.fileflows-router.tls: "true"
+      traefik.http.services.fileflows-service.loadbalancer.server.port: "5000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ~/.fileflows/common/:/app/common/:rw
+      - ~/.fileflows/data/:/app/Data/:rw
+      - ~/.fileflows/logs/:/app/Logs/:rw
+      - /mnt/md1/:/media/:rw
+
   glances:
     image: nicolargo/glances:latest
     environment:
@@ -145,6 +161,19 @@ services:
     volumes:
       - ~/.navidrome/:/data/:rw
       - /mnt/md1/music/:/music/:ro
+
+  pinchflat:
+    image: ghcr.io/kieraneglin/pinchflat:latest
+    environment:
+      TZ: Etc\UTC
+    labels:
+      traefik.http.routers.pinchflat-router.entrypoints: websecure
+      traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
+      traefik.http.routers.pinchflat-router.tls: "true"
+      traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
+    volumes:
+      - ~/.pinchflat/:/config/:rw
+      - /mnt/md1/youtube/:/downloads/:rw
 
   portainer:
     image: portainer/agent:latest
