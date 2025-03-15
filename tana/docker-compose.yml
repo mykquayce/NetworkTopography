@@ -3,7 +3,7 @@ services:
     image: amir20/dozzle:latest
     command: agent
     environment:
-      DOZZLE_HOSTNAME: ahti
+      DOZZLE_HOSTNAME: tana
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
