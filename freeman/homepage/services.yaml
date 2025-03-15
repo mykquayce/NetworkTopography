@@ -124,7 +124,7 @@
         description: Your media, on your terms
         href: https://jellyfin.bob.house/web/
         icon: jellyfin.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://jellyfin.bob.house/health
         widget:
           type: jellyfin
@@ -139,7 +139,7 @@
         description: Request management and media discovery tool for the Jellyfin ecosystem
         href: https://jellyseerr.bob.house/
         icon: jellyseerr.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://jellyseerr.bob.house
         widget:
           type: jellyseerr
@@ -149,7 +149,7 @@
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
         icon: lidarr.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://lidarr.bob.house
         widget:
           type: lidarr
@@ -159,7 +159,7 @@
         description: Web UI for youtube-dl / yt-dlp
         href: https://metube.bob.house/
         icon: metube.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://metube.bob.house
     - miniflux: &miniflux
         description: Minimalist and opinionated feed reader
@@ -187,7 +187,7 @@
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://metube.bob.house
         widget:
           type: navidrome
@@ -255,10 +255,6 @@
         widgets:
           - type: portainer
             url: https://portainer.bob.house
-            env: 6
-            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-          - type: portainer
-            url: https://portainer.bob.house
             env: 3
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
@@ -268,6 +264,10 @@
           - type: portainer
             url: https://portainer.bob.house
             env: 4
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 7
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus: &prometheus
         description: The Prometheus monitoring system and time series database
@@ -282,7 +282,7 @@
         description: Indexer manager / proxy
         href: https://prowlarr.bob.house/
         icon: prowlarr.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://prowlarr.bob.house
         widget:
           type: prowlarr
@@ -292,7 +292,7 @@
         description: A BitTorrent client in Qt
         href: https://qbittorrent.bob.house
         icon: qbittorrent.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://qbittorrent.bob.house
         widget:
           type: qbittorrent
@@ -303,7 +303,7 @@
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
         icon: radarr.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://radarr.bob.house
         widget:
           type: radarr
@@ -314,7 +314,7 @@
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
         icon: sabnzbd.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://sabnzbd.bob.house
         widget:
           type: sabnzbd
@@ -324,13 +324,13 @@
         description: Fully automate TV enjoyment
         href: https://sickgear.bob.house/
         icon: sickbeard.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://sickgear.bob.house
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
         icon: sonarr.svg
-        ping: ahti.lan
+        ping: tana.lan
         siteMonitor: https://sonarr.bob.house
         widget:
           type: sonarr
@@ -371,15 +371,15 @@
         widget:
           type: traefik
           url: https://traefik-ransom.bob.house
-    - Traefik (Ahti): &traefikahti
+    - Traefik (tana): &traefiktana
         description: HTTP reverse proxy and load balancer
-        href: https://traefik-ahti.bob.house/dashboard/
+        href: https://traefik-tana.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: ahti.lan
-        siteMonitor: https://traefik-ahti.bob.house/dashboard/
+        ping: tana.lan
+        siteMonitor: https://traefik-tana.bob.house/dashboard/
         widget:
           type: traefik
-          url: https://traefik-ahti.bob.house
+          url: https://traefik-tana.bob.house
     - Trilium: &trilium
         description: Hierarchical note taking application
         href: https://trilium.bob.house/
@@ -438,11 +438,11 @@
     - Pinchflat: *pinchflat
 
 - Servers:
-    - ahti:
-        href: https://glances-ahti.bob.house/
+    - tana:
+        href: https://glances-tana.bob.house/
         icon: glances.png
-        ping: ahti.lan
-        siteMonitor: https://glances-ahti.bob.house/api/4/status
+        ping: tana.lan
+        siteMonitor: https://glances-tana.bob.house/api/4/status
         widget:
           type: prometheusmetric
           url: https://prometheus.bob.house
@@ -454,26 +454,26 @@
                 options:
                   maximumFractionDigits: 1
                 scale: 100
-              query: rate(cpu_usage_user{host='ahti'}[5m])
+              query: rate(cpu_usage_user{host='tana'}[5m])
             - label: system cpu
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
                 scale: 100
-              query: rate(cpu_usage_system{host='ahti'}[5m])
-            - label: D
+              query: rate(cpu_usage_system{host='tana'}[5m])
+            - label: md0
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
-              query: disk_used_percent{host='ahti',path='\\D:'}
-            - label: E
+              query: disk_used_percent{host='tana',path='/mnt/md0'}
+            - label: md1
               format:
                 type: percent
                 options:
                   maximumFractionDigits: 1
-              query: disk_used_percent{host='ahti',path='\\E:'}
+              query: disk_used_percent{host='tana',path='/mnt/md1'}
     - marshall:
         href: https://glances-marshall.bob.house/
         icon: glances.png
@@ -595,7 +595,7 @@
     - Sshwifty: *sshwifty
     - Traefik (Freeman): *traefikfreeman
     - Traefik (Ransom): *traefikransom
-    - Traefik (Ahti): *traefikahti
+    - Traefik (Tana): *traefiktana
     - Uptime Kuma: *uptimekuma
 
 - Media:
