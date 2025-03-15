@@ -51,7 +51,7 @@
         description: A file processing application that can execute actions against a file in a tree flow structure
         href: https://fileflows.bob.house/
         icon: fileflows.svg
-        ping: ransom.lan
+        ping: tana.lan
         siteMonitor: https://fileflows.bob.house
         widget:
           type: fileflows
@@ -238,7 +238,7 @@
         description: Your next YouTube media manager
         href: https://pinchflat.bob.house/
         icon: pinchflat.png
-        ping: ransom.lan
+        ping: tana.lan
         siteMonitor: https://pinchflat.bob.house
     - Planka: &planka
         description: Realtime kanban board for workgroups
