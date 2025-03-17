@@ -23,11 +23,23 @@ layout:
     tab: Main
   Entertainment:
     tab: Main
-  Servers:
-    columns: 2
+  Services:
+    columns: 4
     style: row
     tab: Monitoring
-  Services:
+  Glances:
+    columns: 4
+    style: row
+    tab: Monitoring
+  Portainer:
+    columns: 4
+    style: row
+    tab: Monitoring
+  Traefik:
+    columns: 4
+    style: row
+    tab: Monitoring
+  Uptime Kuma:
     columns: 4
     style: row
     tab: Monitoring
