@@ -9,6 +9,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    labels:
+      traefik.enable: false
     volumes:
       - ~/.authentik/postgres/:/var/lib/postgresql/data/:rw
 
@@ -21,6 +23,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 3s
+    labels:
+      traefik.enable: false
     volumes:
       - ~/.authentik/redis/:/data/:rw
 
@@ -31,6 +35,8 @@ services:
       authentik-postgresql:
         condition: service_healthy
       authentik-redis:
+        condition: service_healthy
+      traefik:
         condition: service_healthy
     environment:
       AUTHENTIK_REDIS__HOST: authentik-redis
@@ -59,6 +65,8 @@ services:
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
     env_file:
       - ~/Configurations/authentik.env
+    labels:
+      traefik.enable: false
     # `user: root` and the docker socket volume are optional.
     # See more for the docker socket integration here:
     # https://goauthentik.io/docs/outposts/integrations/docker
@@ -74,6 +82,9 @@ services:
 
   baikal:
     image: ckulka/baikal:nginx
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.baikal-router.entrypoints: websecure
       traefik.http.routers.baikal-router.rule: Host(`baikal.bob.house`)
@@ -85,6 +96,9 @@ services:
 
   dozzle:
     image: amir20/dozzle:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       DOZZLE_HOSTNAME: freeman
       DOZZLE_REMOTE_AGENT: marshall.lan:7007,ransom.lan:7007,tana.lan:7007
@@ -104,6 +118,9 @@ services:
 
   glances:
     image: nicolargo/glances:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       GLANCES_OPT: -w
     labels:
@@ -118,6 +135,9 @@ services:
 
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.homeassistant-router.entrypoints: websecure
       traefik.http.routers.homeassistant-router.rule: Host(`homeassistant.bob.house`)
@@ -133,6 +153,9 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       HOMEPAGE_ALLOWED_HOSTS: homepage.bob.house
       HOSTNAME: 0.0.0.0
@@ -162,6 +185,8 @@ services:
       PUID: "200"
       PORT: "20211"
       TZ: Etc/UTC
+    labels:
+      traefik.enable: false
     network_mode: host
     volumes:
       - ~/.netalertx/config/:/app/config/:rw
@@ -172,6 +197,9 @@ services:
 
   portainer:
     image: portainer/portainer-ce:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.portainer-router.entrypoints: websecure
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
@@ -185,6 +213,9 @@ services:
     image: prom/prometheus:latest
     command:
       - --config.file=/etc/prometheus/prometheus.yml
+    depends_on:
+      traefik:
+        condition: service_healthy
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
@@ -198,6 +229,9 @@ services:
 
   sshwifty:
     image: niruix/sshwifty:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.sshwifty-router.entrypoints: websecure
       traefik.http.routers.sshwifty-router.rule: Host(`sshwifty.bob.house`)
@@ -224,10 +258,16 @@ services:
       - --metrics.prometheus.addentrypointslabels=true
       - --metrics.prometheus.addrouterslabels=true
       - --metrics.prometheus.addserviceslabels=true
+      - --ping
       - --providers.docker
       - --providers.file.directory=/etc/traefik/dynamic_conf/
     env_file:
       - ~/Configurations/traefik.env
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 10s
+      retries: 5
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
@@ -249,6 +289,9 @@ services:
 
   uptimekuma:
     image: louislam/uptime-kuma:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.uptimekuma-router.entrypoints: websecure
       traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.bob.house`)
