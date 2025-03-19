@@ -72,6 +72,12 @@
           type: frigate
           url: http://marshall.lan:5000
           enableRecentEvents: false
+    - Glance: &glance
+        description: A self-hosted dashboard that puts all your feeds in one place
+        href: https://glance.bob.house/
+        icon: glance-light.png
+        ping: host.docker.internal
+        siteMonitor: https://glance.bob.house/
     - Glances (Freeman): &glancesfreeman
         href: https://glances-freeman.bob.house/
         icon: glances.png
@@ -616,6 +622,7 @@
     - Change Detection: *changedetection
     - FileFlows: *fileflows
     - Frigate: *frigate
+    - Glance: *glance
     - Grafana: *grafana
     - Home Assistant: *homeassistant
     - Jellyfin: *jellyfin

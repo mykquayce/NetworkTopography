@@ -116,6 +116,19 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  glance:
+    image: glanceapp/glance:latest
+    labels:
+      traefik.http.routers.glance-router.entrypoints: websecure
+      traefik.http.routers.glance-router.rule: Host(`glance.bob.house`)
+      traefik.http.routers.glance-router.tls: "true"
+      traefik.http.services.glance-service.loadbalancer.server.port: "8080"
+    volumes:
+      - ./glance.yml:/app/config/glance.yml:ro
+      - ~/.glance/:/app/assets/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
   glances:
     image: nicolargo/glances:latest
     depends_on:
