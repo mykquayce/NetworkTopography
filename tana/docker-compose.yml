@@ -79,6 +79,10 @@ services:
 
   jellyfin:
     image: jellyfin/jellyfin:latest
+    devices:
+      - /dev/dri:/dev/dri
+    extra_hosts:
+      - authentik.bob.house=192.168.1.60
     healthcheck:
       test: curl -f http://localhost:8096/health
     labels:
@@ -114,8 +118,8 @@ services:
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     environment:
-      PGID: "1000"
-      PUID: "1000"
+      PGID: "0"
+      PUID: "0"
       TZ: Etc/UTC
     labels:
       traefik.http.routers.lidarr-router.entrypoints: websecure
@@ -166,6 +170,8 @@ services:
     image: ghcr.io/kieraneglin/pinchflat:latest
     environment:
       TZ: Etc\UTC
+    extra_hosts:
+      - ntfy.bob.house=192.168.1.65
     labels:
       traefik.http.routers.pinchflat-router.entrypoints: websecure
       traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
@@ -217,8 +223,8 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     environment:
-      PGID: "1000"
-      PUID: "1000"
+      PGID: "0"
+      PUID: "0"
       TZ: Etc/UTC
     labels:
       traefik.http.routers.radarr-router.entrypoints: websecure
@@ -234,8 +240,8 @@ services:
     image: lscr.io/linuxserver/sabnzbd:latest
     environment:
       HAS_IPV6: "false"
-      PGID: "1000"
-      PUID: "1000"
+      PGID: "0"
+      PUID: "0"
       TZ: Etc/UTC
     labels:
       traefik.http.routers.sabnzbd-router.entrypoints: websecure
