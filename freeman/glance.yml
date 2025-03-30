@@ -1,0 +1,189 @@
+pages:
+  - name: tech
+    columns:
+      - size: small
+        widgets:
+          - type: twitch-channels
+            channels:
+              - alh4zr3d
+              - clarkio
+              - csharpfritz
+              - endingwithali
+              - microsoftdeveloper
+              - tbdgamer
+              - technotim
+              - visualstudio
+              - whitep4nth3r
+            collapse-after: 16
+            sort-by: viewers
+
+          - type: rss
+            limit: 32
+            collapse-after: 16
+            cache: 3h
+            feeds:
+              - url: https://codeblog.jonskeet.uk/feed/
+              - url: https://devblogs.microsoft.com/dotnet/feed/
+              - url: https://feeds.feedburner.com/NitoPrograms
+              - url: https://feeds.hanselman.com/ScottHanselman
+              - url: https://haacked.com/atom.xml
+              - url: https://krebsonsecurity.com/feed/
+              - url: https://www.docker.com/feed/
+              - url: https://www.schneier.com/feed/
+
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: selfhosted
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: homeassistant
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: homelab
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: sysadmin
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+
+          - type: videos
+            channels:
+              - UCvtT19MZW8dq5Wwfu6B0oxw # dotnet
+              - UCOY6oNxodGWbFg6CjXtae5g # fixtSE
+              - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
+              - UCUUTdohVElFLSP4NBnlPEwA # Jim's Garage
+              - UCrkPsvLGln62OMZRO6K-llg # Nick Chapsas
+              - UCv6J_jJa8GJqFwQNgNrMuww # ServeTheHome
+              - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
+            collapse-after-rows: 4
+            limit: 32
+            style: grid-cards
+
+  - name: social
+    columns:
+      - size: small
+        widgets:
+          - type: twitch-channels
+            channels:
+              - enemycharlie
+              - kaisa
+              - lowco
+              - munecatmusic
+              - sashagrey
+            collapse-after: 16
+            sort-by: viewers
+
+          - type: rss
+            limit: 32
+            collapse-after: 16
+            cache: 3h
+            feeds:
+              - url: https://hackaday.com/feed/
+              - url: https://rss.slashdot.org/Slashdot/slashdotMain
+              - url: https://www.theregister.com/headlines.atom
+
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: LeopardsAteMyFace
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: TopMindsOfReddit
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+
+          - type: videos
+            channels:
+              - UCduKuJToxWPizJ7I2E6n1kA # BroScienceLife
+              - UC9Kq-yEt1iYsbUzNOoIRK0g # Pitch Meeting
+              - UCrTNhL_yO3tPTdQ5XgmmWjA # RedLetterMedia
+              - UC0aanx5rpr7D1M7KCFYzrLQ # Shoe0nHead
+              - UCvlj0IzjSnNoduQF0l3VGng # Some More News
+            collapse-after-rows: 2
+            limit: 32
+            style: grid-cards
+
+  - name: gaming
+    columns:
+      - size: small
+        widgets:
+          - type: twitch-channels
+            channels:
+              - 2dkiri
+              - jenandaliona
+              - jeffgerstmann
+              - kimknibble
+              - thedivisiongame
+              - ubisoft
+            collapse-after: 16
+            sort-by: viewers
+
+          - type: rss
+            limit: 32
+            collapse-after: 16
+            cache: 3h
+            feeds:
+              - url: https://news.xbox.com/en-us/feed/
+              - url: https://www.eurogamer.net/feed
+              - url: https://www.vg247.com/feed
+
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: controlgame
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: evercade
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: snowrunner
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+              - type: reddit
+                subreddit: thedivision
+                collapse-after: 8
+                limit: 16
+                show-thumbnails: true
+
+          - type: videos
+            channels:
+              - UCr8t0PrQ1gZkLs53lE-HTpw # Mightykeef
+              - UCZw4WkJhfoovdJ1eYwa7qyA # oboeshoesgames
+              - UCNoyrAASAelSBLX_ZWIq0uA # oboeshoestwos
+              - UCKk076mm-7JjLxJcFSXIPJA # outsidexbox
+              - UC1wZGocgLvopgOqBUFCyIJA # Second Wind
+            collapse-after-rows: 2
+            limit: 32
+            style: grid-cards
+
+server:
+  assets-path: /app/assets/
+  port: 8080
+
+theme:
+  # https://github.com/glanceapp/glance/blob/main/docs/themes.md#tucan
+  background-color: 50 1 6
+  negative-color: 209 88 54
+  primary-color: 24 97 58

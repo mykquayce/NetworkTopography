@@ -52,6 +52,18 @@
         "Fingerprint": "SHA256:RRTdJ6pwLEttUahq9GDbxp+RHHdbKseY3w9M6kN3j0c",
         "Encoding": "utf-8"
       }
+    },
+    {
+      "Title": "tana",
+      "Type": "SSH",
+      "Host": "tana.lan:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:uBcN8SYWoCTmHcmEwqMSlx1NId6y3hyy7BgteffVxUM",
+        "Encoding": "utf-8"
+      }
     }
   ],
   "OnlyAllowPresetRemotes": true
