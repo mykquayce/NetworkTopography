@@ -295,6 +295,50 @@
           type: jellyseerr
           url: https://jellyseerr.bob.house
           key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
+    - Kopia FREEMAN: &kopiafreeman
+        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        href: https://kopia-freeman.bob.house/
+        icon: kopia.svg
+        ping: host.docker.internal
+        siteMonitor: http://kopia:51515
+        widget:
+          type: kopia
+          url: http://kopia:51515
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
+    - Kopia MARSHALL: &kopiamarshall
+        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        href: https://kopia-marshall.bob.house/
+        icon: kopia.svg
+        ping: marshall.lan
+        siteMonitor: https://kopia-marshall.bob.house
+        widget:
+          type: kopia
+          url: https://kopia-marshall.bob.house
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
+    - Kopia RANSOM: &kopiaransom
+        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        href: https://kopia-ransom.bob.house/
+        icon: kopia.svg
+        ping: ransom.lan
+        siteMonitor: https://kopia-ransom.bob.house
+        widget:
+          type: kopia
+          url: https://kopia-ransom.bob.house
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
+    - Kopia TANA: &kopiatana
+        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        href: https://kopia-tana.bob.house/
+        icon: kopia.svg
+        ping: tana.lan
+        siteMonitor: https://kopia-tana.bob.house
+        widget:
+          type: kopia
+          url: https://kopia-tana.bob.house
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Lidarr: &lidarr
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
@@ -661,6 +705,12 @@
     - Marshall: *glancesmarshall
     - Ransom: *glancesransom
     - Tana: *glancestana
+
+- Kopia:
+    - Freeman: *kopiafreeman
+    - Marshall: *kopiamarshall
+    - Ransom: *kopiaransom
+    - Tana: *kopiatana
 
 - Portainer:
     - Freeman: *portainerfreeman

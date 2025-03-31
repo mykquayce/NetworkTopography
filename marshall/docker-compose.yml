@@ -44,6 +44,30 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
+  kopia:
+    image: kopia/kopia:latest
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=a72691ffb1328c15
+      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    env_file:
+      - ~/Configurations/kopia.env
+    ports:
+      - 51515:51515/tcp
+    volumes:
+      # Mount local folders needed by kopia
+      - ~/.kopia/config/:/app/config/:rw
+      - ~/.kopia/cache/:/app/cache/:rw
+      - ~/.kopia/logs/:/app/logs/:rw
+      # Mount local folders to snapshot
+      - ~/:/data/:ro
+      # Mount repository location
+      - /repository/:/repository/:rw
+
   portainer:
     image: portainer/agent:latest
     ports:

@@ -187,6 +187,33 @@ services:
       - ./homepage/images/:/app/public/images/:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  kopia:
+    image: kopia/kopia:latest
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=a72691ffb1328c15
+      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    env_file:
+      - ~/Configurations/kopia.env
+    labels:
+      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.rule: Host(`kopia-freeman.bob.house`)
+      traefik.http.routers.kopia-router.tls: "true"
+      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    volumes:
+      # Mount local folders needed by kopia
+      - ~/.kopia/config/:/app/config/:rw
+      - ~/.kopia/cache/:/app/cache/:rw
+      - ~/.kopia/logs/:/app/logs/:rw
+      # Mount local folders to snapshot
+      - ~/:/data/:ro
+      # Mount repository location
+      - /repository/:/repository/:rw
+
   netalertx:
     image: ghcr.io/jokob-sk/netalertx:latest
     env_file:
