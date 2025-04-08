@@ -41,7 +41,8 @@ services:
       - ~/.fileflows/common/:/app/common/:rw
       - ~/.fileflows/data/:/app/Data/:rw
       - ~/.fileflows/logs/:/app/Logs/:rw
-      - /mnt/md1/:/media/:rw
+      - ~/.fileflows/downloads/:/downloads/:rw
+      - ~/.pinchflat/downloads/:/pinchflat/:rw
 
   glances:
     image: nicolargo/glances:latest
@@ -201,8 +202,9 @@ services:
       traefik.http.routers.pinchflat-router.tls: "true"
       traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
     volumes:
-      - ~/.pinchflat/:/config/:rw
-      - /mnt/md1/youtube/:/downloads/:rw
+      - ~/.pinchflat/config/:/config/:rw
+      - ~/.pinchflat/downloads/:/downloads/:rw
+      - ~/cookies.txt:/config/extras/cookies.txt:rw
 
   portainer:
     image: portainer/agent:latest
