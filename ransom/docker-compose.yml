@@ -493,8 +493,12 @@ services:
       - /:/host/:rw
 
   real-time-streaming:
-    image: linuxserver/ffmpeg:latest
-    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/lo-fi/playlist.txt' -loglevel error -f rtsp rtsp://mediamtx:8554/lofi
+    build:
+      context: ./real-time-streaming/
+      dockerfile: ./Dockerfile
+    depends_on:
+      mediamtx:
+        condition: service_started
     volumes:
       - ~/videos/:/videos/:ro
 
