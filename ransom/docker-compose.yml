@@ -494,13 +494,13 @@ services:
 
   real-time-streaming-lofi:
     image: linuxserver/ffmpeg:latest
-    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/lofi/playlist.txt' -loglevel error -f rtsp rtsp://mediamtx:8554/lofi
+    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/lofi/playlist.txt' -map 0:v:0 -c:v:0 copy -map 0:a:0 -c:a:0 copy -loglevel warning -f rtsp rtsp://mediamtx:8554/lofi
     volumes:
       - ~/videos/:/videos/:ro
 
   real-time-streaming-pandorajourney:
     image: linuxserver/ffmpeg:latest
-    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/pandorajourney/playlist.txt' -loglevel error -f rtsp rtsp://mediamtx:8554/pandorajourney
+    command: -re -stream_loop -1 -f concat -safe 0 -i '/videos/pandorajourney/playlist.txt' -map 0:v:0 -c:v:0 copy -map 0:a:0 -c:a:0 copy -loglevel warning -f rtsp rtsp://mediamtx:8554/pandorajourney
     volumes:
       - ~/videos/:/videos/:ro
 
