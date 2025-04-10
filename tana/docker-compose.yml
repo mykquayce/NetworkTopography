@@ -337,12 +337,23 @@ services:
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
       traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    networks:
+      default:
+        ipv4_address: 172.18.0.2
     ports:
       - 443:443/tcp
     volumes:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          ip_range: 172.18.5.0/24
 
 volumes:
   certificates-volume:
