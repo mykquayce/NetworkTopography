@@ -407,7 +407,7 @@
         siteMonitor: https://netboot.bob.house/
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
-        href: https://ntfy.bob.house/
+        href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
         icon: ntfy.svg
         ping: ransom.lan
         siteMonitor: https://ntfy.bob.house/
@@ -695,6 +695,7 @@
     - Dozzle: *dozzle
     - Grafana: *grafana
     - NetAlertX: *netalertx
+    - ntfy: *ntfy
     - Pi-hole: *pihole
     - Prometheus: *prometheus
     - Speedtest: *speedtest
