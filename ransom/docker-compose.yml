@@ -167,43 +167,6 @@ services:
     volumes:
       - ~/.grafana/:/var/lib/grafana/:rw
 
-  hoarder:
-    image: ghcr.io/hoarder-app/hoarder:latest
-    environment:
-      BROWSER_WEB_URL: http://hoarder-chrome:9222
-      DATA_DIR: /data
-      MEILI_ADDR: http://hoarder-meilisearch:7700
-      NEXTAUTH_URL: http://localhost:3000
-    env_file:
-      - ~/Configurations/hoarder.env
-    labels:
-      traefik.http.routers.hoarder-router.entrypoints: websecure
-      traefik.http.routers.hoarder-router.rule: Host(`hoarder.bob.house`)
-      traefik.http.routers.hoarder-router.tls: "true"
-      traefik.http.services.hoarder-service.loadbalancer.server.port: "3000"
-    volumes:
-      - ~/.hoarder/data/:/data/:rw
-
-  hoarder-chrome:
-    image: gcr.io/zenika-hub/alpine-chrome:latest
-    command:
-      - --disable-dev-shm-usage
-      - --disable-gpu
-      - --hide-scrollbars
-      - --no-sandbox
-      - --remote-debugging-address=0.0.0.0
-      - --remote-debugging-port=9222
-
-  hoarder-meilisearch:
-    image: getmeili/meilisearch:latest
-    environment:
-      MEILI_ADDR: http://127.0.0.1:7700
-      MEILI_NO_ANALYTICS: "true"
-    env_file:
-      - ~/Configurations/hoarder.env
-    volumes:
-      - ~/.hoarder/meilisearch/:/meili_data/:rw
-
   httpbin:
     image: mccutchen/go-httpbin:latest
     labels:
@@ -219,6 +182,41 @@ services:
       traefik.http.routers.it-tools-router.rule: Host(`it-tools.bob.house`)
       traefik.http.routers.it-tools-router.tls: "true"
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
+
+  karakeep:
+    image: ghcr.io/karakeep-app/karakeep:latest
+    environment:
+      BROWSER_WEB_URL: http://karakeep-chrome:9222
+      DATA_DIR: /data
+      MEILI_ADDR: http://karakeep-meilisearch:7700
+    env_file:
+      - ~/Configurations/karakeep.env
+    labels:
+      traefik.http.routers.karakeep-router.entrypoints: websecure
+      traefik.http.routers.karakeep-router.rule: Host(`karakeep.bob.house`)
+      traefik.http.routers.karakeep-router.tls: "true"
+      traefik.http.services.karakeep-service.loadbalancer.server.port: "3000"
+    volumes:
+      - ~/.karakeep/data/:/data/:rw
+
+  karakeep-chrome:
+    image: gcr.io/zenika-hub/alpine-chrome:latest
+    command:
+      - --disable-dev-shm-usage
+      - --disable-gpu
+      - --hide-scrollbars
+      - --no-sandbox
+      - --remote-debugging-address=0.0.0.0
+      - --remote-debugging-port=9222
+
+  karakeep-meilisearch:
+    image: getmeili/meilisearch:latest
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+    env_file:
+      - ~/Configurations/karakeep.env
+    volumes:
+      - ~/.karakeep/meilisearch/:/meili_data/:rw
 
   kopia:
     image: kopia/kopia:latest

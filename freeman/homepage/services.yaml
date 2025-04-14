@@ -233,12 +233,6 @@
           url: https://grafana.bob.house
           username: {{HOMEPAGE_VAR_GRAFANA_USERNAME}}
           password: {{HOMEPAGE_VAR_GRAFANA_PASSWORD}}
-    - hoarder: &hoarder
-        description: A self-hostable bookmark-everything app
-        href: https://hoarder.bob.house/
-        icon: hoarder-light.png
-        ping: ransom.lan
-        siteMonitor: https://hoarder.bob.house/
     - Home Assistant: &homeassistant
         description: Open-source home automation platform
         href: https://homeassistant.bob.house/
@@ -295,6 +289,12 @@
           type: jellyseerr
           url: https://jellyseerr.bob.house
           key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
+    - karakeep: &karakeep
+        description: A self-hostable bookmark-everything app
+        href: https://karakeep.bob.house/
+        icon: hoarder-light.png
+        ping: ransom.lan
+        siteMonitor: https://karakeep.bob.house/
     - Kopia FREEMAN: &kopiafreeman
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-freeman.bob.house/
