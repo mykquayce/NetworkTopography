@@ -286,13 +286,16 @@ services:
       traefik.http.routers.sickgear-router.tls: "true"
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
     volumes:
-      - ~/.sickgear/:/data/:rw
-      - /mnt/md1/anime/:/media/anime/:rw
-      - /mnt/md1/films/:/media/films/:rw
-      - /mnt/md0/tvshows/:/media/tv/:rw
-      - /mnt/md1/videos/:/media/videos/:rw
-      - /mnt/md1/music/:/media/music/:rw
-      - /mnt/md1/pictures/:/media/pictures/:rw
+      - ~/.sickgear/config/:/config/:rw
+      - ~/.sickgear/data/:/data/:rw
+      - /mnt/md0/tvshows/:/tv/:rw
+      - /mnt/md1/anime/:/anime/:rw
+      - /mnt/md1/downloads/:/downloads/:rw
+      - /mnt/md1/incoming/:/incoming/:rw
+      - /mnt/md1/films/:/films/:rw
+      - /mnt/md1/music/:/music/:rw
+      - /mnt/md1/pictures/:/pictures/:rw
+      - /mnt/md1/videos/:/videos/:rw
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
