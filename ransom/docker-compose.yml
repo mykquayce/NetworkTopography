@@ -115,6 +115,52 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  fireflyiii:
+    image: fireflyiii/core:latest
+    depends_on:
+      fireflyiii-db:
+        condition: service_started
+    env_file:
+      - ~/Configurations/fireflyiii.env
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: fireflyiii-db
+      DB_PORT: "3306"
+      DB_DATABASE: firefly
+      DB_USERNAME: firefly
+    labels:
+      traefik.http.routers.fireflyiii-router.entrypoints: websecure
+      traefik.http.routers.fireflyiii-router.rule: Host(`fireflyiii.bob.house`)
+      traefik.http.routers.fireflyiii-router.tls: "true"
+      traefik.http.services.fireflyiii-service.loadbalancer.server.port: "8080"
+    volumes:
+      - ~/.fireflyiii/upload/:/var/www/html/storage/upload/:rw
+
+  fireflyiii-db:
+    image: mariadb:lts
+    env_file:
+      - ~/Configurations/fireflyiii.env
+    environment:
+      MYSQL_DATABASE: firefly
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: firefly
+    volumes:
+      - ~/.fireflyiii/db/:/var/lib/mysql/:rw
+
+  fireflyiii-cron:
+    image: alpine:latest
+    depends_on:
+      fireflyiii:
+        condition: service_started
+    env_file:
+      - ~/Configurations/fireflyiii.env
+    command: sh -c "
+      apk add tzdata
+      && ln -s /usr/share/zoneinfo/UTC /etc/localtime
+      | echo \"0 3 * * * wget -qO- http://fireflyiii:8080/api/v1/cron/$${APP_KEY};echo\" 
+      | crontab - 
+      && crond -f -L /dev/stdout"
+
   freshrss:
     image: freshrss/freshrss:latest
     environment:

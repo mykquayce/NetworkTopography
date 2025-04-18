@@ -56,6 +56,16 @@
         widget:
           type: fileflows
           url: https://fileflows.bob.house
+    - Firefly III: &fireflyiii
+        description: A free and open source personal finance manager
+        href: https://fireflyiii.bob.house/
+        icon: firefly-iii.png
+        ping: ransom.lan
+        siteMonitor: https://fireflyiii.bob.house
+        widget:
+          type: firefly
+          url: https://fireflyiii.bob.house
+          key: {{HOMEPAGE_VAR_FIREFLYIII}}
     - FreshRSS: &freshrss
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/
