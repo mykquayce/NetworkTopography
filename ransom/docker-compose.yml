@@ -164,6 +164,7 @@ services:
       traefik.http.routers.grafana-router.rule: Host(`grafana.bob.house`)
       traefik.http.routers.grafana-router.tls: "true"
       traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
+    user: "0"
     volumes:
       - ~/.grafana/:/var/lib/grafana/:rw
 
@@ -311,6 +312,7 @@ services:
       traefik.http.routers.n8n-router.rule: Host(`n8n.bob.house`)
       traefik.http.routers.n8n-router.tls: "true"
       traefik.http.services.n8n-service.loadbalancer.server.port: "5678"
+    user: "0"
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
 
@@ -548,7 +550,6 @@ services:
       traefik.http.services.speedtest-service.loadbalancer.server.port: "80"
     volumes:
       - ~/.speedtest/:/config/:rw
-      - ./speedtest-nginx.conf:/config/nginx/site-confs/default.conf:ro
 
   traefik:
     image: traefik:latest
