@@ -12,3 +12,7 @@ http:
     - fe00::/64
     - fd00::/64
 ```
+### asndenier
+ensure the current user has ssh permissions to the router
+### miniflux
+on a fresh install the db container may need to be restarted
