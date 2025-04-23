@@ -55,6 +55,25 @@ snapshots:
     default: 7
 
 cameras:
+  driveway:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: 
+            rtsp://tplink%40robertdhall.com:F6DMSDUKaBojo3GrmUuLQDENi8YvWZwI@192.168.1.190:554/stream1
+          roles:
+            - record
+        - path: 
+            rtsp://tplink%40robertdhall.com:F6DMSDUKaBojo3GrmUuLQDENi8YvWZwI@192.168.1.190:554/stream2
+          roles:
+            - detect
+    motion:
+      mask: 0,0,0.355,0,0.356,0.046,0.072,0.052,0,0.627
+    zones:
+      garden:
+        coordinates: 0,1,1,1,1,0,0.105,0,0.066,0.172,0.095,0.239,0.026,0.573
+        loitering_time: 0
+        inertia: 3
   front-left:
     enabled: true
     ffmpeg:
@@ -96,6 +115,7 @@ cameras:
 camera_groups:
   front:
     cameras:
+      - driveway
       - front-left
       - front-right
     icon: LuCar
