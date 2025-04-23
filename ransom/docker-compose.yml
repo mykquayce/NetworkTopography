@@ -119,13 +119,9 @@ services:
     image: freshrss/freshrss:latest
     environment:
       CRON_MIN: 3,33
-      OIDC_ENABLED: "1"
-      OIDC_PROVIDER_METADATA_URL: https://authentik.bob.house/application/o/freshrss/.well-known/openid-configuration
-      OIDC_CLIENT_ID: JfGymYkQvKfsAvppRqCN9hq2nPBLV5dgManr2sWU
-      OIDC_CLIENT_SECRET: I8zINKUxspk7oJhQ6I1ssnxAkrW6xoPSiebdj2srP9T6GH2LqIrkX27gQMRIoQ25FZvu1UgHd70AvYtt4oidqXSSohwhUzgdEno1NfIrdNMQnMUeL1UlBoiIJLwl3b6S
-      OIDC_X_FORWARDED_HEADERS: X-Forwarded-Port X-Forwarded-Proto X-Forwarded-Host
-      OIDC_SCOPES: openid email profile
       TZ: UTC
+    env_file:
+      - ~/Configurations/freshrss.env
     labels:
       traefik.http.routers.freshrss-router.entrypoints: websecure
       traefik.http.routers.freshrss-router.rule: Host(`freshrss.bob.house`)
@@ -136,6 +132,7 @@ services:
         max-size: 10m
     volumes:
       - ~/.freshrss/:/var/www/FreshRSS/data:rw
+      - ~/.freshrss-extensions/:/var/www/FreshRSS/extensions/:ro
 
   glances:
     image: nicolargo/glances:latest
@@ -253,41 +250,6 @@ services:
       WEBRTCADDITIONALHOSTS: 192.168.1.60
     ports:
       - 8554:8554/tcp # rtsp
-
-  miniflux:
-    image: miniflux/miniflux:latest
-    depends_on:
-      miniflux-db:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgres://miniflux:secret@miniflux-db/miniflux?sslmode=disable
-      RUN_MIGRATIONS: "1"
-      CREATE_ADMIN: "1"
-      ADMIN_USERNAME: admin
-      OAUTH2_PROVIDER: oidc
-      OAUTH2_REDIRECT_URL: https://miniflux.bob.house/oauth2/oidc/callback
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://authentik.bob.house/application/o/miniflux/
-      OAUTH2_USER_CREATION: "1"
-    env_file:
-      - ~/Configurations/miniflux.env
-    labels:
-      traefik.http.routers.miniflux-router.entrypoints: websecure
-      traefik.http.routers.miniflux-router.rule: Host(`miniflux.bob.house`)
-      traefik.http.routers.miniflux-router.tls: "true"
-      traefik.http.services.miniflux-service.loadbalancer.server.port: "8080"
-
-  miniflux-db:
-    image: postgres:17-alpine
-    environment:
-      POSTGRES_USER: miniflux
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: miniflux
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "miniflux"]
-      interval: 10s
-      start_period: 30s
-    volumes:
-      - ~/.miniflux/:/var/lib/postgresql/data/:rw
 
   moodist:
     image: ghcr.io/remvze/moodist:latest
