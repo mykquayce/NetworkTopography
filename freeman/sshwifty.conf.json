@@ -30,18 +30,6 @@
       }
     },
     {
-      "Title": "marshall",
-      "Type": "SSH",
-      "Host": "marshall.lan:22",
-      "Meta": {
-        "Authentication": "Private Key",
-        "User": "root",
-        "Private Key": "file:///home/root/.ssh/id_rsa",
-        "Fingerprint": "SHA256:7wQgn8wd2k+Qyu0ej8MvsrBNHBr5ccq5wgprI79A0fQ",
-        "Encoding": "utf-8"
-      }
-    },
-    {
       "Title": "ransom",
       "Type": "SSH",
       "Host": "ransom.lan:22",
@@ -50,6 +38,18 @@
         "User": "root",
         "Private Key": "file:///home/root/.ssh/id_rsa",
         "Fingerprint": "SHA256:RRTdJ6pwLEttUahq9GDbxp+RHHdbKseY3w9M6kN3j0c",
+        "Encoding": "utf-8"
+      }
+    },
+    {
+      "Title": "shaxs",
+      "Type": "SSH",
+      "Host": "shaxs.lan:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:kbds0gAVyDiP1xHPxcS+KRLlGCHByQrKj5oqAFEiV4M",
         "Encoding": "utf-8"
       }
     },

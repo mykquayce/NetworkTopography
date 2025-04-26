@@ -66,11 +66,11 @@
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate.bob.house/
         icon: frigate.svg
-        ping: marshall.lan
-        siteMonitor: http://marshall.lan:5000
+        ping: shaxs.lan
+        siteMonitor: https://frigate.bob.house/
         widget:
           type: frigate
-          url: http://marshall.lan:5000
+          url: https://frigate.bob.house/
           enableRecentEvents: false
     - Glance: &glance
         description: A self-hosted dashboard that puts all your feeds in one place
@@ -78,7 +78,7 @@
         icon: glance-light.png
         ping: host.docker.internal
         siteMonitor: https://glance.bob.house/
-    - Glances (Freeman): &glancesfreeman
+    - Glances FREEMAN: &glancesfreeman
         href: https://glances-freeman.bob.house/
         icon: glances.png
         ping: host.docker.internal
@@ -114,43 +114,7 @@
                 options:
                   maximumFractionDigits: 1
               query: disk_used_percent{host='freeman',path='/'}
-    - Glances (Marshall): &glancesmarshall
-        href: https://glances-marshall.bob.house/
-        icon: glances.png
-        ping: marshall.lan
-        siteMonitor: https://glances-marshall.bob.house/api/4/status
-        widget:
-          type: prometheusmetric
-          url: https://prometheus.bob.house
-          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
-          metrics:
-            - label: user cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_user{host='marshall'}[5m])
-            - label: system cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_system{host='marshall'}[5m])
-            - label: free disk
-              format:
-                type: bytes
-                options:
-                  maximumFractionDigits: 1
-              query: disk_free{host='marshall',path='/'}
-            - label: disk used
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-              query: disk_used_percent{host='marshall',path='/'}
-    - Glances (Ransom): &glancesransom
+    - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
         icon: glances.png
         ping: ransom.lan
@@ -186,7 +150,43 @@
                 options:
                   maximumFractionDigits: 1
               query: disk_used_percent{host='ransom',path='/'}
-    - Glances (Tana): &glancestana
+    - Glances SHAXS: &glancesshaxs
+        href: https://glances-shaxs.bob.house/
+        icon: glances.png
+        ping: shaxs.lan
+        siteMonitor: https://glances-shaxs.bob.house/api/4/status
+        widget:
+          type: prometheusmetric
+          url: https://prometheus.bob.house
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: user cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_user{host='shaxs'}[5m])
+            - label: system cpu
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+                scale: 100
+              query: rate(cpu_usage_system{host='shaxs'}[5m])
+            - label: free disk
+              format:
+                type: bytes
+                options:
+                  maximumFractionDigits: 1
+              query: disk_free{host='shaxs',path='/'}
+            - label: disk used
+              format:
+                type: percent
+                options:
+                  maximumFractionDigits: 1
+              query: disk_used_percent{host='shaxs',path='/'}
+    - Glances TANA: &glancestana
         href: https://glances-tana.bob.house/
         icon: glances.png
         ping: tana.lan
@@ -247,7 +247,7 @@
             - label: spot
               state: light.keylight
             - label: strip
-              state: light.smart_light_strip_2
+              state: light.smart_light_strip
             - label: wall
               state: light.shapes_0324
             - label: ceiling
@@ -306,17 +306,6 @@
           url: http://kopia:51515
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
-    - Kopia MARSHALL: &kopiamarshall
-        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
-        href: https://kopia-marshall.bob.house/
-        icon: kopia.svg
-        ping: marshall.lan
-        siteMonitor: https://kopia-marshall.bob.house
-        widget:
-          type: kopia
-          url: https://kopia-marshall.bob.house
-          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
-          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia RANSOM: &kopiaransom
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-ransom.bob.house/
@@ -326,6 +315,17 @@
         widget:
           type: kopia
           url: https://kopia-ransom.bob.house
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
+    - Kopia SHAXS: &kopiashaxs
+        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        href: https://kopia-shaxs.bob.house/
+        icon: kopia.svg
+        ping: shaxs.lan
+        siteMonitor: https://kopia-shaxs.bob.house
+        widget:
+          type: kopia
+          url: https://kopia-shaxs.bob.house
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia TANA: &kopiatana
@@ -456,7 +456,7 @@
         icon: planka.svg
         ping: ransom.lan
         siteMonitor: https://planka.bob.house
-    - Portainer (Freeman): &portainerfreeman
+    - Portainer FREEMAN: &portainerfreeman
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
@@ -467,18 +467,7 @@
             url: https://portainer.bob.house
             env: 3
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-    - Portainer (Marshall): &portainermarshall
-        description: Making Docker and Kubernetes management easy
-        href: https://portainer.bob.house/
-        icon: portainer.svg
-        ping: host.docker.internal
-        siteMonitor: https://portainer.bob.house
-        widgets:
-          - type: portainer
-            url: https://portainer.bob.house
-            env: 5
-            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-    - Portainer (Ransom): &portainerransom
+    - Portainer RANSOM: &portainerransom
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
@@ -489,7 +478,18 @@
             url: https://portainer.bob.house
             env: 4
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-    - Portainer (Tana): &portainertana
+    - Portainer SHAXS: &portainershaxs
+        description: Making Docker and Kubernetes management easy
+        href: https://portainer.bob.house/
+        icon: portainer.svg
+        ping: host.docker.internal
+        siteMonitor: https://portainer.bob.house
+        widgets:
+          - type: portainer
+            url: https://portainer.bob.house
+            env: 9
+            key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+    - Portainer TANA: &portainertana
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
@@ -584,7 +584,7 @@
         icon: sshwifty.svg
         ping: host.docker.internal
         siteMonitor: https://sshwifty.bob.house/sshwifty/socket/verify
-    - Traefik (Freeman): &traefikfreeman
+    - Traefik FREEMAN: &traefikfreeman
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
         icon: traefik-proxy.svg
@@ -593,7 +593,7 @@
         widget:
           type: traefik
           url: https://traefik.bob.house
-    - Traefik (Ransom): &traefikransom
+    - Traefik RANSOM: &traefikransom
         description: HTTP reverse proxy and load balancer
         href: https://traefik-ransom.bob.house/dashboard/
         icon: traefik-proxy.svg
@@ -602,7 +602,16 @@
         widget:
           type: traefik
           url: https://traefik-ransom.bob.house
-    - Traefik (tana): &traefiktana
+    - Traefik SHAXS: &traefikshaxs
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-shaxs.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        ping: shaxs.lan
+        siteMonitor: https://traefik-shaxs.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-shaxs.bob.house
+    - Traefik TANA: &traefiktana
         description: HTTP reverse proxy and load balancer
         href: https://traefik-tana.bob.house/dashboard/
         icon: traefik-proxy.svg
@@ -703,25 +712,26 @@
 
 - Glances:
     - Freeman: *glancesfreeman
-    - Marshall: *glancesmarshall
     - Ransom: *glancesransom
+    - Shaxs: *glancesshaxs
     - Tana: *glancestana
 
 - Kopia:
     - Freeman: *kopiafreeman
-    - Marshall: *kopiamarshall
     - Ransom: *kopiaransom
+    - Shaxs: *kopiashaxs
     - Tana: *kopiatana
 
 - Portainer:
     - Freeman: *portainerfreeman
-    - Marshall: *portainermarshall
     - Ransom: *portainerransom
+    - Shaxs: *portainershaxs
     - Tana: *portainertana
 
 - Traefik:
     - Freeman: *traefikfreeman
     - Ransom: *traefikransom
+    - Shaxs: *traefikshaxs
     - Tana: *traefiktana
 
 - Uptime Kuma:

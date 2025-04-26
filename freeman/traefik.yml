@@ -1,23 +1,5 @@
 http:
   routers:
-    frigate-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`frigate.bob.house`)"
-      service: "frigate-service"
-      tls: "true"
-    glances-marshall-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`glances-marshall.bob.house`)"
-      service: "glances-marshall-service"
-      tls: "true"
-    kopia-marshall-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`kopia-marshall.bob.house`)"
-      service: "kopia-marshall-service"
-      tls: "true"
     netalertx-router:
       entryPoints:
         - "websecure"
@@ -43,18 +25,6 @@ http:
       service: "switch1-service"
       tls: "true"
   services:
-    frigate-service:
-      loadBalancer:
-        servers:
-        - url: "http://marshall.lan:5000/"
-    glances-marshall-service:
-      loadBalancer:
-        servers:
-        - url: "http://marshall.lan:61208/"
-    kopia-marshall-service:
-      loadBalancer:
-        servers:
-        - url: "http://marshall.lan:51515/"
     netalertx-service:
       loadBalancer:
         servers:
