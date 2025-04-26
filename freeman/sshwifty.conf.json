@@ -37,7 +37,7 @@
         "Authentication": "Private Key",
         "User": "root",
         "Private Key": "file:///home/root/.ssh/id_rsa",
-        "Fingerprint": "SHA256:RRTdJ6pwLEttUahq9GDbxp+RHHdbKseY3w9M6kN3j0c",
+        "Fingerprint": "SHA256:0KxPQY3PcQHx488eeKI7vTXDdgiEqbupTtvVxsRdOIU",
         "Encoding": "utf-8"
       }
     },
