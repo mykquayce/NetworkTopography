@@ -101,7 +101,7 @@ services:
         condition: service_healthy
     environment:
       DOZZLE_HOSTNAME: freeman
-      DOZZLE_REMOTE_AGENT: marshall.lan:7007,ransom.lan:7007,tana.lan:7007
+      DOZZLE_REMOTE_AGENT: ransom.lan:7007,shaxs.lan:7007,tana.lan:7007
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s

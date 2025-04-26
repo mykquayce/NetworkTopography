@@ -1,0 +1,140 @@
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    command: agent
+    environment:
+      DOZZLE_HOSTNAME: shaxs
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      start_interval: 5s
+    ports:
+      - 7007:7007/tcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable
+    depends_on:
+      traefik:
+        condition: service_healthy
+    devices:
+      - /dev/apex_0:/dev/apex_0
+    env_file:
+      - ~/Configurations/frigate.env
+    labels:
+      traefik.http.routers.frigate-router.entrypoints: websecure
+      traefik.http.routers.frigate-router.rule: Host(`frigate.bob.house`)
+      traefik.http.routers.frigate-router.tls: "true"
+      traefik.http.services.frigate-service.loadbalancer.server.port: "5000"
+    shm_size: "128mb"
+    volumes:
+      - ./frigate.yaml:/config/config.yaml:rw
+      - ~/.frigate/config/:/config/:rw
+      - /srv/frigate/media/:/media/frigate/:rw
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+
+  glances:
+    image: nicolargo/glances:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      GLANCES_OPT: -w
+    labels:
+      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.rule: Host(`glances-shaxs.bob.house`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
+  kopia:
+    image: kopia/kopia:latest
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=a72691ffb1328c15
+      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/kopia.env
+    labels:
+      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.rule: Host(`kopia-shaxs.bob.house`)
+      traefik.http.routers.kopia-router.tls: "true"
+      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    volumes:
+      # Mount local folders needed by kopia
+      - ~/.kopia/config/:/app/config/:rw
+      - ~/.kopia/cache/:/app/cache/:rw
+      - ~/.kopia/logs/:/app/logs/:rw
+      # Mount local folders to snapshot
+      - ~/:/data/:ro
+      # Mount repository location
+      - /repository/:/repository/:rw
+
+  portainer:
+    image: portainer/agent:latest
+    ports:
+      - 9001:9001/tcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
+      - /:/host/:rw
+
+  traefik:
+    image: traefik:latest
+    command:
+      # - --accesslog=true
+      - --api.insecure=true
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.websecure.address=:443
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --ping
+      - --providers.docker
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    env_file:
+      - ~/Configurations/traefik.env
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    labels:
+      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    ports:
+      - 443:443/tcp
+    volumes:
+      - certificates-volume:/var/certs/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  certificates-volume:
