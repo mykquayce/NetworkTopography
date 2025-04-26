@@ -160,8 +160,8 @@ services:
   metube:
     image: ghcr.io/alexta69/metube:latest
     environment:
-      OUTPUT_TEMPLATE: '%(playlist_title&Playlist |)S%(playlist_title|)S%(playlist_uploader& by |)S%(playlist_uploader|)S%(playlist_autonumber& - |)S%(playlist_autonumber|)S%(playlist_count& of |)S%(playlist_count|)S%(playlist_autonumber& - |)S%(uploader,creator|UNKNOWN_AUTHOR)S %(release_date>%Y-%m-%d,upload_date>%Y-%m-%d|UNKNOWN_DATE)S - %(title|UNKNOWN_TITLE)S.%(ext)s'
-      OUTPUT_TEMPLATE_PLAYLIST: '%(playlist_title&Playlist |)S%(playlist_title|)S%(playlist_uploader& by |)S%(playlist_uploader|)S%(playlist_autonumber& - |)S%(playlist_autonumber|)S%(playlist_count& of |)S%(playlist_count|)S%(playlist_autonumber& - |)S%(uploader,creator|UNKNOWN_AUTHOR)S %(release_date>%Y-%m-%d,upload_date>%Y-%m-%d|UNKNOWN_DATE)S - %(title|UNKNOWN_TITLE)S.%(ext)s'
+      OUTPUT_TEMPLATE: '%(playlist_title&Playlist |)S%(playlist_title|)S%(playlist_uploader& by |)S%(playlist_uploader|)S%(playlist_autonumber& - |)S%(playlist_autonumber|)S%(playlist_count& of |)S%(playlist_count|)S%(playlist_autonumber& - |)S%(uploader,creator|UNKNOWN_AUTHOR)S %(release_date>%Y-%m-%d,upload_date>%Y-%m-%d|UNKNOWN_DATE)S - %(title|UNKNOWN_TITLE)S [%(id)s].%(ext)s'
+      OUTPUT_TEMPLATE_PLAYLIST: '%(playlist_title&Playlist |)S%(playlist_title|)S%(playlist_uploader& by |)S%(playlist_uploader|)S%(playlist_autonumber& - |)S%(playlist_autonumber|)S%(playlist_count& of |)S%(playlist_count|)S%(playlist_autonumber& - |)S%(uploader,creator|UNKNOWN_AUTHOR)S %(release_date>%Y-%m-%d,upload_date>%Y-%m-%d|UNKNOWN_DATE)S - %(title|UNKNOWN_TITLE)S [%(id)s].%(ext)s'
       STATE_DIR: /data/state/
       TEMP_DIR: /data/temp/
       YTDL_OPTIONS: '{"cookiefile":"/cookies/cookies.txt","writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"Exec","exec_cmd":"chmod 0664","when":"after_move"},{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}'
