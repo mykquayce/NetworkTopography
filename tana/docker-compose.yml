@@ -300,8 +300,8 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     environment:
-      PGID: "1000"
-      PUID: "1000"
+      PGID: "0"
+      PUID: "0"
       TZ: Etc/UTC
     labels:
       traefik.http.routers.sonarr-router.entrypoints: websecure
