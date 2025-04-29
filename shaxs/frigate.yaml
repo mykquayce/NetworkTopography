@@ -68,32 +68,13 @@ cameras:
           roles:
             - detect
     motion:
-      mask: 0,0,0.355,0,0.356,0.046,0.072,0.052,0,0.627
+      mask: 0,0,0.355,0,0.356,0.046,0,0.054
     zones:
       garden:
-        coordinates: 0,1,1,1,1,0,0.105,0,0.066,0.172,0.095,0.239,0.026,0.573
+        coordinates: 0.111,1,1,1,1,0,0.232,0,0.178,0.258,0.135,0.495
         loitering_time: 0
         inertia: 3
-  front-left:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.138:554/stream1
-          roles:
-            - record
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.138:554/stream2
-          roles:
-            - detect
-    motion:
-      mask:
-        - 0,0.443,0.444,0.442,0.456,0.568,0.213,1,0,1
-        - 0,0,1,0,1,0.146,0.886,0.103,0.829,0.014,0.71,0.014,0.64,0.101,0,0.315
-    zones:
-      garden:
-        coordinates: 0.461,0.567,1,0.673,0.915,1,0.216,1
-        loitering_time: 0
-        inertia: 3
-  front-right:
+  front:
     enabled: true
     ffmpeg:
       inputs:
@@ -104,20 +85,36 @@ cameras:
           roles:
             - detect
     motion:
-      mask: 
-        0,0,1,0,1,0.755,0.883,0.566,0.942,0.277,0.504,0.142,0.359,0.045,0.217,0.045,0.143,0.111,0,0.12
+      mask: 0,0,0.356,0,0.356,0.047,0,0.047
     zones:
       garden:
-        coordinates: 0.188,1,0.214,0.645,0.846,0.533,0.935,0.655,0.626,1
+        coordinates: 0.189,1,0.201,0.456,0.848,0.412,1,0.732,0.713,1
         loitering_time: 0
 
+        inertia: 3
+  rear:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.138:554/stream1
+          roles:
+            - record
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.138:554/stream2
+          roles:
+            - detect
+    motion:
+      mask: 0,0.001,0.356,0,0.356,0.046,0,0.047
+    zones:
+      garden:
+        coordinates: 0.436,0.061,0.93,0.134,0.968,1,0.312,1,0.081,0.375
+        loitering_time: 0
         inertia: 3
 camera_groups:
   front:
     cameras:
       - driveway
-      - front-left
-      - front-right
+      - front
+      - rear
     icon: LuCar
     order: 0
 
