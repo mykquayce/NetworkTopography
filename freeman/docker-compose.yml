@@ -219,7 +219,7 @@ services:
     env_file:
       - ~/Configurations/netalertx.env
     environment:
-      APP_CONF_OVERRIDE: '{"SCAN_SUBNETS":["192.168.1.0/24 --interface=eno1"]}'
+      APP_CONF_OVERRIDE: '{"SCAN_SUBNETS":["192.168.1.0/24 --interface=eno1","192.168.20.0/24 --interface=enp2s0"]}'
       LOADED_PLUGINS: '["APPRISE","ARPSCAN","DHCPSRVS","ICMP","PIHOLE"]'
       PGID: "300"
       PUID: "200"
