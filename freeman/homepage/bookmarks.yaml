@@ -10,31 +10,37 @@
     - Microsoft Learn | Shows:
         - href: https://learn.microsoft.com/en-us/shows/
           icon: microsoft.svg
-    - Router 1:
-        - href: https://router1.bob.house/
-          icon: router.svg
-    - Switch 1:
-        - href: https://switch1.bob.house/
-          icon: router.svg
-
-- Social:
-    - Reddit:
-        - description: The front page of the internet
-          href: https://old.reddit.com/r/popular/?geo_filter=GLOBAL
-          icon: reddit.svg
-    - /v/:
-        - description: Video Games
-          href: https://boards.4chan.org/v/catalog
-          icon: /icons/4chan.ico
 
 - Entertainment:
     - Pocket Casts:
         - href: https://play.pocketcasts.com/podcasts
           icon: /icons/pocketcasts.svg
+    - Reddit:
+        - description: The front page of the internet
+          href: https://old.reddit.com/r/popular/?geo_filter=GLOBAL
+          icon: reddit.svg
     - Twitch:
         - description: You're already one of us
           href: https://www.twitch.tv/directory/following
           icon: twitch.svg
+    - /v/:
+        - description: Video Games
+          href: https://boards.4chan.org/v/catalog
+          icon: /icons/4chan.ico
     - YouTube:
         - href: https://www.youtube.com/feed/subscriptions
           icon: youtube.svg
+
+- Network:
+    - First Router:
+        - href: https://first-router.bob.house
+          icon: router.svg
+    - Main Router:
+        - href: https://main-router.bob.house
+          icon: router.svg
+    - Main Switch:
+        - href: https://main-switch.bob.house
+          icon: router.svg
+    - Office Switch:
+        - href: https://office-switch.bob.house
+          icon: router.svg
