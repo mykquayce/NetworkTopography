@@ -19,9 +19,9 @@ layout:
     tab: Main
   Developer:
     tab: Main
-  Social:
-    tab: Main
   Entertainment:
+    tab: Main
+  Network:
     tab: Main
   Services:
     columns: 4

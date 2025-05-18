@@ -1,10 +1,34 @@
 http:
   routers:
+    first-router-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`first-router.bob.house`)"
+      service: "first-router-service"
+      tls: "true"
+    main-router-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`main-router.bob.house`)"
+      service: "main-router-service"
+      tls: "true"
+    main-switch-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`main-switch.bob.house`)"
+      service: "main-switch-service"
+      tls: "true"
     netalertx-router:
       entryPoints:
         - "websecure"
       rule: "Host(`netalertx.bob.house`)"
       service: "netalertx-service"
+      tls: "true"
+    office-switch-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`office-switch.bob.house`)"
+      service: "office-switch-service"
       tls: "true"
     pihole-router:
       entryPoints:
@@ -12,19 +36,19 @@ http:
       rule: "Host(`pihole.bob.house`)"
       service: "pihole-service"
       tls: "true"
-    router1-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`router1.bob.house`)"
-      service: "router1-service"
-      tls: "true"
-    switch1-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`switch1.bob.house`)"
-      service: "switch1-service"
-      tls: "true"
   services:
+    first-router-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.2"
+    main-router-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.3"
+    main-switch-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.1.5"
     netalertx-service:
       loadBalancer:
         servers:
@@ -33,11 +57,8 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.80"
-    router1-service:
+    office-switch-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.1.10"
-    switch1-service:
-      loadBalancer:
-        servers:
-        - url: "http://192.168.1.189/"
+        - url: "http://192.168.1.8"
+
