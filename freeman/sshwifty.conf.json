@@ -18,6 +18,18 @@
   ],
   "Presets": [
     {
+      "Title": "first router",
+      "Type": "SSH",
+      "Host": "192.168.1.2:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:12EDgly3ZRFrAp68XYhTPm8Y9nkGiNKiPvM8muyhTRI",
+        "Encoding": "utf-8"
+      }
+    },
+    {
       "Title": "freeman",
       "Type": "SSH",
       "Host": "freeman.lan:22",
@@ -26,6 +38,18 @@
         "User": "root",
         "Private Key": "file:///home/root/.ssh/id_rsa",
         "Fingerprint": "SHA256:jitHOBIEk9d/YYuyjjQQHNPKj8VuH2Qq2YaE52gP+V4",
+        "Encoding": "utf-8"
+      }
+    },
+    {
+      "Title": "pi-hole",
+      "Type": "SSH",
+      "Host": "pihole.lan:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "pi",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:nzTA/tNAQ0GneIhfg4hjjtaojc0IBpaEp/sTd6wEFpk",
         "Encoding": "utf-8"
       }
     },
