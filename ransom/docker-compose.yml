@@ -564,6 +564,7 @@ services:
       traefik.http.routers.vikunja-router.rule: Host(`vikunja.bob.house`)
       traefik.http.routers.vikunja-router.tls: "true"
       traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
+    user: "0"
     volumes:
      - ~/.vikunja/db/:/db/:rw
      - ~/.vikunja/files/:/app/vikunja/files/:rw

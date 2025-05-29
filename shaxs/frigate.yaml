@@ -55,66 +55,33 @@ snapshots:
     default: 7
 
 cameras:
-  driveway:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: 
-            rtsp://tplink%40robertdhall.com:F6DMSDUKaBojo3GrmUuLQDENi8YvWZwI@192.168.1.190:554/stream1
-          roles:
-            - record
-        - path: 
-            rtsp://tplink%40robertdhall.com:F6DMSDUKaBojo3GrmUuLQDENi8YvWZwI@192.168.1.190:554/stream2
-          roles:
-            - detect
-    motion:
-      mask: 0,0,0.355,0,0.356,0.046,0,0.054
-    zones:
-      garden:
-        coordinates: 0.111,1,1,1,1,0,0.232,0,0.178,0.258,0.135,0.495
-        loitering_time: 0
-        inertia: 3
   front:
     enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.112:554/stream1
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.104:554/stream1
           roles:
             - record
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.112:554/stream2
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.104:554/stream2
           roles:
             - detect
     motion:
-      mask: 0,0,0.356,0,0.356,0.047,0,0.047
+      mask:
+        - 0,1,0,0.308,0.265,0.302,0.261,0.825,0.62,0.777,0.622,1
+        - 1,0,0,0,0,0.255,0.765,0.249,1,0.742
+      threshold: 20
+      contour_area: 10
+      improve_contrast: true
     zones:
       garden:
         coordinates: 0.189,1,0.201,0.456,0.848,0.412,1,0.732,0.713,1
         loitering_time: 0
 
         inertia: 3
-  rear:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.138:554/stream1
-          roles:
-            - record
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.138:554/stream2
-          roles:
-            - detect
-    motion:
-      mask: 0,0.001,0.356,0,0.356,0.046,0,0.047
-    zones:
-      garden:
-        coordinates: 0.436,0.061,0.93,0.134,0.968,1,0.312,1,0.081,0.375
-        loitering_time: 0
-        inertia: 3
 camera_groups:
-  front:
+  exterior:
     cameras:
-      - driveway
       - front
-      - rear
     icon: LuCar
     order: 0
 
