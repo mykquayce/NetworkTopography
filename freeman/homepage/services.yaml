@@ -423,17 +423,28 @@
           type: paperlessngx
           url: https://paperless-ngx.bob.house
           key: {{HOMEPAGE_VAR_PAPERLESSNGX}}
-    - Pi-hole: &pihole
+    - Pi-hole 01: &pihole01
         description: A blackhole for Internet advertisements
-        href: https://pihole.bob.house/admin
+        href: https://pihole01.bob.house/admin/
         icon: pi-hole.svg
-        ping: 192.168.1.80
-        siteMonitor: https://pihole.bob.house/admin
+        ping: freeman.lan
+        siteMonitor: https://pihole01.bob.house/admin/
         widget:
           type: pihole
-          url: https://pihole.bob.house
+          url: https://pihole01.bob.house
           version: 6 # required if running v6 or higher, defaults to 5
-          key: {{HOMEPAGE_VAR_PIHOLE_KEY}} # optional
+          key: {{HOMEPAGE_VAR_PIHOLE01_KEY}} # optional
+    - Pi-hole 20: &pihole20
+        description: A blackhole for Internet advertisements
+        href: https://pihole20.bob.house/admin/
+        icon: pi-hole.svg
+        ping: freeman.lan
+        siteMonitor: https://pihole20.bob.house/admin/
+        widget:
+          type: pihole
+          url: https://pihole20.bob.house
+          version: 6 # required if running v6 or higher, defaults to 5
+          key: {{HOMEPAGE_VAR_PIHOLE20_KEY}} # optional
     - Pinchflat: &pinchflat
         description: Your next YouTube media manager
         href: https://pinchflat.bob.house/
@@ -695,7 +706,8 @@
     - Grafana: *grafana
     - NetAlertX: *netalertx
     - ntfy: *ntfy
-    - Pi-hole: *pihole
+    - Pi-hole 01: *pihole01
+    - Pi-hole 20: *pihole20
     - Prometheus: *prometheus
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
