@@ -67,7 +67,7 @@ services:
 
       Schedule: 0 */6 * * *
 
-      Router:Host: 192.168.1.2
+      Router:Host: 192.168.1.1
       Router:Port: "22"
       Router:UserName: root
       Router:PathToPrivateKey: /run/secrets/id_rsa
