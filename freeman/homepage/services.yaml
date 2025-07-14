@@ -627,6 +627,12 @@
         icon: trilium.svg
         ping: ransom.lan
         siteMonitor: https://trilium.bob.house/login
+    - Tunarr: &tunarr
+        description: IPTV backed by Plex/Jellyfin/Emby
+        href: https://tunarr.bob.house/web
+        icon: tunarr.svg
+        ping: tana.lan
+        siteMonitor: https://tunarr.bob.house/web
     - Uptime Kuma (Devices): &uptimekumadevices
         description: Self-hosted website monitoring tool
         href: https://uptimekuma.bob.house/status/devices
@@ -755,3 +761,4 @@
     - SABnzbd: *sabnzbd
     - Sick Gear: *sickgear
     - Sonarr: *sonarr
+    - Tunarr: *tunarr
