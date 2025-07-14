@@ -350,6 +350,29 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  tunarr:
+    image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
+    devices:
+      - /dev/dri:/dev/dri:rwm
+    environment:
+      LOG_LEVEL: INFO
+      TZ: Etc/UTC
+    labels:
+      traefik.http.routers.tunarr-router.entrypoints: websecure
+      traefik.http.routers.tunarr-router.rule: Host(`tunarr.bob.house`)
+      traefik.http.routers.tunarr-router.tls: "true"
+      traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
+    volumes:
+      - ~/.tunarr/:/config/tunarr/:rw
+      - /mnt/md1/anime/:/media/anime/:ro
+      - /mnt/md1/films/:/media/films/:ro
+      - /mnt/md1/streamers/:/media/streamers/:ro
+      - /mnt/md0/tvshows/:/media/tv/:ro
+      - /mnt/md1/videos/:/media/videos/:ro
+      - /mnt/md1/music/:/media/music/:ro
+      - /mnt/md1/pictures/:/media/pictures/:ro
+      - /mnt/md1/youtube/:/media/youtube/:ro
+
 networks:
   default:
     ipam:
