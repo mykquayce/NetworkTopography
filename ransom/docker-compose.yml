@@ -115,6 +115,16 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  drawio:
+    image: jgraph/drawio:latest
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
+    labels:
+      traefik.http.routers.drawio-router.entrypoints: websecure
+      traefik.http.routers.drawio-router.rule: Host(`drawio.bob.house`)
+      traefik.http.routers.drawio-router.tls: "true"
+      traefik.http.services.drawio-service.loadbalancer.server.port: "8080"
+
   freshrss:
     image: freshrss/freshrss:latest
     environment:
