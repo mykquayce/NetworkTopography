@@ -47,6 +47,12 @@
         icon: dozzle.svg
         ping: host.docker.internal
         siteMonitor: https://dozzle.bob.house/healthcheck
+    - draw.io: &drawio
+        description: a JavaScript, client-side editor for general diagramming
+        href: https://drawio.bob.house
+        icon: draw-io.svg
+        ping: ransom.lan
+        siteMonitor: https://drawio.bob.house
     - FileFlows: &fileflows
         description: A file processing application that can execute actions against a file in a tree flow structure
         href: https://fileflows.bob.house/
