@@ -18,14 +18,26 @@
   ],
   "Presets": [
     {
-      "Title": "first router",
+      "Title": ".1 router",
       "Type": "SSH",
-      "Host": "192.168.1.2:22",
+      "Host": "192.168.1.1:22",
       "Meta": {
         "Authentication": "Private Key",
         "User": "root",
         "Private Key": "file:///home/root/.ssh/id_rsa",
-        "Fingerprint": "SHA256:12EDgly3ZRFrAp68XYhTPm8Y9nkGiNKiPvM8muyhTRI",
+        "Fingerprint": "SHA256:sJUW6qto1wqfvMClDb6gTmBExUAC4ySk/HbfFrMKdcI",
+        "Encoding": "utf-8"
+      }
+    },
+    {
+      "Title": ".20 router",
+      "Type": "SSH",
+      "Host": "192.168.20.1:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:///home/root/.ssh/id_rsa",
+        "Fingerprint": "SHA256:57lRkOsSBRr5ZYl26kimc77dPuX4gOwd6YPpjsjvHzk",
         "Encoding": "utf-8"
       }
     },
@@ -38,18 +50,6 @@
         "User": "root",
         "Private Key": "file:///home/root/.ssh/id_rsa",
         "Fingerprint": "SHA256:jitHOBIEk9d/YYuyjjQQHNPKj8VuH2Qq2YaE52gP+V4",
-        "Encoding": "utf-8"
-      }
-    },
-    {
-      "Title": "pi-hole",
-      "Type": "SSH",
-      "Host": "pihole.lan:22",
-      "Meta": {
-        "Authentication": "Private Key",
-        "User": "pi",
-        "Private Key": "file:///home/root/.ssh/id_rsa",
-        "Fingerprint": "SHA256:nzTA/tNAQ0GneIhfg4hjjtaojc0IBpaEp/sTd6wEFpk",
         "Encoding": "utf-8"
       }
     },
@@ -85,7 +85,7 @@
         "Authentication": "Private Key",
         "User": "root",
         "Private Key": "file:///home/root/.ssh/id_rsa",
-        "Fingerprint": "SHA256:uBcN8SYWoCTmHcmEwqMSlx1NId6y3hyy7BgteffVxUM",
+        "Fingerprint": "SHA256:yEMjxZRJ5f7c7ODhdMTeuJ5inssMwqWB5aatYQQ9sfk",
         "Encoding": "utf-8"
       }
     }
