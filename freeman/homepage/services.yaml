@@ -395,12 +395,6 @@
           type: netalertx
           url: https://netalertx.bob.house
           key: {{HOMEPAGE_VAR_NETALERTX_API_TOKEN}}
-    - netboot.xyz: &netbootxyz
-        description: Your favourite operating systems in one place
-        href: https://netboot.bob.house/
-        icon: netboot.svg
-        ping: ransom.lan
-        siteMonitor: https://netboot.bob.house/
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}

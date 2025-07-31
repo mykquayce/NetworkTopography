@@ -288,25 +288,6 @@ services:
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
 
-  netbootxyz:
-    image: lscr.io/linuxserver/netbootxyz:latest
-    environment:
-      PUID: "1000"
-      PGID: "1000"
-      PORT_RANGE: 30000:30010
-      SUBFOLDER: /
-      TZ: Etc/UTC
-    labels:
-      traefik.http.routers.netboot-router.entrypoints: websecure
-      traefik.http.routers.netboot-router.rule: Host(`netboot.bob.house`)
-      traefik.http.routers.netboot-router.tls: "true"
-      traefik.http.services.netboot-service.loadbalancer.server.port: "3000"
-    ports:
-      - 69:69/udp
-    volumes:
-      - ~/.netbootxyz/config/:/config/:rw
-      - ~/.netbootxyz/assets/:/assets/:rw
-
   ntfy:
     image: binwiederhier/ntfy:latest
     command:
