@@ -373,6 +373,36 @@ services:
       - /mnt/md1/pictures/:/media/pictures/:ro
       - /mnt/md1/youtube/:/media/youtube/:ro
 
+  windows-tana:
+    image: dockurr/windows:latest
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/kvm:/dev/kvm:rwm
+      - /dev/net/tun:/dev/net/tun:rwm
+    env_file:
+      - ~/Configurations/windows-tana.env
+    environment:
+      VERSION: 7u
+      CPU_CORES: "4"
+      DISK_SIZE: 64G
+      RAM_SIZE: 8G
+      REGION: en-GB
+      KEYBOARD: en-GB
+      USERNAME: bob
+    labels:
+      traefik.http.routers.windows-tana-router.entrypoints: websecure
+      traefik.http.routers.windows-tana-router.rule: Host(`windows-tana.bob.house`)
+      traefik.http.routers.windows-tana-router.tls: "true"
+      traefik.http.services.windows-tana-service.loadbalancer.server.port: "8006"
+    ports:
+      - 3389:3389/tcp
+      - 3389:3389/udp
+    stop_grace_period: 2m0s
+    volumes:
+      - ~/.windows/:/storage/:rw
+      - /mnt/md1/:/data/:rw
+
 networks:
   default:
     ipam:
