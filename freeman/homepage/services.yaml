@@ -693,6 +693,12 @@
         widget:
           type: whatsupdocker
           url: https://whatsupdocker.bob.house
+    - Windows TANA: &windowstana
+        description: Windows inside a Docker container
+        href: https://windows-tana.bob.house/
+        icon: windows-7.png
+        ping: tana.lan
+        siteMonitor: https://windows-tana.bob.house/
 
 - Essentials:
     - Change Detection: *changedetection
@@ -762,3 +768,4 @@
     - Sick Gear: *sickgear
     - Sonarr: *sonarr
     - Tunarr: *tunarr
+    - Windows TANA: *windowstana
