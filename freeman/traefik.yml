@@ -1,10 +1,16 @@
 http:
   routers:
-    first-router-router:
+    iot-router-router:
       entryPoints:
         - "websecure"
-      rule: "Host(`first-router.bob.house`)"
-      service: "first-router-service"
+      rule: "Host(`iot-router.bob.house`)"
+      service: "iot-router-service"
+      tls: "true"
+    iot-switch-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`iot-switch.bob.house`)"
+      service: "iot-switch-service"
       tls: "true"
     main-router-router:
       entryPoints:
@@ -24,27 +30,19 @@ http:
       rule: "Host(`netalertx.bob.house`)"
       service: "netalertx-service"
       tls: "true"
-    office-switch-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`office-switch.bob.house`)"
-      service: "office-switch-service"
-      tls: "true"
-    pihole-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`pihole.bob.house`)"
-      service: "pihole-service"
-      tls: "true"
   services:
-    first-router-service:
+    iot-router-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.1.2"
+        - url: "http://192.168.20.1"
+    iot-switch-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.20.5"
     main-router-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.1.3"
+        - url: "http://192.168.1.1"
     main-switch-service:
       loadBalancer:
         servers:
@@ -53,12 +51,3 @@ http:
       loadBalancer:
         servers:
         - url: "http://freeman.lan:20211/"
-    pihole-service:
-      loadBalancer:
-        servers:
-        - url: "http://192.168.1.80"
-    office-switch-service:
-      loadBalancer:
-        servers:
-        - url: "http://192.168.1.8"
-
