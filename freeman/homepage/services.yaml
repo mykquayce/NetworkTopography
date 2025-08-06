@@ -250,14 +250,10 @@
           url: https://homeassistant.bob.house
           key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
           custom:
-            - label: spot
-              state: light.keylight
-            - label: strip
-              state: light.smart_light_strip
-            - label: wall
-              state: light.shapes_0324
-            - label: ceiling
-              state: light.bedroom_main
+            - label: kitchen
+              state: sensor.kitchen_sensor_temperature
+            - label: office
+              state: sensor.office_sensor_temperature
     - httpbin: &httpbin
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/
@@ -378,7 +374,7 @@
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
         ping: tana.lan
-        siteMonitor: https://metube.bob.house
+        siteMonitor: https://navidrome.bob.house
         widget:
           type: navidrome
           url: https://navidrome.bob.house

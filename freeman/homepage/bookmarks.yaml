@@ -25,22 +25,22 @@
           icon: twitch.svg
     - /v/:
         - description: Video Games
-          href: https://boards.4chan.org/v/catalog
+          href: https://boards.4chan.org/v/
           icon: /icons/4chan.ico
     - YouTube:
         - href: https://www.youtube.com/feed/subscriptions
           icon: youtube.svg
 
 - Network:
-    - First Router:
-        - href: https://first-router.bob.house
-          icon: router.svg
     - Main Router:
         - href: https://main-router.bob.house
           icon: router.svg
     - Main Switch:
         - href: https://main-switch.bob.house
           icon: router.svg
-    - Office Switch:
-        - href: https://office-switch.bob.house
+    - IOT Router:
+        - href: https://iot-router.bob.house
+          icon: router.svg
+    - IOT Switch:
+        - href: https://iot-switch.bob.house
           icon: router.svg
