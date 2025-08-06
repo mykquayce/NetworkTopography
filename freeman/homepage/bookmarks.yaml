@@ -25,7 +25,7 @@
           icon: twitch.svg
     - /v/:
         - description: Video Games
-          href: https://boards.4chan.org/v/catalog
+          href: https://boards.4chan.org/v/
           icon: /icons/4chan.ico
     - YouTube:
         - href: https://www.youtube.com/feed/subscriptions
