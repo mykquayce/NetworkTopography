@@ -245,15 +245,41 @@
         icon: home-assistant.svg
         ping: host.docker.internal
         siteMonitor: https://homeassistant.bob.house
-        widget:
-          type: homeassistant
-          url: https://homeassistant.bob.house
-          key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
-          custom:
-            - label: kitchen
-              state: sensor.kitchen_sensor_temperature
-            - label: office
-              state: sensor.office_sensor_temperature
+        widgets:
+          - type: homeassistant
+            url: https://homeassistant.bob.house
+            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+            custom:
+              - label: kitchen
+                state: sensor.kitchen_sensor_temperature
+              - label: living room
+                state: sensor.temperature_humidity_sensor_temperature
+              - label: office
+                state: sensor.office_sensor_temperature
+          - type: homeassistant
+            url: https://homeassistant.bob.house
+            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+            custom:
+              - label: pc
+                state: sensor.pc_plug_current_consumption
+              - label: monitor
+                state: sensor.monitor_plug_current_consumption
+              - label: amp
+                state: sensor.amp_plug_current_consumption
+              - label: usb hub
+                state: sensor.usb_hub_plug_current_consumption
+          - type: homeassistant
+            url: https://homeassistant.bob.house
+            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+            custom:
+              - label: freeman
+                state: sensor.freeman_plug_current_consumption
+              - label: ransom
+                state: sensor.ransom_plug_current_consumption
+              - label: shaxs
+                state: sensor.shaxs_plug_current_consumption
+              - label: tana
+                state: sensor.tana_plug_current_consumption
     - httpbin: &httpbin
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/
