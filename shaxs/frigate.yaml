@@ -14,6 +14,9 @@ detectors:
     type: edgetpu
     device: pci
 
+face_recognition:
+  enabled: true
+
 ffmpeg:
   hwaccel_args: auto
 
@@ -55,34 +58,59 @@ snapshots:
     default: 7
 
 cameras:
+  driveway:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.223:554/stream1
+          roles:
+            - record
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.223:554/stream2
+          roles:
+            - detect
+    motion:
+      threshold: 40
+      contour_area: 20
+      improve_contrast: true
+      mask:
+        - 0,0,0,0.055,0.356,0.05,0.356,0
+        - 1,0,0.535,0,0.537,0.057,1,0.714
+    zones:
+      garden:
+        coordinates: 0,1,0,0.216,0.531,0.054,1,0.732,1,1
+        loitering_time: 0
+        inertia: 3
   front:
     enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.104:554/stream1
+        - path: 
+            rtsp://admin:QKArwuWBzvsE7koAtEVI8ys9@192.168.20.218:554/h265Preview_01_main
           roles:
             - record
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.104:554/stream2
+        - path: 
+            rtsp://admin:QKArwuWBzvsE7koAtEVI8ys9@192.168.20.218:554/h265Preview_01_sub
           roles:
             - detect
     motion:
-      mask:
-        - 0,1,0,0.308,0.265,0.302,0.261,0.825,0.62,0.777,0.622,1
-        - 1,0,0,0,0,0.255,0.765,0.249,1,0.742
-      threshold: 20
-      contour_area: 10
+      threshold: 40
+      contour_area: 20
       improve_contrast: true
+      mask: 0,0,0,0.07,0.422,0.07,0.421,0
     zones:
       garden:
-        coordinates: 0.189,1,0.201,0.456,0.848,0.412,1,0.732,0.713,1
+        coordinates: 
+          0.202,1,0.127,0.574,0.793,0.086,1,0.247,1,0.368,0.872,0.643,0.611,1
         loitering_time: 0
-
         inertia: 3
+
 camera_groups:
   exterior:
     cameras:
-      - front
+      - driveway
     icon: LuCar
     order: 0
 
-version: 0.15-1
+version: 0.16-0
