@@ -383,7 +383,7 @@ services:
     env_file:
       - ~/Configurations/windows-tana.env
     environment:
-      VERSION: 7u
+      VERSION: "2022"
       CPU_CORES: "4"
       DISK_SIZE: 64G
       RAM_SIZE: 8G
