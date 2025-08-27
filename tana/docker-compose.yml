@@ -27,23 +27,6 @@ services:
     volumes:
       - /mnt/md1/youtube/:/videos/:rw
 
-  fileflows:
-    image: revenz/fileflows:latest
-    environment:
-      TZ: Etc/UTC
-    labels:
-      traefik.http.routers.fileflows-router.entrypoints: websecure
-      traefik.http.routers.fileflows-router.rule: Host(`fileflows.bob.house`)
-      traefik.http.routers.fileflows-router.tls: "true"
-      traefik.http.services.fileflows-service.loadbalancer.server.port: "5000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ~/.fileflows/common/:/app/common/:rw
-      - ~/.fileflows/data/:/app/Data/:rw
-      - ~/.fileflows/logs/:/app/Logs/:rw
-      - /mnt/md1/downloads/fileflows/:/media/downloads/:rw
-      - /mnt/md1/downloads/pinchflat/:/media/pinchflat/:rw
-
   glances:
     image: nicolargo/glances:latest
     environment:
