@@ -140,6 +140,14 @@ services:
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
       - /mnt/md1/music/:/music/:rw
 
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    environment:
+      MTX_RTSPTRANSPORTS: tcp
+      WEBRTCADDITIONALHOSTS: 192.168.1.70
+    ports:
+      - 8554:8554/tcp # rtsp
+
   metube:
     image: ghcr.io/alexta69/metube:latest
     environment:
@@ -243,6 +251,16 @@ services:
       - ~/.radarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
       - /mnt/md1/films/:/movies/:rw
+
+  real-time-streaming:
+    build:
+      context: ./real-time-streaming/
+      dockerfile: ./Dockerfile
+    depends_on:
+      mediamtx:
+        condition: service_started
+    volumes:
+      - /mnt/md1/youtube/:/videos/:ro
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest

@@ -253,14 +253,6 @@ services:
       # Mount repository location
       - /repository/:/repository/:rw
 
-  mediamtx:
-    image: bluenviron/mediamtx:latest
-    environment:
-      MTX_RTSPTRANSPORTS: tcp
-      WEBRTCADDITIONALHOSTS: 192.168.1.60
-    ports:
-      - 8554:8554/tcp # rtsp
-
   moodist:
     image: ghcr.io/remvze/moodist:latest
     labels:
@@ -444,16 +436,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
       - /:/host/:rw
-
-  real-time-streaming:
-    build:
-      context: ./real-time-streaming/
-      dockerfile: ./Dockerfile
-    depends_on:
-      mediamtx:
-        condition: service_started
-    volumes:
-      - ~/videos/:/videos/:ro
 
   registry:
     image: registry:latest
