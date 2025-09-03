@@ -470,7 +470,7 @@
         icon: planka.svg
         ping: ransom.lan
         siteMonitor: https://planka.bob.house
-    - Portainer FREEMAN: &portainerfreeman
+    - Portainer: &portainer
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
@@ -481,35 +481,14 @@
             url: https://portainer.bob.house
             env: 3
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-    - Portainer RANSOM: &portainerransom
-        description: Making Docker and Kubernetes management easy
-        href: https://portainer.bob.house/
-        icon: portainer.svg
-        ping: host.docker.internal
-        siteMonitor: https://portainer.bob.house
-        widgets:
           - type: portainer
             url: https://portainer.bob.house
             env: 4
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-    - Portainer SHAXS: &portainershaxs
-        description: Making Docker and Kubernetes management easy
-        href: https://portainer.bob.house/
-        icon: portainer.svg
-        ping: host.docker.internal
-        siteMonitor: https://portainer.bob.house
-        widgets:
           - type: portainer
             url: https://portainer.bob.house
             env: 9
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
-    - Portainer TANA: &portainertana
-        description: Making Docker and Kubernetes management easy
-        href: https://portainer.bob.house/
-        icon: portainer.svg
-        ping: host.docker.internal
-        siteMonitor: https://portainer.bob.house
-        widgets:
           - type: portainer
             url: https://portainer.bob.house
             env: 7
@@ -732,6 +711,7 @@
     - ntfy: *ntfy
     - Pi-hole 01: *pihole01
     - Pi-hole 20: *pihole20
+    - Portainer: *portainer
     - Prometheus: *prometheus
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
@@ -747,12 +727,6 @@
     - Ransom: *kopiaransom
     - Shaxs: *kopiashaxs
     - Tana: *kopiatana
-
-- Portainer:
-    - Freeman: *portainerfreeman
-    - Ransom: *portainerransom
-    - Shaxs: *portainershaxs
-    - Tana: *portainertana
 
 - Traefik:
     - Freeman: *traefikfreeman
