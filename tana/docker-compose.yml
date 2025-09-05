@@ -183,6 +183,22 @@ services:
       - ~/.navidrome/:/data/:rw
       - /mnt/md1/music/:/music/:ro
 
+  nodered:
+    image: nodered/node-red:latest
+    env_file:
+      - ~/Configurations/nodered.env
+    environment:
+      NODE_RED_DISABLE_TELEMETRY: "true"
+      TZ: Etc/UTC
+    labels:
+      traefik.http.routers.nodered-router.entrypoints: websecure
+      traefik.http.routers.nodered-router.rule: Host(`nodered.bob.house`)
+      traefik.http.routers.nodered-router.tls: "true"
+      traefik.http.services.nodered-service.loadbalancer.server.port: "1880"
+    volumes:
+      - ~/.nodered/:/data/:rw
+      - /mnt/md1/youtube/:/youtube/:rw
+
   pinchflat:
     image: ghcr.io/kieraneglin/pinchflat:latest
     environment:
