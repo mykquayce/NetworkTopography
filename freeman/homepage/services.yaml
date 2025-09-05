@@ -408,6 +408,12 @@
           type: netalertx
           url: https://netalertx.bob.house
           key: {{HOMEPAGE_VAR_NETALERTX_API_TOKEN}}
+    - Node RED: &nodered
+        description: Low-code programming for event-driven applications
+        href: https://nodered.bob.house
+        icon: node-red.svg
+        ping: tana.lan
+        siteMonitor: https://nodered.bob.house/
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
@@ -720,6 +726,7 @@
     - Lidarr: *lidarr
     - MeTube: *metube
     - Navidrome: *navidrome
+    - Node RED: *nodered
     - Pinchflat: *pinchflat
     - Prowlarr: *prowlarr
     - qBittorrent: *qbittorrent
