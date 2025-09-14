@@ -532,15 +532,43 @@ services:
 
   vikunja:
     image: vikunja/vikunja:latest
+    depends_on:
+      vikunja-db:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/vikunja.env
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: https://vikunja.bob.house/
+      VIKUNJA_DATABASE_HOST: vikunja-db
+      VIKUNJA_DATABASE_TYPE: postgres
+      VIKUNJA_DATABASE_USER: vikunja
+      VIKUNJA_DATABASE_DATABASE: vikunja
     labels:
       traefik.http.routers.vikunja-router.entrypoints: websecure
       traefik.http.routers.vikunja-router.rule: Host(`vikunja.bob.house`)
       traefik.http.routers.vikunja-router.tls: "true"
       traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
+    networks:
+      default: null
+      vikunja: null
     user: "0"
     volumes:
-     - ~/.vikunja/db/:/db/:rw
-     - ~/.vikunja/files/:/app/vikunja/files/:rw
+      - ~/.vikunja/files/:/app/vikunja/files/:rw
+
+  vikunja-db:
+    image: postgres:17
+    env_file:
+      - ~/Configurations/vikunja.env
+    environment:
+      POSTGRES_USER: vikunja
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
+      interval: 2s
+      start_period: 30s
+    networks:
+      vikunja: null
+    volumes:
+      - ~/.vikunja/db/:/var/lib/postgresql/data/:rw
 
   whatsupdocker:
     image: fmartinou/whats-up-docker:latest
@@ -560,6 +588,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ~/.whatsupdocker/:/store/:rw
+
+networks:
+  default:
+  vikunja:
 
 secrets:
   id_rsa:
