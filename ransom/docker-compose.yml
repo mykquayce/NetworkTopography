@@ -192,7 +192,7 @@ services:
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
 
   karakeep:
-    image: ghcr.io/karakeep-app/karakeep:latest
+    image: ghcr.io/karakeep-app/karakeep:release
     environment:
       BROWSER_WEB_URL: http://karakeep-chrome:9222
       DATA_DIR: /data
@@ -204,11 +204,14 @@ services:
       traefik.http.routers.karakeep-router.rule: Host(`karakeep.bob.house`)
       traefik.http.routers.karakeep-router.tls: "true"
       traefik.http.services.karakeep-service.loadbalancer.server.port: "3000"
+    networks:
+      default: null
+      karakeep: null
     volumes:
       - ~/.karakeep/data/:/data/:rw
 
   karakeep-chrome:
-    image: gcr.io/zenika-hub/alpine-chrome:latest
+    image: gcr.io/zenika-hub/alpine-chrome:124
     command:
       - --disable-dev-shm-usage
       - --disable-gpu
@@ -216,13 +219,17 @@ services:
       - --no-sandbox
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
+    networks:
+      karakeep: null
 
   karakeep-meilisearch:
-    image: getmeili/meilisearch:latest
+    image: getmeili/meilisearch:v1.13.3
     environment:
       MEILI_NO_ANALYTICS: "true"
     env_file:
       - ~/Configurations/karakeep.env
+    networks:
+      karakeep: null
     volumes:
       - ~/.karakeep/meilisearch/:/meili_data/:rw
 
@@ -591,6 +598,7 @@ services:
 
 networks:
   default:
+  karakeep:
   vikunja:
 
 secrets:
