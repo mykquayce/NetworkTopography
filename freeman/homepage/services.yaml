@@ -311,9 +311,13 @@
     - karakeep: &karakeep
         description: A self-hostable bookmark-everything app
         href: https://karakeep.bob.house/
-        icon: hoarder-light.png
+        icon: karakeep.png
         ping: ransom.lan
         siteMonitor: https://karakeep.bob.house/
+        widget:
+          type: karakeep
+          url: https://karakeep.bob.house
+          key: {{HOMEPAGE_VAR_KARAKEEP_KEY}}
     - Kopia FREEMAN: &kopiafreeman
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-freeman.bob.house/
