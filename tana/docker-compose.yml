@@ -29,6 +29,9 @@ services:
 
   glances:
     image: nicolargo/glances:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       GLANCES_OPT: -w
     labels:
@@ -45,6 +48,9 @@ services:
     image: qmcgaw/gluetun:latest
     cap_add:
       - NET_ADMIN
+    depends_on:
+      traefik:
+        condition: service_healthy
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
@@ -63,6 +69,9 @@ services:
 
   jellyfin:
     image: jellyfin/jellyfin:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     devices:
       - /dev/dri:/dev/dri
     healthcheck:
@@ -86,6 +95,11 @@ services:
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
+    depends_on:
+      jellyfin:
+        condition: service_healthy
+      traefik:
+        condition: service_healthy
     environment:
       LOG_LEVEL: debug
       TZ: UTC
@@ -107,6 +121,9 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/kopia.env
     labels:
@@ -126,6 +143,13 @@ services:
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
+    depends_on:
+      qbittorrent:
+        condition: service_started
+      sabnzbd:
+        condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       PGID: "0"
       PUID: "0"
@@ -150,6 +174,9 @@ services:
 
   metube:
     image: ghcr.io/alexta69/metube:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       OUTPUT_TEMPLATE: '%(playlist_title&Playlist |)S%(playlist_title|)S%(playlist_uploader& by |)S%(playlist_uploader|)S%(playlist_autonumber& - |)S%(playlist_autonumber|)S%(playlist_count& of |)S%(playlist_count|)S%(playlist_autonumber& - |)S%(uploader,creator|UNKNOWN_AUTHOR)S %(release_date>%Y-%m-%d,upload_date>%Y-%m-%d|UNKNOWN_DATE)S - %(title|UNKNOWN_TITLE)S [%(id)s].%(ext)s'
       OUTPUT_TEMPLATE_PLAYLIST: '%(playlist_title&Playlist |)S%(playlist_title|)S%(playlist_uploader& by |)S%(playlist_uploader|)S%(playlist_autonumber& - |)S%(playlist_autonumber|)S%(playlist_count& of |)S%(playlist_count|)S%(playlist_autonumber& - |)S%(uploader,creator|UNKNOWN_AUTHOR)S %(release_date>%Y-%m-%d,upload_date>%Y-%m-%d|UNKNOWN_DATE)S - %(title|UNKNOWN_TITLE)S [%(id)s].%(ext)s'
@@ -168,6 +195,9 @@ services:
 
   navidrome:
     image: deluan/navidrome:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       ND_BASEURL: ""
       ND_ENABLEINSIGHTSCOLLECTOR: "false"
@@ -185,6 +215,9 @@ services:
 
   nodered:
     image: nodered/node-red:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/nodered.env
     environment:
@@ -201,6 +234,9 @@ services:
 
   pinchflat:
     image: ghcr.io/kieraneglin/pinchflat:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       TZ: Etc\UTC
     labels:
@@ -215,6 +251,9 @@ services:
 
   portainer:
     image: portainer/agent:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     ports:
       - 9001:9001/tcp
     volumes:
@@ -224,6 +263,13 @@ services:
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
+    depends_on:
+      qbittorrent:
+        condition: service_started
+      sabnzbd:
+        condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -254,6 +300,13 @@ services:
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
+    depends_on:
+      qbittorrent:
+        condition: service_started
+      sabnzbd:
+        condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       PGID: "0"
       PUID: "0"
@@ -270,6 +323,9 @@ services:
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       HAS_IPV6: "false"
       PGID: "0"
@@ -287,6 +343,9 @@ services:
 
   sickgear:
     image: sickgear/sickgear:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.sickgear-router.entrypoints: websecure
       traefik.http.routers.sickgear-router.rule: Host(`sickgear.bob.house`)
@@ -306,6 +365,13 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
+    depends_on:
+      qbittorrent:
+        condition: service_started
+      sabnzbd:
+        condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       PGID: "0"
       PUID: "0"
@@ -338,9 +404,12 @@ services:
       - --metrics.prometheus.addentrypointslabels=true
       - --metrics.prometheus.addrouterslabels=true
       - --metrics.prometheus.addserviceslabels=true
+      - --ping
       - --providers.docker
     env_file:
       - ~/Configurations/traefik.env
+    healthcheck:
+      test: /usr/local/bin/traefik healthcheck --ping
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
@@ -361,6 +430,9 @@ services:
 
   tunarr:
     image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
+    depends_on:
+      traefik:
+        condition: service_healthy
     devices:
       - /dev/dri:/dev/dri:rwm
     environment:
@@ -386,6 +458,9 @@ services:
     image: dockurr/windows:latest
     cap_add:
       - NET_ADMIN
+    depends_on:
+      traefik:
+        condition: service_healthy
     devices:
       - /dev/kvm:/dev/kvm:rwm
       - /dev/net/tun:/dev/net/tun:rwm
