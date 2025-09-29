@@ -268,16 +268,6 @@ services:
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
       - /mnt/md1/films/:/movies/:rw
 
-  real-time-streaming:
-    build:
-      context: ./real-time-streaming/
-      dockerfile: ./Dockerfile
-    depends_on:
-      mediamtx:
-        condition: service_started
-    volumes:
-      - /mnt/md1/youtube/:/videos/:ro
-
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     environment:
@@ -320,6 +310,8 @@ services:
       PGID: "0"
       PUID: "0"
       TZ: Etc/UTC
+    extra_hosts:
+      - "ntfy.bob.house=192.168.20.65"
     labels:
       traefik.http.routers.sonarr-router.entrypoints: websecure
       traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
@@ -418,7 +410,7 @@ services:
     stop_grace_period: 2m0s
     volumes:
       - ~/.windows/:/storage/:rw
-      - /mnt/md1/:/data/:rw
+      - /mnt/:/data/:rw
 
 networks:
   default:
