@@ -1,6 +1,6 @@
 services:
   authentik-postgresql:
-    image: docker.io/library/postgres:alpine
+    image: docker.io/library/postgres:16-alpine
     env_file:
       - ~/Configurations/authentik.env
     healthcheck:
