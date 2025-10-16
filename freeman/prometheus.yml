@@ -22,3 +22,16 @@ scrape_configs:
       - targets: ['ransom.lan:9273']
       - targets: ['shaxs.lan:9273']
       - targets: ['tana.lan:9273']
+      - targets: ['traefik:8080']
+
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus-secure'
+    scheme: https
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['traefik-ransom.bob.house']
+      - targets: ['traefik-shaxs.bob.house']
+      - targets: ['traefik-tana.bob.house']
