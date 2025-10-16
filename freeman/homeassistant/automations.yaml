@@ -1,1 +1,33 @@
-[]
+- id: shutdown_phone_and_internet
+  alias: "Shutdown phone and Internet"
+  triggers:
+    - trigger: time
+      at: "04:00:00"
+  conditions: []
+  actions:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        device_id:
+          - 8408d37dbe7ef8b2d603cc33b2f7ced8
+          - 029aab7d00136a47533f0a2306a60f7e
+          - 1dc48e0f0a42ff4a1984940de943f9a7
+          - 886da40bce583e516f2513b312bf8634
+- id: startup_phone_and_internet
+  alias: "Startup phone and Internet"
+  mode: single
+  triggers:
+    - trigger: time
+      at: "05:00:00"
+  conditions: []
+  actions:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        device_id:
+          - 8408d37dbe7ef8b2d603cc33b2f7ced8
+          - 029aab7d00136a47533f0a2306a60f7e
+          - 1dc48e0f0a42ff4a1984940de943f9a7
+          - 886da40bce583e516f2513b312bf8634
