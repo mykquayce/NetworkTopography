@@ -277,6 +277,17 @@
         icon: /icons/httpbin.png
         ping: ransom.lan
         siteMonitor: https://httpbin.bob.house/
+    - Immich: &immich
+        description: High performance self-hosted photo and video management solution
+        href: https://immich.bob.house/
+        icon: immich.svg
+        ping: tana.lan
+        siteMonitor: https://immich.bob.house/
+        widget:
+          type: immich
+          url: https://immich.bob.house
+          key: {{HOMEPAGE_VAR_IMMICH_KEY}}
+          version: 2
     - IT-Tools: &ittools
         description: Collection of handy online tools for developers, with great UX
         href: https://it-tools.bob.house/
@@ -725,6 +736,7 @@
     - Tana: *traefiktana
 
 - Media:
+    - Immich: *immich
     - Jellyfin: *jellyfin
     - Jellyseerr: *jellyseerr
     - Lidarr: *lidarr
