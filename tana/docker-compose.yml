@@ -67,6 +67,80 @@ services:
       - 6881:6881/tcp # qbittorrent
       - 6881:6881/udp
 
+  immich:
+    image: ghcr.io/immich-app/immich-server:release
+    depends_on:
+      immich-database:
+        condition: service_healthy
+        required: true
+      immich-machine-learning:
+        condition: service_healthy
+        required: true
+      immich-redis:
+        condition: service_healthy
+        required: true
+    environment:
+      DB_HOSTNAME: immich-database
+      DB_DATABASE_NAME: immich
+      DB_PASSWORD: postgres
+      DB_USERNAME: postgres
+      UPLOAD_LOCATION: ./.immich/library
+      REDIS_HOSTNAME: immich-redis
+    healthcheck: {}
+    labels:
+      traefik.http.routers.immich-router.entrypoints: websecure
+      traefik.http.routers.immich-router.rule: Host(`immich.bob.house`)
+      traefik.http.routers.immich-router.tls: "true"
+      traefik.http.services.immich-service.loadbalancer.server.port: "2283"
+    networks:
+      default: null
+      immich: null
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/.immich/library/:/data/:rw
+
+  immich-database:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+    environment:
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: --data-checksums
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "immich"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+    networks:
+      immich: null
+    shm_size: "134217728"
+    volumes:
+      - ~/.immich/db/:/var/lib/postgresql/data/:rw
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    environment:
+      DB_HOSTNAME: immich-database
+      DB_DATABASE_NAME: immich
+      DB_PASSWORD: postgres
+      DB_USERNAME: postgres
+      UPLOAD_LOCATION: ./.immich/library
+    healthcheck: {}
+    networks:
+      immich: null
+    volumes:
+      - ~/.immich/model-cache/:/cache/:rw
+
+  immich-redis:
+    image: docker.io/valkey/valkey:8-bookworm@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571
+    healthcheck:
+      test: redis-cli ping || exit 1
+    networks:
+      immich: null
+    volumes:
+      - ~/.immich/redis/:/data/:rw
+
   jellyfin:
     image: jellyfin/jellyfin:latest
     depends_on:
@@ -494,6 +568,7 @@ networks:
       config:
         - subnet: 172.18.0.0/16
           ip_range: 172.18.5.0/24
+  immich:
 
 volumes:
   certificates-volume:
