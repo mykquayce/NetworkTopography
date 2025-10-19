@@ -10,7 +10,9 @@ services:
       retries: 5
       timeout: 5s
     labels:
-      traefik.enable: false
+      traefik.enable: "false"
+    networks:
+      authentik: null
     volumes:
       - ~/.authentik/postgres/:/var/lib/postgresql/data/:rw
 
@@ -24,7 +26,9 @@ services:
       retries: 5
       timeout: 3s
     labels:
-      traefik.enable: false
+      traefik.enable: "false"
+    networks:
+      authentik: null
     volumes:
       - ~/.authentik/redis/:/data/:rw
 
@@ -44,10 +48,14 @@ services:
     env_file:
       - ~/Configurations/authentik.env
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.authentik-router.entrypoints: websecure
       traefik.http.routers.authentik-router.rule: Host(`authentik.bob.house`)
       traefik.http.routers.authentik-router.tls: "true"
       traefik.http.services.authentik-service.loadbalancer.server.port: "9000"
+    networks:
+      authentik: null
+      traefik: null
     volumes:
       - ~/.authentik/media/:/media/:rw
       - ~/.authentik/custom-templates/:/templates/:rw
@@ -66,7 +74,9 @@ services:
     env_file:
       - ~/Configurations/authentik.env
     labels:
-      traefik.enable: false
+      traefik.enable: "false"
+    networks:
+      authentik: null
     # `user: root` and the docker socket volume are optional.
     # See more for the docker socket integration here:
     # https://goauthentik.io/docs/outposts/integrations/docker
@@ -90,6 +100,8 @@ services:
       traefik.http.routers.baikal-router.rule: Host(`baikal.bob.house`)
       traefik.http.routers.baikal-router.tls: "true"
       traefik.http.services.baikal-service.loadbalancer.server.port: "80"
+    networks:
+      traefik: null
     volumes:
       - ~/.baikal/config/:/var/www/baikal/config/:rw
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
@@ -109,20 +121,31 @@ services:
       start_period: 5s
       start_interval: 5s
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.dozzle-router.entrypoints: websecure
       traefik.http.routers.dozzle-router.rule: Host(`dozzle.bob.house`)
       traefik.http.routers.dozzle-router.tls: "true"
       traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   glance:
     image: glanceapp/glance:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.glance-router.entrypoints: websecure
       traefik.http.routers.glance-router.rule: Host(`glance.bob.house`)
       traefik.http.routers.glance-router.tls: "true"
       traefik.http.services.glance-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ./glance.yml:/app/config/glance.yml:ro
       - ~/.glance/:/app/assets/:rw
@@ -141,6 +164,8 @@ services:
       traefik.http.routers.glances-router.rule: Host(`glances-freeman.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    networks:
+      traefik: null
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -152,10 +177,14 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.homeassistant-router.entrypoints: websecure
       traefik.http.routers.homeassistant-router.rule: Host(`homeassistant.bob.house`)
       traefik.http.routers.homeassistant-router.tls: "true"
       traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ~/.homeassistant/:/config/:rw
       - ./homeassistant/automations.yaml:/config/automations.yaml:rw
@@ -177,10 +206,14 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.homepage-router.entrypoints: websecure
       traefik.http.routers.homepage-router.rule: Host(`homepage.bob.house`)
       traefik.http.routers.homepage-router.tls: "true"
       traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ./homepage/:/app/config/:rw
       - ./homepage/icons/:/app/public/icons/:ro
@@ -197,6 +230,9 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/kopia.env
     labels:
@@ -204,6 +240,8 @@ services:
       traefik.http.routers.kopia-router.rule: Host(`kopia-freeman.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    networks:
+      traefik: null
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -226,7 +264,7 @@ services:
       PORT: "20211"
       TZ: Etc/UTC
     labels:
-      traefik.enable: false
+      traefik.enable: "false"
     network_mode: host
     volumes:
       - ~/.netalertx/config/:/app/config/:rw
@@ -249,10 +287,14 @@ services:
       FTLCONF_dns_listeningMode: all
       TZ: UTC
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.pihole01-router.entrypoints: websecure
       traefik.http.routers.pihole01-router.rule: Host(`pihole01.bob.house`)
       traefik.http.routers.pihole01-router.tls: "true"
       traefik.http.services.pihole01-service.loadbalancer.server.port: "80"
+    networks:
+      default: null
+      traefik: null
     ports:
       - 192.168.1.60:53:53/tcp
       - 192.168.1.60:53:53/udp
@@ -273,10 +315,14 @@ services:
       FTLCONF_dns_listeningMode: all
       TZ: UTC
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.pihole20-router.entrypoints: websecure
       traefik.http.routers.pihole20-router.rule: Host(`pihole20.bob.house`)
       traefik.http.routers.pihole20-router.tls: "true"
       traefik.http.services.pihole20-service.loadbalancer.server.port: "80"
+    networks:
+      default: null
+      traefik: null
     ports:
       - 192.168.20.60:53:53/tcp
       - 192.168.20.60:53:53/udp
@@ -289,10 +335,14 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.portainer-router.entrypoints: websecure
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
       traefik.http.routers.portainer-router.tls: "true"
       traefik.http.services.portainer-service.loadbalancer.server.port: "9000"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - ~/.portainer/:/data/:rw
@@ -307,10 +357,14 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.prometheus-router.entrypoints: websecure
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.bob.house`)
       traefik.http.routers.prometheus-router.tls: "true"
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ~/.prometheus/:/prometheus/:rw
@@ -321,10 +375,14 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.sshwifty-router.entrypoints: websecure
       traefik.http.routers.sshwifty-router.rule: Host(`sshwifty.bob.house`)
       traefik.http.routers.sshwifty-router.tls: "true"
       traefik.http.services.sshwifty-service.loadbalancer.server.port: "8182"
+    networks:
+      default: null
+      traefik: null
     user: root
     volumes:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
@@ -365,7 +423,8 @@ services:
       traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     networks:
-      default:
+      default: null
+      traefik:
         ipv4_address: 172.18.0.2
     ports:
       - 443:443/tcp
@@ -381,16 +440,35 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.uptimekuma-router.entrypoints: websecure
       traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.bob.house`)
       traefik.http.routers.uptimekuma-router.tls: "true"
       traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ~/.uptimekuma/:/app/data/:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:
+  authentik:
+    name: freeman_authentik
+    internal: "true"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
   default:
+    name: freeman_default
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/16
+  traefik:
+    name: freeman_traefik
+    internal: "true"
     ipam:
       driver: default
       config:
