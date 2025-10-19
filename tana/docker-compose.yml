@@ -10,6 +10,10 @@ services:
       retries: 5
       start_period: 5s
       start_interval: 5s
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 7007:7007/tcp
     volumes:
@@ -19,11 +23,16 @@ services:
     build:
       context: ./ffmpeg-webhook/
       dockerfile: ./Dockerfile
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.ffmpeg-webhook-router.entrypoints: websecure
       traefik.http.routers.ffmpeg-webhook-router.rule: Host(`ffmpeg-webhook.bob.house`)
       traefik.http.routers.ffmpeg-webhook-router.tls: "true"
       traefik.http.services.ffmpeg-webhook-service.loadbalancer.server.port: "9000"
+    networks:
+      traefik: null
     volumes:
       - /mnt/md1/youtube/:/videos/:rw
 
@@ -39,6 +48,8 @@ services:
       traefik.http.routers.glances-router.rule: Host(`glances-tana.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    networks:
+      traefik: null
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -59,10 +70,14 @@ services:
     env_file:
       - ~/Configurations/gluetun.env
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.qbittorrent-router.entrypoints: websecure
       traefik.http.routers.qbittorrent-router.rule: Host(`qbittorrent.bob.house`)
       traefik.http.routers.qbittorrent-router.tls: "true"
       traefik.http.services.qbittorrent-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
     ports:
       - 6881:6881/tcp # qbittorrent
       - 6881:6881/udp
@@ -79,6 +94,9 @@ services:
       immich-redis:
         condition: service_healthy
         required: true
+      traefik:
+        condition: service_healthy
+        required: true
     environment:
       DB_HOSTNAME: immich-database
       DB_DATABASE_NAME: immich
@@ -88,13 +106,14 @@ services:
       REDIS_HOSTNAME: immich-redis
     healthcheck: {}
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.immich-router.entrypoints: websecure
       traefik.http.routers.immich-router.rule: Host(`immich.bob.house`)
       traefik.http.routers.immich-router.tls: "true"
       traefik.http.services.immich-service.loadbalancer.server.port: "2283"
     networks:
-      default: null
       immich: null
+      traefik: null
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ~/.immich/library/:/data/:rw
@@ -112,6 +131,8 @@ services:
       timeout: 60s
       retries: 5
       start_period: 80s
+    labels:
+      traefik.enable: "false"
     networks:
       immich: null
     shm_size: "134217728"
@@ -127,6 +148,8 @@ services:
       DB_USERNAME: postgres
       UPLOAD_LOCATION: ./.immich/library
     healthcheck: {}
+    labels:
+      traefik.enable: "false"
     networks:
       immich: null
     volumes:
@@ -136,6 +159,8 @@ services:
     image: docker.io/valkey/valkey:8-bookworm@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571
     healthcheck:
       test: redis-cli ping || exit 1
+    labels:
+      traefik.enable: "false"
     networks:
       immich: null
     volumes:
@@ -155,6 +180,8 @@ services:
       traefik.http.routers.jellyfin-router.rule: Host(`jellyfin.bob.house`)
       traefik.http.routers.jellyfin-router.tls: "true"
       traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
+    networks:
+      traefik: null
     volumes:
       - ~/.jellyfin/config/:/config/:rw
       - ~/.jellyfin/cache/:/cache/:rw
@@ -182,6 +209,8 @@ services:
       traefik.http.routers.jellyseerr-router.rule: Host(`jellyseerr.bob.house`)
       traefik.http.routers.jellyseerr-router.tls: "true"
       traefik.http.services.jellyseerr-service.loadbalancer.server.port: "5055"
+    networks:
+      traefik: null
     volumes:
       - ~/.jellyseerr/:/app/config/:rw
 
@@ -205,6 +234,8 @@ services:
       traefik.http.routers.kopia-router.rule: Host(`kopia-tana.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    networks:
+      traefik: null
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -233,6 +264,8 @@ services:
       traefik.http.routers.lidarr-router.rule: Host(`lidarr.bob.house`)
       traefik.http.routers.lidarr-router.tls: "true"
       traefik.http.services.lidarr-service.loadbalancer.server.port: "8686"
+    networks:
+      traefik: null
     volumes:
       - ~/.lidarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -243,6 +276,10 @@ services:
     environment:
       MTX_RTSPTRANSPORTS: tcp
       WEBRTCADDITIONALHOSTS: 192.168.1.70
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 8554:8554/tcp # rtsp
 
@@ -262,6 +299,8 @@ services:
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
       traefik.http.routers.metube-router.tls: "true"
       traefik.http.services.metube-service.loadbalancer.server.port: "8081"
+    networks:
+      traefik: null
     volumes:
       - ~/.metube/:/data/:rw
       - ~/cookies.txt:/cookies/cookies.txt:ro
@@ -283,6 +322,8 @@ services:
       traefik.http.routers.navidrome-router.rule: Host(`navidrome.bob.house`)
       traefik.http.routers.navidrome-router.tls: "true"
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
+    networks:
+      traefik: null
     volumes:
       - ~/.navidrome/:/data/:rw
       - /mnt/md1/music/:/music/:ro
@@ -302,6 +343,8 @@ services:
       traefik.http.routers.nodered-router.rule: Host(`nodered.bob.house`)
       traefik.http.routers.nodered-router.tls: "true"
       traefik.http.services.nodered-service.loadbalancer.server.port: "1880"
+    networks:
+      traefik: null
     volumes:
       - ~/.nodered/:/data/:rw
       - /mnt/md1/youtube/:/youtube/:rw
@@ -318,6 +361,8 @@ services:
       traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
       traefik.http.routers.pinchflat-router.tls: "true"
       traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
+    networks:
+      traefik: null
     volumes:
       - ~/.pinchflat/config/:/config/:rw
       - /mnt/md1/downloads/pinchflat/:/downloads/:rw
@@ -325,9 +370,10 @@ services:
 
   portainer:
     image: portainer/agent:latest
-    depends_on:
-      traefik:
-        condition: service_healthy
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 9001:9001/tcp
     volumes:
@@ -353,6 +399,8 @@ services:
       traefik.http.routers.prowlarr-router.rule: Host(`prowlarr.bob.house`)
       traefik.http.routers.prowlarr-router.tls: "true"
       traefik.http.services.prowlarr-service.loadbalancer.server.port: "9696"
+    networks:
+      traefik: null
     volumes:
       - ~/.prowlarr/:/config/:rw
 
@@ -390,6 +438,8 @@ services:
       traefik.http.routers.radarr-router.rule: Host(`radarr.bob.house`)
       traefik.http.routers.radarr-router.tls: "true"
       traefik.http.services.radarr-service.loadbalancer.server.port: "7878"
+    networks:
+      traefik: null
     volumes:
       - ~/.radarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -410,6 +460,8 @@ services:
       traefik.http.routers.sabnzbd-router.rule: Host(`sabnzbd.bob.house`)
       traefik.http.routers.sabnzbd-router.tls: "true"
       traefik.http.services.sabnzbd-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
     volumes:
       - ~/.sabnzbd/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -425,6 +477,8 @@ services:
       traefik.http.routers.sickgear-router.rule: Host(`sickgear.bob.house`)
       traefik.http.routers.sickgear-router.tls: "true"
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
+    networks:
+      traefik: null
     volumes:
       - ~/.sickgear/config/:/config/:rw
       - ~/.sickgear/data/:/data/:rw
@@ -457,6 +511,8 @@ services:
       traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
       traefik.http.routers.sonarr-router.tls: "true"
       traefik.http.services.sonarr-service.loadbalancer.server.port: "8989"
+    networks:
+      traefik: null
     volumes:
       - ~/.sonarr/:/config/:rw
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
@@ -493,8 +549,8 @@ services:
       traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     networks:
-      default:
-        ipv4_address: 172.18.0.2
+      default: null
+      traefik: null
     ports:
       - 443:443/tcp
     volumes:
@@ -517,6 +573,8 @@ services:
       traefik.http.routers.tunarr-router.rule: Host(`tunarr.bob.house`)
       traefik.http.routers.tunarr-router.tls: "true"
       traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
+    networks:
+      traefik: null
     volumes:
       - ~/.tunarr/:/config/tunarr/:rw
       - /mnt/md1/anime/:/media/anime/:ro
@@ -549,10 +607,14 @@ services:
       KEYBOARD: en-GB
       USERNAME: bob
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.windows-tana-router.entrypoints: websecure
       traefik.http.routers.windows-tana-router.rule: Host(`windows-tana.bob.house`)
       traefik.http.routers.windows-tana-router.tls: "true"
       traefik.http.services.windows-tana-service.loadbalancer.server.port: "8006"
+    networks:
+      default: null
+      traefik: null
     ports:
       - 3389:3389/tcp
       - 3389:3389/udp
@@ -563,12 +625,11 @@ services:
 
 networks:
   default:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.18.0.0/16
-          ip_range: 172.18.5.0/24
+    name: tana_default
   immich:
+    name: tana_immich
+  traefik:
+    name: tana_traefik
 
 volumes:
   certificates-volume:

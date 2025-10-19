@@ -72,21 +72,35 @@ services:
       Router:UserName: root
       Router:PathToPrivateKey: /run/secrets/id_rsa
 
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
     secrets:
     - source: id_rsa
 
   changedetection:
     image: dgtlmoon/changedetection.io:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.changedetection-router.entrypoints: websecure
       traefik.http.routers.changedetection-router.rule: Host(`changedetection.bob.house`)
       traefik.http.routers.changedetection-router.tls: "true"
       traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ~/.changedetection/:/datastore/:rw
 
   donetick:
     image: donetick/donetick:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       DT_ENV: selfhosted
       DT_SQLITE_PATH: /donetick-data/donetick.db
@@ -95,6 +109,8 @@ services:
       traefik.http.routers.donetick-router.rule: Host(`donetick.bob.house`)
       traefik.http.routers.donetick-router.tls: "true"
       traefik.http.services.donetick-service.loadbalancer.server.port: "2021"
+    networks:
+      traefik: null
     volumes:
       - ~/.donetick/:/donetick-data/:rw
       - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
@@ -102,6 +118,9 @@ services:
   dozzle:
     image: amir20/dozzle:latest
     command: agent
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       DOZZLE_HOSTNAME: ransom
     healthcheck:
@@ -110,6 +129,10 @@ services:
       retries: 5
       start_period: 5s
       start_interval: 5s
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 7007:7007/tcp
     volumes:
@@ -117,6 +140,9 @@ services:
 
   drawio:
     image: jgraph/drawio:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
     labels:
@@ -124,15 +150,21 @@ services:
       traefik.http.routers.drawio-router.rule: Host(`drawio.bob.house`)
       traefik.http.routers.drawio-router.tls: "true"
       traefik.http.services.drawio-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
 
   freshrss:
     image: freshrss/freshrss:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       CRON_MIN: 3,33
       TZ: UTC
     env_file:
       - ~/Configurations/freshrss.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.freshrss-router.entrypoints: websecure
       traefik.http.routers.freshrss-router.rule: Host(`freshrss.bob.house`)
       traefik.http.routers.freshrss-router.tls: "true"
@@ -140,12 +172,18 @@ services:
     logging:
       options:
         max-size: 10m
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ~/.freshrss/:/var/www/FreshRSS/data:rw
       - ~/.freshrss-extensions/:/var/www/FreshRSS/extensions/:ro
 
   glances:
     image: nicolargo/glances:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       GLANCES_OPT: -w
     labels:
@@ -153,6 +191,8 @@ services:
       traefik.http.routers.glances-router.rule: Host(`glances-ransom.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    networks:
+      traefik: null
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -160,6 +200,9 @@ services:
 
   grafana:
     image: grafana/grafana-oss:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       GF_ENABLE_GZIP: "true"
       GF_SERVER_ROOT_URL: https://grafana.bob.house
@@ -167,29 +210,43 @@ services:
     env_file:
       - ~/Configurations/grafana.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.grafana-router.entrypoints: websecure
       traefik.http.routers.grafana-router.rule: Host(`grafana.bob.house`)
       traefik.http.routers.grafana-router.tls: "true"
       traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
+    networks:
+      default: null
+      traefik: null
     user: "0"
     volumes:
       - ~/.grafana/:/var/lib/grafana/:rw
 
   httpbin:
     image: mccutchen/go-httpbin:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.httpbin-router.entrypoints: websecure
       traefik.http.routers.httpbin-router.rule: Host(`httpbin.bob.house`)
       traefik.http.routers.httpbin-router.tls: "true"
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
 
   it-tools:
     image: ghcr.io/corentinth/it-tools:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.it-tools-router.entrypoints: websecure
       traefik.http.routers.it-tools-router.rule: Host(`it-tools.bob.house`)
       traefik.http.routers.it-tools-router.tls: "true"
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
+    networks:
+      traefik: null
 
   karakeep:
     image: ghcr.io/karakeep-app/karakeep:release
@@ -197,9 +254,17 @@ services:
       BROWSER_WEB_URL: http://karakeep-chrome:9222
       DATA_DIR: /data
       MEILI_ADDR: http://karakeep-meilisearch:7700
+    depends_on:
+      traefik:
+        condition: service_healthy
+      karakeep-chrome:
+        condition: service_started
+      karakeep-meilisearch:
+        condition: service_started
     env_file:
       - ~/Configurations/karakeep.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.karakeep-router.entrypoints: websecure
       traefik.http.routers.karakeep-router.rule: Host(`karakeep.bob.house`)
       traefik.http.routers.karakeep-router.tls: "true"
@@ -207,6 +272,7 @@ services:
     networks:
       default: null
       karakeep: null
+      traefik: null
     volumes:
       - ~/.karakeep/data/:/data/:rw
 
@@ -219,7 +285,10 @@ services:
       - --no-sandbox
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
+    labels:
+      traefik.enable: "false"
     networks:
+      default: null
       karakeep: null
 
   karakeep-meilisearch:
@@ -228,6 +297,8 @@ services:
       MEILI_NO_ANALYTICS: "true"
     env_file:
       - ~/Configurations/karakeep.env
+    labels:
+      traefik.enable: "false"
     networks:
       karakeep: null
     volumes:
@@ -243,6 +314,9 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/kopia.env
     labels:
@@ -250,6 +324,8 @@ services:
       traefik.http.routers.kopia-router.rule: Host(`kopia-ransom.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    networks:
+      traefik: null
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -262,6 +338,9 @@ services:
 
   moodist:
     image: ghcr.io/remvze/moodist:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.moodist-router.entrypoints: websecure
       traefik.http.routers.moodist-router.rule: Host(`moodist.bob.house`)
@@ -270,9 +349,14 @@ services:
     logging:
       options:
         max-size: 1g
+    networks:
+      traefik: null
 
   n8n:
     image: docker.n8n.io/n8nio/n8n:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
        GENERIC_TIMEZONE: UTC
        N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "false"
@@ -283,6 +367,8 @@ services:
       traefik.http.routers.n8n-router.rule: Host(`n8n.bob.house`)
       traefik.http.routers.n8n-router.tls: "true"
       traefik.http.services.n8n-service.loadbalancer.server.port: "5678"
+    networks:
+      traefik: null
     user: "0"
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
@@ -291,6 +377,9 @@ services:
     image: binwiederhier/ntfy:latest
     command:
       - serve
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       TZ: UTC
     labels:
@@ -298,12 +387,17 @@ services:
       traefik.http.routers.ntfy-router.rule: Host(`ntfy.bob.house`)
       traefik.http.routers.ntfy-router.tls: "true"
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
+    networks:
+      traefik: null
     volumes:
       - ~/.ntfy/:/var/cache/ntfy/:rw
       - ./ntfy.yml:/etc/ntfy/server.yml:ro
 
   nuget:
     image: bagetter/bagetter:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/nuget.env
     labels:
@@ -311,25 +405,40 @@ services:
       traefik.http.routers.nuget-router.rule: Host(`nuget.bob.house`)
       traefik.http.routers.nuget-router.tls: "true"
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
     volumes:
       - ~/.bagetter/:/data:rw
 
   ollama:
     image: ollama/ollama:latest
+    labels:
+      traefik.enable: "false"
+    networks:
+      ollama: null
     volumes:
       - ~/.ollama/:/root/.ollama/:rw
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
+    depends_on:
+      ollama:
+        condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       OLLAMA_BASE_URL: http://ollama:11434
     env_file:
       - ~/Configurations/open-webui.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.open-webui-router.entrypoints: websecure
       traefik.http.routers.open-webui-router.rule: Host(`open-webui.bob.house`)
       traefik.http.routers.open-webui-router.tls: "true"
       traefik.http.services.open-webui-service.loadbalancer.server.port: "8080"
+    networks:
+      ollama: null
+      traefik: null
     volumes:
       - ~/.open-webui/:/app/backend/data/:rw
 
@@ -340,6 +449,9 @@ services:
         condition: service_healthy
         required: true
       paperless-ngx-redis:
+        condition: service_healthy
+        required: true
+      traefik:
         condition: service_healthy
         required: true
     env_file:
@@ -356,10 +468,14 @@ services:
       start_period: 10s
       retries: 10
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.paperless-ngx-router.entrypoints: websecure
       traefik.http.routers.paperless-ngx-router.rule: Host(`paperless-ngx.bob.house`)
       traefik.http.routers.paperless-ngx-router.tls: "true"
       traefik.http.services.paperless-ngx-service.loadbalancer.server.port: "8000"
+    networks:
+      paperless-ngx: null
+      traefik: null
     volumes:
       - ~/.paperless-ngx/consume/:/usr/src/paperless/consume/:rw
       - ~/.paperless-ngx/data/:/usr/src/paperless/data/:rw
@@ -379,6 +495,10 @@ services:
       timeout: 10s
       start_period: 10s
       retries: 10
+    labels:
+      traefik.enable: "false"
+    networks:
+      paperless-ngx: null
     volumes:
       - ~/.paperless-ngx/db/:/var/lib/postgresql/data/:rw
 
@@ -390,6 +510,10 @@ services:
       timeout: 10s
       start_period: 10s
       retries: 10
+    labels:
+      traefik.enable: "false"
+    networks:
+      paperless-ngx: null
     volumes:
       - ~/.paperless-ngx/redis/:/data/:rw
 
@@ -397,6 +521,8 @@ services:
     image: ghcr.io/plankanban/planka:latest
     depends_on:
       planka-db:
+        condition: service_healthy
+      traefik:
         condition: service_healthy
     environment:
       BASE_URL: https://planka.bob.house
@@ -411,10 +537,15 @@ services:
     env_file:
       - ~/Configurations/planka.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.planka-router.entrypoints: websecure
       traefik.http.routers.planka-router.rule: Host(`planka.bob.house`)
       traefik.http.routers.planka-router.tls: "true"
       traefik.http.services.planka-service.loadbalancer.server.port: "1337"
+    networks:
+      default: null
+      planka: null
+      traefik: null
     volumes:
       - ~/.planka/user-avatars:/app/public/user-avatars:rw
       - ~/.planka/project-background-images:/app/public/project-background-images:rw
@@ -432,11 +563,19 @@ services:
       timeout: 5s
       interval: 10s
       retries: 5
+    labels:
+      traefik.enable: "false"
+    networks:
+      planka: null
     volumes:
       - ~/.planka/db:/var/lib/postgresql/data:rw
 
   portainer:
     image: portainer/agent:latest
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 9001:9001/tcp
     volumes:
@@ -450,12 +589,21 @@ services:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data/
     env_file:
       - ~/Configurations/registry.env
+    labels:
+      traefik.enable: "false"
+    networks:
+      registry: null
     volumes:
       - ~/.registry/data/:/data/:rw
       - ~/.registry/library/:/var/lib/registry/:rw
 
   registry-ui:
     image: joxit/docker-registry-ui:main
+    depends_on:
+      registry:
+        condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       CATALOG_ELEMENTS_LIMIT: "1000"
       CATALOG_MAX_BRANCHES: "1"
@@ -469,13 +617,20 @@ services:
       SINGLE_REGISTRY: "true"
       TAGLIST_PAGE_SIZE: "100"
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.registry-router.entrypoints: websecure
       traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
       traefik.http.routers.registry-router.tls: "true"
       traefik.http.services.registry-service.loadbalancer.server.port: "80"
+    networks:
+      registry: null
+      traefik: null
 
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     environment:
       APP_TIMEZONE: UTC
       APP_URL: https://speedtest.bob.house
@@ -486,10 +641,14 @@ services:
     env_file:
       - ~/Configurations/speedtest-tracker.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.speedtest-router.entrypoints: websecure
       traefik.http.routers.speedtest-router.rule: Host(`speedtest.bob.house`)
       traefik.http.routers.speedtest-router.tls: "true"
       traefik.http.services.speedtest-service.loadbalancer.server.port: "80"
+    networks:
+      default: null
+      traefik: null
     volumes:
       - ~/.speedtest/:/config/:rw
 
@@ -509,9 +668,12 @@ services:
       - --metrics.prometheus.addentrypointslabels=true
       - --metrics.prometheus.addrouterslabels=true
       - --metrics.prometheus.addserviceslabels=true
+      - --ping
       - --providers.docker
     env_file:
       - ~/Configurations/traefik.env
+    healthcheck:
+      test: /usr/local/bin/traefik healthcheck --ping
     labels:
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-ransom.bob.house`)
@@ -520,6 +682,9 @@ services:
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
       traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
     ports:
       - 443:443/tcp
     volumes:
@@ -529,17 +694,24 @@ services:
 
   trilium:
     image: triliumnext/notes:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.trilium-router.entrypoints: websecure
       traefik.http.routers.trilium-router.rule: Host(`trilium.bob.house`)
       traefik.http.routers.trilium-router.tls: "true"
       traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
     volumes:
       - ~/.trilium/:/home/node/trilium-data/:rw
 
   vikunja:
     image: vikunja/vikunja:latest
     depends_on:
+      traefik:
+        condition: service_healthy
       vikunja-db:
         condition: service_healthy
     env_file:
@@ -551,12 +723,13 @@ services:
       VIKUNJA_DATABASE_USER: vikunja
       VIKUNJA_DATABASE_DATABASE: vikunja
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.vikunja-router.entrypoints: websecure
       traefik.http.routers.vikunja-router.rule: Host(`vikunja.bob.house`)
       traefik.http.routers.vikunja-router.tls: "true"
       traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
     networks:
-      default: null
+      traefik: null
       vikunja: null
     user: "0"
     volumes:
@@ -572,6 +745,8 @@ services:
       test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
       interval: 2s
       start_period: 30s
+    labels:
+      traefik.enable: "false"
     networks:
       vikunja: null
     volumes:
@@ -579,6 +754,9 @@ services:
 
   whatsupdocker:
     image: getwud/wud:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/whatsupdocker.env
     environment:
@@ -595,12 +773,16 @@ services:
       retries: 3
       start_period: 10s
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.whatsupdocker-router.entrypoints: websecure
       traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker.bob.house`)
       traefik.http.routers.whatsupdocker-router.tls: "true"
       traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"
       wud.link.template: https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
       wud.tag.include: ^\d+\.\d+\.\d+$$
+    networks:
+      default: null
+      traefik: null
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -608,8 +790,28 @@ services:
 
 networks:
   default:
+    name: ransom_default
   karakeep:
+    name: ransom_karakeep
+    internal: "true"
+  ollama:
+    name: ransom_ollama
+    internal: "true"
+  paperless-ngx:
+    name: ransom_paperless-ngx
+    internal: "true"
+  planka:
+    name: ransom_planka
+    internal: "true"
+  registry:
+    name: ransom_registry
+    internal: "true"
+  traefik:
+    name: ransom_traefik
+    internal: "true"
   vikunja:
+    name: ransom_vikunja
+    internal: "true"
 
 secrets:
   id_rsa:
