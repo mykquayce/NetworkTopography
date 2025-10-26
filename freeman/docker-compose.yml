@@ -357,11 +357,13 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.prometheus-router.entrypoints: websecure
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.bob.house`)
       traefik.http.routers.prometheus-router.tls: "true"
       traefik.http.services.prometheus-service.loadbalancer.server.port: "9090"
     networks:
+      default: null
       traefik: null
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -373,11 +375,13 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.sshwifty-router.entrypoints: websecure
       traefik.http.routers.sshwifty-router.rule: Host(`sshwifty.bob.house`)
       traefik.http.routers.sshwifty-router.tls: "true"
       traefik.http.services.sshwifty-service.loadbalancer.server.port: "8182"
     networks:
+      default: null
       traefik: null
     user: root
     volumes:

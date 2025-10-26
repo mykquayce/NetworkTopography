@@ -85,11 +85,13 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.changedetection-router.entrypoints: websecure
       traefik.http.routers.changedetection-router.rule: Host(`changedetection.bob.house`)
       traefik.http.routers.changedetection-router.tls: "true"
       traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.changedetection/:/datastore/:rw
@@ -162,6 +164,7 @@ services:
     env_file:
       - ~/Configurations/freshrss.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.freshrss-router.entrypoints: websecure
       traefik.http.routers.freshrss-router.rule: Host(`freshrss.bob.house`)
       traefik.http.routers.freshrss-router.tls: "true"
@@ -170,6 +173,7 @@ services:
       options:
         max-size: 10m
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.freshrss/:/var/www/FreshRSS/data:rw
@@ -266,6 +270,7 @@ services:
       traefik.http.routers.karakeep-router.tls: "true"
       traefik.http.services.karakeep-service.loadbalancer.server.port: "3000"
     networks:
+      default: null
       karakeep: null
       traefik: null
     volumes:
@@ -283,6 +288,7 @@ services:
     labels:
       traefik.enable: "false"
     networks:
+      default: null
       karakeep: null
 
   karakeep-meilisearch:
@@ -634,11 +640,13 @@ services:
     env_file:
       - ~/Configurations/speedtest-tracker.env
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.speedtest-router.entrypoints: websecure
       traefik.http.routers.speedtest-router.rule: Host(`speedtest.bob.house`)
       traefik.http.routers.speedtest-router.tls: "true"
       traefik.http.services.speedtest-service.loadbalancer.server.port: "80"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.speedtest/:/config/:rw
@@ -764,6 +772,7 @@ services:
       retries: 3
       start_period: 10s
     labels:
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.whatsupdocker-router.entrypoints: websecure
       traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker.bob.house`)
       traefik.http.routers.whatsupdocker-router.tls: "true"
@@ -771,6 +780,7 @@ services:
       wud.link.template: https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
       wud.tag.include: ^\d+\.\d+\.\d+$$
     networks:
+      default: null
       traefik: null
     volumes:
       - /etc/localtime:/etc/localtime:ro
