@@ -716,6 +716,7 @@
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
     - Uptime Kuma: *uptimekuma
+    - What's Up Docker: *whatsupdocker
 
 - Glances:
     - Freeman: *glancesfreeman
