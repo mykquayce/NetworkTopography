@@ -578,9 +578,18 @@ services:
       - ~/.vikunja/db/:/var/lib/postgresql/data/:rw
 
   whatsupdocker:
-    image: fmartinou/whats-up-docker:latest
+    image: getwud/wud:latest
+    env_file:
+      - ~/Configurations/whatsupdocker.env
+    environment:
+      WUD_LOG_LEVEL: info # error info debug trace
+      WUD_TRIGGER_NTFY_PRIVATE_URL: https://ntfy.bob.house
+      WUD_WATCHER_FREEMAN_HOST: freeman.lan
+      WUD_WATCHER_RANSOM_SOCKET: /var/run/docker.sock
+      WUD_WATCHER_SHAXS_HOST: shaxs.lan
+      WUD_WATCHER_TANA_HOST: tana.lan
     healthcheck:
-      test: wget --no-verbose --tries=1 --no-check-certificate --spider http://localhost:3000
+      test: curl --fail http://localhost:3000/health || exit 1
       interval: 10s
       timeout: 10s
       retries: 3
@@ -590,9 +599,10 @@ services:
       traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker.bob.house`)
       traefik.http.routers.whatsupdocker-router.tls: "true"
       traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"
-      wud.link.template: https://github.com/fmartinou/whats-up-docker/releases/tag/$${major}.$${minor}.$${patch}
+      wud.link.template: https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
       wud.tag.include: ^\d+\.\d+\.\d+$$
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ~/.whatsupdocker/:/store/:rw
 
