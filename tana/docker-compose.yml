@@ -467,6 +467,30 @@ services:
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
       - /mnt/md1/downloads/incomplete/:/config/Downloads/incomplete/:rw
 
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    cap_add:
+      - SYS_RAWIO
+    depends_on:
+      traefik:
+        condition: service_healthy
+    devices:
+      - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
+      - /dev/sdd
+    labels:
+      traefik.http.routers.scrutiny-router.entrypoints: websecure
+      traefik.http.routers.scrutiny-router.rule: Host(`scrutiny.bob.house`)
+      traefik.http.routers.scrutiny-router.tls: "true"
+      traefik.http.services.scutiny-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
+    volumes:
+      - ~/.scrutiny/config/:/opt/scrutiny/config/:rw
+      - ~/.scrutiny/influxdb/:/opt/scrutiny/influxdb/:rw
+      - /run/udev:/run/udev:ro
+
   sickgear:
     image: sickgear/sickgear:latest
     depends_on:

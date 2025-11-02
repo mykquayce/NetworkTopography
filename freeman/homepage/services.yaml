@@ -565,6 +565,15 @@
           type: sabnzbd
           url: https://sabnzbd.bob.house
           key: {{HOMEPAGE_VAR_SABNZBD_KEY}}
+    - Scrutiny: &scrutiny
+        description: Hard Drive S.M.A.R.T Monitoring, Historical Trends & Real World Failure Thresholds
+        href: https://scrutiny.bob.house/web/
+        icon: scrutiny-light.png
+        ping: tana.lan
+        siteMonitor: https://scrutiny.bob.house/api/health
+        widget:
+          type: scrutiny
+          url: https://scrutiny.bob.house
     - Sick Gear: &sickgear
         description: Fully automate TV enjoyment
         href: https://sickgear.bob.house/
@@ -713,6 +722,7 @@
     - Pi-hole 20: *pihole20
     - Portainer: *portainer
     - Prometheus: *prometheus
+    - Scrutiny: *scrutiny
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
     - Uptime Kuma: *uptimekuma
