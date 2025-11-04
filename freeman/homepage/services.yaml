@@ -3,6 +3,22 @@
 # https://gethomepage.dev/configs/services
 
 - All:
+    - Apprise: &apprise
+        description: Push Notifications that work with just about every platform!
+        href: https://apprise.bob.house
+        icon: apprise.png
+        ping: tana.lan
+        siteMonitor: https://apprise.bob.house/status
+    - Audiobookshelf: &audiobookshelf
+        description: Self-hosted audiobook and podcast server!
+        href: https://audiobookshelf.bob.house
+        icon: audiobookshelf.png
+        ping: tana.lan
+        siteMonitor: https://authentik.bob.house
+        widget:
+          type: audiobookshelf
+          url: https://audiobookshelf.bob.house
+          key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
@@ -713,6 +729,7 @@
     - Pinchflat: *pinchflat
 
 - Services:
+    - Apprise: *apprise
     - Authentik: *authentik
     - Dozzle: *dozzle
     - Grafana: *grafana
@@ -747,6 +764,7 @@
     - Tana: *traefiktana
 
 - Media:
+    - Audiobookshelf: *audiobookshelf
     - Immich: *immich
     - Jellyfin: *jellyfin
     - Jellyseerr: *jellyseerr
