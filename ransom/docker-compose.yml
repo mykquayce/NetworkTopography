@@ -1,4 +1,28 @@
 services:
+  apprise:
+    image: caronc/apprise:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      APPRISE_STATEFUL_MODE: simple
+      APPRISE_WORKER_COUNT: "1"
+    healthcheck:
+      test: curl --fail http://localhost:8000/status || exit 1
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.apprise-router.entrypoints: websecure
+      traefik.http.routers.apprise-router.rule: Host(`apprise.bob.house`)
+      traefik.http.routers.apprise-router.tls: "true"
+      traefik.http.services.apprise-service.loadbalancer.server.port: "8000"
+    networks:
+      default: null
+      traefik: null
+    volumes:
+      - ~/.apprise/attach/:/attach/:rw
+      - ~/.apprise/config/:/config/:rw
+      - ~/.apprise/plugin/:/plugin/:rw
+
   asndenier:
     image: eassbhhtgu/asndenier:latest
     deploy:
