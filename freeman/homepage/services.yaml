@@ -316,15 +316,30 @@
         icon: jellyfin.svg
         ping: tana.lan
         siteMonitor: https://jellyfin.bob.house/health
-        widget:
-          type: jellyfin
-          url: https://jellyfin.bob.house
-          key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
-          enableBlocks: true # optional, defaults to false
-          enableNowPlaying: true # optional, defaults to true
-          enableUser: true # optional, defaults to false
-          showEpisodeNumber: false # optional, defaults to false
-          expandOneStreamToTwoRows: false # optional, defaults to true
+        widgets:
+          - type: jellyfin
+            url: https://jellyfin.bob.house
+            key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
+            enableBlocks: true # optional, defaults to false
+            enableNowPlaying: true # optional, defaults to true
+            enableUser: true # optional, defaults to false
+            showEpisodeNumber: false # optional, defaults to false
+            expandOneStreamToTwoRows: false # optional, defaults to true
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: memory usage
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 2
+                query: docker_container_mem_usage{host='tana',container_image='jellyfin/jellyfin'}
+              - label: uptime
+                format:
+                  type: duration
+                  scale: .000000001
+                query: docker_container_status_uptime_ns{host='tana',container_image='jellyfin/jellyfin'}
     - Jellyseerr: &jellyseerr
         description: Request management and media discovery tool for the Jellyfin ecosystem
         href: https://jellyseerr.bob.house/
