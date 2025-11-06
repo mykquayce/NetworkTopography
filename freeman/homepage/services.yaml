@@ -96,145 +96,201 @@
         icon: glances.png
         ping: host.docker.internal
         siteMonitor: https://glances-freeman.bob.house/api/4/status
-        widget:
-          type: prometheusmetric
-          url: https://prometheus.bob.house
-          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
-          metrics:
-            - label: user cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_user{host='freeman'}[5m])
-            - label: system cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_system{host='freeman'}[5m])
-            - label: free disk
-              format:
-                type: bytes
-                options:
-                  maximumFractionDigits: 1
-              query: disk_free{host='freeman',path='/'}
-            - label: disk used
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-              query: disk_used_percent{host='freeman',path='/'}
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: user cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_user{host='freeman'}[5m])
+              - label: system cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_system{host='freeman'}[5m])
+              - label: free disk
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_free{host='freeman',path='/'}
+              - label: disk used
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='freeman',path='/'}
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='freeman'}
+              - label: running containers
+                format:
+                query: docker_n_containers_running{host='freeman'}
+              - label: total containers
+                format:
+                query: docker_n_containers{host='freeman'}
     - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
         icon: glances.png
         ping: ransom.lan
         siteMonitor: https://glances-ransom.bob.house/api/4/status
-        widget:
-          type: prometheusmetric
-          url: https://prometheus.bob.house
-          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
-          metrics:
-            - label: user cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_user{host='ransom'}[5m])
-            - label: system cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_system{host='ransom'}[5m])
-            - label: free disk
-              format:
-                type: bytes
-                options:
-                  maximumFractionDigits: 1
-              query: disk_free{host='ransom',path='/'}
-            - label: disk used
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-              query: disk_used_percent{host='ransom',path='/'}
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: user cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_user{host='ransom'}[5m])
+              - label: system cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_system{host='ransom'}[5m])
+              - label: free disk
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_free{host='ransom',path='/'}
+              - label: disk used
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='ransom',path='/'}
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='ransom'}
+              - label: running containers
+                format:
+                query: docker_n_containers_running{host='ransom'}
+              - label: total containers
+                format:
+                query: docker_n_containers{host='ransom'}
     - Glances SHAXS: &glancesshaxs
         href: https://glances-shaxs.bob.house/
         icon: glances.png
         ping: shaxs.lan
         siteMonitor: https://glances-shaxs.bob.house/api/4/status
-        widget:
-          type: prometheusmetric
-          url: https://prometheus.bob.house
-          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
-          metrics:
-            - label: user cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_user{host='shaxs'}[5m])
-            - label: system cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_system{host='shaxs'}[5m])
-            - label: free disk
-              format:
-                type: bytes
-                options:
-                  maximumFractionDigits: 1
-              query: disk_free{host='shaxs',path='/'}
-            - label: disk used
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-              query: disk_used_percent{host='shaxs',path='/'}
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: user cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_user{host='shaxs'}[5m])
+              - label: system cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_system{host='shaxs'}[5m])
+              - label: free disk
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_free{host='shaxs',path='/'}
+              - label: disk used
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='shaxs',path='/'}
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='shaxs'}
+              - label: running containers
+                format:
+                query: docker_n_containers_running{host='shaxs'}
+              - label: total containers
+                format:
+                query: docker_n_containers{host='shaxs'}
     - Glances TANA: &glancestana
         href: https://glances-tana.bob.house/
         icon: glances.png
         ping: tana.lan
         siteMonitor: https://glances-tana.bob.house/api/4/status
-        widget:
-          type: prometheusmetric
-          url: https://prometheus.bob.house
-          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
-          metrics:
-            - label: user cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_user{host='tana'}[5m])
-            - label: system cpu
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-                scale: 100
-              query: rate(cpu_usage_system{host='tana'}[5m])
-            - label: md0
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-              query: disk_used_percent{host='tana',path='/mnt/md0'}
-            - label: md1
-              format:
-                type: percent
-                options:
-                  maximumFractionDigits: 1
-              query: disk_used_percent{host='tana',path='/mnt/md1'}
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: user cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_user{host='tana'}[5m])
+              - label: system cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_system{host='tana'}[5m])
+              - label: md0
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='tana',path='/mnt/md0'}
+              - label: md1
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='tana',path='/mnt/md1'}
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='tana'}
+              - label: running containers
+                format:
+                query: docker_n_containers_running{host='tana'}
+              - label: total containers
+                format:
+                query: docker_n_containers{host='tana'}
     - Grafana: &grafana
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -695,16 +751,13 @@
         widgets:
           - type: uptimekuma
             url: https://uptimekuma.bob.house
-            slug: devices
+            slug: infrastructure
           - type: uptimekuma
             url: https://uptimekuma.bob.house
             slug: iot
           - type: uptimekuma
             url: https://uptimekuma.bob.house
-            slug: servers
-          - type: uptimekuma
-            url: https://uptimekuma.bob.house
-            slug: services
+            slug: containers
     - Vikunja: &vikunja
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
