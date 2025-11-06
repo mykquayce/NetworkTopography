@@ -1,5 +1,11 @@
 http:
   routers:
+    kvm-tana-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`kvm-tana.bob.house`)"
+      service: "kvm-tana-service"
+      tls: "true"
     iot-router-router:
       entryPoints:
         - "websecure"
@@ -30,7 +36,15 @@ http:
       rule: "Host(`netalertx.bob.house`)"
       service: "netalertx-service"
       tls: "true"
+  serversTransports:
+    insecure-transport:
+      insecureSkipVerify: true
   services:
+    kvm-tana-service:
+      loadBalancer:
+        servers:
+        - url: "https://192.168.1.244"
+        serverstransport: insecure-transport@file
     iot-router-service:
       loadBalancer:
         servers:

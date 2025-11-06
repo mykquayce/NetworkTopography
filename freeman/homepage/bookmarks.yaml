@@ -44,3 +44,6 @@
     - IOT Switch:
         - href: https://iot-switch.bob.house
           icon: router.svg
+    - KVM Tana:
+        - href: https://kvm-tana.bob.house
+          icon: mdi-switch
