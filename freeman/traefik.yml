@@ -6,6 +6,12 @@ http:
       rule: "Host(`kvm-tana.bob.house`)"
       service: "kvm-tana-service"
       tls: "true"
+    my-wss-e2e:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`kvm-tana.bob.house`)"
+      service: my-wss-service
+      tls: {}
     iot-router-router:
       entryPoints:
         - "websecure"
@@ -45,6 +51,11 @@ http:
         servers:
         - url: "https://192.168.1.244"
         serverstransport: insecure-transport@file
+    my-wss-service:
+      loadBalancer:
+        servers:
+          - url: "wss://192.168.1.244"
+        serversTransport: insecure-transport@file
     iot-router-service:
       loadBalancer:
         servers:
