@@ -7,7 +7,8 @@ billups-docker:
   port: 2375
 
 freeman-docker:
-  socket: /var/run/docker.sock
+  host: socket-proxy
+  port: 2375
 
 ransom-docker:
   host: ransom.bob.house

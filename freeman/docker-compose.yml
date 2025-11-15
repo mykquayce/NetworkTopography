@@ -152,7 +152,6 @@ services:
     # (1000:1000 by default)
     user: root
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
       - ~/.authentik/media/:/media/:rw
       - ~/.authentik/certs/:/certs/:rw
       - ~/.authentik/custom-templates/:/templates/:rw
@@ -205,19 +204,19 @@ services:
     volumes:
       - ~/.dagu/:/var/lib/dagu/:rw
       - ./dagu/:/opt/dagu/dags/:rw
-      - /var/run/docker.sock:/var/run/docker.sock:rw
 
   dozzle:
     image: amir20/dozzle:latest
     cap_drop: [ ALL, ]
     depends_on:
+      socket-proxy:
+        condition: service_healthy
       traefik:
         condition: service_healthy
     environment:
       DOZZLE_AUTH_PROVIDER: simple
-      DOZZLE_HOSTNAME: freeman
       DOZZLE_NO_ANALYTICS: "true"
-      DOZZLE_REMOTE_HOST: tcp://192.168.1.65:2375|ransom,tcp://192.168.1.55:2375|shaxs,tcp://192.168.1.70:2375|tana
+      DOZZLE_REMOTE_HOST: tcp://socket-proxy:2375|freeman,tcp://ransom.bob.house:2375|ransom,tcp://shaxs.bob.house:2375|shaxs,tcp://192.168.1.70:2375|tana
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
@@ -232,11 +231,11 @@ services:
       traefik.http.services.dozzle-service.loadbalancer.server.port: "8080"
     networks:
       default: null
+      socket-proxy: null
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./dozzle.yml:/data/users.yml:ro
 
   gatus:
@@ -293,21 +292,25 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
+      socket-proxy:
+        condition: service_healthy
       traefik:
         condition: service_healthy
     environment:
+      DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-freeman.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     networks:
+      socket-proxy: null
       traefik: null
     pid: host
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   go2rtc:
@@ -355,7 +358,6 @@ services:
       - ./homepage/:/app/config/:rw
       - ./homepage/icons/:/app/public/icons/:ro
       - ./homepage/images/:/app/public/images/:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   kopia:
     image: kopia/kopia:latest
@@ -396,7 +398,10 @@ services:
   portainer:
     image: portainer/portainer-ce:latest
     cap_drop: [ ALL, ]
+    command: -H tcp://socket-proxy:2375
     depends_on:
+      socket-proxy:
+        condition: service_healthy
       traefik:
         condition: service_healthy
     labels:
@@ -407,11 +412,11 @@ services:
       traefik.http.services.portainer-service.loadbalancer.server.port: "9000"
     networks:
       default: null
+      socket-proxy: null
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
       - ~/.portainer/:/data/:rw
 
   prometheus:
@@ -439,6 +444,35 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ~/.prometheus/:/prometheus/:rw
+
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    cap_drop: [ ALL, ]
+    environment:
+      DISABLE_IPV6: "true"
+
+      CONTAINERS: "1"
+      EVENTS: "1"
+      IMAGES: "1"
+      INFO: "1"
+      NETWORKS: "1"
+      SERVICES: "1"
+      VERSION: "1"
+    healthcheck:
+      test: wget --spider http://localhost:2375/version || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
+      socket-proxy: null
+    ports: [ 2375:2375/tcp, ]
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /run, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
 
   sshwifty:
     image: niruix/sshwifty:latest
@@ -485,6 +519,10 @@ services:
       - --ping
       - --providers.docker
       - --providers.file.directory=/etc/traefik/dynamic_conf/
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+    depends_on:
+      socket-proxy:
+        condition: service_healthy
     env_file:
       - ~/Configurations/traefik.env
     healthcheck:
@@ -503,8 +541,8 @@ services:
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     networks:
       default: null
-      traefik:
-        ipv4_address: 172.18.0.2
+      socket-proxy: null
+      traefik: null
     ports:
       - 443:443/tcp
     read_only: true
@@ -513,30 +551,19 @@ services:
       - certificates-volume:/var/certs/:rw
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:
   authentik:
     name: freeman_authentik
     internal: "true"
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/16
   default:
     name: freeman_default
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.22.0.0/16
+  socket-proxy:
+    name: freeman_socket-proxy
+    internal: "true"
   traefik:
     name: freeman_traefik
     internal: "true"
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.18.0.0/16
-          ip_range: 172.18.5.0/24
 
 secrets:
   id_rsa:
