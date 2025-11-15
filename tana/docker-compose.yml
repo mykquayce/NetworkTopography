@@ -28,21 +28,25 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
+      socket-proxy:
+        condition: service_healthy
       traefik:
         condition: service_healthy
     environment:
+      DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-tana.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     networks:
+      socket-proxy: null
       traefik: null
     pid: host
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   gluetun:
@@ -573,6 +577,34 @@ services:
       - /mnt/md1/pictures/:/pictures/:rw
       - /mnt/md1/videos/:/videos/:rw
 
+  socket-proxy:
+    image: lscr.io/linuxserver/socket-proxy:latest
+    cap_drop: [ ALL, ]
+    environment:
+      CONTAINERS: "1"
+      EVENTS: "1"
+      IMAGES: "1"
+      INFO: "1"
+      NETWORKS: "1"
+      SERVICES: "1"
+      VERSION: "1"
+    healthcheck:
+      test: wget --spider http://localhost:2375/version || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    labels:
+      traefik.enable: "false"
+    networks:
+      default: null
+      socket-proxy: null
+    ports: [ 2375:2375/tcp, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /run, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
+
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     cap_drop: [ ALL, ]
@@ -626,6 +658,10 @@ services:
       - --metrics.prometheus.addserviceslabels=true
       - --ping
       - --providers.docker
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+    depends_on:
+      socket-proxy:
+        condition: service_healthy
     env_file:
       - ~/Configurations/traefik.env
     healthcheck:
@@ -641,6 +677,7 @@ services:
       traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
     networks:
       default: null
+      socket-proxy: null
       traefik: null
     ports:
       - 443:443/tcp
@@ -649,7 +686,6 @@ services:
     volumes:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   tunarr:
     image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
@@ -725,6 +761,9 @@ networks:
     name: tana_default
   pinepods:
     name: tana_pinepods
+    internal: "true"
+  socket-proxy:
+    name: tana_socket-proxy
     internal: "true"
   traefik:
     name: tana_traefik
