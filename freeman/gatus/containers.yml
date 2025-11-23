@@ -1,0 +1,890 @@
+endpoints:
+  - name: apprise
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-apprise-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: asndenier
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-asndenier-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: audiobookshelf
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-audiobookshelf-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: authentik-postgresql
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-authentik-postgresql-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: authentik-redis
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-authentik-redis-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: authentik-server
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-authentik-server-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: authentik-worker
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-authentik-worker-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: baikal
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-baikal-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: changedetection
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-changedetection-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: donetick
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-donetick-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: dozzle FREEMAN
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-dozzle-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: dozzle RANSOM
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-dozzle-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: dozzle SHAXS
+    group: containers
+    url: http://shaxs.lan:2375/v1.52/containers/shaxs-dozzle-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: dozzle TANA
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-dozzle-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: drawio
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-drawio-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: ffmpeg-webhook
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-ffmpeg-webhook-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: freshrss
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-freshrss-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: frigate
+    group: containers
+    url: http://shaxs.lan:2375/v1.52/containers/shaxs-frigate-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: glance
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-glance-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: glances FREEMAN
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-glances-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: glances RANSOM
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-glances-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: glances SHAXS
+    group: containers
+    url: http://shaxs.lan:2375/v1.52/containers/shaxs-glances-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: glances TANA
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-glances-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: gluetun
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-gluetun-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: grafana
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-grafana-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: homeassistant
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-homeassistant-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: homepage
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-homepage-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: httpbin
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-httpbin-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: immich
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-immich-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: immich-database
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-immich-database-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: immich-machine-learning
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-immich-machine-learning-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: immich-redis
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-immich-redis-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: it-tools
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-it-tools-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: jellyfin
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-jellyfin-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: jellyseerr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-jellyseerr-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: karakeep
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-karakeep-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: karakeep-chrome
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-karakeep-chrome-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: karakeep-meilisearch
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-karakeep-meilisearch-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: kopia FREEMAN
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-kopia-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: kopia RANSOM
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-kopia-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: kopia SHAXS
+    group: containers
+    url: http://shaxs.lan:2375/v1.52/containers/shaxs-kopia-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: kopia TANA
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-kopia-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: lidarr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-lidarr-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: mediamtx
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-mediamtx-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: metube
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-metube-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: moodist
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-moodist-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: n8n
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-n8n-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: navidrome
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-navidrome-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: netalertx
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-netalertx-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: nodered
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-nodered-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: ntfy
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-ntfy-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: nuget
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-nuget-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: ollama
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-ollama-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: open-webui
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-open-webui-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: paperless-ngx
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-paperless-ngx-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: paperless-ngx-db
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-paperless-ngx-db-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: paperless-ngx-redis
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-paperless-ngx-redis-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: pihole01
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-pihole01-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: pihole20
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-pihole20-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: pinchflat
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-pinchflat-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: planka
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-planka-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: planka-db
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-planka-db-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: portainer FREEMAN
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-portainer-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: portainer RANSOM
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-portainer-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: portainer SHAXS
+    group: containers
+    url: http://shaxs.lan:2375/v1.52/containers/shaxs-portainer-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: portainer TANA
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-portainer-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: prometheus
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-prometheus-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: prowlarr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-prowlarr-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: registry
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-registry-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: registry-ui
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-registry-ui-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: qbittorrent
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-qbittorrent-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: radarr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-radarr-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: sabnzbd
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-sabnzbd-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: scrutiny
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-scrutiny-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: sickgear
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-sickgear-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: sonarr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-sonarr-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: sshwifty
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-sshwifty-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: speedtest-tracker
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-speedtest-tracker-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: traefik FREEMAN
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-traefik-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: traefik RANSOM
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-traefik-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: traefik SHAXS
+    group: containers
+    url: http://shaxs.lan:2375/v1.52/containers/shaxs-traefik-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: traefik TANA
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-traefik-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: trilium
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-trilium-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: tunarr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-tunarr-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: uptimekuma
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-uptimekuma-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: vikunja
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-vikunja-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: vikunja-db
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-vikunja-db-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: whatsupdocker
+    group: containers
+    url: http://ransom.lan:2375/v1.52/containers/ransom-whatsupdocker-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: windows-tana
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-windows-tana-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy

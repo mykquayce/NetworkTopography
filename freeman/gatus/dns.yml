@@ -1,0 +1,99 @@
+endpoints:
+  - name: badgey
+    group: dns
+    url: 192.168.1.50
+    dns:
+      query-name: badgey.starfleet.local
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: freeman .1
+    group: dns
+    url: 192.168.1.50
+    dns:
+      query-name: freeman.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: freeman .20
+    group: dns
+    url: 192.168.20.60
+    dns:
+      query-name: freeman.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: ransom .1
+    group: dns
+    url: 192.168.1.50
+    dns:
+      query-name: ransom.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: ransom .20
+    group: dns
+    url: 192.168.20.60
+    dns:
+      query-name: ransom.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: shaxs .1
+    group: dns
+    url: 192.168.1.50
+    dns:
+      query-name: shaxs.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: shaxs .20
+    group: dns
+    url: 192.168.20.50
+    dns:
+      query-name: shaxs.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: tana .1
+    group: dns
+    url: 192.168.1.50
+    dns:
+      query-name: tana.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy
+
+  - name: tana .20
+    group: dns
+    url: 192.168.20.60
+    dns:
+      query-name: tana.lan
+      query-type: A
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: ntfy

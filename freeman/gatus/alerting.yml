@@ -1,0 +1,8 @@
+alerting:
+  ntfy:
+    url: https://ntfy.bob.house
+    topic: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+    default-alert:
+      failure-threshold: 3
+      success-threshold: 3
+      send-on-resolved: true

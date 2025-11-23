@@ -1,0 +1,54 @@
+endpoints:
+  - name: analog telephone adapter
+    group: iot
+    url: "icmp://192.168.1.156"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: cctv camera
+    group: iot
+    url: "icmp://192.168.20.223"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: keylight
+    group: iot
+    url: "icmp://192.168.20.217"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: light strip 10m
+    group: iot
+    url: "icmp://192.168.20.246"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: light strip 5m
+    group: iot
+    url: "icmp://192.168.20.109"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: powerstrip BEDROOM
+    group: iot
+    url: "icmp://192.168.20.224"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: powerstrip LOUNGE
+    group: iot
+    url: "icmp://192.168.20.139"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: powerstrip SERVERS
+    group: iot
+    url: "icmp://192.168.20.132"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: tapo hub
+    group: iot
+    url: "icmp://192.168.20.203"
+    conditions:
+      - "[CONNECTED] == true"

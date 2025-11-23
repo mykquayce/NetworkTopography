@@ -1,0 +1,30 @@
+endpoints:
+  - name: main-router
+    group: infrastructure
+    url: "icmp://192.168.1.1"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: main-switch
+    group: infrastructure
+    url: "icmp://192.168.1.5"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: access-point
+    group: infrastructure
+    url: "icmp://192.168.1.10"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: iot-router
+    group: infrastructure
+    url: "icmp://192.168.20.1"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: iot-switch
+    group: infrastructure
+    url: "icmp://192.168.20.5"
+    conditions:
+      - "[CONNECTED] == true"
