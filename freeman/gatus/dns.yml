@@ -67,7 +67,7 @@ endpoints:
 
   - name: shaxs .20
     group: dns
-    url: 192.168.20.50
+    url: 192.168.20.60
     dns:
       query-name: shaxs.lan
       query-type: A

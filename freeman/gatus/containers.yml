@@ -179,6 +179,26 @@ endpoints:
     alerts:
       - type: ntfy
 
+  - name: gatus
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-gatus-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: gatus-db
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-gatus-db-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
   - name: glance
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-glance-1/json

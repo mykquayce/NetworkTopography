@@ -85,6 +85,15 @@
           type: frigate
           url: https://frigate.bob.house/
           enableRecentEvents: false
+    - Gatus: &gatus
+        description: Automated developer-oriented status page
+        href: https://gatus.bob.house/
+        icon: gatus.svg
+        ping: freeman.lan
+        siteMonitor: https://gatus.bob.house/health
+        widget:
+          type: gatus
+          url: https://gatus.bob.house
     - Glance: &glance
         description: A self-hosted dashboard that puts all your feeds in one place
         href: https://glance.bob.house/
@@ -800,6 +809,7 @@
     - Apprise: *apprise
     - Authentik: *authentik
     - Dozzle: *dozzle
+    - Gatus: *gatus
     - Grafana: *grafana
     - NetAlertX: *netalertx
     - ntfy: *ntfy
