@@ -41,7 +41,7 @@ services:
     volumes:
       - ./frigate.yaml:/config/config.yaml:rw
       - ~/.frigate/config/:/config/:rw
-      - /srv/frigate/media/:/media/frigate/:rw
+      - ~/.frigate/media/:/media/frigate/:rw
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
