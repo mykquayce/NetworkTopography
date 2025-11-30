@@ -1,0 +1,54 @@
+endpoints:  
+  - name: badgey
+    group: servers
+    url: "icmp://192.168.1.50"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: freeman .1
+    group: servers
+    url: "icmp://192.168.1.60"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: freeman .20
+    group: servers
+    url: "icmp://192.168.20.60"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: ransom .1
+    group: servers
+    url: "icmp://192.168.1.65"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: ransom .20
+    group: servers
+    url: "icmp://192.168.20.65"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: shaxs .1
+    group: servers
+    url: "icmp://192.168.1.55"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: shaxs .20
+    group: servers
+    url: "icmp://192.168.20.55"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: tana .1
+    group: servers
+    url: "icmp://192.168.1.70"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: tana .20
+    group: servers
+    url: "icmp://192.168.20.70"
+    conditions:
+      - "[CONNECTED] == true"

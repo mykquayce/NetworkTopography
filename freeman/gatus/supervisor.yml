@@ -1,0 +1,44 @@
+endpoints:
+  - name: freeman
+    group: supervisor
+    url: "http://freeman.lan:9000/hooks/health"
+    client:
+      insecure: true
+      ignore-redirect: false
+    conditions:
+      - "[BODY] == Healthy"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+
+  - name: ransom
+    group: supervisor
+    url: "http://ransom.lan:9000/hooks/health"
+    client:
+      insecure: true
+      ignore-redirect: false
+    conditions:
+      - "[BODY] == Healthy"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+
+  - name: shaxs
+    group: supervisor
+    url: "http://shaxs.lan:9000/hooks/health"
+    client:
+      insecure: true
+      ignore-redirect: false
+    conditions:
+      - "[BODY] == Healthy"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+
+  - name: tana
+    group: supervisor
+    url: "http://tana.lan:9000/hooks/health"
+    client:
+      insecure: true
+      ignore-redirect: false
+    conditions:
+      - "[BODY] == Healthy"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
