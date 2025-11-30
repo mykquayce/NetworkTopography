@@ -1,0 +1,11 @@
+- id: health
+  execute-command: /usr/bin/echo
+  include-command-output-in-response: true
+  pass-arguments-to-command:
+    - source: string
+      name: -n
+    - source: string
+      name: Healthy
+- id: update
+  execute-command: ~/NetworkTopography/apt-update.sh
+  include-command-output-in-response: true
