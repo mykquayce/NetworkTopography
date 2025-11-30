@@ -85,6 +85,15 @@
           type: frigate
           url: https://frigate.bob.house/
           enableRecentEvents: false
+    - Gatus: &gatus
+        description: Automated developer-oriented status page
+        href: https://gatus.bob.house/
+        icon: gatus.svg
+        ping: freeman.lan
+        siteMonitor: https://gatus.bob.house/health
+        widget:
+          type: gatus
+          url: https://gatus.bob.house
     - Glance: &glance
         description: A self-hosted dashboard that puts all your feeds in one place
         href: https://glance.bob.house/
@@ -742,22 +751,6 @@
         icon: tunarr.svg
         ping: tana.lan
         siteMonitor: https://tunarr.bob.house/web
-    - Uptime Kuma: &uptimekuma
-        description: Self-hosted website monitoring tool
-        href: https://uptimekuma.bob.house/
-        icon: uptime-kuma.svg
-        ping: host.docker.internal
-        siteMonitor: https://uptimekuma.bob.house/dashboard/
-        widgets:
-          - type: uptimekuma
-            url: https://uptimekuma.bob.house
-            slug: infrastructure
-          - type: uptimekuma
-            url: https://uptimekuma.bob.house
-            slug: iot
-          - type: uptimekuma
-            url: https://uptimekuma.bob.house
-            slug: containers
     - Vikunja: &vikunja
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
@@ -800,6 +793,7 @@
     - Apprise: *apprise
     - Authentik: *authentik
     - Dozzle: *dozzle
+    - Gatus: *gatus
     - Grafana: *grafana
     - NetAlertX: *netalertx
     - ntfy: *ntfy
@@ -810,7 +804,6 @@
     - Scrutiny: *scrutiny
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
-    - Uptime Kuma: *uptimekuma
     - What's Up Docker: *whatsupdocker
 
 - Glances:

@@ -132,6 +132,45 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  gatus:
+    image: ghcr.io/twin/gatus:stable
+    depends_on:
+      gatus-db:
+        condition: service_healthy
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/gatus.env
+    environment:
+      GATUS_CONFIG_PATH: /config
+    labels:
+      traefik.docker.network: freeman_traefik
+      traefik.http.routers.gatus-router.entrypoints: websecure
+      traefik.http.routers.gatus-router.rule: Host(`gatus.bob.house`)
+      traefik.http.routers.gatus-router.tls: "true"
+      traefik.http.services.gatus-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      gatus: null
+      traefik: null
+    volumes:
+      - ./gatus/:/config/:ro
+
+  gatus-db:
+    image: postgres:latest
+    env_file:
+      - ~/Configurations/gatus.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    networks:
+      gatus: null
+    volumes:
+      - ~/.gatus/db/:/var/lib/postgresql/:rw
+
   glance:
     image: glanceapp/glance:latest
     depends_on:
@@ -434,24 +473,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  uptimekuma:
-    image: louislam/uptime-kuma:latest
-    depends_on:
-      traefik:
-        condition: service_healthy
-    labels:
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.uptimekuma-router.entrypoints: websecure
-      traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.bob.house`)
-      traefik.http.routers.uptimekuma-router.tls: "true"
-      traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
-    networks:
-      default: null
-      traefik: null
-    volumes:
-      - ~/.uptimekuma/:/app/data/:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
 networks:
   authentik:
     name: freeman_authentik
@@ -466,6 +487,12 @@ networks:
       driver: default
       config:
         - subnet: 172.22.0.0/16
+  gatus:
+    name: freeman_gatus
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.0.0/16
   traefik:
     name: freeman_traefik
     internal: "true"
