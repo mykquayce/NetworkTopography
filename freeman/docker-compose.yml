@@ -473,24 +473,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  uptimekuma:
-    image: louislam/uptime-kuma:latest
-    depends_on:
-      traefik:
-        condition: service_healthy
-    labels:
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.uptimekuma-router.entrypoints: websecure
-      traefik.http.routers.uptimekuma-router.rule: Host(`uptimekuma.bob.house`)
-      traefik.http.routers.uptimekuma-router.tls: "true"
-      traefik.http.services.uptimekuma-service.loadbalancer.server.port: "3001"
-    networks:
-      default: null
-      traefik: null
-    volumes:
-      - ~/.uptimekuma/:/app/data/:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
 networks:
   authentik:
     name: freeman_authentik
