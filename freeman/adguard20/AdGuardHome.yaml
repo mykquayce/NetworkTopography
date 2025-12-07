@@ -410,9 +410,6 @@ filtering:
     - domain: navidrome.bob.house
       answer: tana.lan
       enabled: true
-    - domain: netalertx.bob.house
-      answer: freeman.lan
-      enabled: true
     - domain: nodered.bob.house
       answer: tana.lan
       enabled: true

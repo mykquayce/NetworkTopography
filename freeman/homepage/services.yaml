@@ -537,16 +537,6 @@
           user: {{HOMEPAGE_VAR_NAVIDROME_USER}}
           token: {{HOMEPAGE_VAR_NAVIDROME_TOKEN}}
           salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
-    - NetAlertX: &netalertx
-        description: Network intruder and presence detector
-        href: https://netalertx.bob.house/devices.php
-        icon: netalertx.svg
-        ping: host.docker.internal
-        siteMonitor: https://netalertx.bob.house/devices.php
-        widget:
-          type: netalertx
-          url: https://netalertx.bob.house
-          key: {{HOMEPAGE_VAR_NETALERTX_API_TOKEN}}
     - Node RED: &nodered
         description: Low-code programming for event-driven applications
         href: https://nodered.bob.house
@@ -803,7 +793,6 @@
     - Dozzle: *dozzle
     - Gatus: *gatus
     - Grafana: *grafana
-    - NetAlertX: *netalertx
     - ntfy: *ntfy
     - Portainer: *portainer
     - Prometheus: *prometheus
