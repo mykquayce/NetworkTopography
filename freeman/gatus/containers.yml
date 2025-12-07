@@ -529,16 +529,6 @@ endpoints:
     alerts:
       - type: ntfy
 
-  - name: netalertx
-    group: containers
-    url: http://freeman.lan:2375/v1.52/containers/freeman-netalertx-1/json
-    conditions:
-      - "[BODY].State.Running == true"
-      - "[RESPONSE_TIME] < 50"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
-
   - name: nodered
     group: containers
     url: http://tana.lan:2375/v1.52/containers/tana-nodered-1/json
