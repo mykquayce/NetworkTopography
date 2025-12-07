@@ -335,10 +335,16 @@ services:
 
   netalertx:
     image: ghcr.io/jokob-sk/netalertx:latest
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BIND_SERVICE
+    cap_drop:
+      - ALL
     env_file:
       - ~/Configurations/netalertx.env
     environment:
-      APP_CONF_OVERRIDE: '{"SCAN_SUBNETS":["192.168.1.0/24 --interface=eno1","192.168.20.0/24 --interface=enp2s0"]}'
+      APP_CONF_OVERRIDE: '{"SCAN_SUBNETS":"[''192.168.1.0/24 --interface=eno1'',''192.168.20.0/24 --interface=enp2s0'']"}'
       LOADED_PLUGINS: '["APPRISE","ARPSCAN","DHCPSRVS","ICMP","PIHOLE"]'
       PGID: "300"
       PUID: "200"
@@ -347,12 +353,12 @@ services:
     labels:
       traefik.enable: "false"
     network_mode: host
+    read_only: true
+    tmpfs:
+      - /tmp:uid=20211,gid=20211,mode=1700,rw,noexec,nosuid,nodev,async,noatime,nodiratime
     volumes:
-      - ~/.netalertx/config/:/app/config/:rw
-      - ~/.netalertx/db:/app/db/:rw
-      - ~/.netalertx/logs/:/app/log/:rw
-      - type: tmpfs
-        target: /app/api
+      - /etc/localtime:/etc/localtime:ro
+      - netalertx:/data/:rw
 
   portainer:
     image: portainer/portainer-ce:latest
@@ -490,3 +496,4 @@ networks:
 
 volumes:
   certificates-volume:
+  netalertx:
