@@ -1,0 +1,435 @@
+http:
+  pprof:
+    port: 6060
+    enabled: false
+  address: 0.0.0.0:3000
+  session_ttl: 720h
+users:
+  - name: f3b4707c9a7cd5b7
+    password: $2a$10$vqWUfxSS0SRp9flzFCu/gOBwrf4SiFvfdFtWjypCet//V8gP.T69.
+auth_attempts: 5
+block_auth_min: 15
+http_proxy: ""
+language: en
+theme: dark
+dns:
+  bind_hosts:
+    - 0.0.0.0
+  port: 53
+  anonymize_client_ip: false
+  ratelimit: 20
+  ratelimit_subnet_len_ipv4: 24
+  ratelimit_subnet_len_ipv6: 56
+  ratelimit_whitelist: []
+  refuse_any: true
+  upstream_dns:
+    - https://dns10.quad9.net/dns-query
+  upstream_dns_file: ""
+  bootstrap_dns:
+    - 9.9.9.10
+    - 149.112.112.10
+    - 2620:fe::10
+    - 2620:fe::fe:10
+  fallback_dns: []
+  upstream_mode: load_balance
+  fastest_timeout: 1s
+  allowed_clients: []
+  disallowed_clients: []
+  blocked_hosts:
+    - version.bind
+    - id.server
+    - hostname.bind
+  trusted_proxies:
+    - 127.0.0.0/8
+    - ::1/128
+  cache_enabled: true
+  cache_size: 4194304
+  cache_ttl_min: 0
+  cache_ttl_max: 0
+  cache_optimistic: false
+  cache_optimistic_answer_ttl: 30s
+  cache_optimistic_max_age: 12h
+  bogus_nxdomain: []
+  aaaa_disabled: false
+  enable_dnssec: false
+  edns_client_subnet:
+    custom_ip: ""
+    enabled: false
+    use_custom: false
+  max_goroutines: 300
+  handle_ddr: true
+  ipset: []
+  ipset_file: ""
+  bootstrap_prefer_ipv6: false
+  upstream_timeout: 10s
+  private_networks: []
+  use_private_ptr_resolvers: false
+  local_ptr_upstreams: []
+  use_dns64: false
+  dns64_prefixes: []
+  serve_http3: false
+  use_http3_upstreams: false
+  serve_plain_dns: true
+  hostsfile_enabled: true
+  pending_requests:
+    enabled: true
+tls:
+  enabled: false
+  server_name: ""
+  force_https: false
+  port_https: 443
+  port_dns_over_tls: 853
+  port_dns_over_quic: 853
+  port_dnscrypt: 0
+  dnscrypt_config_file: ""
+  allow_unencrypted_doh: false
+  certificate_chain: ""
+  private_key: ""
+  certificate_path: ""
+  private_key_path: ""
+  strict_sni_check: false
+querylog:
+  dir_path: ""
+  ignored: []
+  interval: 2160h
+  size_memory: 1000
+  enabled: true
+  file_enabled: true
+statistics:
+  dir_path: ""
+  ignored: []
+  interval: 24h
+  enabled: true
+filters:
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+    name: AdGuard DNS filter
+    id: 1
+  - enabled: false
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
+    name: AdAway Default Blocklist
+    id: 2
+whitelist_filters: []
+user_rules: []
+dhcp:
+  enabled: false
+  interface_name: ""
+  local_domain_name: lan
+  dhcpv4:
+    gateway_ip: ""
+    subnet_mask: ""
+    range_start: ""
+    range_end: ""
+    lease_duration: 86400
+    icmp_timeout_msec: 1000
+    options: []
+  dhcpv6:
+    range_start: ""
+    lease_duration: 86400
+    ra_slaac_only: false
+    ra_allow_slaac: false
+filtering:
+  blocking_ipv4: ""
+  blocking_ipv6: ""
+  blocked_services:
+    schedule:
+      time_zone: UTC
+    ids: []
+  protection_disabled_until: null
+  safe_search:
+    enabled: false
+    bing: true
+    duckduckgo: true
+    ecosia: true
+    google: true
+    pixabay: true
+    yandex: true
+    youtube: true
+  blocking_mode: default
+  parental_block_host: family-block.dns.adguard.com
+  safebrowsing_block_host: standard-block.dns.adguard.com
+  rewrites:
+    - domain: freeman.lan
+      answer: 192.168.1.60
+      enabled: true
+    - domain: ransom.lan
+      answer: 192.168.1.65
+      enabled: true
+    - domain: shaxs.lan
+      answer: 192.168.1.55
+      enabled: true
+    - domain: tana.lan
+      answer: 192.168.1.70
+      enabled: true
+    - domain: apprise.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: adguard01.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: adguard20.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: audiobookshelf.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: authentik.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: baget.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: baikal.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: changedetection.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: convertx.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: donetick.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: dozzle.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: drawio.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: ffmpeg-webhook.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: fileflows.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: fireflyiii.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: first-router.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: freshrss.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: frigate.bob.house
+      answer: shaxs.lan
+      enabled: true
+    - domain: gatus.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: glance.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: glances-freeman.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: glances-ransom.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: glances-shaxs.bob.house
+      answer: shaxs.lan
+      enabled: true
+    - domain: glances-tana.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: grafana.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: homeassistant.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: homepage.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: httpbin.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: identityserver.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: immich.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: iot-router
+      answer: freeman.lan
+      enabled: true
+    - domain: iot-switch
+      answer: freeman.lan
+      enabled: true
+    - domain: it-tools.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: jellyfin.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: jellyseerr.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: karakeep.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: kopia-freeman.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: kopia-ransom.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: kopia-shaxs.bob.house
+      answer: shaxs.lan
+      enabled: true
+    - domain: kopia-tana.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: lidarr.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: main-router.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: main-switch.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: mediamtx.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: metube.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: miniflux.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: moodist.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: n8n.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: navidrome.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: netalertx.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: nodered.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: ntfy.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: nuget.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: open-webui.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: paperless-ngx.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: pinchflat.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: planka.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: portainer.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: prometheus.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: prowlarr.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: qbittorrent.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: radarr.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: registry.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: sabnzbd.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: scrutiny.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: sickgear.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: sonarr.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: speedtest.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: sshwifty.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: traefik.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: traefik-ransom.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: traefik-shaxs.bob.house
+      answer: shaxs.lan
+      enabled: true
+    - domain: traefik-tana.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: trilium.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: tunarr.bob.house
+      answer: tana.lan
+      enabled: true
+    - domain: uptimekuma.bob.house
+      answer: freeman.lan
+      enabled: true
+    - domain: vikunja.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: whatsupdocker.bob.house
+      answer: ransom.lan
+      enabled: true
+    - domain: windows-tana.bob.house
+      answer: tana.lan
+      enabled: true
+  safe_fs_patterns:
+    - /opt/adguardhome/work/userfilters/*
+  safebrowsing_cache_size: 1048576
+  safesearch_cache_size: 1048576
+  parental_cache_size: 1048576
+  cache_time: 30
+  filters_update_interval: 24
+  blocked_response_ttl: 10
+  filtering_enabled: true
+  rewrites_enabled: true
+  parental_enabled: false
+  safebrowsing_enabled: false
+  protection_enabled: true
+clients:
+  runtime_sources:
+    whois: true
+    arp: true
+    rdns: true
+    dhcp: true
+    hosts: true
+  persistent: []
+log:
+  enabled: true
+  file: ""
+  max_backups: 0
+  max_size: 100
+  max_age: 3
+  compress: false
+  local_time: false
+  verbose: false
+os:
+  group: ""
+  user: ""
+  rlimit_nofile: 0
+schema_version: 32
