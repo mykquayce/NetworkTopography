@@ -110,7 +110,34 @@ filters:
     name: AdAway Default Blocklist
     id: 2
 whitelist_filters: []
-user_rules: []
+user_rules:
+  - '||th.bing.com^'
+  - '||duckduckgo.com^'
+  - '||duosecurity.com^'
+  - '||grafana.com^'
+  - '||stats.grafana.org^'
+  - '||aria.microsoft.com^'
+  - '||cloud.microsoft^'
+  - '||data.microsoft.com^'
+  - '||copilot.microsoft.com^'
+  - '||graph.microsoft.com^'
+  - '||copilot.microsoft.com^'
+  - '||services.mozilla.com^'
+  - '||arc.msn.com^'
+  - '||data.msn.com^'
+  - '||nanoleaf.me^'
+  - '||nelreports.net^'
+  - '||gfe.nvidia.com^'
+  - '||substrate.office.com^'
+  - '||measure.office.net^'
+  - '||e.reddit.com^'
+  - '||w3-reporting.reddit.com^'
+  - '||tplinkcloud.com^'
+  - '||tplinknbu.com^'
+  - '||tplinkra.com^'
+  - '||connectivity-check.ubuntu.com^'
+  - '||dc.services.visualstudio.com^'
+  - '||webmaissistemas.online^'
 dhcp:
   enabled: false
   interface_name: ""
