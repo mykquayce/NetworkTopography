@@ -1,4 +1,24 @@
 endpoints:
+  - name: adguard01
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-adguard01-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: adguard20
+    group: containers
+    url: http://freeman.lan:2375/v1.52/containers/freeman-adguard20-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
   - name: apprise
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-apprise-1/json
@@ -582,26 +602,6 @@ endpoints:
   - name: paperless-ngx-redis
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-paperless-ngx-redis-1/json
-    conditions:
-      - "[BODY].State.Running == true"
-      - "[RESPONSE_TIME] < 50"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
-
-  - name: pihole01
-    group: containers
-    url: http://freeman.lan:2375/v1.52/containers/freeman-pihole01-1/json
-    conditions:
-      - "[BODY].State.Running == true"
-      - "[RESPONSE_TIME] < 50"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
-
-  - name: pihole20
-    group: containers
-    url: http://freeman.lan:2375/v1.52/containers/freeman-pihole20-1/json
     conditions:
       - "[BODY].State.Running == true"
       - "[RESPONSE_TIME] < 50"

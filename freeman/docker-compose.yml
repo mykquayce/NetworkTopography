@@ -1,4 +1,46 @@
 services:
+  adguard01:
+    image: adguard/adguardhome:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.docker.network: freeman_traefik
+      traefik.http.routers.adguard01-router.entrypoints: websecure
+      traefik.http.routers.adguard01-router.rule: Host(`adguard01.bob.house`)
+      traefik.http.routers.adguard01-router.tls: "true"
+      traefik.http.services.adguard01-service.loadbalancer.server.port: "3000"
+    networks:
+      default: null
+      traefik: null
+    ports:
+      - 192.168.1.60:53:53/tcp
+      - 192.168.1.60:53:53/udp
+    volumes:
+      - ~/.adguard01/work/:/opt/adguardhome/work/:rw
+      - ./adguard01/:/opt/adguardhome/conf/:rw
+
+  adguard20:
+    image: adguard/adguardhome:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.docker.network: freeman_traefik
+      traefik.http.routers.adguard20-router.entrypoints: websecure
+      traefik.http.routers.adguard20-router.rule: Host(`adguard20.bob.house`)
+      traefik.http.routers.adguard20-router.tls: "true"
+      traefik.http.services.adguard20-service.loadbalancer.server.port: "3000"
+    networks:
+      default: null
+      traefik: null
+    ports:
+      - 192.168.20.60:53:53/tcp
+      - 192.168.20.60:53:53/udp
+    volumes:
+      - ~/.adguard20/work/:/opt/adguardhome/work/:rw
+      - ./adguard20/:/opt/adguardhome/conf/:rw
+
   authentik-postgresql:
     image: docker.io/library/postgres:16-alpine
     env_file:
@@ -311,62 +353,6 @@ services:
       - ~/.netalertx/logs/:/app/log/:rw
       - type: tmpfs
         target: /app/api
-
-  pihole01:
-    image: pihole/pihole:latest
-    cap_add:
-      - SYS_NICE
-    depends_on:
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ~/Configurations/pihole01.env
-    environment:
-      FTLCONF_dns_upstreams: 9.9.9.10;149.112.112.10
-      FTLCONF_dns_listeningMode: all
-      TZ: UTC
-    labels:
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.pihole01-router.entrypoints: websecure
-      traefik.http.routers.pihole01-router.rule: Host(`pihole01.bob.house`)
-      traefik.http.routers.pihole01-router.tls: "true"
-      traefik.http.services.pihole01-service.loadbalancer.server.port: "80"
-    networks:
-      default: null
-      traefik: null
-    ports:
-      - 192.168.1.60:53:53/tcp
-      - 192.168.1.60:53:53/udp
-    volumes:
-      - ~/.pihole01/:/etc/pihole/:rw
-
-  pihole20:
-    image: pihole/pihole:latest
-    cap_add:
-      - SYS_NICE
-    depends_on:
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ~/Configurations/pihole20.env
-    environment:
-      FTLCONF_dns_upstreams: 9.9.9.10;149.112.112.10
-      FTLCONF_dns_listeningMode: all
-      TZ: UTC
-    labels:
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.pihole20-router.entrypoints: websecure
-      traefik.http.routers.pihole20-router.rule: Host(`pihole20.bob.house`)
-      traefik.http.routers.pihole20-router.tls: "true"
-      traefik.http.services.pihole20-service.loadbalancer.server.port: "80"
-    networks:
-      default: null
-      traefik: null
-    ports:
-      - 192.168.20.60:53:53/tcp
-      - 192.168.20.60:53:53/udp
-    volumes:
-      - ~/.pihole20/:/etc/pihole/:rw
 
   portainer:
     image: portainer/portainer-ce:latest
