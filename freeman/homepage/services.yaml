@@ -3,6 +3,28 @@
 # https://gethomepage.dev/configs/services
 
 - All:
+    - Adguard 01: &adguard01
+        description: Network-wide ads & trackers blocking DNS server
+        href: https://adguard01.bob.house
+        icon: adguard-home.png
+        ping: freeman.lan
+        siteMonitor: https://adguard01.bob.house/login.html
+        widget:
+          type: adguard
+          url: https://adguard01.bob.house
+          username: f3b4707c9a7cd5b7
+          password: {{HOMEPAGE_VAR_ADGUARD01_KEY}}
+    - Adguard 20: &adguard20
+        description: Network-wide ads & trackers blocking DNS server
+        href: https://adguard20.bob.house
+        icon: adguard-home.png
+        ping: freeman.lan
+        siteMonitor: https://adguard20.bob.house/login.html
+        widget:
+          type: adguard
+          url: https://adguard20.bob.house
+          username: f3b4707c9a7cd5b7
+          password: {{HOMEPAGE_VAR_ADGUARD20_KEY}}
     - Apprise: &apprise
         description: Push Notifications that work with just about every platform!
         href: https://apprise.bob.house
@@ -553,28 +575,6 @@
           type: paperlessngx
           url: https://paperless-ngx.bob.house
           key: {{HOMEPAGE_VAR_PAPERLESSNGX}}
-    - Pi-hole 01: &pihole01
-        description: A blackhole for Internet advertisements
-        href: https://pihole01.bob.house/admin/
-        icon: pi-hole.svg
-        ping: freeman.lan
-        siteMonitor: https://pihole01.bob.house/admin/
-        widget:
-          type: pihole
-          url: https://pihole01.bob.house
-          version: 6 # required if running v6 or higher, defaults to 5
-          key: {{HOMEPAGE_VAR_PIHOLE01_KEY}} # optional
-    - Pi-hole 20: &pihole20
-        description: A blackhole for Internet advertisements
-        href: https://pihole20.bob.house/admin/
-        icon: pi-hole.svg
-        ping: freeman.lan
-        siteMonitor: https://pihole20.bob.house/admin/
-        widget:
-          type: pihole
-          url: https://pihole20.bob.house
-          version: 6 # required if running v6 or higher, defaults to 5
-          key: {{HOMEPAGE_VAR_PIHOLE20_KEY}} # optional
     - Pinchflat: &pinchflat
         description: Your next YouTube media manager
         href: https://pinchflat.bob.house/
@@ -790,6 +790,8 @@
     - Pinchflat: *pinchflat
 
 - Services:
+    - Adguard 01: *adguard01
+    - Adguard 20: *adguard20
     - Apprise: *apprise
     - Authentik: *authentik
     - Dozzle: *dozzle
@@ -797,8 +799,6 @@
     - Grafana: *grafana
     - NetAlertX: *netalertx
     - ntfy: *ntfy
-    - Pi-hole 01: *pihole01
-    - Pi-hole 20: *pihole20
     - Portainer: *portainer
     - Prometheus: *prometheus
     - Scrutiny: *scrutiny
