@@ -1,31 +1,37 @@
 endpoints:
   - name: analog telephone adapter
     group: iot
-    url: "icmp://192.168.1.156"
+    url: "icmp://192.168.1.100"
     conditions:
       - "[CONNECTED] == true"
 
-  - name: cctv camera
+  - name: cctv camera DRIVEWAY
     group: iot
-    url: "icmp://192.168.20.223"
+    url: "icmp://192.168.20.102"
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: cctv camera FRONT
+    group: iot
+    url: "icmp://192.168.20.103"
     conditions:
       - "[CONNECTED] == true"
 
   - name: keylight
     group: iot
-    url: "icmp://192.168.20.217"
+    url: "icmp://192.168.20.109"
     conditions:
       - "[CONNECTED] == true"
 
   - name: light strip 10m
     group: iot
-    url: "icmp://192.168.20.246"
+    url: "icmp://192.168.20.106"
     conditions:
       - "[CONNECTED] == true"
 
   - name: light strip 5m
     group: iot
-    url: "icmp://192.168.20.109"
+    url: "icmp://192.168.20.102"
     conditions:
       - "[CONNECTED] == true"
 
@@ -49,6 +55,6 @@ endpoints:
 
   - name: tapo hub
     group: iot
-    url: "icmp://192.168.20.203"
+    url: "icmp://192.168.20.101"
     conditions:
       - "[CONNECTED] == true"
