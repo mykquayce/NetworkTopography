@@ -1,0 +1,35 @@
+endpoints:
+  - name: lofi
+    group: streams
+    url: "https://mediamtx.bob.house/v3/paths/get/lofi"
+    conditions:
+      - "has([BODY]) == true"
+      - "has([BODY].ready) == true"
+      - "[BODY].ready == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: pandorajourney
+    group: streams
+    url: "https://mediamtx.bob.house/v3/paths/get/pandorajourney"
+    conditions:
+      - "has([BODY]) == true"
+      - "has([BODY].ready) == true"
+      - "[BODY].ready == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
+  - name: server
+    group: streams
+    url: "https://mediamtx.bob.house/v3/info"
+    conditions:
+      - "has([BODY]) == true"
+      - "has([BODY].started) == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
