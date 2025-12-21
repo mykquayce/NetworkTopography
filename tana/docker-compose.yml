@@ -297,11 +297,18 @@ services:
       MTX_RTSPTRANSPORTS: tcp
       WEBRTCADDITIONALHOSTS: 192.168.1.70
     labels:
-      traefik.enable: "false"
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.mediamtx-router.entrypoints: websecure
+      traefik.http.routers.mediamtx-router.rule: Host(`mediamtx.bob.house`)
+      traefik.http.routers.mediamtx-router.tls: "true"
+      traefik.http.services.mediamtx-service.loadbalancer.server.port: "9997"
     networks:
       default: null
+      traefik: null
     ports:
       - 8554:8554/tcp # rtsp
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml:ro
 
   metube:
     image: ghcr.io/alexta69/metube:latest
