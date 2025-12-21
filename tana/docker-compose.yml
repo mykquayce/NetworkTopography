@@ -314,6 +314,8 @@ services:
       STATE_DIR: /data/state/
       TEMP_DIR: /data/temp/
       YTDL_OPTIONS: '{"cookiefile":"/cookies/cookies.txt","writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"Exec","exec_cmd":"chmod 0664","when":"after_move"},{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}'
+      PGID: "0"
+      PUID: "0"
     labels:
       traefik.http.routers.metube-router.entrypoints: websecure
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
@@ -430,8 +432,8 @@ services:
       gluetun:
         condition: service_healthy
     environment:
-      PUID: "1000"
-      PGID: "1000"
+      PUID: "0"
+      PGID: "0"
       TZ: Etc/UTC
       WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
