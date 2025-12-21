@@ -405,7 +405,7 @@ filtering:
       answer: freeman.lan
       enabled: true
     - domain: mediamtx.bob.house
-      answer: ransom.lan
+      answer: tana.lan
       enabled: true
     - domain: metube.bob.house
       answer: tana.lan
