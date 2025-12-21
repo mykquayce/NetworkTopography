@@ -297,11 +297,18 @@ services:
       MTX_RTSPTRANSPORTS: tcp
       WEBRTCADDITIONALHOSTS: 192.168.1.70
     labels:
-      traefik.enable: "false"
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.mediamtx-router.entrypoints: websecure
+      traefik.http.routers.mediamtx-router.rule: Host(`mediamtx.bob.house`)
+      traefik.http.routers.mediamtx-router.tls: "true"
+      traefik.http.services.mediamtx-service.loadbalancer.server.port: "9997"
     networks:
       default: null
+      traefik: null
     ports:
       - 8554:8554/tcp # rtsp
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml:ro
 
   metube:
     image: ghcr.io/alexta69/metube:latest
@@ -314,6 +321,8 @@ services:
       STATE_DIR: /data/state/
       TEMP_DIR: /data/temp/
       YTDL_OPTIONS: '{"cookiefile":"/cookies/cookies.txt","writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"Exec","exec_cmd":"chmod 0664","when":"after_move"},{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}'
+      PGID: "0"
+      PUID: "0"
     labels:
       traefik.http.routers.metube-router.entrypoints: websecure
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
@@ -430,8 +439,8 @@ services:
       gluetun:
         condition: service_healthy
     environment:
-      PUID: "1000"
-      PGID: "1000"
+      PUID: "0"
+      PGID: "0"
       TZ: Etc/UTC
       WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
