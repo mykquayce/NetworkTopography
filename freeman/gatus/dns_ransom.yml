@@ -1,0 +1,546 @@
+endpoints:
+  - name: apprise .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: apprise.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: apprise .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: apprise.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: baget .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: baget.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: baget .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: baget.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: changedetection .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: changedetection.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: changedetection .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: changedetection.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: donetick .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: donetick.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: donetick .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: donetick.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: drawio .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: drawio.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: drawio .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: drawio.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: ffmpeg-webhook .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: ffmpeg-webhook.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: ffmpeg-webhook .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: ffmpeg-webhook.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: freshrss .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: freshrss.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: freshrss .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: freshrss.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances-ransom .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: glances-ransom.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: glances-ransom .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: glances-ransom.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: grafana .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: grafana.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: grafana .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: grafana.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: httpbin .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: httpbin.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: httpbin .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: httpbin.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: it-tools .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: it-tools.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: it-tools .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: it-tools.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: karakeep .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: karakeep.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: karakeep .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: karakeep.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia-ransom .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: kopia-ransom.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: kopia-ransom .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: kopia-ransom.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: moodist .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: moodist.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: moodist .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: moodist.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: n8n .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: n8n.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: n8n .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: n8n.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: ntfy .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: ntfy.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: ntfy .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: ntfy.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: nuget .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: nuget.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: nuget .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: nuget.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: open-webui .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: open-webui.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: open-webui .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: open-webui.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: paperless-ngx .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: paperless-ngx.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: paperless-ngx .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: paperless-ngx.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: planka .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: planka.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: planka .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: planka.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: registry .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: registry.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: registry .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: registry.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: speedtest .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: speedtest.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: speedtest .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: speedtest.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik-ransom .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: traefik-ransom.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: traefik-ransom .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: traefik-ransom.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: trilium .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: trilium.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: trilium .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: trilium.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: vikunja .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: vikunja.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: vikunja .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: vikunja.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: whatsupdocker .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: whatsupdocker.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == ransom.lan."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: whatsupdocker .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: whatsupdocker.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
