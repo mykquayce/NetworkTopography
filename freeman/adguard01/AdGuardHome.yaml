@@ -299,9 +299,6 @@ filtering:
     - domain: changedetection.bob.house
       answer: ransom.lan
       enabled: true
-    - domain: convertx.bob.house
-      answer: ransom.lan
-      enabled: true
     - domain: donetick.bob.house
       answer: ransom.lan
       enabled: true
@@ -312,12 +309,6 @@ filtering:
       answer: ransom.lan
       enabled: true
     - domain: ffmpeg-webhook.bob.house
-      answer: ransom.lan
-      enabled: true
-    - domain: fileflows.bob.house
-      answer: tana.lan
-      enabled: true
-    - domain: fireflyiii.bob.house
       answer: ransom.lan
       enabled: true
     - domain: first-router.bob.house
@@ -357,9 +348,6 @@ filtering:
       answer: freeman.lan
       enabled: true
     - domain: httpbin.bob.house
-      answer: ransom.lan
-      enabled: true
-    - domain: identityserver.bob.house
       answer: ransom.lan
       enabled: true
     - domain: immich.bob.house
@@ -409,9 +397,6 @@ filtering:
       enabled: true
     - domain: metube.bob.house
       answer: tana.lan
-      enabled: true
-    - domain: miniflux.bob.house
-      answer: ransom.lan
       enabled: true
     - domain: moodist.bob.house
       answer: ransom.lan
