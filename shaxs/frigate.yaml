@@ -63,11 +63,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.102:554/stream1
+            rtsp://{FRIGATE_TPLINK_RTSP_USER}:{FRIGATE_TPLINK_RTSP_PASSWORD}@192.168.20.102:554/stream1
           roles:
             - record
         - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.20.102:554/stream2
+            rtsp://{FRIGATE_TPLINK_RTSP_USER}:{FRIGATE_TPLINK_RTSP_PASSWORD}@192.168.20.102:554/stream2
           roles:
             - detect
     motion:
@@ -87,11 +87,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: 
-            rtsp://admin:QKArwuWBzvsE7koAtEVI8ys9@192.168.20.103:554/h265Preview_01_main
+            rtsp://admin:{FRIGATE_REOLINK_RTSP_PASSWORD}@192.168.20.103:554/h265Preview_01_main
           roles:
             - record
         - path: 
-            rtsp://admin:QKArwuWBzvsE7koAtEVI8ys9@192.168.20.103:554/h265Preview_01_sub
+            rtsp://admin:{FRIGATE_REOLINK_RTSP_PASSWORD}@192.168.20.103:554/h265Preview_01_sub
           roles:
             - detect
     motion:
@@ -101,8 +101,7 @@ cameras:
       mask: 0.297,0,0.297,0.07,0.71,0.067,0.71,0
     zones:
       garden:
-        coordinates: 
-          0,1,0,0.628,0.652,0.441,0.659,0.384,0.772,0.394,0.949,0.648,0.781,1
+        coordinates: 0.146,1,0.22,0.667,1,0.596,1,1
         loitering_time: 0
         inertia: 3
 
