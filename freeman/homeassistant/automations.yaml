@@ -1,33 +1,20 @@
-- id: shutdown_phone_and_internet
-  alias: "Shutdown phone and Internet"
+- id: toggle_christmas_lights
+  alias: "Toggle Christmas Lights"
   triggers:
     - trigger: time
-      at: "04:00:00"
-  conditions: []
-  actions:
-    - action: switch.turn_off
-      metadata: {}
-      data: {}
-      target:
-        device_id:
-          - 8408d37dbe7ef8b2d603cc33b2f7ced8
-          - 029aab7d00136a47533f0a2306a60f7e
-          - 1dc48e0f0a42ff4a1984940de943f9a7
-          - 886da40bce583e516f2513b312bf8634
-- id: startup_phone_and_internet
-  alias: "Startup phone and Internet"
-  mode: single
-  triggers:
+      at: sensor.sun_next_dawn
     - trigger: time
-      at: "05:00:00"
+      at: "09:00:00"
+    - trigger: time
+      at: sensor.sun_next_dusk
+    - trigger: time
+      at: "00:00:00"
   conditions: []
   actions:
-    - action: switch.turn_off
+    - action: light.toggle
       metadata: {}
-      data: {}
       target:
-        device_id:
-          - 8408d37dbe7ef8b2d603cc33b2f7ced8
-          - 029aab7d00136a47533f0a2306a60f7e
-          - 1dc48e0f0a42ff4a1984940de943f9a7
-          - 886da40bce583e516f2513b312bf8634
+        entity_id: light.l930_10
+      data:
+        transition: 60
+
