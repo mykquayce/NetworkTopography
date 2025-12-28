@@ -6,7 +6,7 @@ endpoints:
       query-name: adguard01.bob.house
       query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == freeman.lan."
+      - "[BODY] == freeman.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy

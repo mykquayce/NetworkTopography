@@ -6,7 +6,7 @@ endpoints:
       query-name: apprise.bob.house
       query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == ransom.lan."
+      - "[BODY] == ransom.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy

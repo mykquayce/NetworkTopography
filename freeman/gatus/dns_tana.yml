@@ -6,7 +6,7 @@ endpoints:
       query-name: audiobookshelf.bob.house
       query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == tana.lan."
+      - "[BODY] == tana.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy

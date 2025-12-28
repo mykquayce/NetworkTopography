@@ -6,7 +6,7 @@ endpoints:
       query-name: frigate.bob.house
       query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == shaxs.lan."
+      - "[BODY] == shaxs.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
