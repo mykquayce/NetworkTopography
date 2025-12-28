@@ -397,6 +397,16 @@ services:
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
 
+  nsd:
+    image: veovis/nsd:latest
+    ports:
+      - 192.168.20.65:53:53/tcp
+      - 192.168.20.65:53:53/udp
+    volumes:
+      - ~/.nsd/db/:/var/db/nsd/:rw
+      - ./nsd/db.bob.house:/zones/db.bob.house:ro
+      - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
+
   ntfy:
     image: binwiederhier/ntfy:latest
     command:
