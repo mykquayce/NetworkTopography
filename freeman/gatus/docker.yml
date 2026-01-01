@@ -2,31 +2,27 @@ endpoints:
   - name: freeman
     group: docker
     url: http://freeman.lan:2375/v1.52/_ping
-    conditions:
+    conditions: &conditions-definition
       - "[BODY] == OK"
       - "[RESPONSE_TIME] < 50"
       - "[STATUS] == 200"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: ransom
     group: docker
     url: http://ransom.lan:2375/v1.52/_ping
-    conditions:
-      - "[BODY] == OK"
-      - "[RESPONSE_TIME] < 50"
-      - "[STATUS] == 200"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: shaxs
     group: docker
     url: http://shaxs.lan:2375/v1.52/_ping
-    conditions:
-      - "[BODY] == OK"
-      - "[RESPONSE_TIME] < 50"
-      - "[STATUS] == 200"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: tana
     group: docker
     url: http://tana.lan:2375/v1.52/_ping
-    conditions:
-      - "[BODY] == OK"
-      - "[RESPONSE_TIME] < 50"
-      - "[STATUS] == 200"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
