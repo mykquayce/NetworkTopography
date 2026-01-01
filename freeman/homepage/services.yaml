@@ -447,6 +447,12 @@
           type: karakeep
           url: https://karakeep.bob.house
           key: {{HOMEPAGE_VAR_KARAKEEP_KEY}}
+    - kiwix: &kiwix
+        description: When there is No Internet, there is Kiwix
+        href: https://kiwix.bob.house/
+        icon: kiwix-light.png
+        ping: tana.lan
+        siteMonitor: https://kiwix.bob.house/
     - Kopia FREEMAN: &kopiafreeman
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-freeman.bob.house/
