@@ -419,6 +419,16 @@ endpoints:
     alerts:
       - type: ntfy
 
+  - name: kiwix
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-kiwix-1/json
+    conditions:
+      - "[BODY].State.Running == true"
+      - "[RESPONSE_TIME] < 50"
+      - "[STATUS] == 200"
+    alerts:
+      - type: ntfy
+
   - name: kopia FREEMAN
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-kopia-1/json
