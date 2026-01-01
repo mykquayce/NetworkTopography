@@ -26,11 +26,8 @@ endpoints:
     dns:
       query-name: glances-shaxs.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == shaxs.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: glances-shaxs .20
     group: dns .20
@@ -47,11 +44,8 @@ endpoints:
     dns:
       query-name: kopia-shaxs.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == shaxs.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: kopia-shaxs .20
     group: dns .20
@@ -68,11 +62,8 @@ endpoints:
     dns:
       query-name: traefik-shaxs.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == shaxs.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: traefik-shaxs .20
     group: dns .20

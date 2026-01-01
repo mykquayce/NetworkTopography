@@ -26,11 +26,8 @@ endpoints:
     dns:
       query-name: glances-tana.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: glances-tana .20
     group: dns .20
@@ -47,11 +44,8 @@ endpoints:
     dns:
       query-name: immich.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: immich .20
     group: dns .20
@@ -68,11 +62,8 @@ endpoints:
     dns:
       query-name: jellyfin.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: jellyfin .20
     group: dns .20
@@ -89,11 +80,8 @@ endpoints:
     dns:
       query-name: jellyseerr.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: jellyseerr .20
     group: dns .20
@@ -128,11 +116,8 @@ endpoints:
     dns:
       query-name: kopia-tana.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: kopia-tana .20
     group: dns .20
@@ -149,11 +134,8 @@ endpoints:
     dns:
       query-name: lidarr.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: lidarr .20
     group: dns .20
@@ -170,11 +152,8 @@ endpoints:
     dns:
       query-name: mediamtx.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: mediamtx .20
     group: dns .20
@@ -191,11 +170,8 @@ endpoints:
     dns:
       query-name: metube.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: metube .20
     group: dns .20
@@ -212,11 +188,8 @@ endpoints:
     dns:
       query-name: navidrome.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: navidrome .20
     group: dns .20
@@ -233,11 +206,8 @@ endpoints:
     dns:
       query-name: nodered.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: nodered .20
     group: dns .20
@@ -254,11 +224,8 @@ endpoints:
     dns:
       query-name: pinchflat.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: pinchflat .20
     group: dns .20
@@ -275,11 +242,8 @@ endpoints:
     dns:
       query-name: prowlarr.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: prowlarr .20
     group: dns .20
@@ -296,11 +260,8 @@ endpoints:
     dns:
       query-name: qbittorrent.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: qbittorrent .20
     group: dns .20
@@ -317,11 +278,8 @@ endpoints:
     dns:
       query-name: radarr.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: radarr .20
     group: dns .20
@@ -338,11 +296,8 @@ endpoints:
     dns:
       query-name: sabnzbd.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: sabnzbd .20
     group: dns .20
@@ -359,11 +314,8 @@ endpoints:
     dns:
       query-name: scrutiny.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: scrutiny .20
     group: dns .20
@@ -380,11 +332,8 @@ endpoints:
     dns:
       query-name: sickgear.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: sickgear .20
     group: dns .20
@@ -401,11 +350,8 @@ endpoints:
     dns:
       query-name: sonarr.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: sonarr .20
     group: dns .20
@@ -422,11 +368,8 @@ endpoints:
     dns:
       query-name: traefik-tana.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: traefik-tana .20
     group: dns .20
@@ -443,11 +386,8 @@ endpoints:
     dns:
       query-name: tunarr.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: tunarr .20
     group: dns .20
@@ -464,11 +404,8 @@ endpoints:
     dns:
       query-name: windows-tana.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.lan."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: windows-tana .20
     group: dns .20
