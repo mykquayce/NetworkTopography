@@ -234,6 +234,20 @@ services:
     volumes:
       - ~/.jellyseerr/:/app/config/:rw
 
+  kiwix:
+    image: ghcr.io/kiwix/kiwix-serve:latest
+    command:
+       - '*.zim'
+    labels:
+      traefik.http.routers.kiwix-router.entrypoints: websecure
+      traefik.http.routers.kiwix-router.rule: Host(`kiwix.bob.house`)
+      traefik.http.routers.kiwix-router.tls: "true"
+      traefik.http.services.kiwix-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
+    volumes:
+      - /mnt/md1/downloads/zim/:/data/:ro
+
   kopia:
     image: kopia/kopia:latest
     command:

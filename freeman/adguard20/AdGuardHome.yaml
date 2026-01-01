@@ -371,6 +371,9 @@ filtering:
     - domain: karakeep.bob.house
       answer: ransom.lan
       enabled: true
+    - domain: kiwix.bob.house
+      answer: tana.lan
+      enabled: true
     - domain: kopia-freeman.bob.house
       answer: freeman.lan
       enabled: true
