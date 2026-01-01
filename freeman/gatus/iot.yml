@@ -37,19 +37,13 @@ endpoints:
 
   - name: powerstrip BEDROOM
     group: iot
-    url: "icmp://192.168.20.224"
-    conditions:
-      - "[CONNECTED] == true"
-
-  - name: powerstrip LOUNGE
-    group: iot
-    url: "icmp://192.168.20.139"
+    url: "icmp://192.168.20.106"
     conditions:
       - "[CONNECTED] == true"
 
   - name: powerstrip SERVERS
     group: iot
-    url: "icmp://192.168.20.132"
+    url: "icmp://192.168.20.100"
     conditions:
       - "[CONNECTED] == true"
 
