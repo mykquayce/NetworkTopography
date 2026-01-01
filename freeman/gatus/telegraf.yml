@@ -2,99 +2,63 @@ endpoints:
   - name: prometheus
     group: telegraf
     url: https://prometheus.bob.house/metrics
-    conditions:
+    conditions: &conditions-definition
       - "has([BODY]) == true"
       - "[RESPONSE_TIME] < 100"
       - "[STATUS] == 200"
-    alerts:
+    alerts: &alerts-definition
       - type: ntfy
 
   - name: badgey
     group: telegraf
     url: http://192.168.1.50:9273/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: freeman
     group: telegraf
     url: http://freeman.lan:9273/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: freeman TRAEFIK
     group: telegraf
     url: https://traefik.bob.house/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: ransom
     group: telegraf
     url: http://ransom.lan:9273/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: ransom TRAEFIK
     group: telegraf
     url: https://traefik-ransom.bob.house/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: shaxs
     group: telegraf
     url: http://shaxs.lan:9273/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: shaxs TRAEFIK
     group: telegraf
     url: https://traefik-shaxs.bob.house/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: tana
     group: telegraf
     url: http://tana.lan:9273/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: tana TRAEFIK
     group: telegraf
     url: https://traefik-tana.bob.house/metrics
-    conditions:
-      - "has([BODY]) == true"
-      - "[RESPONSE_TIME] < 100"
-      - "[STATUS] == 200"
-    alerts:
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition

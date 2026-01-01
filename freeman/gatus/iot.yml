@@ -1,60 +1,62 @@
 endpoints:
   - name: analog telephone adapter
     group: iot
-    url: "icmp://192.168.1.100"
-    conditions:
+    url: "icmp://192.168.1.107"
+    conditions: &conditions-definition
       - "[CONNECTED] == true"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: cctv camera DRIVEWAY
     group: iot
     url: "icmp://192.168.20.102"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: cctv camera FRONT
     group: iot
     url: "icmp://192.168.20.103"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: keylight
     group: iot
     url: "icmp://192.168.20.109"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: light strip 10m
     group: iot
     url: "icmp://192.168.20.106"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: light strip 5m
     group: iot
     url: "icmp://192.168.20.102"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: powerstrip BEDROOM
     group: iot
-    url: "icmp://192.168.20.224"
-    conditions:
-      - "[CONNECTED] == true"
+    url: "icmp://192.168.20.106"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: powerstrip LOUNGE
     group: iot
-    url: "icmp://192.168.20.139"
-    conditions:
-      - "[CONNECTED] == true"
+    url: "icmp://192.168.20.111"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: powerstrip SERVERS
     group: iot
-    url: "icmp://192.168.20.132"
-    conditions:
-      - "[CONNECTED] == true"
+    url: "icmp://192.168.20.100"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: tapo hub
     group: iot
     url: "icmp://192.168.20.101"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
