@@ -2,23 +2,25 @@ endpoints:
   - name: main-router
     group: infrastructure
     url: "icmp://192.168.1.1"
-    conditions:
+    conditions: &conditions-definition
       - "[CONNECTED] == true"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: main-switch
     group: infrastructure
     url: "icmp://192.168.1.5"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: access-point
     group: infrastructure
     url: "icmp://192.168.1.10"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: iot-switch
     group: infrastructure
     url: "icmp://192.168.20.5"
-    conditions:
-      - "[CONNECTED] == true"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
