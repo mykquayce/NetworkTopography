@@ -14,7 +14,7 @@
 - Entertainment:
     - Pocket Casts:
         - href: https://play.pocketcasts.com/podcasts
-          icon: /icons/pocketcasts.svg
+          icon: pocket-casts.png
     - Reddit:
         - description: The front page of the internet
           href: https://old.reddit.com/r/popular/?geo_filter=GLOBAL
@@ -26,7 +26,7 @@
     - /v/:
         - description: Video Games
           href: https://boards.4chan.org/v/
-          icon: /icons/4chan.ico
+          icon: 4chan.png
     - YouTube:
         - href: https://www.youtube.com/feed/subscriptions
           icon: youtube.svg
