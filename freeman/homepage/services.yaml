@@ -7,7 +7,6 @@
         description: Network-wide ads & trackers blocking DNS server
         href: https://adguard01.bob.house
         icon: adguard-home.png
-        ping: freeman.lan
         siteMonitor: https://adguard01.bob.house/login.html
         widget:
           type: adguard
@@ -18,7 +17,6 @@
         description: Network-wide ads & trackers blocking DNS server
         href: https://adguard20.bob.house
         icon: adguard-home.png
-        ping: freeman.lan
         siteMonitor: https://adguard20.bob.house/login.html
         widget:
           type: adguard
@@ -29,13 +27,11 @@
         description: Push Notifications that work with just about every platform!
         href: https://apprise.bob.house
         icon: apprise.png
-        ping: tana.lan
         siteMonitor: https://apprise.bob.house/status
     - Audiobookshelf: &audiobookshelf
         description: Self-hosted audiobook and podcast server!
         href: https://audiobookshelf.bob.house
         icon: audiobookshelf.png
-        ping: tana.lan
         siteMonitor: https://authentik.bob.house
         widget:
           type: audiobookshelf
@@ -45,7 +41,6 @@
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
         icon: authentik.png
-        ping: host.docker.internal
         siteMonitor: https://authentik.bob.house
         widget:
           type: authentik
@@ -55,13 +50,11 @@
         description: A lightweight CalDAV+CardDAV server
         href: https://baikal.bob.house
         icon: baikal.png
-        ping: host.docker.internal
         siteMonitor: https://baikal.bob.house
     - Change Detection: &changedetection
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection.bob.house/
         icon: changedetection.svg
-        ping: ransom.lan
         siteMonitor: https://changedetection.bob.house
         widget:
           type: changedetectionio
@@ -71,37 +64,31 @@
         description: UI for your private docker registry
         href: https://registry.bob.house/
         icon: docker-moby.svg
-        ping: ransom.lan
         siteMonitor: https://registry.bob.house/
     - Donetick: &donetick
         description: Simplify Tasks & Chores, Together
         href: https://donetick.bob.house/
         icon: /icons/donetick.svg
-        ping: ransom.lan
         siteMonitor: https://donetick.bob.house/
     - Dozzle: &dozzle
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
         icon: dozzle.svg
-        ping: host.docker.internal
         siteMonitor: https://dozzle.bob.house/healthcheck
     - draw.io: &drawio
         description: a JavaScript, client-side editor for general diagramming
         href: https://drawio.bob.house
         icon: draw-io.svg
-        ping: ransom.lan
         siteMonitor: https://drawio.bob.house
     - FreshRSS: &freshrss
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/
         icon: freshrss.svg
-        ping: ransom.lan
         siteMonitor: https://freshrss.bob.house/i/
     - Frigate: &frigate
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate.bob.house/
         icon: frigate.svg
-        ping: shaxs.lan
         siteMonitor: https://frigate.bob.house/
         widget:
           type: frigate
@@ -111,7 +98,6 @@
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
         icon: gatus.svg
-        ping: freeman.lan
         siteMonitor: https://gatus.bob.house/health
         widget:
           type: gatus
@@ -120,12 +106,10 @@
         description: A self-hosted dashboard that puts all your feeds in one place
         href: https://glance.bob.house/
         icon: glance.png
-        ping: host.docker.internal
         siteMonitor: https://glance.bob.house/
     - Glances FREEMAN: &glancesfreeman
         href: https://glances-freeman.bob.house/
         icon: glances.png
-        ping: host.docker.internal
         siteMonitor: https://glances-freeman.bob.house/api/4/status
         widgets:
           - type: prometheusmetric
@@ -175,7 +159,6 @@
     - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
         icon: glances.png
-        ping: ransom.lan
         siteMonitor: https://glances-ransom.bob.house/api/4/status
         widgets:
           - type: prometheusmetric
@@ -225,7 +208,6 @@
     - Glances SHAXS: &glancesshaxs
         href: https://glances-shaxs.bob.house/
         icon: glances.png
-        ping: shaxs.lan
         siteMonitor: https://glances-shaxs.bob.house/api/4/status
         widgets:
           - type: prometheusmetric
@@ -275,7 +257,6 @@
     - Glances TANA: &glancestana
         href: https://glances-tana.bob.house/
         icon: glances.png
-        ping: tana.lan
         siteMonitor: https://glances-tana.bob.house/api/4/status
         widgets:
           - type: prometheusmetric
@@ -326,7 +307,6 @@
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
         icon: grafana.svg
-        ping: ransom.lan
         siteMonitor: https://grafana.bob.house
         widget:
           type: grafana
@@ -337,7 +317,6 @@
         description: Open-source home automation platform
         href: https://homeassistant.bob.house/
         icon: home-assistant.svg
-        ping: host.docker.internal
         siteMonitor: https://homeassistant.bob.house
         widgets:
           - type: homeassistant
@@ -378,13 +357,11 @@
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/
         icon: /icons/httpbin.png
-        ping: ransom.lan
         siteMonitor: https://httpbin.bob.house/
     - Immich: &immich
         description: High performance self-hosted photo and video management solution
         href: https://immich.bob.house/
         icon: immich.svg
-        ping: tana.lan
         siteMonitor: https://immich.bob.house/
         widget:
           type: immich
@@ -395,13 +372,11 @@
         description: Collection of handy online tools for developers, with great UX
         href: https://it-tools.bob.house/
         icon: it-tools.svg
-        ping: ransom.lan
         siteMonitor: https://it-tools.bob.house/
     - Jellyfin: &jellyfin
         description: Your media, on your terms
         href: https://jellyfin.bob.house/web/
         icon: jellyfin.svg
-        ping: tana.lan
         siteMonitor: https://jellyfin.bob.house/health
         widgets:
           - type: jellyfin
@@ -431,7 +406,6 @@
         description: Request management and media discovery tool for the Jellyfin ecosystem
         href: https://jellyseerr.bob.house/
         icon: jellyseerr.svg
-        ping: tana.lan
         siteMonitor: https://jellyseerr.bob.house
         widget:
           type: jellyseerr
@@ -441,7 +415,6 @@
         description: A self-hostable bookmark-everything app
         href: https://karakeep.bob.house/
         icon: karakeep.png
-        ping: ransom.lan
         siteMonitor: https://karakeep.bob.house/
         widget:
           type: karakeep
@@ -451,13 +424,11 @@
         description: When there is No Internet, there is Kiwix
         href: https://kiwix.bob.house/
         icon: kiwix-light.png
-        ping: tana.lan
         siteMonitor: https://kiwix.bob.house/
     - Kopia FREEMAN: &kopiafreeman
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-freeman.bob.house/
         icon: kopia.svg
-        ping: host.docker.internal
         siteMonitor: http://kopia:51515
         widget:
           type: kopia
@@ -468,7 +439,6 @@
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-ransom.bob.house/
         icon: kopia.svg
-        ping: ransom.lan
         siteMonitor: https://kopia-ransom.bob.house
         widget:
           type: kopia
@@ -479,7 +449,6 @@
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-shaxs.bob.house/
         icon: kopia.svg
-        ping: shaxs.lan
         siteMonitor: https://kopia-shaxs.bob.house
         widget:
           type: kopia
@@ -490,7 +459,6 @@
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-tana.bob.house/
         icon: kopia.svg
-        ping: tana.lan
         siteMonitor: https://kopia-tana.bob.house
         widget:
           type: kopia
@@ -501,7 +469,6 @@
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
         icon: lidarr.svg
-        ping: tana.lan
         siteMonitor: https://lidarr.bob.house
         widget:
           type: lidarr
@@ -511,25 +478,21 @@
         description: Web UI for youtube-dl / yt-dlp
         href: https://metube.bob.house/
         icon: metube.svg
-        ping: tana.lan
         siteMonitor: https://metube.bob.house
     - moodist: &moodist
         description: Ambient sounds for focus and calm
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
         icon: /icons/moodist.svg
-        ping: ransom.lan
         siteMonitor: https://moodist.bob.house
     - n8n: &n8n
         description: Secure, AI-native workflow automation
         href: https://n8n.bob.house/
         icon: n8n.svg
-        ping: ransom.lan
         siteMonitor: https://n8n.bob.house/
     - Navidrome: &navidrome
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
-        ping: tana.lan
         siteMonitor: https://navidrome.bob.house
         widget:
           type: navidrome
@@ -541,31 +504,26 @@
         description: Low-code programming for event-driven applications
         href: https://nodered.bob.house
         icon: node-red.svg
-        ping: tana.lan
         siteMonitor: https://nodered.bob.house/
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
         icon: ntfy.svg
-        ping: ransom.lan
         siteMonitor: https://ntfy.bob.house/
     - NuGet: &nuget
         description: A lightweight NuGet and symbol server
         href: https://nuget.bob.house/
         icon: microsoft.svg
-        ping: ransom.lan
         siteMonitor: https://nuget.bob.house/v3/index.json
     - Open WebUI: &openwebui
         description: An extensible, feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline
         href: https://open-webui.bob.house
         icon: open-webui-light.webp
-        ping: ransom.lan
         siteMonitor: https://open-webui.bob.house/
     - Paperless-ngx: &paperlessngx
         description: A community-supported open-source document management system
         href: https://paperless-ngx.bob.house
         icon: paperless-ngx.svg
-        ping: ransom.lan
         siteMonitor: https://paperless-ngx.bob.house
         widget:
           type: paperlessngx
@@ -575,19 +533,16 @@
         description: Your next YouTube media manager
         href: https://pinchflat.bob.house/
         icon: pinchflat.png
-        ping: tana.lan
         siteMonitor: https://pinchflat.bob.house
     - Planka: &planka
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
         icon: planka.svg
-        ping: ransom.lan
         siteMonitor: https://planka.bob.house
     - Portainer: &portainer
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
-        ping: host.docker.internal
         siteMonitor: https://portainer.bob.house
         widgets:
           - type: portainer
@@ -610,7 +565,6 @@
         description: The Prometheus monitoring system and time series database
         href: https://prometheus.bob.house/
         icon: prometheus.svg
-        ping: host.docker.internal
         siteMonitor: https://prometheus.bob.house
         widget:
           type: prometheus
@@ -619,7 +573,6 @@
         description: Indexer manager / proxy
         href: https://prowlarr.bob.house/
         icon: prowlarr.svg
-        ping: tana.lan
         siteMonitor: https://prowlarr.bob.house
         widget:
           type: prowlarr
@@ -629,7 +582,6 @@
         description: A BitTorrent client in Qt
         href: https://qbittorrent.bob.house
         icon: qbittorrent.svg
-        ping: tana.lan
         siteMonitor: https://qbittorrent.bob.house
         widget:
           type: qbittorrent
@@ -640,7 +592,6 @@
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
         icon: radarr.svg
-        ping: tana.lan
         siteMonitor: https://radarr.bob.house
         widget:
           type: radarr
@@ -651,7 +602,6 @@
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
         icon: sabnzbd.svg
-        ping: tana.lan
         siteMonitor: https://sabnzbd.bob.house
         widget:
           type: sabnzbd
@@ -661,7 +611,6 @@
         description: Hard Drive S.M.A.R.T Monitoring, Historical Trends & Real World Failure Thresholds
         href: https://scrutiny.bob.house/web/
         icon: scrutiny-light.png
-        ping: tana.lan
         siteMonitor: https://scrutiny.bob.house/api/health
         widget:
           type: scrutiny
@@ -670,13 +619,11 @@
         description: Fully automate TV enjoyment
         href: https://sickgear.bob.house/
         icon: sickbeard.svg
-        ping: tana.lan
         siteMonitor: https://sickgear.bob.house
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
         icon: sonarr.svg
-        ping: tana.lan
         siteMonitor: https://sonarr.bob.house
         widget:
           type: sonarr
@@ -687,7 +634,6 @@
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
-        ping: ransom.lan
         siteMonitor: https://speedtest.bob.house/api/healthcheck
         widget:
           type: speedtest
@@ -697,13 +643,11 @@
         description: WebSSH & WebTelnet client
         href: https://sshwifty.bob.house/
         icon: sshwifty.svg
-        ping: host.docker.internal
         siteMonitor: https://sshwifty.bob.house/sshwifty/socket/verify
     - Traefik FREEMAN: &traefikfreeman
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: host.docker.internal
         siteMonitor: https://traefik.bob.house/dashboard/
         widget:
           type: traefik
@@ -712,7 +656,6 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-ransom.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: ransom.lan
         siteMonitor: https://traefik-ransom.bob.house/dashboard/
         widget:
           type: traefik
@@ -721,7 +664,6 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-shaxs.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: shaxs.lan
         siteMonitor: https://traefik-shaxs.bob.house/dashboard/
         widget:
           type: traefik
@@ -730,7 +672,6 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-tana.bob.house/dashboard/
         icon: traefik-proxy.svg
-        ping: tana.lan
         siteMonitor: https://traefik-tana.bob.house/dashboard/
         widget:
           type: traefik
@@ -739,19 +680,16 @@
         description: Hierarchical note taking application
         href: https://trilium.bob.house/
         icon: trilium.svg
-        ping: ransom.lan
         siteMonitor: https://trilium.bob.house/login
     - Tunarr: &tunarr
         description: IPTV backed by Plex/Jellyfin/Emby
         href: https://tunarr.bob.house/web
         icon: tunarr.svg
-        ping: tana.lan
         siteMonitor: https://tunarr.bob.house/web
     - Vikunja: &vikunja
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
         icon: vikunja.svg
-        ping: ransom.lan
         siteMonitor: https://vikunja.bob.house
         widget:
           type: vikunja
@@ -762,7 +700,6 @@
         description: Gets you notified when a new version of your Docker Container is available
         href: https://whatsupdocker.bob.house/
         icon: whats-up-docker.svg
-        ping: ransom.lan
         siteMonitor: https://whatsupdocker.bob.house/
         widget:
           type: whatsupdocker
@@ -771,7 +708,6 @@
         description: Windows inside a Docker container
         href: https://windows-tana.bob.house/
         icon: windows-7.png
-        ping: tana.lan
         siteMonitor: https://windows-tana.bob.house/
 
 - Essentials:
