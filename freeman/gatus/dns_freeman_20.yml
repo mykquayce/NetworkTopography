@@ -1,0 +1,156 @@
+endpoints:
+  - name: adguard20 .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: adguard20.bob.house
+      query-type: A
+    conditions: &conditions-definition
+      - "[BODY] == 192.168.20.60"
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: authentik .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: authentik.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: baikal .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: baikal.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: dozzle .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: dozzle.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: gatus .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: gatus.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glance .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: glance.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances-freeman .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: glances-freeman.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: homeassistant .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: homeassistant.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: homepage .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: homepage.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia-freeman .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: kopia-freeman.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: main-router .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: main-router.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: main-switch .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: main-switch.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: portainer .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: portainer.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: prometheus .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: prometheus.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: sshwifty .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: sshwifty.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: traefik.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: uptimekuma .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: uptimekuma.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition

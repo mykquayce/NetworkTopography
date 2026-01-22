@@ -11,27 +11,9 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
-  - name: audiobookshelf .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: audiobookshelf.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: glances-tana .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: glances-tana.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: glances-tana .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: glances-tana.bob.house
       query-type: CNAME
@@ -47,27 +29,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: immich .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: immich.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: jellyfin .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: jellyfin.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: jellyfin .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: jellyfin.bob.house
       query-type: CNAME
@@ -83,27 +47,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: jellyseerr .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: jellyseerr.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: kiwix .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: kiwix.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: kiwix .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: kiwix.bob.house
       query-type: CNAME
@@ -119,27 +65,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: kopia-tana .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: kopia-tana.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: lidarr .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: lidarr.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: lidarr .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: lidarr.bob.house
       query-type: CNAME
@@ -155,27 +83,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: mediamtx .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: mediamtx.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: metube .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: metube.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: metube .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: metube.bob.house
       query-type: CNAME
@@ -191,27 +101,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: navidrome .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: navidrome.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: nodered .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: nodered.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: nodered .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: nodered.bob.house
       query-type: CNAME
@@ -227,27 +119,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: pinchflat .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: pinchflat.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: prowlarr .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: prowlarr.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: prowlarr .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: prowlarr.bob.house
       query-type: CNAME
@@ -263,27 +137,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: qbittorrent .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: qbittorrent.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: radarr .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: radarr.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: radarr .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: radarr.bob.house
       query-type: CNAME
@@ -299,27 +155,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: sabnzbd .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: sabnzbd.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: scrutiny .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: scrutiny.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: scrutiny .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: scrutiny.bob.house
       query-type: CNAME
@@ -335,27 +173,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: sickgear .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: sickgear.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: sonarr .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: sonarr.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: sonarr .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: sonarr.bob.house
       query-type: CNAME
@@ -371,15 +191,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: traefik-tana .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: traefik-tana.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: tunarr .1
     group: dns .1
     url: 192.168.1.50
@@ -389,27 +200,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: tunarr .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: tunarr.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: windows-tana .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: windows-tana.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: windows-tana .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: windows-tana.bob.house
       query-type: CNAME

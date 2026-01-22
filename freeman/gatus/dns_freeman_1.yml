@@ -11,27 +11,9 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
-  - name: adguard20 .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: adguard20.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: authentik .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: authentik.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: authentik .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: authentik.bob.house
       query-type: CNAME
@@ -47,27 +29,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: baikal .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: baikal.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: dozzle .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: dozzle.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: dozzle .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: dozzle.bob.house
       query-type: CNAME
@@ -83,27 +47,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: gatus .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: gatus.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: glance .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: glance.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: glance .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: glance.bob.house
       query-type: CNAME
@@ -119,27 +65,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: glances-freeman .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: glances-freeman.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: homeassistant .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: homeassistant.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: homeassistant .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: homeassistant.bob.house
       query-type: CNAME
@@ -155,27 +83,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: homepage .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: homepage.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: kopia-freeman .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: kopia-freeman.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: kopia-freeman .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: kopia-freeman.bob.house
       query-type: CNAME
@@ -191,27 +101,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: main-router .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: main-router.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: main-switch .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: main-switch.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: main-switch .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: main-switch.bob.house
       query-type: CNAME
@@ -227,27 +119,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: portainer .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: portainer.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: prometheus .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: prometheus.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: prometheus .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: prometheus.bob.house
       query-type: CNAME
@@ -263,15 +137,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: sshwifty .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: sshwifty.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: traefik .1
     group: dns .1
     url: 192.168.1.50
@@ -281,27 +146,10 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: traefik .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: traefik.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
 
   - name: uptimekuma .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: uptimekuma.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: uptimekuma .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: uptimekuma.bob.house
       query-type: CNAME

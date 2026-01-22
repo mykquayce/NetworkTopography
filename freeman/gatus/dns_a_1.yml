@@ -22,17 +22,6 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
 
-  - name: freeman .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: freeman.lan
-      query-type: A
-    conditions:
-      - "[BODY] == 192.168.20.60"
-      - "[DNS_RCODE] == NOERROR"
-    alerts: *alerts-definition
-
   - name: ransom .1
     group: dns .1
     url: 192.168.1.50
@@ -41,17 +30,6 @@ endpoints:
       query-type: A
     conditions:
       - "[BODY] == 192.168.1.65"
-      - "[DNS_RCODE] == NOERROR"
-    alerts: *alerts-definition
-
-  - name: ransom .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: ransom.lan
-      query-type: A
-    conditions:
-      - "[BODY] == 192.168.20.65"
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
 
@@ -66,17 +44,6 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
 
-  - name: shaxs .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: shaxs.lan
-      query-type: A
-    conditions:
-      - "[BODY] == 192.168.20.55"
-      - "[DNS_RCODE] == NOERROR"
-    alerts: *alerts-definition
-
   - name: tana .1
     group: dns .1
     url: 192.168.1.50
@@ -85,16 +52,5 @@ endpoints:
       query-type: A
     conditions:
       - "[BODY] == 192.168.1.70"
-      - "[DNS_RCODE] == NOERROR"
-    alerts: *alerts-definition
-
-  - name: tana .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: tana.lan
-      query-type: A
-    conditions:
-      - "[BODY] == 192.168.20.70"
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
