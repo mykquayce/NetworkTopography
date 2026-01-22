@@ -21,12 +21,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: asndenier
-    group: containers
-    url: http://ransom.lan:2375/v1.52/containers/ransom-asndenier-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: audiobookshelf
     group: containers
     url: http://tana.lan:2375/v1.52/containers/tana-audiobookshelf-1/json
