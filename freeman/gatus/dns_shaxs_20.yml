@@ -1,0 +1,39 @@
+endpoints:
+  - name: frigate .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: frigate.bob.house
+      query-type: A
+    conditions: &conditions-definition
+      - "[BODY] == 192.168.20.55"
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: glances-shaxs .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: glances-shaxs.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia-shaxs .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: kopia-shaxs.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik-shaxs .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: traefik-shaxs.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition

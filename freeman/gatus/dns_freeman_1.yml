@@ -1,0 +1,157 @@
+endpoints:
+  - name: adguard01 .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: adguard01.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == freeman.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: authentik .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: authentik.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: baikal .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: baikal.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: dozzle .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: dozzle.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: gatus .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: gatus.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glance .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: glance.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances-freeman .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: glances-freeman.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: homeassistant .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: homeassistant.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: homepage .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: homepage.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia-freeman .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: kopia-freeman.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: main-router .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: main-router.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: main-switch .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: main-switch.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: portainer .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: portainer.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: prometheus .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: prometheus.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: sshwifty .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: sshwifty.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: traefik.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+
+  - name: uptimekuma .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: uptimekuma.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition

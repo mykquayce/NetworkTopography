@@ -1,0 +1,105 @@
+$ORIGIN bob.house.
+$TTL 7200
+
+; SOA
+
+@       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
+                                       2026012200 ; Serial
+                                       7200       ; Refresh
+                                       1800       ; Retry
+                                       1209600    ; Expire
+                                       86400 )    ; Minimum
+
+; NAMESERVERS
+
+@                   IN        NS                   dns0.bob.house.
+
+; A RECORDS
+
+@                   IN        A                    192.168.1.40
+dns0                IN        A                    192.168.1.40
+badgey              IN        A                    192.168.1.50
+freeman             IN        A                    192.168.1.60
+ransom              IN        A                    192.168.1.65
+shaxs               IN        A                    192.168.1.55
+tana                IN        A                    192.168.1.70
+
+; CNAME RECORDS
+
+adguard01           IN        CNAME                freeman
+adguard20           IN        CNAME                freeman
+authentik           IN        CNAME                freeman
+baikal              IN        CNAME                freeman
+dozzle              IN        CNAME                freeman
+first-router        IN        CNAME                freeman
+gatus               IN        CNAME                freeman
+glance              IN        CNAME                freeman
+glances-freeman     IN        CNAME                freeman
+homeassistant       IN        CNAME                freeman
+homepage            IN        CNAME                freeman
+iot-router          IN        CNAME                freeman
+iot-switch          IN        CNAME                freeman
+kopia-freeman       IN        CNAME                freeman
+main-router         IN        CNAME                freeman
+main-switch         IN        CNAME                freeman
+portainer           IN        CNAME                freeman
+prometheus          IN        CNAME                freeman
+sshwifty            IN        CNAME                freeman
+traefik             IN        CNAME                freeman
+uptimekuma          IN        CNAME                freeman
+
+apprise             IN        CNAME                ransom
+baget               IN        CNAME                ransom
+changedetection     IN        CNAME                ransom
+donetick            IN        CNAME                ransom
+drawio              IN        CNAME                ransom
+ffmpeg-webhook      IN        CNAME                ransom
+freshrss            IN        CNAME                ransom
+glances-ransom      IN        CNAME                ransom
+grafana             IN        CNAME                ransom
+httpbin             IN        CNAME                ransom
+it-tools            IN        CNAME                ransom
+karakeep            IN        CNAME                ransom
+kopia-ransom        IN        CNAME                ransom
+moodist             IN        CNAME                ransom
+n8n                 IN        CNAME                ransom
+ntfy                IN        CNAME                ransom
+nuget               IN        CNAME                ransom
+open-webui          IN        CNAME                ransom
+paperless-ngx       IN        CNAME                ransom
+planka              IN        CNAME                ransom
+registry            IN        CNAME                ransom
+speedtest           IN        CNAME                ransom
+traefik-ransom      IN        CNAME                ransom
+trilium             IN        CNAME                ransom
+vikunja             IN        CNAME                ransom
+whatsupdocker       IN        CNAME                ransom
+
+frigate             IN        CNAME                shaxs
+glances-shaxs       IN        CNAME                shaxs
+kopia-shaxs         IN        CNAME                shaxs
+traefik-shaxs       IN        CNAME                shaxs
+
+audiobookshelf      IN        CNAME                tana
+glances-tana        IN        CNAME                tana
+immich              IN        CNAME                tana
+jellyfin            IN        CNAME                tana
+jellyseerr          IN        CNAME                tana
+kiwix               IN        CNAME                tana
+kopia-tana          IN        CNAME                tana
+lidarr              IN        CNAME                tana
+mediamtx            IN        CNAME                tana
+metube              IN        CNAME                tana
+navidrome           IN        CNAME                tana
+nodered             IN        CNAME                tana
+pinchflat           IN        CNAME                tana
+prowlarr            IN        CNAME                tana
+qbittorrent         IN        CNAME                tana
+radarr              IN        CNAME                tana
+sabnzbd             IN        CNAME                tana
+scrutiny            IN        CNAME                tana
+sickgear            IN        CNAME                tana
+sonarr              IN        CNAME                tana
+traefik-tana        IN        CNAME                tana
+tunarr              IN        CNAME                tana
+windows-tana        IN        CNAME                tana
