@@ -687,7 +687,7 @@ services:
       - 3389:3389/udp
     stop_grace_period: 2m0s
     volumes:
-      - ~/.windows/:/storage/:rw
+      - /mnt/md1/windows/:/storage/:rw
       - /mnt/:/data/:rw
 
 networks:
