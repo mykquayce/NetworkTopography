@@ -63,6 +63,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: dispatcharr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-dispatcharr-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: donetick
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-donetick-1/json

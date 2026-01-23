@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026012200 ; Serial
+                                       2026012300 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -81,6 +81,7 @@ kopia-shaxs         IN        CNAME                shaxs
 traefik-shaxs       IN        CNAME                shaxs
 
 audiobookshelf      IN        CNAME                tana
+dispatcharr         IN        CNAME                tana
 glances-tana        IN        CNAME                tana
 immich              IN        CNAME                tana
 jellyfin            IN        CNAME                tana

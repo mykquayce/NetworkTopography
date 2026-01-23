@@ -300,6 +300,9 @@ filtering:
     - domain: changedetection.bob.house
       answer: ransom.lan
       enabled: true
+    - domain: dispatcharr.bob.house
+      answer: tana.lan
+      enabled: true
     - domain: donetick.bob.house
       answer: ransom.lan
       enabled: true
