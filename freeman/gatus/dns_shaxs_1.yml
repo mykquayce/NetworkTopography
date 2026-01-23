@@ -6,32 +6,14 @@ endpoints:
       query-name: frigate.bob.house
       query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == shaxs.lan."
+      - "[BODY] == shaxs.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
 
-  - name: frigate .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: frigate.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: glances-shaxs .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: glances-shaxs.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: glances-shaxs .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: glances-shaxs.bob.house
       query-type: CNAME
@@ -47,27 +29,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: kopia-shaxs .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: kopia-shaxs.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: traefik-shaxs .1
     group: dns .1
     url: 192.168.1.50
-    dns:
-      query-name: traefik-shaxs.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: traefik-shaxs .20
-    group: dns .20
-    url: 192.168.20.60
     dns:
       query-name: traefik-shaxs.bob.house
       query-type: CNAME
