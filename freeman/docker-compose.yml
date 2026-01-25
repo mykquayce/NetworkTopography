@@ -387,10 +387,11 @@ services:
     networks:
       default: null
       traefik: null
+    secrets:
+      - source: id_rsa
     user: root
     volumes:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
-      - ~/.ssh/:/home/root/.ssh/:ro
 
   traefik:
     image: traefik:latest
@@ -466,6 +467,10 @@ networks:
       config:
         - subnet: 172.18.0.0/16
           ip_range: 172.18.5.0/24
+
+secrets:
+  id_rsa:
+    file: ~/.ssh/id_rsa
 
 volumes:
   certificates-volume:
