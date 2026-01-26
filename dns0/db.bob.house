@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026012200 ; Serial
+                                       2026012600 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
