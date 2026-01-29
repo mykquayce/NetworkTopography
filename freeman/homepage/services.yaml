@@ -341,18 +341,6 @@
                 state: sensor.amp_plug_current_consumption
               - label: usb hub
                 state: sensor.usb_hub_plug_current_consumption
-          - type: homeassistant
-            url: https://homeassistant.bob.house
-            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
-            custom:
-              - label: freeman
-                state: sensor.freeman_plug_current_consumption
-              - label: ransom
-                state: sensor.ransom_plug_current_consumption
-              - label: shaxs
-                state: sensor.shaxs_plug_current_consumption
-              - label: tana
-                state: sensor.tana_plug_current_consumption
     - httpbin: &httpbin
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/
