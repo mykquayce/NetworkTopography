@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026012600 ; Serial
+                                       2026012900 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -31,13 +31,11 @@ adguard20           IN        CNAME                freeman
 authentik           IN        CNAME                freeman
 baikal              IN        CNAME                freeman
 dozzle              IN        CNAME                freeman
-first-router        IN        CNAME                freeman
 gatus               IN        CNAME                freeman
 glance              IN        CNAME                freeman
 glances-freeman     IN        CNAME                freeman
 homeassistant       IN        CNAME                freeman
 homepage            IN        CNAME                freeman
-iot-router          IN        CNAME                freeman
 iot-switch          IN        CNAME                freeman
 kopia-freeman       IN        CNAME                freeman
 main-router         IN        CNAME                freeman
