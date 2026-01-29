@@ -312,9 +312,6 @@ filtering:
     - domain: ffmpeg-webhook.bob.house
       answer: ransom.lan
       enabled: true
-    - domain: first-router.bob.house
-      answer: freeman.lan
-      enabled: true
     - domain: freshrss.bob.house
       answer: ransom.lan
       enabled: true
@@ -353,9 +350,6 @@ filtering:
       enabled: true
     - domain: immich.bob.house
       answer: tana.lan
-      enabled: true
-    - domain: iot-router
-      answer: freeman.lan
       enabled: true
     - domain: iot-switch
       answer: freeman.lan

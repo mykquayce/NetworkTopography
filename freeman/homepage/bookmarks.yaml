@@ -38,9 +38,6 @@
     - Main Switch:
         - href: https://main-switch.bob.house
           icon: router.svg
-    - IOT Router:
-        - href: https://iot-router.bob.house
-          icon: router.svg
     - IOT Switch:
         - href: https://iot-switch.bob.house
           icon: router.svg
