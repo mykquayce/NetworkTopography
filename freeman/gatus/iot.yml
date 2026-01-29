@@ -49,12 +49,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: powerstrip SERVERS
-    group: iot
-    url: "icmp://192.168.20.100"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: tapo hub
     group: iot
     url: "icmp://192.168.20.101"
