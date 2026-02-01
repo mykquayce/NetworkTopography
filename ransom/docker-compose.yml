@@ -231,6 +231,7 @@ services:
       - --remote-debugging-port=9222
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       default: null
       karakeep: null
@@ -243,6 +244,7 @@ services:
       - ~/Configurations/karakeep.env
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       karakeep: null
     volumes:
@@ -441,6 +443,7 @@ services:
       retries: 10
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       paperless-ngx: null
     volumes:
@@ -456,6 +459,7 @@ services:
       retries: 10
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       paperless-ngx: null
     volumes:
@@ -509,6 +513,7 @@ services:
       retries: 5
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       planka: null
     volumes:
@@ -691,6 +696,7 @@ services:
       start_period: 30s
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       vikunja: null
     volumes:
