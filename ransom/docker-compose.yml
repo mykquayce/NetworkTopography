@@ -430,7 +430,7 @@ services:
       - ~/.paperless-ngx/media/:/usr/src/paperless/media/:rw
 
   paperless-ngx-db:
-    image: docker.io/library/postgres:16
+    image: docker.io/library/postgres:18
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
@@ -447,10 +447,10 @@ services:
     networks:
       paperless-ngx: null
     volumes:
-      - ~/.paperless-ngx/db/:/var/lib/postgresql/data/:rw
+      - ~/.paperless-ngx/db/:/var/lib/postgresql/:rw
 
   paperless-ngx-redis:
-    image: docker.io/library/redis:7
+    image: docker.io/library/redis:8
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
