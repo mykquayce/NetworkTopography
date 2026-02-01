@@ -231,6 +231,7 @@ services:
       - --remote-debugging-port=9222
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       default: null
       karakeep: null
@@ -243,6 +244,7 @@ services:
       - ~/Configurations/karakeep.env
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       karakeep: null
     volumes:
@@ -428,7 +430,7 @@ services:
       - ~/.paperless-ngx/media/:/usr/src/paperless/media/:rw
 
   paperless-ngx-db:
-    image: docker.io/library/postgres:16
+    image: docker.io/library/postgres:18
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
@@ -441,13 +443,14 @@ services:
       retries: 10
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       paperless-ngx: null
     volumes:
-      - ~/.paperless-ngx/db/:/var/lib/postgresql/data/:rw
+      - ~/.paperless-ngx/db/:/var/lib/postgresql/:rw
 
   paperless-ngx-redis:
-    image: docker.io/library/redis:7
+    image: docker.io/library/redis:8
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -456,6 +459,7 @@ services:
       retries: 10
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       paperless-ngx: null
     volumes:
@@ -496,7 +500,7 @@ services:
       - ~/.planka/attachments/:/app/private/attachments:rw
 
   planka-db:
-    image: postgres:14-alpine
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: planka
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -509,6 +513,7 @@ services:
       retries: 5
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       planka: null
     volumes:
@@ -680,7 +685,7 @@ services:
       - ~/.vikunja/files/:/app/vikunja/files/:rw
 
   vikunja-db:
-    image: postgres:17
+    image: postgres:18
     env_file:
       - ~/Configurations/vikunja.env
     environment:
@@ -691,10 +696,11 @@ services:
       start_period: 30s
     labels:
       traefik.enable: "false"
+      wud.watch: "false"
     networks:
       vikunja: null
     volumes:
-      - ~/.vikunja/db/:/var/lib/postgresql/data/:rw
+      - ~/.vikunja/db/:/var/lib/postgresql/:rw
 
   whatsupdocker:
     image: getwud/wud:latest
