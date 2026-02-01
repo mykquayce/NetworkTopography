@@ -685,7 +685,7 @@ services:
       - ~/.vikunja/files/:/app/vikunja/files/:rw
 
   vikunja-db:
-    image: postgres:17
+    image: postgres:18
     env_file:
       - ~/Configurations/vikunja.env
     environment:
@@ -700,7 +700,7 @@ services:
     networks:
       vikunja: null
     volumes:
-      - ~/.vikunja/db/:/var/lib/postgresql/data/:rw
+      - ~/.vikunja/db/:/var/lib/postgresql/:rw
 
   whatsupdocker:
     image: getwud/wud:latest
