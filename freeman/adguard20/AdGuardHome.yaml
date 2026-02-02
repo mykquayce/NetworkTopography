@@ -111,24 +111,26 @@ filters:
     id: 2
 whitelist_filters: []
 user_rules:
-  - '||th.bing.com^'
+  - '||bing.com^'
+  - '||cloud.microsoft^'
   - '||duckduckgo.com^'
   - '||duosecurity.com^'
   - '||checkin.getarcane.app^'
   - '||grafana.com^'
   - '||stats.grafana.org^'
   - '||aria.microsoft.com^'
-  - '||cloud.microsoft^'
+  - '||copilot.microsoft.com^'
   - '||data.microsoft.com^'
-  - '||copilot.microsoft.com^'
   - '||graph.microsoft.com^'
-  - '||copilot.microsoft.com^'
+  - '||mp.microsoft.com^'
+  - '||cxcs.microsoft.net^'
   - '||services.mozilla.com^'
   - '||arc.msn.com^'
   - '||data.msn.com^'
   - '||nanoleaf.me^'
   - '||nelreports.net^'
   - '||gfe.nvidia.com^'
+  - '||ecs.office.com^'
   - '||substrate.office.com^'
   - '||measure.office.net^'
   - '||e.reddit.com^'
@@ -165,15 +167,18 @@ filtering:
     ids:
       - 500px
       - 9gag
+      - activision_blizzard
       - aliexpress
       - amazon_streaming
       - amino
       - apple_streaming
+      - battle_net
       - betano
       - betfair
       - betway
       - bigo_live
       - bilibili
+      - blizzard_entertainment
       - blaze
       - canais_globo
       - chatgpt
@@ -197,17 +202,20 @@ filtering:
       - hbomax
       - hulu
       - iheartradio
+      - imgur
       - instagram
       - iqiyi
       - kakaotalk
       - kik
       - kook
       - lazada
+      - leagueoflegends
       - line
       - lionsgateplus
       - looke
       - mail_ru
       - mercado_libre
+      - minecraft
       - nebula
       - netflix
       - odysee
@@ -222,6 +230,8 @@ filtering:
       - pluto_tv
       - qq
       - rakuten_viki
+      - riot_games
+      - roblox
       - samsung_tv_plus
       - shein
       - shopee
@@ -239,10 +249,12 @@ filtering:
       - tinder
       - tumblr
       - twitter
+      - valorant
       - viber
       - vimeo
       - vk
       - voot
+      - wargaming
       - wechat
       - weibo
       - whatsapp
