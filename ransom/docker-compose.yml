@@ -59,29 +59,6 @@ services:
       - ~/.donetick/:/donetick-data/:rw
       - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
 
-  dozzle:
-    image: amir20/dozzle:latest
-    command: agent
-    depends_on:
-      traefik:
-        condition: service_healthy
-    environment:
-      DOZZLE_HOSTNAME: ransom
-    healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 5s
-      retries: 5
-      start_period: 5s
-      start_interval: 5s
-    labels:
-      traefik.enable: "false"
-    networks:
-      default: null
-    ports:
-      - 7007:7007/tcp
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   drawio:
     image: jgraph/drawio:latest
     depends_on:
@@ -208,6 +185,7 @@ services:
     env_file:
       - ~/Configurations/karakeep.env
     labels:
+      dev.dozzle.group: karakeep
       traefik.docker.network: ransom_traefik
       traefik.http.routers.karakeep-router.entrypoints: websecure
       traefik.http.routers.karakeep-router.rule: Host(`karakeep.bob.house`)
@@ -230,6 +208,7 @@ services:
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
     labels:
+      dev.dozzle.group: karakeep
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -243,6 +222,7 @@ services:
     env_file:
       - ~/Configurations/karakeep.env
     labels:
+      dev.dozzle.group: karakeep
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -414,6 +394,7 @@ services:
       start_period: 10s
       retries: 10
     labels:
+      dev.dozzle.group: paperless-ngx
       traefik.docker.network: ransom_traefik
       traefik.http.routers.paperless-ngx-router.entrypoints: websecure
       traefik.http.routers.paperless-ngx-router.rule: Host(`paperless-ngx.bob.house`)
@@ -442,6 +423,7 @@ services:
       start_period: 10s
       retries: 10
     labels:
+      dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -458,6 +440,7 @@ services:
       start_period: 10s
       retries: 10
     labels:
+      dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -485,6 +468,7 @@ services:
     env_file:
       - ~/Configurations/planka.env
     labels:
+      dev.dozzle.group: planka
       traefik.docker.network: ransom_traefik
       traefik.http.routers.planka-router.entrypoints: websecure
       traefik.http.routers.planka-router.rule: Host(`planka.bob.house`)
@@ -512,6 +496,7 @@ services:
       interval: 10s
       retries: 5
     labels:
+      dev.dozzle.group: planka
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -539,6 +524,7 @@ services:
     env_file:
       - ~/Configurations/registry.env
     labels:
+      dev.dozzle.group: registry
       traefik.enable: "false"
     networks:
       registry: null
@@ -566,6 +552,7 @@ services:
       SINGLE_REGISTRY: "true"
       TAGLIST_PAGE_SIZE: "100"
     labels:
+      dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
       traefik.http.routers.registry-router.entrypoints: websecure
       traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
@@ -672,6 +659,7 @@ services:
       VIKUNJA_DATABASE_USER: vikunja
       VIKUNJA_DATABASE_DATABASE: vikunja
     labels:
+      dev.dozzle.group: vikunja
       traefik.docker.network: ransom_traefik
       traefik.http.routers.vikunja-router.entrypoints: websecure
       traefik.http.routers.vikunja-router.rule: Host(`vikunja.bob.house`)
@@ -695,6 +683,7 @@ services:
       interval: 2s
       start_period: 30s
     labels:
+      dev.dozzle.group: vikunja
       traefik.enable: "false"
       wud.watch: "false"
     networks:

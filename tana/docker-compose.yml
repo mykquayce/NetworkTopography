@@ -19,26 +19,6 @@ services:
       - ~/.audiobookshelf/podcasts/:/podcasts/:rw
       - ~/.audiobookshelf/metadata/:/metadata/:rw
 
-  dozzle:
-    image: amir20/dozzle:latest
-    command: agent
-    environment:
-      DOZZLE_HOSTNAME: tana
-    healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 5s
-      retries: 5
-      start_period: 5s
-      start_interval: 5s
-    labels:
-      traefik.enable: "false"
-    networks:
-      default: null
-    ports:
-      - 7007:7007/tcp
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   ffmpeg-webhook:
     build:
       context: ./ffmpeg-webhook/
@@ -126,6 +106,7 @@ services:
       REDIS_HOSTNAME: immich-redis
     healthcheck: {}
     labels:
+      dev.dozzle.group: immich
       traefik.docker.network: tana_traefik
       traefik.http.routers.immich-router.entrypoints: websecure
       traefik.http.routers.immich-router.rule: Host(`immich.bob.house`)
@@ -152,6 +133,7 @@ services:
       retries: 5
       start_period: 80s
     labels:
+      dev.dozzle.group: immich
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -170,6 +152,7 @@ services:
       UPLOAD_LOCATION: ./.immich/library
     healthcheck: {}
     labels:
+      dev.dozzle.group: immich
       traefik.enable: "false"
     networks:
       immich: null
@@ -181,6 +164,7 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
     labels:
+      dev.dozzle.group: immich
       traefik.enable: "false"
       wud.watch: "false"
     networks:

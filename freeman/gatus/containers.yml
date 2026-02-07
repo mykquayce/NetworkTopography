@@ -69,27 +69,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: dozzle FREEMAN
+  - name: dozzle
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-dozzle-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: dozzle RANSOM
-    group: containers
-    url: http://ransom.lan:2375/v1.52/containers/ransom-dozzle-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: dozzle SHAXS
-    group: containers
-    url: http://shaxs.lan:2375/v1.52/containers/shaxs-dozzle-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: dozzle TANA
-    group: containers
-    url: http://tana.lan:2375/v1.52/containers/tana-dozzle-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
