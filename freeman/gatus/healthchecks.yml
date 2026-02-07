@@ -68,6 +68,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: feishin
+    group: healthchecks
+    url: https://feishin.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: freshrss
     group: healthchecks
     url: https://freshrss.bob.house/i
