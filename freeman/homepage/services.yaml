@@ -32,7 +32,7 @@
         description: Self-hosted audiobook and podcast server!
         href: https://audiobookshelf.bob.house
         icon: audiobookshelf.png
-        siteMonitor: https://authentik.bob.house
+        siteMonitor: https://audiobookshelf.bob.house
         widget:
           type: audiobookshelf
           url: https://audiobookshelf.bob.house
@@ -41,7 +41,7 @@
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
         icon: authentik.png
-        siteMonitor: https://authentik.bob.house
+        siteMonitor: https://authentik.bob.house/if/flow/default-authentication-flow/?next=%2F
         widget:
           type: authentik
           url: https://authentik.bob.house
@@ -307,7 +307,7 @@
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
         icon: grafana.svg
-        siteMonitor: https://grafana.bob.house
+        siteMonitor: https://grafana.bob.house/login/generic_oauth?redirectTo=
         widget:
           type: grafana
           url: https://grafana.bob.house
@@ -394,7 +394,7 @@
         description: Request management and media discovery tool for the Jellyfin ecosystem
         href: https://jellyseerr.bob.house/
         icon: jellyseerr.svg
-        siteMonitor: https://jellyseerr.bob.house
+        siteMonitor: https://jellyseerr.bob.house/login
         widget:
           type: jellyseerr
           url: https://jellyseerr.bob.house
@@ -457,7 +457,7 @@
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
         icon: lidarr.svg
-        siteMonitor: https://lidarr.bob.house
+        siteMonitor: https://lidarr.bob.house/login?returnUrl=%2F
         widget:
           type: lidarr
           url: https://lidarr.bob.house
@@ -481,7 +481,7 @@
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
-        siteMonitor: https://navidrome.bob.house
+        siteMonitor: https://navidrome.bob.house/app
         widget:
           type: navidrome
           url: https://navidrome.bob.house
@@ -512,7 +512,7 @@
         description: A community-supported open-source document management system
         href: https://paperless-ngx.bob.house
         icon: paperless-ngx.svg
-        siteMonitor: https://paperless-ngx.bob.house
+        siteMonitor: https://paperless-ngx.bob.house/accounts/login/?next=%2F
         widget:
           type: paperlessngx
           url: https://paperless-ngx.bob.house
@@ -553,7 +553,7 @@
         description: The Prometheus monitoring system and time series database
         href: https://prometheus.bob.house/
         icon: prometheus.svg
-        siteMonitor: https://prometheus.bob.house
+        siteMonitor: https://prometheus.bob.house/query
         widget:
           type: prometheus
           url: https://prometheus.bob.house
@@ -561,7 +561,7 @@
         description: Indexer manager / proxy
         href: https://prowlarr.bob.house/
         icon: prowlarr.svg
-        siteMonitor: https://prowlarr.bob.house
+        siteMonitor: https://prowlarr.bob.house/login?returnUrl=%2F
         widget:
           type: prowlarr
           url: https://prowlarr.bob.house
@@ -580,7 +580,7 @@
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
         icon: radarr.svg
-        siteMonitor: https://radarr.bob.house
+        siteMonitor: https://radarr.bob.house/login?returnUrl=%2F
         widget:
           type: radarr
           url: https://radarr.bob.house
@@ -607,12 +607,12 @@
         description: Fully automate TV enjoyment
         href: https://sickgear.bob.house/
         icon: sickbeard.svg
-        siteMonitor: https://sickgear.bob.house
+        siteMonitor: https://sickgear.bob.house/daily-schedule
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
         icon: sonarr.svg
-        siteMonitor: https://sonarr.bob.house
+        siteMonitor: https://sonarr.bob.house/login?returnUrl=%2F
         widget:
           type: sonarr
           url: https://sonarr.bob.house
