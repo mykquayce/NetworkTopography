@@ -321,6 +321,9 @@ filtering:
     - domain: drawio.bob.house
       answer: ransom.lan
       enabled: true
+    - domain: feishin.bob.house
+      answer: tana.lan
+      enabled: true
     - domain: ffmpeg-webhook.bob.house
       answer: ransom.lan
       enabled: true

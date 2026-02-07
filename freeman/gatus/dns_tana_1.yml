@@ -11,6 +11,15 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
+  - name: feishin .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: feishin.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances-tana .1
     group: dns .1
     url: 192.168.1.50
