@@ -363,27 +363,9 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: portainer FREEMAN
+  - name: portainer
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-portainer-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: portainer RANSOM
-    group: containers
-    url: http://ransom.lan:2375/v1.52/containers/ransom-portainer-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: portainer SHAXS
-    group: containers
-    url: http://shaxs.lan:2375/v1.52/containers/shaxs-portainer-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: portainer TANA
-    group: containers
-    url: http://tana.lan:2375/v1.52/containers/tana-portainer-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

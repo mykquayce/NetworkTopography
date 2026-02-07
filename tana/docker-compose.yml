@@ -397,19 +397,6 @@ services:
       - /mnt/md1/downloads/pinchflat/:/downloads/:rw
       - ~/cookies.txt:/config/extras/cookies.txt:rw
 
-  portainer:
-    image: portainer/agent:latest
-    labels:
-      traefik.enable: "false"
-    networks:
-      default: null
-    ports:
-      - 9001:9001/tcp
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
-      - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
-      - /:/host/:rw
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     depends_on:

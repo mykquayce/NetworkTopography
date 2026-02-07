@@ -539,15 +539,15 @@
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 4
+            env: 11
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 9
+            env: 12
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 7
+            env: 13
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus: &prometheus
         description: The Prometheus monitoring system and time series database
