@@ -504,19 +504,6 @@ services:
     volumes:
       - ~/.planka/db:/var/lib/postgresql/data:rw
 
-  portainer:
-    image: portainer/agent:latest
-    labels:
-      traefik.enable: "false"
-    networks:
-      default: null
-    ports:
-      - 9001:9001/tcp
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
-      - /var/lib/docker/volumes/:/var/lib/docker/volumes/:rw
-      - /:/host/:rw
-
   registry:
     image: registry:latest
     environment:
