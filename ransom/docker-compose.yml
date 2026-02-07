@@ -572,7 +572,7 @@ services:
       APP_URL: https://speedtest.bob.house
       DB_CONNECTION: sqlite
       SPEEDTEST_SCHEDULE: 0 */3 * * * #every 3rd hour
-      SPEEDTEST_SERVERS: 3504, 40628, 48181, 59135
+      SPEEDTEST_SERVERS: 2262, 3504, 20746, 48475, 57115, 59135, 62951, 67541
       PRUNE_RESULTS_OLDER_THAN: 28 #28 days
     env_file:
       - ~/Configurations/speedtest-tracker.env
