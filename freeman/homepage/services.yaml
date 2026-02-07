@@ -80,6 +80,11 @@
         href: https://drawio.bob.house
         icon: draw-io.svg
         siteMonitor: https://drawio.bob.house
+    - Feishin: &feishin
+        description: A modern self-hosted music player
+        href: https://feishin.bob.house
+        icon: feishin.png
+        siteMonitor: https://freshrss.bob.house/i/
     - FreshRSS: &freshrss
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/
@@ -746,6 +751,7 @@
 
 - Media:
     - Audiobookshelf: *audiobookshelf
+    - Feishin: *feishin
     - Immich: *immich
     - Jellyfin: *jellyfin
     - Jellyseerr: *jellyseerr

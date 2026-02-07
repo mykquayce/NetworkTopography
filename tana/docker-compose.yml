@@ -19,6 +19,26 @@ services:
       - ~/.audiobookshelf/podcasts/:/podcasts/:rw
       - ~/.audiobookshelf/metadata/:/metadata/:rw
 
+  feishin:
+    image: ghcr.io/jeffvli/feishin:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      ANALYTICS_DISABLED: "true"
+      LEGACY_AUTHENTICATION: "false"
+      SERVER_LOCK: "true"
+      SERVER_NAME: navidrome
+      SERVER_TYPE: navidrome
+      SERVER_URL: https://navidrome.bob.house
+    labels:
+      traefik.http.routers.feishin-router.entrypoints: websecure
+      traefik.http.routers.feishin-router.rule: Host(`feishin.bob.house`)
+      traefik.http.routers.feishin-router.tls: "true"
+      traefik.http.services.feishin-service.loadbalancer.server.port: "9180"
+    networks:
+      traefik: null
+
   ffmpeg-webhook:
     build:
       context: ./ffmpeg-webhook/

@@ -81,6 +81,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: feishin
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-feishin-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: ffmpeg-webhook
     group: containers
     url: http://tana.lan:2375/v1.52/containers/tana-ffmpeg-webhook-1/json
