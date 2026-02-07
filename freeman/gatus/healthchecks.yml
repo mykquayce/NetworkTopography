@@ -1,0 +1,409 @@
+endpoints:
+  - name: adguard01
+    group: healthchecks
+    url: https://adguard01.bob.house/login.html
+    conditions: &conditions-definition
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 200"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: adguard20
+    group: healthchecks
+    url: https://adguard20.bob.house/login.html
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: apprise
+    group: healthchecks
+    url: https://apprise.bob.house/status
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: audiobookshelf
+    group: healthchecks
+    url: https://audiobookshelf.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: authentik
+    group: healthchecks
+    url: https://authentik.bob.house/if/flow/default-authentication-flow/?next=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: baikal
+    group: healthchecks
+    url: https://baikal.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: changedetection
+    group: healthchecks
+    url: https://changedetection.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: docker registry
+    group: healthchecks
+    url: https://registry.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: donetick
+    group: healthchecks
+    url: https://donetick.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: dozzle
+    group: healthchecks
+    url: https://dozzle.bob.house/healthcheck
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: drawio
+    group: healthchecks
+    url: https://drawio.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: freshrss
+    group: healthchecks
+    url: https://freshrss.bob.house/i
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
+    alerts: *alerts-definition
+
+  - name: frigate
+    group: healthchecks
+    url: https://frigate.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: gatus
+    group: healthchecks
+    url: https://gatus.bob.house/health
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glance
+    group: healthchecks
+    url: https://glance.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances FREEMAN
+    group: healthchecks
+    url: https://glances-freeman.bob.house/api/4/status
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances RANSOM
+    group: healthchecks
+    url: https://glances-ransom.bob.house/api/4/status
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances SHAXS
+    group: healthchecks
+    url: https://glances-shaxs.bob.house/api/4/status
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: glances TANA
+    group: healthchecks
+    url: https://glances-tana.bob.house/api/4/status
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: grafana
+    group: healthchecks
+    url: https://grafana.bob.house/login/generic_oauth?redirectTo=
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: homeassistant
+    group: healthchecks
+    url: https://homeassistant.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: homepage
+    group: healthchecks
+    url: https://homepage.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: httpbin
+    group: healthchecks
+    url: https://httpbin.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: immich
+    group: healthchecks
+    url: https://immich.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: it-tools
+    group: healthchecks
+    url: https://it-tools.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: jellyfin
+    group: healthchecks
+    url: https://jellyfin.bob.house/health
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: jellyseerr
+    group: healthchecks
+    url: https://jellyseerr.bob.house/login
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: karakeep
+    group: healthchecks
+    url: https://karakeep.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kiwix
+    group: healthchecks
+    url: https://kiwix.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia FREEMAN
+    group: healthchecks
+    url: https://kopia-freeman.bob.house
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
+    alerts: *alerts-definition
+
+  - name: kopia RANSOM
+    group: healthchecks
+    url: https://kopia-ransom.bob.house
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
+    alerts: *alerts-definition
+
+  - name: kopia SHAXS
+    group: healthchecks
+    url: https://kopia-shaxs.bob.house
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
+    alerts: *alerts-definition
+
+  - name: kopia TANA
+    group: healthchecks
+    url: https://kopia-tana.bob.house
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
+    alerts: *alerts-definition
+
+  - name: lidarr
+    group: healthchecks
+    url: https://lidarr.bob.house/login?returnUrl=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: mediamtx
+    group: healthchecks
+    url: https://mediamtx.bob.house/v3/info
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: metube
+    group: healthchecks
+    url: https://metube.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: moodist
+    group: healthchecks
+    url: https://moodist.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: n8n
+    group: healthchecks
+    url: https://n8n.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: navidrome
+    group: healthchecks
+    url: https://navidrome.bob.house/app
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: nodered
+    group: healthchecks
+    url: https://nodered.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: ntfy
+    group: healthchecks
+    url: https://ntfy.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: nuget
+    group: healthchecks
+    url: https://nuget.bob.house/v3/index.json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: open-webui
+    group: healthchecks
+    url: https://open-webui.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: paperless-ngx
+    group: healthchecks
+    url: https://paperless-ngx.bob.house/accounts/login/?next=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: pinchflat
+    group: healthchecks
+    url: https://pinchflat.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: planka
+    group: healthchecks
+    url: https://planka.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: portainer
+    group: healthchecks
+    url: https://portainer.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: prometheus
+    group: healthchecks
+    url: https://prometheus.bob.house/query
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: prowlarr
+    group: healthchecks
+    url: https://prowlarr.bob.house/login?returnUrl=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: qbittorrent
+    group: healthchecks
+    url: https://qbittorrent.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: radarr
+    group: healthchecks
+    url: https://radarr.bob.house/login?returnUrl=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: sabnzbd
+    group: healthchecks
+    url: https://sabnzbd.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: scrutiny
+    group: healthchecks
+    url: https://scrutiny.bob.house/api/health
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: sickgear
+    group: healthchecks
+    url: https://sickgear.bob.house/daily-schedule
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: sonarr
+    group: healthchecks
+    url: https://sonarr.bob.house/login?returnUrl=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: speedtest
+    group: healthchecks
+    url: https://speedtest.bob.house/api/healthcheck
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: sshwifty
+    group: healthchecks
+    url: https://sshwifty.bob.house/sshwifty/socket/verify
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik FREEMAN
+    group: healthchecks
+    url: https://traefik.bob.house/dashboard
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik RANSOM
+    group: healthchecks
+    url: https://traefik-ransom.bob.house/dashboard
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik SHAXS
+    group: healthchecks
+    url: https://traefik-shaxs.bob.house/dashboard
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik TANA
+    group: healthchecks
+    url: https://traefik-tana.bob.house/dashboard
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: trilium
+    group: healthchecks
+    url: https://trilium.bob.house/login
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: tunarr
+    group: healthchecks
+    url: https://tunarr.bob.house/web
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: vikunja
+    group: healthchecks
+    url: https://vikunja.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: whatsupdocker
+    group: healthchecks
+    url: https://whatsupdocker.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: windows TANA
+    group: healthchecks
+    url: https://windows-tana.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
