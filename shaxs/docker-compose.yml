@@ -1,24 +1,4 @@
 services:
-  dozzle:
-    image: amir20/dozzle:latest
-    command: agent
-    environment:
-      DOZZLE_HOSTNAME: shaxs
-    healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 5s
-      retries: 5
-      start_period: 5s
-      start_interval: 5s
-    labels:
-      traefik.enable: "false"
-    networks:
-      default: null
-    ports:
-      - 7007:7007/tcp
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   frigate:
     image: ghcr.io/blakeblackshear/frigate:stable
     depends_on:

@@ -5,6 +5,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard01-router.entrypoints: websecure
       traefik.http.routers.adguard01-router.rule: Host(`adguard01.bob.house`)
@@ -26,6 +27,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard20-router.entrypoints: websecure
       traefik.http.routers.adguard20-router.rule: Host(`adguard20.bob.house`)
@@ -52,6 +54,7 @@ services:
       retries: 5
       timeout: 5s
     labels:
+      dev.dozzle.group: authentik
       traefik.enable: "false"
       wud.watch: "false"
     networks:
@@ -69,6 +72,7 @@ services:
       retries: 5
       timeout: 3s
     labels:
+      dev.dozzle.group: authentik
       traefik.enable: "false"
     networks:
       authentik: null
@@ -91,6 +95,7 @@ services:
     env_file:
       - ~/Configurations/authentik.env
     labels:
+      dev.dozzle.group: authentik
       traefik.docker.network: freeman_traefik
       traefik.http.routers.authentik-router.entrypoints: websecure
       traefik.http.routers.authentik-router.rule: Host(`authentik.bob.house`)
@@ -117,6 +122,7 @@ services:
     env_file:
       - ~/Configurations/authentik.env
     labels:
+      dev.dozzle.group: authentik
       traefik.enable: "false"
     networks:
       authentik: null
@@ -155,8 +161,10 @@ services:
       traefik:
         condition: service_healthy
     environment:
+      DOZZLE_AUTH_PROVIDER: simple
       DOZZLE_HOSTNAME: freeman
-      DOZZLE_REMOTE_AGENT: ransom.lan:7007,shaxs.lan:7007,tana.lan:7007
+      DOZZLE_NO_ANALYTICS: "true"
+      DOZZLE_REMOTE_HOST: tcp://192.168.1.65:2375|ransom,tcp://192.168.1.55:2375|shaxs,tcp://192.168.1.70:2375|tana
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
@@ -174,6 +182,7 @@ services:
       traefik: null
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./dozzle.yml:/data/users.yml:ro
 
   gatus:
     image: ghcr.io/twin/gatus:stable
@@ -187,6 +196,7 @@ services:
     environment:
       GATUS_CONFIG_PATH: /config
     labels:
+      dev.dozzle.group: gatus
       traefik.docker.network: freeman_traefik
       traefik.http.routers.gatus-router.entrypoints: websecure
       traefik.http.routers.gatus-router.rule: Host(`gatus.bob.house`)
@@ -209,6 +219,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    labels:
+      dev.dozzle.group: gatus
     networks:
       gatus: null
     volumes:
@@ -242,6 +254,7 @@ services:
     environment:
       GLANCES_OPT: -w
     labels:
+      dev.dozzle.group: glances
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-freeman.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
@@ -318,6 +331,7 @@ services:
     env_file:
       - ~/Configurations/kopia.env
     labels:
+      dev.dozzle.group: kopia
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: Host(`kopia-freeman.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
@@ -340,6 +354,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dev.dozzle.group: portainer
       traefik.docker.network: freeman_traefik
       traefik.http.routers.portainer-router.entrypoints: websecure
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
@@ -421,6 +436,7 @@ services:
       timeout: 10s
       retries: 5
     labels:
+      dev.dozzle.group: traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
