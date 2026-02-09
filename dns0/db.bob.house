@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026021101 ; Serial
+                                       2026021200 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -31,6 +31,7 @@ glances-billups     IN        CNAME                billups
 kopia-billups       IN        CNAME                billups
 open-webui          IN        CNAME                billups
 traefik-billups     IN        CNAME                billups
+whisper-asr         IN        CNAME                billups
 
 adguard01           IN        CNAME                freeman
 adguard20           IN        CNAME                freeman
