@@ -47,15 +47,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: ffmpeg-webhook .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: ffmpeg-webhook.bob.house
-      query-type: A
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: freshrss .20
     group: dns .20
     url: 192.168.20.60

@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026020700 ; Serial
+                                       2026020902 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -51,7 +51,6 @@ baget               IN        CNAME                ransom
 changedetection     IN        CNAME                ransom
 donetick            IN        CNAME                ransom
 drawio              IN        CNAME                ransom
-ffmpeg-webhook      IN        CNAME                ransom
 freshrss            IN        CNAME                ransom
 glances-ransom      IN        CNAME                ransom
 grafana             IN        CNAME                ransom
