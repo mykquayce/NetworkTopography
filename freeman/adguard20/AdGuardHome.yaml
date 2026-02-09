@@ -501,6 +501,9 @@ filtering:
     - domain: whatsupdocker.bob.house
       answer: ransom.lan
       enabled: true
+    - domain: whisper-asr.bob.house
+      answer: tana.lan
+      enabled: true
     - domain: windows-tana.bob.house
       answer: tana.lan
       enabled: true

@@ -408,6 +408,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: whisper-asr
+    group: healthchecks
+    url: https://whisper-asr.bob.house/docs
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: windows TANA
     group: healthchecks
     url: https://windows-tana.bob.house

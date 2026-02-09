@@ -661,6 +661,28 @@ services:
       - /mnt/md1/pictures/:/media/pictures/:ro
       - /mnt/md1/youtube/:/media/youtube/:ro
 
+  whisper-asr:
+    image: onerahmet/openai-whisper-asr-webservice:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      ASR_DEVICE: cpu
+      ASR_ENGINE: openai_whisper # openai_whisper, faster_whisper, whisperx
+      ASR_MODEL: medium # tiny, base, small, medium, large-v1, large-v2, large-v3, large-v3-turbo
+      ASR_MODEL_PATH: /data/whisper
+    labels:
+      traefik.http.routers.whisper-asr-router.entrypoints: websecure
+      traefik.http.routers.whisper-asr-router.rule: Host(`whisper-asr.bob.house`)
+      traefik.http.routers.whisper-asr-router.tls: "true"
+      traefik.http.services.whisper-asr-service.loadbalancer.server.port: "9000"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - ~/.whisper-asr/:/root/.cache/:rw
+      - /mnt/md1/downloads/whisper-asr/:/data/whisper/:rw
+
   windows-tana:
     image: dockurr/windows:latest
     cap_add:

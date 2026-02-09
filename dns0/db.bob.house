@@ -100,4 +100,5 @@ sickgear            IN        CNAME                tana
 sonarr              IN        CNAME                tana
 traefik-tana        IN        CNAME                tana
 tunarr              IN        CNAME                tana
+whisper-asr         IN        CNAME                tana
 windows-tana        IN        CNAME                tana

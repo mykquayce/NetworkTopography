@@ -495,6 +495,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: whisper-asr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-whisper-asr-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: windows-tana
     group: containers
     url: http://tana.lan:2375/v1.52/containers/tana-windows-tana-1/json
