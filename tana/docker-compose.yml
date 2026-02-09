@@ -39,23 +39,6 @@ services:
     networks:
       traefik: null
 
-  ffmpeg-webhook:
-    build:
-      context: ./ffmpeg-webhook/
-      dockerfile: ./Dockerfile
-    depends_on:
-      traefik:
-        condition: service_healthy
-    labels:
-      traefik.http.routers.ffmpeg-webhook-router.entrypoints: websecure
-      traefik.http.routers.ffmpeg-webhook-router.rule: Host(`ffmpeg-webhook.bob.house`)
-      traefik.http.routers.ffmpeg-webhook-router.tls: "true"
-      traefik.http.services.ffmpeg-webhook-service.loadbalancer.server.port: "9000"
-    networks:
-      traefik: null
-    volumes:
-      - /mnt/md1/youtube/:/videos/:rw
-
   glances:
     image: nicolargo/glances:latest
     depends_on:
