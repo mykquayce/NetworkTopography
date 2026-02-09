@@ -421,6 +421,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: speakr
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-speakr-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: sshwifty
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-sshwifty-1/json

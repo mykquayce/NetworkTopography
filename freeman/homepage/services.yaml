@@ -681,6 +681,11 @@
           url: https://sonarr.bob.house
           key: {{HOMEPAGE_VAR_SONARR_KEY}}
           enableQueue: true
+    - Speakr: &speakr
+        description: Self-hosted web application for transcribing audio recordings
+        href: https://speakr.bob.house
+        icon: /icons/speakr.png
+        siteMonitor: https://speakr.bob.house/login?next=%2F
     - Speedtest: &speedtest
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/

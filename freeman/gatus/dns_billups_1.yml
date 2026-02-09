@@ -32,6 +32,16 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: speakr .1
+    group: dns .1
+    enabled: false
+    url: 192.168.1.50
+    dns:
+      query-name: speakr.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: traefik-billups .1
     group: dns .1
     enabled: false
