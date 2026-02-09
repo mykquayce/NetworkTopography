@@ -593,6 +593,63 @@ services:
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
 
+  speakr:
+    image: learnedmachine/speakr:latest
+    depends_on:
+      ollama:
+        condition: service_started
+      traefik:
+        condition: service_healthy
+      whisper-asr:
+        condition: service_started
+    env_file:
+      - ~/Configurations/speakr.env
+    environment:
+      ADMIN_USERNAME: admin
+      ADMIN_EMAIL: jenegol581@codgal.com
+      ALLOW_REGISTRATION: "false"
+      ASR_BASE_URL: http://whisper-asr:9000
+      ASR_DIARIZE: "true"
+      ASR_RETURN_SPEAKER_EMBEDDINGS: "true"
+      AUDIO_COMPRESS_UPLOADS: "true"
+      AUDIO_CODEC: mp3
+      AUDIO_BITRATE: 128k
+      CHAT_MAX_TOKENS: "5000"
+      CHUNK_LIMIT: 20MB
+      CHUNK_OVERLAP_SECONDS: "3"
+      ENABLE_INQUIRE_MODE: "false"
+      ENABLE_AUTO_PROCESSING: "false"
+      ENABLE_AUTO_EXPORT: "false"
+      ENABLE_AUTO_DELETION: "false"
+      ENABLE_INTERNAL_SHARING: "false"
+      ENABLE_PUBLIC_SHARING: "true"
+      GPT5_REASONING_EFFORT: medium
+      GPT5_VERBOSITY: medium
+      JOB_MAX_RETRIES: "3"
+      JOB_QUEUE_WORKERS: "2"
+      LOG_LEVEL: ERROR
+      SQLALCHEMY_DATABASE_URI: sqlite:////data/instance/transcriptions.db
+      SUMMARY_QUEUE_WORKERS: "2"
+      SUMMARY_MAX_TOKENS: "8000"
+      TEXT_MODEL_BASE_URL: http://open-webui:8080/api
+      TEXT_MODEL_NAME: llama3-chatqa:8b
+      TIMEZONE: "Etc/UTC"
+      TRANSCRIPTION_BASE_URL: http://open-webui:8080/api
+      TRANSCRIPTION_MODEL: llama3-chatqa:8b
+      UPLOAD_FOLDER: /data/uploads
+      USERS_CAN_DELETE: "true"
+    labels:
+      traefik.http.routers.speakr-router.entrypoints: websecure
+      traefik.http.routers.speakr-router.rule: Host(`speakr.bob.house`)
+      traefik.http.routers.speakr-router.tls: "true"
+      traefik.http.services.speakr-service.loadbalancer.server.port: "8899"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - /mnt/md1/downloads/speakr/uploads/:/data/uploads/:rw
+      - /mnt/md1/downloads/speakr/instance/:/data/instance/:rw
+
   traefik:
     image: traefik:latest
     command:

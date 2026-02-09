@@ -348,6 +348,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: speakr
+    group: healthchecks
+    url: https://speakr.bob.house/login?next=%2F
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: speedtest
     group: healthchecks
     url: https://speedtest.bob.house/api/healthcheck

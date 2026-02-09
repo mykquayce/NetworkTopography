@@ -468,6 +468,9 @@ filtering:
     - domain: sonarr.bob.house
       answer: tana.lan
       enabled: true
+    - domain: speakr.bob.house
+      answer: tana.lan
+      enabled: true
     - domain: speedtest.bob.house
       answer: ransom.lan
       enabled: true

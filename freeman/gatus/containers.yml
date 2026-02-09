@@ -429,6 +429,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: speakr
+    group: containers
+    url: http://tana.lan:2375/v1.52/containers/tana-speakr-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: sshwifty
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-sshwifty-1/json

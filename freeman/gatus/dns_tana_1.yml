@@ -200,6 +200,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: speakr .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: speakr.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: traefik-tana .1
     group: dns .1
     url: 192.168.1.50
