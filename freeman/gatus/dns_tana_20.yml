@@ -119,6 +119,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: open-webui .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: open-webui.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: pinchflat .20
     group: dns .20
     url: 192.168.20.60

@@ -381,6 +381,38 @@ services:
       - ~/.nodered/:/data/:rw
       - /mnt/md1/youtube/:/youtube/:rw
 
+  ollama:
+    image: ollama/ollama:latest
+    labels:
+      traefik.enable: "false"
+    networks:
+      ollama: null
+    volumes:
+      - /mnt/md1/downloads/ollama/:/root/.ollama/:rw
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    depends_on:
+      ollama:
+        condition: service_started
+      traefik:
+        condition: service_healthy
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    env_file:
+      - ~/Configurations/open-webui.env
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.open-webui-router.entrypoints: websecure
+      traefik.http.routers.open-webui-router.rule: Host(`open-webui.bob.house`)
+      traefik.http.routers.open-webui-router.tls: "true"
+      traefik.http.services.open-webui-service.loadbalancer.server.port: "8080"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - /mnt/md1/downloads/open-webui/:/app/backend/data/:rw
+
   pinchflat:
     image: ghcr.io/kieraneglin/pinchflat:latest
     depends_on:
@@ -671,8 +703,13 @@ networks:
     name: tana_default
   immich:
     name: tana_immich
+    internal: "true"
+  ollama:
+    name: tana_ollama
+    internal: "true"
   traefik:
     name: tana_traefik
+    internal: "true"
 
 volumes:
   certificates-volume:

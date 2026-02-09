@@ -62,7 +62,6 @@ moodist             IN        CNAME                ransom
 n8n                 IN        CNAME                ransom
 ntfy                IN        CNAME                ransom
 nuget               IN        CNAME                ransom
-open-webui          IN        CNAME                ransom
 paperless-ngx       IN        CNAME                ransom
 planka              IN        CNAME                ransom
 registry            IN        CNAME                ransom
@@ -90,6 +89,7 @@ mediamtx            IN        CNAME                tana
 metube              IN        CNAME                tana
 navidrome           IN        CNAME                tana
 nodered             IN        CNAME                tana
+open-webui          IN        CNAME                tana
 pinchflat           IN        CNAME                tana
 prowlarr            IN        CNAME                tana
 qbittorrent         IN        CNAME                tana

@@ -427,7 +427,7 @@ filtering:
       answer: ransom.lan
       enabled: true
     - domain: open-webui.bob.house
-      answer: ransom.lan
+      answer: tana.lan
       enabled: true
     - domain: paperless-ngx.bob.house
       answer: ransom.lan
