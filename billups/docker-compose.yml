@@ -1,0 +1,104 @@
+services:
+  glances:
+    image: nicolargo/glances:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      GLANCES_OPT: -w
+    labels:
+      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.rule: Host(`glances-billups.bob.house`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    networks:
+      traefik: null
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
+  kopia:
+    image: kopia/kopia:latest
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=a72691ffb1328c15
+      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/kopia.env
+    labels:
+      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.rule: Host(`kopia-billups.bob.house`)
+      traefik.http.routers.kopia-router.tls: "true"
+      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    networks:
+      traefik: null
+    volumes:
+      # Mount local folders needed by kopia
+      - ~/.kopia/config/:/app/config/:rw
+      - ~/.kopia/cache/:/app/cache/:rw
+      - ~/.kopia/logs/:/app/logs/:rw
+      # Mount local folders to snapshot
+      - ~/:/data/:ro
+      # Mount repository location
+      - /repository/:/repository/:rw
+
+  traefik:
+    image: traefik:latest
+    command:
+      # - --accesslog=true
+      - --api.insecure=true
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.websecure.address=:443
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --ping
+      - --providers.docker
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    env_file:
+      - ~/Configurations/traefik.env
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    labels:
+      traefik.docker.network: billups_traefik
+      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.rule: Host(`traefik-billups.bob.house`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
+    ports:
+      - 443:443/tcp
+    volumes:
+      - certificates-volume:/var/certs/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  default:
+  traefik:
+    internal: "true"
+
+volumes:
+  certificates-volume:

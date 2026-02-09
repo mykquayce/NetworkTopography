@@ -100,6 +100,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: glances BILLUPS
+    group: healthchecks
+    enabled: false
+    url: https://glances-billups.bob.house/api/4/status
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances FREEMAN
     group: healthchecks
     url: https://glances-freeman.bob.house/api/4/status
@@ -184,6 +191,15 @@ endpoints:
     group: healthchecks
     url: https://kiwix.bob.house
     conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia BILLUPS
+    group: healthchecks
+    enabled: false
+    url: https://kopia-billups.bob.house
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
     alerts: *alerts-definition
 
   - name: kopia FREEMAN
@@ -359,6 +375,13 @@ endpoints:
   - name: sshwifty
     group: healthchecks
     url: https://sshwifty.bob.house/sshwifty/socket/verify
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik BILLUPS
+    group: healthchecks
+    enabled: false
+    url: https://traefik-billups.bob.house/dashboard
     conditions: *conditions-definition
     alerts: *alerts-definition
 
