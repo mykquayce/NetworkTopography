@@ -19,6 +19,7 @@ scrape_configs:
       - targets: ['localhost:9090']
       - targets: ['192.168.1.50:9273']
       - targets: ['host.docker.internal:9273']
+      - targets: ['billups.lan:9273']
       - targets: ['ransom.lan:9273']
       - targets: ['shaxs.lan:9273']
       - targets: ['tana.lan:9273']
@@ -32,6 +33,7 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
+      - targets: ['traefik-billups.bob.house']
       - targets: ['traefik-ransom.bob.house']
       - targets: ['traefik-shaxs.bob.house']
       - targets: ['traefik-tana.bob.house']

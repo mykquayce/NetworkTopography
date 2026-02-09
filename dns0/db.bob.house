@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026021600 ; Serial
+                                       2026021100 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -19,12 +19,17 @@ $TTL 7200
 @                   IN        A                    192.168.1.40
 dns0                IN        A                    192.168.1.40
 badgey              IN        A                    192.168.1.50
+billups             IN        A                    192.168.1.75
 freeman             IN        A                    192.168.1.60
 ransom              IN        A                    192.168.1.65
 shaxs               IN        A                    192.168.1.55
 tana                IN        A                    192.168.1.70
 
 ; CNAME RECORDS
+
+glances-billups     IN        CNAME                billups
+kopia-billups       IN        CNAME                billups
+traefik-billups     IN        CNAME                billups
 
 adguard01           IN        CNAME                freeman
 adguard20           IN        CNAME                freeman

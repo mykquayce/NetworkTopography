@@ -117,6 +117,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: glances BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-glances-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances FREEMAN
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-glances-1/json
@@ -210,6 +217,13 @@ endpoints:
   - name: kiwix
     group: containers
     url: http://tana.lan:2375/v1.52/containers/tana-kiwix-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -414,6 +428,13 @@ endpoints:
   - name: speedtest-tracker
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-speedtest-tracker-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
