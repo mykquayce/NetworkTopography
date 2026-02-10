@@ -171,30 +171,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: immich
-    group: containers
-    url: http://tana.lan:2375/v1.52/containers/tana-immich-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: immich-database
-    group: containers
-    url: http://tana.lan:2375/v1.52/containers/tana-immich-database-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: immich-machine-learning
-    group: containers
-    url: http://tana.lan:2375/v1.52/containers/tana-immich-machine-learning-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: immich-redis
-    group: containers
-    url: http://tana.lan:2375/v1.52/containers/tana-immich-redis-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: it-tools
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-it-tools-1/json

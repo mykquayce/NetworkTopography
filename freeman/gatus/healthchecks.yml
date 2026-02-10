@@ -148,12 +148,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: immich
-    group: healthchecks
-    url: https://immich.bob.house
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: it-tools
     group: healthchecks
     url: https://it-tools.bob.house
