@@ -80,7 +80,6 @@ traefik-shaxs       IN        CNAME                shaxs
 audiobookshelf      IN        CNAME                tana
 feishin             IN        CNAME                tana
 glances-tana        IN        CNAME                tana
-immich              IN        CNAME                tana
 jellyfin            IN        CNAME                tana
 jellyseerr          IN        CNAME                tana
 kiwix               IN        CNAME                tana
