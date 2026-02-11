@@ -50,6 +50,38 @@ services:
       # Mount repository location
       - /repository/:/repository/:rw
 
+  ollama:
+    image: ollama/ollama:latest
+    labels:
+      traefik.enable: "false"
+    networks:
+      ollama: null
+    volumes:
+      - ~/.ollama/:/root/.ollama/:rw
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    depends_on:
+      ollama:
+        condition: service_started
+      traefik:
+        condition: service_healthy
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    env_file:
+      - ~/Configurations/open-webui.env
+    labels:
+      traefik.docker.network: billups_traefik
+      traefik.http.routers.open-webui-router.entrypoints: websecure
+      traefik.http.routers.open-webui-router.rule: Host(`open-webui.bob.house`)
+      traefik.http.routers.open-webui-router.tls: "true"
+      traefik.http.services.open-webui-service.loadbalancer.server.port: "8080"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - ~/.open-webui/:/app/backend/data/:rw
+
   traefik:
     image: traefik:latest
     command:
@@ -97,6 +129,8 @@ services:
 
 networks:
   default:
+  ollama:
+    internal: "true"
   traefik:
     internal: "true"
 

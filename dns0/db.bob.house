@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026021100 ; Serial
+                                       2026021101 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -29,6 +29,7 @@ tana                IN        A                    192.168.1.70
 
 glances-billups     IN        CNAME                billups
 kopia-billups       IN        CNAME                billups
+open-webui          IN        CNAME                billups
 traefik-billups     IN        CNAME                billups
 
 adguard01           IN        CNAME                freeman
@@ -67,7 +68,6 @@ moodist             IN        CNAME                ransom
 n8n                 IN        CNAME                ransom
 ntfy                IN        CNAME                ransom
 nuget               IN        CNAME                ransom
-open-webui          IN        CNAME                ransom
 paperless-ngx       IN        CNAME                ransom
 planka              IN        CNAME                ransom
 registry            IN        CNAME                ransom

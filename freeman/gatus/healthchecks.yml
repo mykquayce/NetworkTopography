@@ -290,6 +290,7 @@ endpoints:
 
   - name: open-webui
     group: healthchecks
+    enabled: false
     url: https://open-webui.bob.house
     conditions: *conditions-definition
     alerts: *alerts-definition
