@@ -124,6 +124,14 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: gluetun TANA
+    group: healthchecks
+    url: https://gluetun.bob.house/
+    conditions:
+      - "[RESPONSE_TIME] < 300"
+      - "[STATUS] == 401"
+    alerts: *alerts-definition
+
   - name: grafana
     group: healthchecks
     url: https://grafana.bob.house/login/generic_oauth?redirectTo=
