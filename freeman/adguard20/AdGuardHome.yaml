@@ -348,6 +348,9 @@ filtering:
     - domain: glances-tana.bob.house
       answer: tana.lan
       enabled: true
+    - domain: gluetun.bob.house
+      answer: tana.lan
+      enabled: true
     - domain: grafana.bob.house
       answer: ransom.lan
       enabled: true

@@ -29,6 +29,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: gluetun .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: gluetun.bob.house
+      query-type: A
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: jellyfin .20
     group: dns .20
     url: 192.168.20.60

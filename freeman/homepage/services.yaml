@@ -308,6 +308,15 @@
               - label: total containers
                 format:
                 query: docker_n_containers{host='tana'}
+    - Gluetun: &gluetun
+        description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
+        icon: gluetun.svg
+        siteMonitor: https://gluetun.bob.house/
+        widget:
+          type: gluetun
+          url: https://gluetun.bob.house/
+          key: {{HOMEPAGE_VAR_GLUETUN_KEY}}
+          version: 2
     - Grafana: &grafana
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -742,6 +751,7 @@
 - Media:
     - Audiobookshelf: *audiobookshelf
     - Feishin: *feishin
+    - Gluetun: *gluetun
     - Jellyfin: *jellyfin
     - Jellyseerr: *jellyseerr
     - Lidarr: *lidarr

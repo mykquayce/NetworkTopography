@@ -74,9 +74,15 @@ services:
       - ~/Configurations/gluetun.env
     labels:
       traefik.docker.network: tana_traefik
+      traefik.http.routers.gluetun-router.entrypoints: websecure
+      traefik.http.routers.gluetun-router.rule: Host(`gluetun.bob.house`)
+      traefik.http.routers.gluetun-router.tls: "true"
+      traefik.http.routers.gluetun-router.service: gluetun-service
+      traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"
       traefik.http.routers.qbittorrent-router.entrypoints: websecure
       traefik.http.routers.qbittorrent-router.rule: Host(`qbittorrent.bob.house`)
       traefik.http.routers.qbittorrent-router.tls: "true"
+      traefik.http.routers.qbittorrent-router.service: qbittorrent-service
       traefik.http.services.qbittorrent-service.loadbalancer.server.port: "8080"
     networks:
       default: null
@@ -344,6 +350,8 @@ services:
       TZ: Etc/UTC
       WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
+    labels:
+      traefik.enable: "false"
     network_mode: service:gluetun
     volumes:
       - ~/.qbittorrent/:/config/:rw
