@@ -479,9 +479,7 @@ services:
       planka: null
       traefik: null
     volumes:
-      - ~/.planka/user-avatars:/app/public/user-avatars:rw
-      - ~/.planka/project-background-images:/app/public/project-background-images:rw
-      - ~/.planka/attachments/:/app/private/attachments:rw
+      - ~/.planka/data:/app/data/:rw
 
   planka-db:
     image: postgres:16-alpine
