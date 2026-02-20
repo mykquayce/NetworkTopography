@@ -111,6 +111,7 @@ filters:
     id: 2
 whitelist_filters: []
 user_rules:
+  - '||adjust.com^'
   - '||bing.com^'
   - '||cloud.microsoft^'
   - '||duckduckgo.com^'
