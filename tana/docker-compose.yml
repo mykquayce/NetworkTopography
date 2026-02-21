@@ -489,6 +489,8 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.websecure.address=:443
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
       - --metrics.prometheus=true
@@ -502,6 +504,7 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
@@ -587,6 +590,7 @@ services:
 networks:
   default:
     name: tana_default
+    internal: "true"
   traefik:
     name: tana_traefik
 

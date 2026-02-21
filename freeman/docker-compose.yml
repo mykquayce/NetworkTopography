@@ -254,7 +254,6 @@ services:
     environment:
       GLANCES_OPT: -w
     labels:
-      dev.dozzle.group: glances
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-freeman.bob.house`)
       traefik.http.routers.glances-router.tls: "true"
@@ -331,7 +330,6 @@ services:
     env_file:
       - ~/Configurations/kopia.env
     labels:
-      dev.dozzle.group: kopia
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: Host(`kopia-freeman.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
@@ -354,7 +352,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dev.dozzle.group: portainer
       traefik.docker.network: freeman_traefik
       traefik.http.routers.portainer-router.entrypoints: websecure
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
@@ -419,6 +416,8 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.websecure.address=:443
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
       - --metrics.prometheus=true
@@ -436,7 +435,7 @@ services:
       timeout: 10s
       retries: 5
     labels:
-      dev.dozzle.group: traefik
+      traefik.docker.network: freeman_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
@@ -472,6 +471,7 @@ networks:
         - subnet: 172.22.0.0/16
   gatus:
     name: freeman_gatus
+    internal: "true"
     ipam:
       driver: default
       config:
