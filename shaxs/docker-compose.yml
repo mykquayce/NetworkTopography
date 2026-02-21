@@ -9,7 +9,7 @@ services:
     env_file:
       - ~/Configurations/frigate.env
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: shaxs_traefik
       traefik.http.routers.frigate-router.entrypoints: websecure
       traefik.http.routers.frigate-router.rule: Host(`frigate.bob.house`)
       traefik.http.routers.frigate-router.tls: "true"
@@ -88,6 +88,8 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.websecure.address=:443
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
       - --metrics.prometheus=true
@@ -105,6 +107,7 @@ services:
       timeout: 10s
       retries: 5
     labels:
+      traefik.docker.network: shaxs_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)
       traefik.http.routers.traefik-router.tls: "true"
@@ -124,7 +127,9 @@ services:
 
 networks:
   default:
+    name: shaxs_default
   traefik:
+    name: shaxs_traefik
     internal: "true"
 
 volumes:
