@@ -117,6 +117,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: glances BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-glances-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances FREEMAN
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-glances-1/json
@@ -213,6 +220,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: kopia BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-kopia-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: kopia FREEMAN
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-kopia-1/json
@@ -293,13 +307,15 @@ endpoints:
 
   - name: ollama
     group: containers
-    url: http://ransom.lan:2375/v1.52/containers/ransom-ollama-1/json
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-ollama-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: open-webui
     group: containers
-    url: http://ransom.lan:2375/v1.52/containers/ransom-open-webui-1/json
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-open-webui-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -405,6 +421,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: speakr
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-speakr-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: sshwifty
     group: containers
     url: http://freeman.lan:2375/v1.52/containers/freeman-sshwifty-1/json
@@ -414,6 +437,13 @@ endpoints:
   - name: speedtest-tracker
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-speedtest-tracker-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -468,6 +498,13 @@ endpoints:
   - name: whatsupdocker
     group: containers
     url: http://ransom.lan:2375/v1.52/containers/ransom-whatsupdocker-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: whisper-asr
+    group: containers
+    enabled: false
+    url: http://billups.lan:2375/v1.52/containers/billups-whisper-asr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

@@ -427,9 +427,6 @@ filtering:
     - domain: nuget.bob.house
       answer: ransom.lan
       enabled: true
-    - domain: open-webui.bob.house
-      answer: ransom.lan
-      enabled: true
     - domain: paperless-ngx.bob.house
       answer: ransom.lan
       enabled: true

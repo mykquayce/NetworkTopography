@@ -112,6 +112,55 @@
         href: https://glance.bob.house/
         icon: glance.png
         siteMonitor: https://glance.bob.house/
+    - Glances BILLUPS: &glancesbillups
+        href: https://glances-billups.bob.house/
+        icon: glances.png
+        siteMonitor: https://glances-billups.bob.house/api/4/status
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: user cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_user{host='billups'}[5m])
+              - label: system cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_system{host='billups'}[5m])
+              - label: free disk
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_free{host='billups',path='/'}
+              - label: disk used
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='billups',path='/'}
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='billups'}
+              - label: running containers
+                format:
+                query: docker_n_containers_running{host='billups'}
+              - label: total containers
+                format:
+                query: docker_n_containers{host='billups'}
     - Glances FREEMAN: &glancesfreeman
         href: https://glances-freeman.bob.house/
         icon: glances.png
@@ -417,6 +466,16 @@
         href: https://kiwix.bob.house/
         icon: kiwix-light.png
         siteMonitor: https://kiwix.bob.house/
+    - Kopia BILLUPS: &kopiabillups
+        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        href: https://kopia-billups.bob.house/
+        icon: kopia.svg
+        siteMonitor: https://kopia-billups.bob.house
+        widget:
+          type: kopia
+          url: https://kopia-billups.bob.house
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia FREEMAN: &kopiafreeman
         descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
         href: https://kopia-freeman.bob.house/
@@ -622,6 +681,11 @@
           url: https://sonarr.bob.house
           key: {{HOMEPAGE_VAR_SONARR_KEY}}
           enableQueue: true
+    - Speakr: &speakr
+        description: Self-hosted web application for transcribing audio recordings
+        href: https://speakr.bob.house
+        icon: /icons/speakr.png
+        siteMonitor: https://speakr.bob.house/login?next=%2F
     - Speedtest: &speedtest
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
@@ -636,6 +700,14 @@
         href: https://sshwifty.bob.house/
         icon: sshwifty.svg
         siteMonitor: https://sshwifty.bob.house/sshwifty/socket/verify
+    - Traefik BILLUPS: &traefikbillups
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-billups.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        siteMonitor: https://traefik-billups.bob.house/dashboard/
+        widget:
+          type: traefik
+          url: https://traefik-billups.bob.house
     - Traefik FREEMAN: &traefikfreeman
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
@@ -731,18 +803,21 @@
     - What's Up Docker: *whatsupdocker
 
 - Glances:
+    - Billups: *glancesbillups
     - Freeman: *glancesfreeman
     - Ransom: *glancesransom
     - Shaxs: *glancesshaxs
     - Tana: *glancestana
 
 - Kopia:
+    - Billups: *kopiabillups
     - Freeman: *kopiafreeman
     - Ransom: *kopiaransom
     - Shaxs: *kopiashaxs
     - Tana: *kopiatana
 
 - Traefik:
+    - Billups: *traefikbillups
     - Freeman: *traefikfreeman
     - Ransom: *traefikransom
     - Shaxs: *traefikshaxs
