@@ -1,0 +1,219 @@
+services:
+  glances:
+    image: nicolargo/glances:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      GLANCES_OPT: -w
+    labels:
+      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.rule: Host(`glances-billups.bob.house`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
+    networks:
+      traefik: null
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
+  kopia:
+    image: kopia/kopia:latest
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=a72691ffb1328c15
+      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/kopia.env
+    labels:
+      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.rule: Host(`kopia-billups.bob.house`)
+      traefik.http.routers.kopia-router.tls: "true"
+      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
+    networks:
+      traefik: null
+    volumes:
+      # Mount local folders needed by kopia
+      - ~/.kopia/config/:/app/config/:rw
+      - ~/.kopia/cache/:/app/cache/:rw
+      - ~/.kopia/logs/:/app/logs/:rw
+      # Mount local folders to snapshot
+      - ~/:/data/:ro
+      # Mount repository location
+      - /repository/:/repository/:rw
+
+  ollama:
+    image: ollama/ollama:latest
+    labels:
+      traefik.enable: "false"
+    networks:
+      ollama: null
+    volumes:
+      - ~/.ollama/:/root/.ollama/:rw
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    depends_on:
+      ollama:
+        condition: service_started
+      traefik:
+        condition: service_healthy
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    env_file:
+      - ~/Configurations/open-webui.env
+    labels:
+      traefik.docker.network: billups_traefik
+      traefik.http.routers.open-webui-router.entrypoints: websecure
+      traefik.http.routers.open-webui-router.rule: Host(`open-webui.bob.house`)
+      traefik.http.routers.open-webui-router.tls: "true"
+      traefik.http.services.open-webui-service.loadbalancer.server.port: "8080"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - ~/.open-webui/:/app/backend/data/:rw
+
+  speakr:
+    image: learnedmachine/speakr:latest
+    depends_on:
+      ollama:
+        condition: service_started
+      traefik:
+        condition: service_healthy
+      whisper-asr:
+        condition: service_started
+    env_file:
+      - ~/Configurations/speakr.env
+    environment:
+      ADMIN_USERNAME: admin
+      ADMIN_EMAIL: jenegol581@codgal.com
+      ALLOW_REGISTRATION: "false"
+      ASR_BASE_URL: http://whisper-asr:9000
+      ASR_DIARIZE: "true"
+      ASR_RETURN_SPEAKER_EMBEDDINGS: "true"
+      AUDIO_COMPRESS_UPLOADS: "true"
+      AUDIO_CODEC: mp3
+      AUDIO_BITRATE: 128k
+      CHAT_MAX_TOKENS: "5000"
+      CHUNK_LIMIT: 20MB
+      CHUNK_OVERLAP_SECONDS: "3"
+      ENABLE_INQUIRE_MODE: "false"
+      ENABLE_AUTO_PROCESSING: "false"
+      ENABLE_AUTO_EXPORT: "false"
+      ENABLE_AUTO_DELETION: "false"
+      ENABLE_INTERNAL_SHARING: "false"
+      ENABLE_PUBLIC_SHARING: "true"
+      GPT5_REASONING_EFFORT: medium
+      GPT5_VERBOSITY: medium
+      JOB_MAX_RETRIES: "3"
+      JOB_QUEUE_WORKERS: "2"
+      LOG_LEVEL: ERROR
+      SQLALCHEMY_DATABASE_URI: sqlite:////data/instance/transcriptions.db
+      SUMMARY_QUEUE_WORKERS: "2"
+      SUMMARY_MAX_TOKENS: "8000"
+      TEXT_MODEL_BASE_URL: http://open-webui:8080/api
+      TEXT_MODEL_NAME: llama3-chatqa:8b
+      TIMEZONE: "Etc/UTC"
+      TRANSCRIPTION_BASE_URL: http://open-webui:8080/api
+      TRANSCRIPTION_MODEL: llama3-chatqa:8b
+      UPLOAD_FOLDER: /data/uploads
+      USERS_CAN_DELETE: "true"
+    labels:
+      traefik.docker.network: billups_traefik
+      traefik.http.routers.speakr-router.entrypoints: websecure
+      traefik.http.routers.speakr-router.rule: Host(`speakr.bob.house`)
+      traefik.http.routers.speakr-router.tls: "true"
+      traefik.http.services.speakr-service.loadbalancer.server.port: "8899"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - ~/.speakr/uploads/:/data/uploads/:rw
+      - ~/.speakr/instance/:/data/instance/:rw
+
+  traefik:
+    image: traefik:latest
+    command:
+      # - --accesslog=true
+      - --api.insecure=true
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.websecure.address=:443
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --ping
+      - --providers.docker
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    env_file:
+      - ~/Configurations/traefik.env
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    labels:
+      traefik.docker.network: billups_traefik
+      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.rule: Host(`traefik-billups.bob.house`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
+    ports:
+      - 443:443/tcp
+    volumes:
+      - certificates-volume:/var/certs/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  whisper-asr:
+    image: onerahmet/openai-whisper-asr-webservice:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      ASR_DEVICE: cpu
+      ASR_ENGINE: openai_whisper # openai_whisper, faster_whisper, whisperx
+      ASR_MODEL: medium # tiny, base, small, medium, large-v1, large-v2, large-v3, large-v3-turbo
+      ASR_MODEL_PATH: /data/whisper
+    labels:
+      traefik.docker.network: billups_traefik
+      traefik.http.routers.whisper-asr-router.entrypoints: websecure
+      traefik.http.routers.whisper-asr-router.rule: Host(`whisper-asr.bob.house`)
+      traefik.http.routers.whisper-asr-router.tls: "true"
+      traefik.http.services.whisper-asr-service.loadbalancer.server.port: "9000"
+    networks:
+      ollama: null
+      traefik: null
+    volumes:
+      - ~/.whisper-asr/cache/:/root/.cache/:rw
+      - ~/.whisper-asr/data/:/data/whisper/:rw
+
+networks:
+  default:
+  ollama:
+    internal: "true"
+  traefik:
+    internal: "true"
+
+volumes:
+  certificates-volume:
