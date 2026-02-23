@@ -50,6 +50,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: docker registry ui
+    group: healthchecks
+    url: https://registry-ui.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: donetick
     group: healthchecks
     url: https://donetick.bob.house

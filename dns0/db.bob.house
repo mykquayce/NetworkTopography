@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026021201 ; Serial
+                                       2026022300 ; Serial
                                        7200       ; Refresh
                                        1800       ; Retry
                                        1209600    ; Expire
@@ -73,6 +73,7 @@ nuget               IN        CNAME                ransom
 paperless-ngx       IN        CNAME                ransom
 planka              IN        CNAME                ransom
 registry            IN        CNAME                ransom
+registry-ui         IN        CNAME                ransom
 speedtest           IN        CNAME                ransom
 traefik-ransom      IN        CNAME                ransom
 trilium             IN        CNAME                ransom

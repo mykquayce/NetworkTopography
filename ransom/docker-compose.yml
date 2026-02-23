@@ -473,17 +473,25 @@ services:
   registry:
     image: registry:latest
     environment:
-      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data/
+      OTEL_TRACES_EXPORTER: none
+      REGISTRY_LOG_LEVEL: info
+      REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
     env_file:
       - ~/Configurations/registry.env
     labels:
       dev.dozzle.group: registry
-      traefik.enable: "false"
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.registry-router.entrypoints: websecure
+      traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
+      traefik.http.routers.registry-router.tls: "true"
+      traefik.http.services.registry-service.loadbalancer.server.port: "5000"
     networks:
+      default: null
       registry: null
+      traefik: null
     volumes:
-      - ~/.registry/data/:/data/:rw
-      - ~/.registry/library/:/var/lib/registry/:rw
+      - ~/.registry/:/var/lib/registry/:rw
 
   registry-ui:
     image: joxit/docker-registry-ui:main
@@ -507,10 +515,10 @@ services:
     labels:
       dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.registry-router.entrypoints: websecure
-      traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
-      traefik.http.routers.registry-router.tls: "true"
-      traefik.http.services.registry-service.loadbalancer.server.port: "80"
+      traefik.http.routers.registry-ui-router.entrypoints: websecure
+      traefik.http.routers.registry-ui-router.rule: Host(`registry-ui.bob.house`)
+      traefik.http.routers.registry-ui-router.tls: "true"
+      traefik.http.services.registry-ui-service.loadbalancer.server.port: "80"
     networks:
       registry: null
       traefik: null

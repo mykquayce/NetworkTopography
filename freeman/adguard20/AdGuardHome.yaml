@@ -454,6 +454,9 @@ filtering:
     - domain: registry.bob.house
       answer: ransom.lan
       enabled: true
+    - domain: registry-ui.bob.house
+      answer: ransom.lan
+      enabled: true
     - domain: sabnzbd.bob.house
       answer: tana.lan
       enabled: true

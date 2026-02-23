@@ -62,9 +62,9 @@
           key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
     - Docker Registry: &dockerregistry
         description: UI for your private docker registry
-        href: https://registry.bob.house/
+        href: https://registry-ui.bob.house/
         icon: docker-moby.svg
-        siteMonitor: https://registry.bob.house/
+        siteMonitor: https://registry-ui.bob.house/
     - Donetick: &donetick
         description: Simplify Tasks & Chores, Together
         href: https://donetick.bob.house/
