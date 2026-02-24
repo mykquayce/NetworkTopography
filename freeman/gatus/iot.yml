@@ -7,6 +7,24 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
+  - name: apollo air-1
+    group: iot
+    url: "icmp://192.168.20.112"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: apollo msr-2
+    group: iot
+    url: "icmp://192.168.20.104"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: apollo mtr-1
+    group: iot
+    url: "icmp://192.168.20.110"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: cctv camera DRIVEWAY
     group: iot
     url: "icmp://192.168.20.102"
@@ -37,6 +55,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: main light
+    group: iot
+    url: "icmp://192.168.20.107"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: powerstrip BEDROOM
     group: iot
     url: "icmp://192.168.20.106"
@@ -46,11 +70,5 @@ endpoints:
   - name: powerstrip LOUNGE
     group: iot
     url: "icmp://192.168.20.111"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: tapo hub
-    group: iot
-    url: "icmp://192.168.20.101"
     conditions: *conditions-definition
     alerts: *alerts-definition
