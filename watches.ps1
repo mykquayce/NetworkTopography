@@ -1,6 +1,6 @@
 $watches = `
 	#apps
-	'{"url":"https://docs.goauthentik.io/docker-compose.yml"}', `
+	'{"title":"https://github.com/goauthentik/authentik/blob/main/.github/actions/setup/compose.yml","url":"https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/.github/actions/setup/compose.yml"}', `
 	'{"title":"https://gethomepage.dev/widgets/","url":"https://github.com/gethomepage/homepage/commits/dev/docs/widgets.atom"}', `
 	'{"title":"https://github.com/karakeep-app/karakeep/blob/main/docker/docker-compose.yml","url":"https://raw.githubusercontent.com/karakeep-app/karakeep/refs/heads/main/docker/docker-compose.yml"}', `
 	'{"title":"https://github.com/paperless-ngx/paperless-ngx/blob/dev/docker/compose/docker-compose.postgres.yml","url":"https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/docker/compose/docker-compose.postgres.yml"}', `
