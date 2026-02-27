@@ -834,26 +834,27 @@
     - Sshwifty: *sshwifty
     - What's Up Docker: *whatsupdocker
 
-- Glances:
-    - Billups: *glancesbillups
-    - Freeman: *glancesfreeman
-    - Ransom: *glancesransom
-    - Shaxs: *glancesshaxs
-    - Tana: *glancestana
-
-- Kopia:
-    - Billups: *kopiabillups
-    - Freeman: *kopiafreeman
-    - Ransom: *kopiaransom
-    - Shaxs: *kopiashaxs
-    - Tana: *kopiatana
-
-- Traefik:
-    - Billups: *traefikbillups
-    - Freeman: *traefikfreeman
-    - Ransom: *traefikransom
-    - Shaxs: *traefikshaxs
-    - Tana: *traefiktana
+- Servers:
+    - Billups:
+          - Glances: *glancesbillups
+          - Kopia: *kopiabillups
+          - Traefik: *traefikbillups
+    - Freeman:
+          - Glances: *glancesfreeman
+          - Kopia: *kopiafreeman
+          - Traefik: *traefikfreeman
+    - Ransom:
+          - Glances: *glancesransom
+          - Kopia: *kopiaransom
+          - Traefik: *traefikransom
+    - Shaxs:
+          - Glances: *glancesshaxs
+          - Kopia: *kopiashaxs
+          - Traefik: *traefikshaxs
+    - Tana:
+          - Glances: *glancestana
+          - Kopia: *kopiatana
+          - Traefik: *traefiktana
 
 - Media:
     - Audiobookshelf: *audiobookshelf
