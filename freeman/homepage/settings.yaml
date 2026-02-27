@@ -15,6 +15,7 @@ headerStyle: boxed
 layout:
   Essentials:
     columns: 4
+    header: false
     style: row
     tab: Main
   Developer:
@@ -25,6 +26,7 @@ layout:
     tab: Main
   Services:
     columns: 4
+    header: false
     style: row
     tab: Monitoring
   Glances:
@@ -41,10 +43,12 @@ layout:
     tab: Monitoring
   Media:
     columns: 4
+    header: false
     style: row
     tab: Media
   All:
     columns: 4
+    header: false
     style: row
     tab: All
 
