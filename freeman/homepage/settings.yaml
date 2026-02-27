@@ -35,15 +35,7 @@ layout:
     columns: 4
     style: row
     tab: Monitoring
-  Portainer:
-    columns: 4
-    style: row
-    tab: Monitoring
   Traefik:
-    columns: 4
-    style: row
-    tab: Monitoring
-  Uptime Kuma:
     columns: 4
     style: row
     tab: Monitoring
