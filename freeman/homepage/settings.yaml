@@ -29,18 +29,31 @@ layout:
     header: false
     style: row
     tab: Monitoring
-  Glances:
-    columns: 4
+  Servers:
+    columns: 5
+    header: false
     style: row
     tab: Monitoring
-  Kopia:
-    columns: 4
-    style: row
-    tab: Monitoring
-  Traefik:
-    columns: 4
-    style: row
-    tab: Monitoring
+    Billups:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Freeman:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Ransom:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Shaxs:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Tana:
+      rows: 3
+      style: column
+      tab: Monitoring
   Media:
     columns: 4
     header: false
