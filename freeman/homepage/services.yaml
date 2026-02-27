@@ -156,10 +156,8 @@
                   type: duration
                 query: system_uptime{host='billups'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='billups'}
               - label: total containers
-                format:
                 query: docker_n_containers{host='billups'}
     - Glances FREEMAN: &glancesfreeman
         href: https://glances-freeman.bob.house/
@@ -205,10 +203,8 @@
                   type: duration
                 query: system_uptime{host='freeman'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='freeman'}
               - label: total containers
-                format:
                 query: docker_n_containers{host='freeman'}
     - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
@@ -254,10 +250,8 @@
                   type: duration
                 query: system_uptime{host='ransom'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='ransom'}
               - label: total containers
-                format:
                 query: docker_n_containers{host='ransom'}
     - Glances SHAXS: &glancesshaxs
         href: https://glances-shaxs.bob.house/
@@ -303,10 +297,8 @@
                   type: duration
                 query: system_uptime{host='shaxs'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='shaxs'}
               - label: total containers
-                format:
                 query: docker_n_containers{host='shaxs'}
     - Glances TANA: &glancestana
         href: https://glances-tana.bob.house/
@@ -352,10 +344,8 @@
                   type: duration
                 query: system_uptime{host='tana'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='tana'}
               - label: total containers
-                format:
                 query: docker_n_containers{host='tana'}
     - Gluetun: &gluetun
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
