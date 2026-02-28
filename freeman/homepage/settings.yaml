@@ -15,6 +15,7 @@ headerStyle: boxed
 layout:
   Essentials:
     columns: 4
+    header: false
     style: row
     tab: Main
   Developer:
@@ -25,34 +26,42 @@ layout:
     tab: Main
   Services:
     columns: 4
+    header: false
     style: row
     tab: Monitoring
-  Glances:
-    columns: 4
+  Servers:
+    columns: 5
+    header: false
     style: row
     tab: Monitoring
-  Kopia:
-    columns: 4
-    style: row
-    tab: Monitoring
-  Portainer:
-    columns: 4
-    style: row
-    tab: Monitoring
-  Traefik:
-    columns: 4
-    style: row
-    tab: Monitoring
-  Uptime Kuma:
-    columns: 4
-    style: row
-    tab: Monitoring
+    Billups:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Freeman:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Ransom:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Shaxs:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Tana:
+      rows: 3
+      style: column
+      tab: Monitoring
   Media:
     columns: 4
+    header: false
     style: row
     tab: Media
   All:
     columns: 4
+    header: false
     style: row
     tab: All
 

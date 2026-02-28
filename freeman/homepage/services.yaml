@@ -121,6 +121,10 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='billups'}
               - label: user cpu
                 format:
                   type: percent
@@ -135,6 +139,10 @@
                     maximumFractionDigits: 1
                   scale: 100
                 query: rate(cpu_usage_system{host='billups'}[5m])
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
               - label: free disk
                 format:
                   type: bytes
@@ -151,16 +159,12 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
-              - label: uptime
-                format:
-                  type: duration
-                query: system_uptime{host='billups'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='billups'}
-              - label: total containers
-                format:
-                query: docker_n_containers{host='billups'}
+              - label: paused containers
+                query: docker_n_containers_paused{host='billups'}
+              - label: stopped containers
+                query: docker_n_containers_stopped{host='billups'}
     - Glances FREEMAN: &glancesfreeman
         href: https://glances-freeman.bob.house/
         icon: glances.png
@@ -170,6 +174,10 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='freeman'}
               - label: user cpu
                 format:
                   type: percent
@@ -184,6 +192,10 @@
                     maximumFractionDigits: 1
                   scale: 100
                 query: rate(cpu_usage_system{host='freeman'}[5m])
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
               - label: free disk
                 format:
                   type: bytes
@@ -200,16 +212,12 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
-              - label: uptime
-                format:
-                  type: duration
-                query: system_uptime{host='freeman'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='freeman'}
-              - label: total containers
-                format:
-                query: docker_n_containers{host='freeman'}
+              - label: paused containers
+                query: docker_n_containers_paused{host='freeman'}
+              - label: stopped containers
+                query: docker_n_containers_stopped{host='freeman'}
     - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
         icon: glances.png
@@ -219,6 +227,10 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='ransom'}
               - label: user cpu
                 format:
                   type: percent
@@ -233,6 +245,10 @@
                     maximumFractionDigits: 1
                   scale: 100
                 query: rate(cpu_usage_system{host='ransom'}[5m])
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
               - label: free disk
                 format:
                   type: bytes
@@ -249,16 +265,12 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
-              - label: uptime
-                format:
-                  type: duration
-                query: system_uptime{host='ransom'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='ransom'}
-              - label: total containers
-                format:
-                query: docker_n_containers{host='ransom'}
+              - label: paused containers
+                query: docker_n_containers_paused{host='ransom'}
+              - label: stopped containers
+                query: docker_n_containers_stopped{host='ransom'}
     - Glances SHAXS: &glancesshaxs
         href: https://glances-shaxs.bob.house/
         icon: glances.png
@@ -268,6 +280,10 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='shaxs'}
               - label: user cpu
                 format:
                   type: percent
@@ -282,6 +298,10 @@
                     maximumFractionDigits: 1
                   scale: 100
                 query: rate(cpu_usage_system{host='shaxs'}[5m])
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
               - label: free disk
                 format:
                   type: bytes
@@ -298,16 +318,12 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
-              - label: uptime
-                format:
-                  type: duration
-                query: system_uptime{host='shaxs'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='shaxs'}
-              - label: total containers
-                format:
-                query: docker_n_containers{host='shaxs'}
+              - label: paused containers
+                query: docker_n_containers_paused{host='shaxs'}
+              - label: stopped containers
+                query: docker_n_containers_stopped{host='shaxs'}
     - Glances TANA: &glancestana
         href: https://glances-tana.bob.house/
         icon: glances.png
@@ -317,6 +333,10 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='tana'}
               - label: user cpu
                 format:
                   type: percent
@@ -331,6 +351,10 @@
                     maximumFractionDigits: 1
                   scale: 100
                 query: rate(cpu_usage_system{host='tana'}[5m])
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
               - label: md0
                 format:
                   type: percent
@@ -347,16 +371,12 @@
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
             metrics:
-              - label: uptime
-                format:
-                  type: duration
-                query: system_uptime{host='tana'}
               - label: running containers
-                format:
                 query: docker_n_containers_running{host='tana'}
-              - label: total containers
-                format:
-                query: docker_n_containers{host='tana'}
+              - label: paused containers
+                query: docker_n_containers_paused{host='tana'}
+              - label: stopped containers
+                query: docker_n_containers_stopped{host='tana'}
     - Gluetun: &gluetun
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
@@ -814,26 +834,27 @@
     - Sshwifty: *sshwifty
     - What's Up Docker: *whatsupdocker
 
-- Glances:
-    - Billups: *glancesbillups
-    - Freeman: *glancesfreeman
-    - Ransom: *glancesransom
-    - Shaxs: *glancesshaxs
-    - Tana: *glancestana
-
-- Kopia:
-    - Billups: *kopiabillups
-    - Freeman: *kopiafreeman
-    - Ransom: *kopiaransom
-    - Shaxs: *kopiashaxs
-    - Tana: *kopiatana
-
-- Traefik:
-    - Billups: *traefikbillups
-    - Freeman: *traefikfreeman
-    - Ransom: *traefikransom
-    - Shaxs: *traefikshaxs
-    - Tana: *traefiktana
+- Servers:
+    - Billups:
+          - Glances: *glancesbillups
+          - Kopia: *kopiabillups
+          - Traefik: *traefikbillups
+    - Freeman:
+          - Glances: *glancesfreeman
+          - Kopia: *kopiafreeman
+          - Traefik: *traefikfreeman
+    - Ransom:
+          - Glances: *glancesransom
+          - Kopia: *kopiaransom
+          - Traefik: *traefikransom
+    - Shaxs:
+          - Glances: *glancesshaxs
+          - Kopia: *kopiashaxs
+          - Traefik: *traefikshaxs
+    - Tana:
+          - Glances: *glancestana
+          - Kopia: *kopiatana
+          - Traefik: *traefiktana
 
 - Media:
     - Audiobookshelf: *audiobookshelf
