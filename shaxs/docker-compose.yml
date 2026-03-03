@@ -17,7 +17,7 @@ services:
     networks:
       default: null
       traefik: null
-    shm_size: "128mb"
+    shm_size: 192mb
     volumes:
       - ./frigate.yaml:/config/config.yaml:rw
       - ~/.frigate/config/:/config/:rw
@@ -25,7 +25,7 @@ services:
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
-          size: 1000000000
+          size: 1gb
 
   glances:
     image: nicolargo/glances:latest
