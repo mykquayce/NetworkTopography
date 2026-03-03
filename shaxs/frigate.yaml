@@ -41,15 +41,16 @@ review:
 
 record:
   enabled: true
-  retain:
-    days: 7
-    mode: all
   alerts:
     retain:
-      days: 30
+      days: 14
   detections:
     retain:
-      days: 30
+      days: 14
+  continuous:
+    days: 3
+  motion:
+    days: 7
 snapshots:
   enabled: true
   required_zones:
@@ -113,4 +114,4 @@ camera_groups:
     icon: LuCar
     order: 0
 
-version: 0.16-0
+version: 0.17-0
