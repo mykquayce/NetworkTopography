@@ -18,6 +18,30 @@
   ],
   "Presets": [
     {
+      "Title": "billups",
+      "Type": "SSH",
+      "Host": "billups:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:////run/secrets/id_rsa",
+        "Fingerprint": "SHA256:tsGc+fTxa461mybyHPyk09U/E81dUp5npnIHMTOk/Ws",
+        "Encoding": "utf-8"
+      }
+    },
+    {
+      "Title": "dns0",
+      "Type": "SSH",
+      "Host": "dns0:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "pi",
+        "Private Key": "file:////run/secrets/id_rsa",
+        "Fingerprint": "SHA256:hRx6p97qbTzYXQVXnnZbkBzjL+B+DG049WSQaBHDcIU",
+        "Encoding": "utf-8"
+      }
+    },
+    {
       "Title": "freeman",
       "Type": "SSH",
       "Host": "freeman.lan:22",
