@@ -3,21 +3,20 @@ $TTL 7200
 
 ; SOA
 
-@       IN      SOA    dns0.bob.house. hostmaster.bob.house. (
-                                       2026022300 ; Serial
-                                       7200       ; Refresh
-                                       1800       ; Retry
-                                       1209600    ; Expire
-                                       86400 )    ; Minimum
+@       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
+                                         2026031502 ; Serial
+                                         7200       ; Refresh
+                                         1800       ; Retry
+                                         1209600    ; Expire
+                                         86400 )    ; Minimum
 
 ; NAMESERVERS
 
-@                   IN        NS                   dns0.bob.house.
+@                   IN        NS                   ransom.bob.house.
 
 ; A RECORDS
 
-@                   IN        A                    192.168.1.40
-dns0                IN        A                    192.168.1.40
+@                   IN        A                    192.168.1.65
 badgey              IN        A                    192.168.1.50
 billups             IN        A                    192.168.1.75
 freeman             IN        A                    192.168.1.60
@@ -38,6 +37,7 @@ adguard01           IN        CNAME                freeman
 adguard20           IN        CNAME                freeman
 authentik           IN        CNAME                freeman
 baikal              IN        CNAME                freeman
+dagu                IN        CNAME                freeman
 dozzle              IN        CNAME                freeman
 gatus               IN        CNAME                freeman
 glance              IN        CNAME                freeman

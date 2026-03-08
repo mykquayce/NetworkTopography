@@ -20,7 +20,7 @@
     {
       "Title": "billups",
       "Type": "SSH",
-      "Host": "billups:22",
+      "Host": "billups.bob.house:22",
       "Meta": {
         "Authentication": "Private Key",
         "User": "root",
@@ -30,21 +30,9 @@
       }
     },
     {
-      "Title": "dns0",
-      "Type": "SSH",
-      "Host": "dns0:22",
-      "Meta": {
-        "Authentication": "Private Key",
-        "User": "pi",
-        "Private Key": "file:////run/secrets/id_rsa",
-        "Fingerprint": "SHA256:hRx6p97qbTzYXQVXnnZbkBzjL+B+DG049WSQaBHDcIU",
-        "Encoding": "utf-8"
-      }
-    },
-    {
       "Title": "freeman",
       "Type": "SSH",
-      "Host": "freeman.lan:22",
+      "Host": "freeman.bob.house:22",
       "Meta": {
         "Authentication": "Private Key",
         "User": "root",
@@ -56,7 +44,7 @@
     {
       "Title": "ransom",
       "Type": "SSH",
-      "Host": "ransom.lan:22",
+      "Host": "ransom.bob.house:22",
       "Meta": {
         "Authentication": "Private Key",
         "User": "root",
@@ -68,7 +56,7 @@
     {
       "Title": "shaxs",
       "Type": "SSH",
-      "Host": "shaxs.lan:22",
+      "Host": "shaxs.bob.house:22",
       "Meta": {
         "Authentication": "Private Key",
         "User": "root",
@@ -80,7 +68,7 @@
     {
       "Title": "tana",
       "Type": "SSH",
-      "Host": "tana.lan:22",
+      "Host": "tana.bob.house:22",
       "Meta": {
         "Authentication": "Private Key",
         "User": "root",

@@ -147,7 +147,7 @@ user_rules:
 dhcp:
   enabled: false
   interface_name: ""
-  local_domain_name: lan
+  local_domain_name: bob.house
   dhcpv4:
     gateway_ip: ""
     subnet_mask: ""

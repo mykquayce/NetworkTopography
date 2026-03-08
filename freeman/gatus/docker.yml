@@ -1,7 +1,7 @@
 endpoints:
   - name: freeman
     group: docker
-    url: http://freeman.lan:2375/v1.52/_ping
+    url: http://freeman.bob.house:2375/v1.52/_ping
     conditions: &conditions-definition
       - "[BODY] == OK"
       - "[RESPONSE_TIME] < 50"
@@ -11,18 +11,18 @@ endpoints:
 
   - name: ransom
     group: docker
-    url: http://ransom.lan:2375/v1.52/_ping
+    url: http://ransom.bob.house:2375/v1.52/_ping
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: shaxs
     group: docker
-    url: http://shaxs.lan:2375/v1.52/_ping
+    url: http://shaxs.bob.house:2375/v1.52/_ping
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: tana
     group: docker
-    url: http://tana.lan:2375/v1.52/_ping
+    url: http://tana.bob.house:2375/v1.52/_ping
     conditions: *conditions-definition
     alerts: *alerts-definition
