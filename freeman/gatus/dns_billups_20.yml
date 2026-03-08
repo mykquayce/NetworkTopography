@@ -1,0 +1,63 @@
+endpoints:
+  - name: glances-billups .20
+    group: dns .20
+    enabled: false
+    url: 192.168.20.60
+    dns:
+      query-name: glances-billups.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == billups.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: kopia-billups .20
+    group: dns .20
+    enabled: false
+    url: 192.168.20.60
+    dns:
+      query-name: kopia-billups.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: open-webui .20
+    group: dns .20
+    enabled: false
+    url: 192.168.20.60
+    dns:
+      query-name: open-webui.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: speakr .20
+    group: dns .20
+    enabled: false
+    url: 192.168.20.60
+    dns:
+      query-name: speakr.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik-billups .20
+    group: dns .20
+    enabled: false
+    url: 192.168.20.60
+    dns:
+      query-name: traefik-billups.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: whisper-asr .20
+    group: dns .20
+    enabled: false
+    url: 192.168.20.60
+    dns:
+      query-name: whisper-asr.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition

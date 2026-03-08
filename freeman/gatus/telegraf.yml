@@ -17,7 +17,7 @@ endpoints:
 
   - name: freeman
     group: telegraf
-    url: http://freeman.lan:9273/metrics
+    url: http://freeman.bob.house:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -29,7 +29,7 @@ endpoints:
 
   - name: ransom
     group: telegraf
-    url: http://ransom.lan:9273/metrics
+    url: http://ransom.bob.house:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -41,7 +41,7 @@ endpoints:
 
   - name: shaxs
     group: telegraf
-    url: http://shaxs.lan:9273/metrics
+    url: http://shaxs.bob.house:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -53,7 +53,7 @@ endpoints:
 
   - name: tana
     group: telegraf
-    url: http://tana.lan:9273/metrics
+    url: http://tana.bob.house:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 

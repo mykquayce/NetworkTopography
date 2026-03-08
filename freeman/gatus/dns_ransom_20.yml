@@ -4,9 +4,9 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: apprise.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == 192.168.20.65"
+      - "[BODY] == ransom.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
@@ -16,7 +16,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: baget.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -25,7 +25,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: changedetection.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -34,7 +34,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: donetick.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -43,7 +43,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: drawio.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -52,7 +52,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: freshrss.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -61,7 +61,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: glances-ransom.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -70,7 +70,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: grafana.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -79,7 +79,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: httpbin.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -88,7 +88,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: it-tools.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -97,7 +97,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: karakeep.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -106,7 +106,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: kopia-ransom.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -115,7 +115,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: moodist.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -124,7 +124,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: n8n.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -133,7 +133,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: ntfy.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -142,7 +142,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: nuget.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -151,7 +151,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: paperless-ngx.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -160,7 +160,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: planka.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -169,7 +169,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: registry.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -178,7 +178,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: registry-ui.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -187,7 +187,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: speedtest.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -196,7 +196,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: traefik-ransom.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -205,7 +205,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: trilium.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -214,7 +214,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: vikunja.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -223,6 +223,6 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: whatsupdocker.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
