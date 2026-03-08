@@ -44,6 +44,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: dagu
+    group: healthchecks
+    url: https://dagu.bob.house
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: docker registry
     group: healthchecks
     url: https://registry.bob.house

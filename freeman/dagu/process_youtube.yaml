@@ -1,0 +1,13 @@
+schedule: CRON_TZ=Etc/UTC */10 * * * *
+
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+
+steps:
+  - name: process 'n speedup youtube downloads
+    command: /root/NetworkTopography/process-speedup-youtube-downloads.sh
+  - name: process youtube downloads
+    command: /root/NetworkTopography/process-youtube-downloads.sh
