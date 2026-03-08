@@ -18,12 +18,6 @@ http:
       rule: "Host(`main-switch.bob.house`)"
       service: "main-switch-service"
       tls: "true"
-    netalertx-router:
-      entryPoints:
-        - "websecure"
-      rule: "Host(`netalertx.bob.house`)"
-      service: "netalertx-service"
-      tls: "true"
   services:
     iot-switch-service:
       loadBalancer:
@@ -37,7 +31,3 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.5"
-    netalertx-service:
-      loadBalancer:
-        servers:
-        - url: "http://freeman.lan:20211/"

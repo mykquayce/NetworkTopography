@@ -299,6 +299,44 @@ services:
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
 
+  nsd01:
+    build:
+      dockerfile_inline: |
+        FROM alpine:latest
+        RUN apk add --no-cache --update nsd
+        CMD ["sh", "-c", "nsd; sleep infinity"]
+    healthcheck:
+      test: ["CMD-SHELL", "nslookup -type=CNAME homepage.bob.house 127.0.0.1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    ports:
+      - 192.168.1.65:53:53/tcp
+      - 192.168.1.65:53:53/udp
+    volumes:
+      - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
+      - ./nsd/db.bob.house.1:/zones/db.bob.house:ro
+
+  nsd20:
+    build:
+      dockerfile_inline: |
+        FROM alpine:latest
+        RUN apk add --no-cache --update nsd
+        CMD ["sh", "-c", "nsd; sleep infinity"]
+    healthcheck:
+      test: ["CMD-SHELL", "nslookup -type=CNAME homepage.bob.house 127.0.0.1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    ports:
+      - 192.168.20.65:53:53/tcp
+      - 192.168.20.65:53:53/udp
+    volumes:
+      - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
+      - ./nsd/db.bob.house.20:/zones/db.bob.house:ro
+
   ntfy:
     image: binwiederhier/ntfy:latest
     command:
@@ -665,10 +703,10 @@ services:
     environment:
       WUD_LOG_LEVEL: info # error info debug trace
       WUD_TRIGGER_NTFY_PRIVATE_URL: https://ntfy.bob.house
-      WUD_WATCHER_FREEMAN_HOST: freeman.lan
+      WUD_WATCHER_FREEMAN_HOST: freeman.bob.house
       WUD_WATCHER_RANSOM_SOCKET: /var/run/docker.sock
-      WUD_WATCHER_SHAXS_HOST: shaxs.lan
-      WUD_WATCHER_TANA_HOST: tana.lan
+      WUD_WATCHER_SHAXS_HOST: shaxs.bob.house
+      WUD_WATCHER_TANA_HOST: tana.bob.house
     healthcheck:
       test: curl --fail http://localhost:3000/health || exit 1
       interval: 10s

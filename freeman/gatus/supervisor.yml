@@ -1,7 +1,7 @@
 endpoints:
   - name: freeman
     group: supervisor
-    url: "http://freeman.lan:9000/hooks/health"
+    url: "http://freeman.bob.house:9000/hooks/health"
     client: &client-definition
       insecure: true
       ignore-redirect: false
@@ -14,21 +14,21 @@ endpoints:
 
   - name: ransom
     group: supervisor
-    url: "http://ransom.lan:9000/hooks/health"
+    url: "http://ransom.bob.house:9000/hooks/health"
     client: *client-definition
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: shaxs
     group: supervisor
-    url: "http://shaxs.lan:9000/hooks/health"
+    url: "http://shaxs.bob.house:9000/hooks/health"
     client: *client-definition
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: tana
     group: supervisor
-    url: "http://tana.lan:9000/hooks/health"
+    url: "http://tana.bob.house:9000/hooks/health"
     client: *client-definition
     conditions: *conditions-definition
     alerts: *alerts-definition

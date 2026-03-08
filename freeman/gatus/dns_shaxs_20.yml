@@ -4,9 +4,9 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: frigate.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: &conditions-definition
-      - "[BODY] == 192.168.20.55"
+      - "[BODY] == shaxs.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
@@ -16,7 +16,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: glances-shaxs.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -25,7 +25,7 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: kopia-shaxs.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -34,6 +34,6 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: traefik-shaxs.bob.house
-      query-type: A
+      query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
