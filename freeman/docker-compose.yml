@@ -155,6 +155,34 @@ services:
       - ~/.baikal/config/:/var/www/baikal/config/:rw
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
 
+  dagu:
+    image: ghcr.io/dagu-org/dagu:latest
+    entrypoint: []
+    environment:
+      DAGU_HOME: /var/lib/dagu
+      DAGU_DAGS_DIR: /opt/dagu/dags
+      DAGU_TZ: Etc/UTC
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.docker.network: freeman_traefik
+      traefik.http.routers.dagu-router.entrypoints: websecure
+      traefik.http.routers.dagu-router.rule: Host(`dagu.bob.house`)
+      traefik.http.routers.dagu-router.tls: "true"
+      traefik.http.services.dagu-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
+    secrets:
+      - source: id_rsa
+      - source: known_hosts
+    user: "0:0"
+    volumes:
+      - ~/.dagu/:/var/lib/dagu/:rw
+      - ./dagu/:/opt/dagu/dags/:rw
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+
   dozzle:
     image: amir20/dozzle:latest
     depends_on:
@@ -488,6 +516,8 @@ networks:
 secrets:
   id_rsa:
     file: ~/.ssh/id_rsa
+  known_hosts:
+    file: ~/.ssh/known_hosts
 
 volumes:
   certificates-volume:

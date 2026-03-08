@@ -29,6 +29,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: dagu .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: dagu.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: dozzle .1
     group: dns .1
     url: 192.168.1.50
