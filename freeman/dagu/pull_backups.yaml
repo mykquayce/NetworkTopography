@@ -1,0 +1,19 @@
+schedule: CRON_TZ=Etc/UTC 15 */3 * * *
+
+ssh:
+  user: root
+  host: tana.lan
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+
+steps:
+  - name: freeman
+    command: rsync --archive --delete --partial --progress root@freeman.lan:/repository/ /mnt/md1/backup/freeman/
+  - name: ransom
+    command: rsync --archive --delete --partial --progress root@ransom.lan:/repository/ /mnt/md1/backup/ransom/
+  - name: shaxs
+    command: rsync --archive --delete --partial --progress root@shaxs.lan:/repository/ /mnt/md1/backup/shaxs/
+  - name: tana
+    command: rsync --archive --delete --partial --progress /repository/ /mnt/md1/backup/tana/
+  - name: cctv
+    command: rsync --archive --delete --partial --progress root@shaxs.lan:/root/.frigate/media/recordings/ /mnt/md1/backup/cctv/
