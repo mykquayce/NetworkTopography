@@ -1,0 +1,33 @@
+params:
+  - MESSAGE: "hello world"
+  - TITLE: "hello world"
+  - PRIORITY: default
+  - TAGS: "+1,computer"
+  - HOST: "ntfy.bob.house"
+  - TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+
+steps:
+  - name: ntfy
+    type: http
+    command: POST https://${HOST}/${TOPIC}
+    config:
+      body: "${MESSAGE}"
+      headers:
+        Content-Type: text/plain
+        Priority: "${PRIORITY}"
+        Tags: "${TAGS}"
+        Title: "${TITLE}"
+      silent: true
+      timeout: 5
+    output: API_RESPONSE
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+
+handler_on:
+  success:
+    type: jq
+    command: ".id"
+    config:
+      raw: true
+    script: "${API_RESPONSE}"

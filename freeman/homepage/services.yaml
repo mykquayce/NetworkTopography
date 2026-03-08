@@ -60,6 +60,11 @@
           type: changedetectionio
           url: https://changedetection.bob.house/
           key: {{HOMEPAGE_VAR_CHANGEDETECTION_KEY}}
+    - Dagu: &dagu
+        description: A self-contained, lightweight workflow engine
+        href: https://dagu.bob.house/
+        icon: /icons/dagu.png
+        siteMonitor: https://dagu.bob.house/
     - Docker Registry: &dockerregistry
         description: UI for your private docker registry
         href: https://registry-ui.bob.house/
