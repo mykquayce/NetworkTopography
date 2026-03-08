@@ -61,6 +61,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: nanoleaf shapes
+    group: iot
+    url: "icmp://192.168.20.113"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: powerstrip BEDROOM
     group: iot
     url: "icmp://192.168.20.106"
