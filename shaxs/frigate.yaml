@@ -83,34 +83,11 @@ cameras:
         coordinates: 0,1,0,0.364,0.588,0.173,1,0.784,1,1
         loitering_time: 0
         inertia: 3
-  front:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: 
-            rtsp://admin:{FRIGATE_REOLINK_RTSP_PASSWORD}@192.168.20.103:554/h265Preview_01_main
-          roles:
-            - record
-        - path: 
-            rtsp://admin:{FRIGATE_REOLINK_RTSP_PASSWORD}@192.168.20.103:554/h265Preview_01_sub
-          roles:
-            - detect
-    motion:
-      threshold: 40
-      contour_area: 20
-      improve_contrast: true
-      mask: 0.293,0,0.293,0.07,0.706,0.067,0.706,0
-    zones:
-      garden:
-        coordinates: 0,1,0,0.537,0.918,0.329,1,0.495,1,1
-        loitering_time: 0
-        inertia: 3
 
 camera_groups:
   exterior:
     cameras:
       - driveway
-      - front
     icon: LuCar
     order: 0
 

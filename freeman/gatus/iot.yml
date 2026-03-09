@@ -31,12 +31,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: cctv camera FRONT
-    group: iot
-    url: "icmp://192.168.20.103"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: keylight
     group: iot
     url: "icmp://192.168.20.109"
