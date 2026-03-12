@@ -39,7 +39,7 @@ Add-Watch -Tag 'apps' -Title 'https://gethomepage.dev/widgets/' -Uri 'https://gi
 Add-Watch -Tag 'apps' -Title 'https://github.com/karakeep-app/karakeep/blob/main/docker/docker-compose.yml' -Uri 'https://raw.githubusercontent.com/karakeep-app/karakeep/refs/heads/main/docker/docker-compose.yml'
 Add-Watch -Tag 'apps' -Title 'https://github.com/paperless-ngx/paperless-ngx/blob/dev/docker/compose/docker-compose.postgres.yml' -Uri 'https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/docker/compose/docker-compose.postgres.yml'
 Add-Watch -Tag 'apps' -Title 'https://github.com/plankanban/planka/blob/master/docker-compose.yml' -Uri 'https://raw.githubusercontent.com/plankanban/planka/refs/heads/master/docker-compose.yml'
-Add-Watch -Tag 'apps' -Title 'https://github.com/go-vikunja/website/blob/main/src/content/docs/setup/docker-start-to-finish.mdoc' -Uri 'https://raw.githubusercontent.com/go-vikunja/website/refs/heads/main/src/content/docs/setup/docker-start-to-finish.mdoc'
+Add-Watch -Tag 'apps' -Title 'https://github.com/go-vikunja/website/blob/main/src/content/docs/setup/docker-start-to-finish.mdx' -Uri 'https://raw.githubusercontent.com/go-vikunja/website/refs/heads/main/src/content/docs/setup/docker-start-to-finish.mdx'
 
 Add-Watch -Tag 'hardware' -IncludeFilters '//div[contains(@class, "cartridge-search-results")]' -Uri 'https://evercade.co.uk/cartridges/'
 Add-Watch -Tag 'hardware' -IncludeFilters '//*[contains(@class, "devicename")]' -Uri 'https://wiki.lineageos.org/devices/'
@@ -48,6 +48,7 @@ Add-Watch -Tag 'internet' -IncludeFilters 'json:$.ip' -Uri 'https://api.ipapi.is
 Add-Watch -Tag 'internet' -Uri 'https://www.internic.net/domain/named.cache'
 
 Add-Watch -Tag 'kiwix' -ExtractText '/gutenberg_en_all_.+?\.zim/' -Uri 'https://download.kiwix.org/zim/gutenberg/'
+Add-Watch -Tag 'kiwix' -ExtractText '/wikibooks_en_all_maxi_.+?\.zim/' -Uri 'https://download.kiwix.org/zim/wikibooks/'
 Add-Watch -Tag 'kiwix' -ExtractText '/wikipedia_en_all_maxi_.+?\.zim/' -Uri 'https://download.kiwix.org/zim/wikipedia/'
 Add-Watch -Tag 'kiwix' -ExtractText '/wikiquote_en_all_maxi_.+?\.zim/' -Uri 'https://download.kiwix.org/zim/wikiquote/'
 Add-Watch -Tag 'kiwix' -ExtractText '/wiktionary_en_all_.+?\.zim/' -Uri 'https://download.kiwix.org/zim/wiktionary/'
