@@ -158,7 +158,6 @@ services:
       - --metrics.prometheus.addserviceslabels=true
       - --ping
       - --providers.docker
-      - --providers.file.directory=/etc/traefik/dynamic_conf/
     env_file:
       - ~/Configurations/traefik.env
     healthcheck:
