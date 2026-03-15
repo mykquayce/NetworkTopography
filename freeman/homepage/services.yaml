@@ -499,7 +499,7 @@
         icon: kiwix-light.png
         siteMonitor: https://kiwix.bob.house/
     - Kopia BILLUPS: &kopiabillups
-        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        description: Cross-platform backup tool
         href: https://kopia-billups.bob.house/
         icon: kopia.svg
         siteMonitor: https://kopia-billups.bob.house
@@ -509,7 +509,7 @@
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia FREEMAN: &kopiafreeman
-        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        description: Cross-platform backup tool
         href: https://kopia-freeman.bob.house/
         icon: kopia.svg
         siteMonitor: http://kopia:51515
@@ -519,7 +519,7 @@
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia RANSOM: &kopiaransom
-        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        description: Cross-platform backup tool
         href: https://kopia-ransom.bob.house/
         icon: kopia.svg
         siteMonitor: https://kopia-ransom.bob.house
@@ -529,7 +529,7 @@
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia SHAXS: &kopiashaxs
-        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        description: Cross-platform backup tool
         href: https://kopia-shaxs.bob.house/
         icon: kopia.svg
         siteMonitor: https://kopia-shaxs.bob.house
@@ -539,7 +539,7 @@
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia TANA: &kopiatana
-        descriptions: Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication
+        description: Cross-platform backup tool
         href: https://kopia-tana.bob.house/
         icon: kopia.svg
         siteMonitor: https://kopia-tana.bob.house
