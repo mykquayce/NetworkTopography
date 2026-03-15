@@ -130,11 +130,13 @@ services:
       LOG_LEVEL: debug
       TZ: UTC
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.jellyseerr-router.entrypoints: websecure
       traefik.http.routers.jellyseerr-router.rule: Host(`jellyseerr.bob.house`)
       traefik.http.routers.jellyseerr-router.tls: "true"
       traefik.http.services.jellyseerr-service.loadbalancer.server.port: "5055"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.jellyseerr/:/app/config/:rw
@@ -199,11 +201,13 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.lidarr-router.entrypoints: websecure
       traefik.http.routers.lidarr-router.rule: Host(`lidarr.bob.house`)
       traefik.http.routers.lidarr-router.tls: "true"
       traefik.http.services.lidarr-service.loadbalancer.server.port: "8686"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.lidarr/:/config/:rw
@@ -243,11 +247,13 @@ services:
       PGID: "0"
       PUID: "0"
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.metube-router.entrypoints: websecure
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
       traefik.http.routers.metube-router.tls: "true"
       traefik.http.services.metube-service.loadbalancer.server.port: "8081"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.metube/:/data/:rw
@@ -305,11 +311,13 @@ services:
     environment:
       TZ: Etc\UTC
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.pinchflat-router.entrypoints: websecure
       traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
       traefik.http.routers.pinchflat-router.tls: "true"
       traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.pinchflat/config/:/config/:rw
@@ -330,11 +338,13 @@ services:
       PGID: "1000"
       TZ: Etc/UTC
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.prowlarr-router.entrypoints: websecure
       traefik.http.routers.prowlarr-router.rule: Host(`prowlarr.bob.house`)
       traefik.http.routers.prowlarr-router.tls: "true"
       traefik.http.services.prowlarr-service.loadbalancer.server.port: "9696"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.prowlarr/:/config/:rw
@@ -371,11 +381,13 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.radarr-router.entrypoints: websecure
       traefik.http.routers.radarr-router.rule: Host(`radarr.bob.house`)
       traefik.http.routers.radarr-router.tls: "true"
       traefik.http.services.radarr-service.loadbalancer.server.port: "7878"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.radarr/:/config/:rw
@@ -393,11 +405,13 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.sabnzbd-router.entrypoints: websecure
       traefik.http.routers.sabnzbd-router.rule: Host(`sabnzbd.bob.house`)
       traefik.http.routers.sabnzbd-router.tls: "true"
       traefik.http.services.sabnzbd-service.loadbalancer.server.port: "8080"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.sabnzbd/:/config/:rw
@@ -468,11 +482,13 @@ services:
     extra_hosts:
       - "ntfy.bob.house=192.168.20.65"
     labels:
+      traefik.docker.network: tana_traefik
       traefik.http.routers.sonarr-router.entrypoints: websecure
       traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
       traefik.http.routers.sonarr-router.tls: "true"
       traefik.http.services.sonarr-service.loadbalancer.server.port: "8989"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.sonarr/:/config/:rw
@@ -590,9 +606,9 @@ services:
 networks:
   default:
     name: tana_default
-    internal: "true"
   traefik:
     name: tana_traefik
+    internal: "true"
 
 volumes:
   certificates-volume:
