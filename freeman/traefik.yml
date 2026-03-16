@@ -1,5 +1,11 @@
 http:
   routers:
+    homeassistant-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`homeassistant.bob.house`)"
+      service: "homeassistant-service"
+      tls: "true"
     iot-switch-router:
       entryPoints:
         - "websecure"
@@ -19,6 +25,10 @@ http:
       service: "main-switch-service"
       tls: "true"
   services:
+    homeassistant-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.20.115:8123"
     iot-switch-service:
       loadBalancer:
         servers:
