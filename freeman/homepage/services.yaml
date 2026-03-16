@@ -415,32 +415,30 @@
                 template: "{{ states('sensor.apollo_mtr_1_7b75d4_dps310_temperature', rounded=True, with_unit=True) }}"
               - label: office
                 template: "{{ states('sensor.apollo_air_1_06ef38_sen55_temperature', rounded=True, with_unit=True) }}"
-              - label: porch
-                template: "{{ states('sensor.apollo_msr_2_120ba4_dps310_temperature', rounded=True, with_unit=True) }}"
-          - type: homeassistant
-            url: https://homeassistant.bob.house
-            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
-            custom:
-              - label: motion
-                template: "{{ states('sensor.apollo_msr_2_120ba4_radar_detection_distance', rounded=True, with_unit=True) }}"
-              - label: humidity
+              - label: office
                 template: "{{ states('sensor.apollo_air_1_06ef38_sen55_humidity', rounded=True, with_unit=True) }}"
-              - label: co
-                template: "{{ states('sensor.apollo_air_1_06ef38_carbon_monoxide', rounded=True, with_unit=True) }}"
-              - label: co2
-                template: "{{ states('sensor.apollo_air_1_06ef38_co2', rounded=True, with_unit=True) }}"
           - type: homeassistant
             url: https://homeassistant.bob.house
             key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
             custom:
               - label: pc
-                state: sensor.pc_plug_current_consumption
+                state: sensor.p304m_desk_pc_current_consumption
               - label: monitor
-                state: sensor.monitor_plug_current_consumption
+                state: sensor.p304m_desk_monitor_current_consumption
               - label: amp
-                state: sensor.amp_plug_current_consumption
+                state: sensor.p304m_desk_amp_current_consumption
               - label: usb hub
-                state: sensor.usb_hub_plug_current_consumption
+                state: sensor.p304m_desk_usb_hub_current_consumption
+          - type: homeassistant
+            url: https://homeassistant.bob.house
+            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+            custom:
+              - label: bench
+                state: sensor.p304m_server_rack_bench_current_consumption
+              - label: pdu 1
+                state: sensor.p304m_server_rack_pdu1_current_consumption
+              - label: pdu 2
+                state: sensor.p304m_server_rack_pdu2_current_consumption
     - httpbin: &httpbin
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/

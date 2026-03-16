@@ -166,12 +166,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: homeassistant
-    group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-homeassistant-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: homepage
     group: containers
     url: http://freeman.bob.house:2375/v1.52/containers/freeman-homepage-1/json

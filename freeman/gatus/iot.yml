@@ -72,3 +72,9 @@ endpoints:
     url: "icmp://192.168.20.111"
     conditions: *conditions-definition
     alerts: *alerts-definition
+
+  - name: symfonisk
+    group: iot
+    url: "icmp://192.168.20.116"
+    conditions: *conditions-definition
+    alerts: *alerts-definition

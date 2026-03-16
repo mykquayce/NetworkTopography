@@ -19,6 +19,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: haos
+    group: servers
+    url: "icmp://192.168.20.80"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: ransom .1
     group: servers
     url: "icmp://192.168.1.65"
