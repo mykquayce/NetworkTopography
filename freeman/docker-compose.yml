@@ -293,28 +293,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
-  homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
-    depends_on:
-      traefik:
-        condition: service_healthy
-    labels:
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.homeassistant-router.entrypoints: websecure
-      traefik.http.routers.homeassistant-router.rule: Host(`homeassistant.bob.house`)
-      traefik.http.routers.homeassistant-router.tls: "true"
-      traefik.http.services.homeassistant-service.loadbalancer.server.port: "8123"
-    networks:
-      default: null
-      traefik: null
-    volumes:
-      - ~/.homeassistant/:/config/:rw
-      - ./homeassistant/automations.yaml:/config/automations.yaml:rw
-      - ./homeassistant/configuration.yaml:/config/configuration.yaml:rw
-      - ./homeassistant/scenes.yaml:/config/scenes.yaml:rw
-      - ./homeassistant/scripts.yaml:/config/scripts.yaml:rw
-      - ./homeassistant/secrets.yaml:/config/secrets.yaml:rw
-
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     depends_on:

@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026031502 ; Serial
+                                         2026032500 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -18,8 +18,8 @@ $TTL 7200
 
 @                   IN        A                    192.168.20.65
 badgey              IN        A                    192.168.20.50
-billups             IN        A                    192.168.20.75
 freeman             IN        A                    192.168.20.60
+haos                IN        A                    192.168.20.80
 ransom              IN        A                    192.168.20.65
 shaxs               IN        A                    192.168.20.55
 tana                IN        A                    192.168.20.70

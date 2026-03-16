@@ -42,6 +42,18 @@
       }
     },
     {
+      "Title": "haos",
+      "Type": "SSH",
+      "Host": "haos.bob.house:22",
+      "Meta": {
+        "Authentication": "Private Key",
+        "User": "root",
+        "Private Key": "file:////run/secrets/id_rsa",
+        "Fingerprint": "SHA256:NHyk2TyDPA7v/UnoX4ng/pKH/KMR7I359+1O69GTgFg",
+        "Encoding": "utf-8"
+      }
+    },
+    {
       "Title": "ransom",
       "Type": "SSH",
       "Host": "ransom.bob.house:22",
