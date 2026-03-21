@@ -7,6 +7,12 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
+  - name: billups
+    group: servers
+    url: "icmp://192.168.1.75"
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: freeman .1
     group: servers
     url: "icmp://192.168.1.60"

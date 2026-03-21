@@ -15,9 +15,21 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: billups
+    group: telegraf
+    url: http://192.168.20.75:9273/metrics
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: billups TRAEFIK
+    group: telegraf
+    url: https://billups.bob.house/metrics
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: freeman
     group: telegraf
-    url: http://freeman.bob.house:9273/metrics
+    url: http://192.168.20.60:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -29,7 +41,7 @@ endpoints:
 
   - name: ransom
     group: telegraf
-    url: http://ransom.bob.house:9273/metrics
+    url: http://192.168.20.65:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -41,7 +53,7 @@ endpoints:
 
   - name: shaxs
     group: telegraf
-    url: http://shaxs.bob.house:9273/metrics
+    url: http://192.168.20.55:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -53,7 +65,7 @@ endpoints:
 
   - name: tana
     group: telegraf
-    url: http://tana.bob.house:9273/metrics
+    url: http://192.168.20.70:9273/metrics
     conditions: *conditions-definition
     alerts: *alerts-definition
 

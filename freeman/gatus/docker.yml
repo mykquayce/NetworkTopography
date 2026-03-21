@@ -1,7 +1,7 @@
 endpoints:
-  - name: freeman
+  - name: billups
     group: docker
-    url: http://freeman.bob.house:2375/v1.52/_ping
+    url: http://192.168.1.75:2375/v1.52/_ping
     conditions: &conditions-definition
       - "[BODY] == OK"
       - "[RESPONSE_TIME] < 50"
@@ -9,20 +9,26 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
+  - name: freeman
+    group: docker
+    url: http://192.168.20.60:2375/v1.52/_ping
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: ransom
     group: docker
-    url: http://ransom.bob.house:2375/v1.52/_ping
+    url: http://192.168.20.65:2375/v1.52/_ping
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: shaxs
     group: docker
-    url: http://shaxs.bob.house:2375/v1.52/_ping
+    url: http://192.168.20.55:2375/v1.52/_ping
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: tana
     group: docker
-    url: http://tana.bob.house:2375/v1.52/_ping
+    url: http://192.168.20.70:2375/v1.52/_ping
     conditions: *conditions-definition
     alerts: *alerts-definition
