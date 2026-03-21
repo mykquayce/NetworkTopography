@@ -8,12 +8,12 @@ ssh:
 
 steps:
   - name: freeman
-    command: rsync --archive --delete --partial --progress root@freeman.bob.house:/repository/ /mnt/md1/backup/freeman/
+    command: rsync --archive --delete --partial --progress root@freeman.bob.house:/repository/ /mnt/md2/backup/freeman/
   - name: ransom
-    command: rsync --archive --delete --partial --progress root@ransom.bob.house:/repository/ /mnt/md1/backup/ransom/
+    command: rsync --archive --delete --partial --progress root@ransom.bob.house:/repository/ /mnt/md2/backup/ransom/
   - name: shaxs
-    command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/repository/ /mnt/md1/backup/shaxs/
+    command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/repository/ /mnt/md2/backup/shaxs/
   - name: tana
-    command: rsync --archive --delete --partial --progress /repository/ /mnt/md1/backup/tana/
+    command: rsync --archive --delete --partial --progress /repository/ /mnt/md2/backup/tana/
   - name: cctv
-    command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/root/.frigate/media/recordings/ /mnt/md1/backup/cctv/
+    command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/root/.frigate/media/recordings/ /mnt/md2/backup/cctv/

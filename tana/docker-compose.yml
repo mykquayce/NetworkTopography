@@ -430,6 +430,8 @@ services:
       - /dev/sdb
       - /dev/sdc
       - /dev/sdd
+      - /dev/sde
+      - /dev/sdf
     labels:
       traefik.http.routers.scrutiny-router.entrypoints: websecure
       traefik.http.routers.scrutiny-router.rule: Host(`scrutiny.bob.house`)
