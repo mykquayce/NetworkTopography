@@ -372,6 +372,12 @@
                   options:
                     maximumFractionDigits: 1
                 query: disk_used_percent{host='tana',path='/mnt/md1'}
+              - label: md2
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='tana',path='/mnt/md2'}
           - type: prometheusmetric
             url: https://prometheus.bob.house
             refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
