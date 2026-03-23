@@ -111,12 +111,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: gatus-db
-    group: containers
-    url: http://192.168.20.60:2375/v1.52/containers/freeman-gatus-db-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: glance
     group: containers
     url: http://192.168.20.60:2375/v1.52/containers/freeman-glance-1/json
