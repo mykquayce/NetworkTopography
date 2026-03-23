@@ -1,68 +1,188 @@
-endpoints:  
+suites:
   - name: badgey
     group: servers
-    url: "icmp://192.168.1.50"
-    conditions: &conditions-definition
-      - "[CONNECTED] == true"
-    alerts: &alerts-definition
-      - type: ntfy
-
+    endpoints:
+      - name: ping badgey
+        url: icmp://192.168.1.50
+        conditions: &ping-conditions-definition
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 100"
+        alerts: &alerts-definition
+          - type: ntfy
+      - name: telegraf badgey
+        url: http://192.168.1.50:9273/metrics
+        conditions: &telegraf-conditions-definition
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 100"
+          - "[STATUS] == 200"
+          - "has([BODY]) == true"
+        alerts: *alerts-definition
   - name: billups
     group: servers
-    url: "icmp://192.168.1.75"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: freeman .1
+    endpoints:
+      - name: ping billups
+        url: icmp://192.168.1.75
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: telegraf billups
+        url: http://192.168.1.75:9273/metrics
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
+      - name: supervisor billups
+        url: http://192.168.1.75:9000/hooks/health
+        conditions: &supervisor-conditions-definition
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 100"
+          - "[STATUS] == 200"
+          - "len([BODY]) > 0"
+          - "[BODY] == Healthy"
+        alerts: *alerts-definition
+      - name: docker billups
+        url: http://192.168.1.75:2375/v1.52/_ping
+        conditions: &docker-conditions-definition
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 100"
+          - "[STATUS] == 200"
+          - "len([BODY]) > 0"
+          - "[BODY] == OK"
+        alerts: *alerts-definition
+      - name: traefik billups
+        url: https://192.168.1.75/dashboard/
+        headers:
+          Host: traefik-billups.bob.house
+        client: &traefik-client-definition
+          insecure: true
+          ignore-redirect: true
+        conditions: &traefik-conditions-definition
+          - "[CONNECTED] == true"
+          - "[RESPONSE_TIME] < 100"
+          - "[STATUS] == 200"
+          - "len([BODY]) > 0"
+        alerts: *alerts-definition
+  - name: freeman
     group: servers
-    url: "icmp://192.168.1.60"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: freeman .20
-    group: servers
-    url: "icmp://192.168.20.60"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
+    endpoints:
+      - name: ping freeman .1
+        url: icmp://192.168.1.60
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: ping freeman .20
+        url: icmp://192.168.20.60
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: telegraf freeman
+        url: http://192.168.20.60:9273/metrics
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
+      - name: supervisor freeman
+        url: http://192.168.1.60:9000/hooks/health
+        conditions: *supervisor-conditions-definition
+        alerts: *alerts-definition
+      - name: docker freeman
+        url: http://192.168.20.60:2375/v1.52/_ping
+        conditions: *docker-conditions-definition
+        alerts: *alerts-definition
+      - name: traefik freeman
+        url: https://192.168.20.60/dashboard/
+        headers:
+          Host: traefik.bob.house
+        client: *traefik-client-definition
+        conditions: *traefik-conditions-definition
+        alerts: *alerts-definition
   - name: haos
     group: servers
-    url: "icmp://192.168.20.80"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: ransom .1
+    endpoints:
+      - name: ping haos .20
+        url: icmp://192.168.20.80
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+  - name: ransom
     group: servers
-    url: "icmp://192.168.1.65"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: ransom .20
+    endpoints:
+      - name: ping ransom .1
+        url: icmp://192.168.1.65
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: ping ransom .20
+        url: icmp://192.168.20.65
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: telegraf ransom
+        url: http://192.168.20.65:9273/metrics
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
+      - name: supervisor ransom
+        url: http://192.168.1.65:9000/hooks/health
+        conditions: *supervisor-conditions-definition
+        alerts: *alerts-definition
+      - name: docker ransom
+        url: http://192.168.20.65:2375/v1.52/_ping
+        conditions: *docker-conditions-definition
+        alerts: *alerts-definition
+      - name: traefik ransom
+        url: https://192.168.20.65/dashboard/
+        headers:
+          Host: traefik-ransom.bob.house
+        client: *traefik-client-definition
+        conditions: *traefik-conditions-definition
+        alerts: *alerts-definition
+  - name: shaxs
     group: servers
-    url: "icmp://192.168.20.65"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: shaxs .1
+    endpoints:
+      - name: ping shaxs .1
+        url: icmp://192.168.1.55
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: ping shaxs .20
+        url: icmp://192.168.20.55
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: telegraf shaxs
+        url: http://192.168.20.55:9273/metrics
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
+      - name: supervisor shaxs
+        url: http://192.168.1.55:9000/hooks/health
+        conditions: *supervisor-conditions-definition
+        alerts: *alerts-definition
+      - name: docker shaxs
+        url: http://192.168.20.55:2375/v1.52/_ping
+        conditions: *docker-conditions-definition
+        alerts: *alerts-definition
+      - name: traefik shaxs
+        url: https://192.168.20.55/dashboard/
+        headers:
+          Host: traefik-shaxs.bob.house
+        client: *traefik-client-definition
+        conditions: *traefik-conditions-definition
+        alerts: *alerts-definition
+  - name: tana
     group: servers
-    url: "icmp://192.168.1.55"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: shaxs .20
-    group: servers
-    url: "icmp://192.168.20.55"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: tana .1
-    group: servers
-    url: "icmp://192.168.1.70"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: tana .20
-    group: servers
-    url: "icmp://192.168.20.70"
-    conditions: *conditions-definition
-    alerts: *alerts-definition
+    endpoints:
+      - name: ping tana .1
+        url: icmp://192.168.1.70
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: ping tana .20
+        url: icmp://192.168.20.70
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: telegraf tana
+        url: http://192.168.20.70:9273/metrics
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
+      - name: supervisor tana
+        url: http://192.168.1.70:9000/hooks/health
+        conditions: *supervisor-conditions-definition
+        alerts: *alerts-definition
+      - name: docker tana
+        url: http://192.168.20.70:2375/v1.52/_ping
+        conditions: *docker-conditions-definition
+        alerts: *alerts-definition
+      - name: traefik tana
+        url: https://192.168.20.70/dashboard/
+        headers:
+          Host: traefik-tana.bob.house
+        client: *traefik-client-definition
+        conditions: *traefik-conditions-definition
+        alerts: *alerts-definition
