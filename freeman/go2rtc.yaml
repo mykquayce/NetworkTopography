@@ -1,0 +1,9 @@
+streams:
+  driveway_high:
+    - rtsp://${TPLINK_RTSP_USER}:${TPLINK_RTSP_PASSWORD}@192.168.20.102:554/stream1
+  driveway_low:
+    - rtsp://${TPLINK_RTSP_USER}:${TPLINK_RTSP_PASSWORD}@192.168.20.102:554/stream2
+  roaming_high:
+    - rtsp://${TPLINK_RTSP_USER}:${TPLINK_RTSP_PASSWORD}@192.168.20.114:554/stream1
+  roaming_low:
+    - rtsp://${TPLINK_RTSP_USER}:${TPLINK_RTSP_PASSWORD}@192.168.20.114:554/stream2

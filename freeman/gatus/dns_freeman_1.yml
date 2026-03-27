@@ -74,6 +74,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: go2rtc .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: go2rtc.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: homeassistant .1
     group: dns .1
     url: 192.168.1.50

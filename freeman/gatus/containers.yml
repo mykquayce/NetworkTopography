@@ -154,6 +154,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: go2rtc
+    group: containers
+    url: http://192.168.20.60:2375/v1.52/containers/freeman-go2rtc-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: grafana
     group: containers
     url: http://192.168.20.65:2375/v1.52/containers/ransom-grafana-1/json

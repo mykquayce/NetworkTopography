@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026032500 ; Serial
+                                         2026032700 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -42,6 +42,7 @@ dozzle              IN        CNAME                freeman
 gatus               IN        CNAME                freeman
 glance              IN        CNAME                freeman
 glances-freeman     IN        CNAME                freeman
+go2rtc              IN        CNAME                freeman
 homeassistant       IN        CNAME                freeman
 homepage            IN        CNAME                freeman
 iot-switch          IN        CNAME                freeman
