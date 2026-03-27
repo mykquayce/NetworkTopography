@@ -397,6 +397,11 @@
           url: https://gluetun.bob.house/
           key: {{HOMEPAGE_VAR_GLUETUN_KEY}}
           version: 2
+    - go2rtc: &go2rtc
+        description: Ultimate camera streaming application
+        href: https://go2rtc.bob.house/
+        icon: go2rtc.png
+        siteMonitor: https://go2rtc.bob.house/
     - Grafana: &grafana
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -820,6 +825,7 @@
     - FreshRSS: *freshrss
     - Frigate: *frigate
     - Glance: *glance
+    - go2rtc: *go2rtc
     - Grafana: *grafana
     - Home Assistant: *homeassistant
     - Jellyfin: *jellyfin

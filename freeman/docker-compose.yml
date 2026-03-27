@@ -273,6 +273,20 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
+  go2rtc:
+    image: alexxit/go2rtc:latest
+    environment:
+      TZ: Etc/UTC
+    env_file:
+      - ~/Configurations/go2rtc.env
+    labels:
+      traefik.http.routers.go2rtc-router.entrypoints: websecure
+      traefik.http.routers.go2rtc-router.rule: Host(`go2rtc.bob.house`)
+      traefik.http.routers.go2rtc-router.tls: "true"
+      traefik.http.services.go2rtc-service.loadbalancer.server.port: "1984"
+    volumes:
+      - ./go2rtc.yaml:/config/go2rtc.yaml:ro
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     depends_on:
