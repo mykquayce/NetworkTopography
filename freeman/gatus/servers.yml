@@ -28,15 +28,6 @@ suites:
         url: http://192.168.1.75:9273/metrics
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
-      - name: supervisor billups
-        url: http://192.168.1.75:9000/hooks/health
-        conditions: &supervisor-conditions-definition
-          - "[CONNECTED] == true"
-          - "[RESPONSE_TIME] < 100"
-          - "[STATUS] == 200"
-          - "len([BODY]) > 0"
-          - "[BODY] == Healthy"
-        alerts: *alerts-definition
       - name: docker billups
         url: http://192.168.1.75:2375/v1.52/_ping
         conditions: &docker-conditions-definition
@@ -74,10 +65,6 @@ suites:
         url: http://192.168.20.60:9273/metrics
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
-      - name: supervisor freeman
-        url: http://192.168.1.60:9000/hooks/health
-        conditions: *supervisor-conditions-definition
-        alerts: *alerts-definition
       - name: docker freeman
         url: http://192.168.20.60:2375/v1.52/_ping
         conditions: *docker-conditions-definition
@@ -111,10 +98,6 @@ suites:
         url: http://192.168.20.65:9273/metrics
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
-      - name: supervisor ransom
-        url: http://192.168.1.65:9000/hooks/health
-        conditions: *supervisor-conditions-definition
-        alerts: *alerts-definition
       - name: docker ransom
         url: http://192.168.20.65:2375/v1.52/_ping
         conditions: *docker-conditions-definition
@@ -141,10 +124,6 @@ suites:
         url: http://192.168.20.55:9273/metrics
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
-      - name: supervisor shaxs
-        url: http://192.168.1.55:9000/hooks/health
-        conditions: *supervisor-conditions-definition
-        alerts: *alerts-definition
       - name: docker shaxs
         url: http://192.168.20.55:2375/v1.52/_ping
         conditions: *docker-conditions-definition
@@ -170,10 +149,6 @@ suites:
       - name: telegraf tana
         url: http://192.168.20.70:9273/metrics
         conditions: *telegraf-conditions-definition
-        alerts: *alerts-definition
-      - name: supervisor tana
-        url: http://192.168.1.70:9000/hooks/health
-        conditions: *supervisor-conditions-definition
         alerts: *alerts-definition
       - name: docker tana
         url: http://192.168.20.70:2375/v1.52/_ping
