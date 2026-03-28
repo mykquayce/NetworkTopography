@@ -106,6 +106,7 @@ services:
       traefik.http.routers.jellyfin-router.tls: "true"
       traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
     networks:
+      default: null
       traefik: null
     volumes:
       - ~/.jellyfin/config/:/config/:rw
