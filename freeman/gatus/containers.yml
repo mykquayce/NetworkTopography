@@ -257,12 +257,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: mediamtx
-    group: containers
-    url: http://192.168.20.70:2375/v1.52/containers/tana-mediamtx-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: metube
     group: containers
     url: http://192.168.20.70:2375/v1.52/containers/tana-metube-1/json
