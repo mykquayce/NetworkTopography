@@ -471,6 +471,7 @@ services:
       OIDC_ISSUER: https://authentik.bob.house/application/o/planka/
       OIDC_SCOPES: openid profile email
       OIDC_ADMIN_ROLES: authentik Admins
+      OIDC_ENFORCED: "true"
     env_file:
       - ~/Configurations/planka.env
     labels:
@@ -514,6 +515,7 @@ services:
       OTEL_TRACES_EXPORTER: none
       REGISTRY_LOG_LEVEL: info
       REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
     env_file:
       - ~/Configurations/registry.env
