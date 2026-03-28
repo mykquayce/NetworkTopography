@@ -1,24 +1,15 @@
 endpoints:
-  - name: audiobookshelf .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: audiobookshelf.bob.house
-      query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.bob.house."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
-
   - name: feishin .20
     group: dns .20
     url: 192.168.20.60
     dns:
       query-name: feishin.bob.house
       query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
+    conditions: &conditions-definition
+      - "[BODY] == tana.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: glances-tana .20
     group: dns .20

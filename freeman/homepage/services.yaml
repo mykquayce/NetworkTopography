@@ -28,15 +28,6 @@
         href: https://apprise.bob.house
         icon: apprise.png
         siteMonitor: https://apprise.bob.house/status
-    - Audiobookshelf: &audiobookshelf
-        description: Self-hosted audiobook and podcast server!
-        href: https://audiobookshelf.bob.house
-        icon: audiobookshelf.png
-        siteMonitor: https://audiobookshelf.bob.house
-        widget:
-          type: audiobookshelf
-          url: https://audiobookshelf.bob.house
-          key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
@@ -872,7 +863,6 @@
           - Traefik: *traefiktana
 
 - Media:
-    - Audiobookshelf: *audiobookshelf
     - Feishin: *feishin
     - Gluetun: *gluetun
     - Jellyfin: *jellyfin
