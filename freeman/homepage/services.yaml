@@ -622,6 +622,11 @@
         href: https://pinchflat.bob.house/
         icon: pinchflat.png
         siteMonitor: https://pinchflat.bob.house
+    - Pinepods: &pinepods
+        description: A complete podcast management system
+        href: https://pinepods.bob.house/
+        icon: pinepods.png
+        siteMonitor: https://pinepods.bob.house
     - Planka: &planka
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
@@ -872,6 +877,7 @@
     - Navidrome: *navidrome
     - Node RED: *nodered
     - Pinchflat: *pinchflat
+    - Pinepods: *pinepods
     - Prowlarr: *prowlarr
     - qBittorrent: *qbittorrent
     - Radarr: *radarr

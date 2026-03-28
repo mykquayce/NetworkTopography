@@ -343,6 +343,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: pinepods
+    group: containers
+    url: http://192.168.20.70:2375/v1.52/containers/tana-pinepods-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: planka
     group: containers
     url: http://192.168.20.65:2375/v1.52/containers/ransom-planka-1/json
