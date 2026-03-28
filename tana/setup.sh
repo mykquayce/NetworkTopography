@@ -4,7 +4,6 @@ function link() {
 	ln --force --no-target-directory --verbose $1 $2
 }
 
-printf '/audiobooks/*\n/podcasts/*\n' > ~/.audiobookshelf/.kopiaignore
 printf '/cache/*\n/config/log/*\n/config/metadata/*\n' > ~/.jellyfin/.kopiaignore
 printf '/logs/*\n' > ~/.jellyseerr/.kopiaignore
 printf '/cache/*\n/logs/*\n' > ~/.kopia/.kopiaignore
