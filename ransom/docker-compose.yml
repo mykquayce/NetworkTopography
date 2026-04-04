@@ -210,7 +210,7 @@ services:
     labels:
       dev.dozzle.group: karakeep
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^124$$
     networks:
       default: null
       karakeep: null
@@ -224,7 +224,7 @@ services:
     labels:
       dev.dozzle.group: karakeep
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^v1\.37\.0$$
     networks:
       karakeep: null
     volumes:
@@ -435,7 +435,7 @@ services:
     labels:
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^18$$
     networks:
       paperless-ngx: null
     volumes:
@@ -452,7 +452,7 @@ services:
     labels:
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^8$$
     networks:
       paperless-ngx: null
     volumes:
@@ -507,7 +507,7 @@ services:
     labels:
       dev.dozzle.group: planka
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^16-alpine$$
     networks:
       planka: null
     volumes:
@@ -693,7 +693,7 @@ services:
     labels:
       dev.dozzle.group: vikunja
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^18$$
     networks:
       vikunja: null
     volumes:
@@ -726,7 +726,6 @@ services:
       traefik.http.routers.whatsupdocker-router.tls: "true"
       traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"
       wud.link.template: https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
-      wud.tag.include: ^\d+\.\d+\.\d+$$
     networks:
       default: null
       traefik: null
