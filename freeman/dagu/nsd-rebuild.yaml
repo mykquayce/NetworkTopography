@@ -1,0 +1,27 @@
+schedule: CRON_TZ=Etc/UTC 0 2 * * *
+
+ssh:
+  user: root
+  host: ransom.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+
+steps:
+  - name: pull image
+    command: docker pull alpine:latest
+  - name: get date
+    command: date --date "$(docker inspect --format '{{.Created}}' alpine:latest)" --iso-8601=seconds --universal
+    output: CREATED_DATE
+  - name: get offset
+    command: date --date "1 day ago" --iso-8601=seconds --universal
+    output: YESTERDAY
+  - name: test
+    command: if [ '"${CREATED_DATE}"' \> '"${YESTERDAY}"' ]; then echo 1; else echo 2; fi
+    output: RESULT
+  - name: rebuild
+    command: |
+      docker compose --file /root/NetworkTopography/ransom/docker-compose.yml build nsd01 nsd20 --pull
+      docker compose --file /root/NetworkTopography/ransom/docker-compose.yml up nsd01 nsd20 --detach
+    preconditions:
+      - condition: "${RESULT}"
+        expected: "1"

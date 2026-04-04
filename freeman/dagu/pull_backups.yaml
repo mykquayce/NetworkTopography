@@ -17,3 +17,20 @@ steps:
     command: rsync --archive --delete --partial --progress /repository/ /mnt/md2/backup/tana/
   - name: cctv
     command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/root/.frigate/media/recordings/ /mnt/md2/backup/cctv/
+  - name: get disk usage
+    command: df --human-readable --print-type /mnt/md2/
+    output: USAGE
+  - name: notify
+    type: http
+    command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+    config:
+      body: $USAGE
+      headers:
+        Content-Type: text/plain
+        Tags: timer_clock,open_file_folder,file_cabinet
+        Title: "backup completed"
+      silent: true
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
