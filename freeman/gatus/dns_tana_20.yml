@@ -110,6 +110,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: podfetch .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: podfetch.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: prowlarr .20
     group: dns .20
     url: 192.168.20.60

@@ -627,6 +627,11 @@
         href: https://planka.bob.house/
         icon: planka.svg
         siteMonitor: https://planka.bob.house
+    - Podfetch: &podfetch
+        description: Sleek and efficient podcast downloader
+        href: https://podfetch.bob.house/ui/
+        icon: podfetch.png
+        siteMonitor: https://podfetch.bob.house/ui/
     - Portainer: &portainer
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
@@ -872,6 +877,7 @@
     - Navidrome: *navidrome
     - Node RED: *nodered
     - Pinchflat: *pinchflat
+    - Podfetch: *podfetch
     - Prowlarr: *prowlarr
     - qBittorrent: *qbittorrent
     - Radarr: *radarr
