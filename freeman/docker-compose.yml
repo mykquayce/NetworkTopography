@@ -56,7 +56,7 @@ services:
     labels:
       dev.dozzle.group: authentik
       traefik.enable: "false"
-      wud.watch: "false"
+      wud.tag.include: ^16-alpine$$
     networks:
       authentik: null
     volumes:
