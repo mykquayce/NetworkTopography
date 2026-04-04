@@ -285,7 +285,7 @@ services:
       traefik.http.routers.go2rtc-router.tls: "true"
       traefik.http.services.go2rtc-service.loadbalancer.server.port: "1984"
     volumes:
-      - ./go2rtc.yaml:/config/go2rtc.yaml:ro
+      - ./go2rtc/:/config/:ro
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
