@@ -1,0 +1,106 @@
+schedule: CRON_TZ=Etc/UTC 0,10,20,30,40,50 * * * *
+
+steps:
+  - name: get files
+    type: ssh
+    config:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+    command: ls -1U /mnt/md1/downloads/pinchflat/*/*.mp4 2>/dev/null || true
+    output: PATHS
+  - name: count
+    command: echo -n "${PATHS}" | grep --count ^ || true
+    output: COUNT
+  - name: one-item
+    call: file-processor
+    params: "PATH=${PATHS}"
+    preconditions:
+      - command: "${COUNT}"
+        expected: "1"
+    continue_on: skipped
+  - name: multiple
+    call: file-processor
+    parallel:
+      items: "${PATHS}"
+      max_concurrent: 1
+    params: "PATH=${ITEM}"
+    preconditions:
+      - command: "${COUNT}"
+        expected: "0"
+        negate: true
+      - command: "${COUNT}"
+        expected: "1"
+        negate: true
+    continue_on: skipped
+---
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+  timeout: 15m
+
+name: file-processor
+params:
+  - PATH: ""
+steps:
+  - name: get channel name
+    command: echo -n "${PATH}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\1/p'
+    output: CHANNEL
+  - name: get filename
+    command: echo -n "${PATH}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\2/p'
+    output: FILE_NAME
+  - name: make target directory
+    command: mkdir "/mnt/md1/youtube/${CHANNEL}/"
+    preconditions:
+      - condition: test -d "/mnt/md1/youtube/${CHANNEL}/"
+    continue_on: skipped
+  - name: check existing
+    command: echo "target directory exists"
+    preconditions:
+      - condition: test -f "/mnt/md1/youtube/${CHANNEL}/${FILE_NAME}"
+        negate: true
+  - name: process (chapters)
+    command: |
+      ffmpeg -hide_banner -y -i "${PATH}" \
+        -map 0:v:0 -filter:v:0 fps=fps=8 \
+        -map 0:a:0 -codec:a:0  copy \
+        -map 0:v:1 -codec:v:1  copy \
+        -map 0:d:0 -codec:d:0  copy \
+        "/mnt/md1/youtube/${CHANNEL}/${FILE_NAME}"
+    preconditions:
+      - command: ffprobe -i "${PATH}" \
+          -loglevel error -show_chapters | grep --max-count=1 --quiet CHAPTER
+    continue_on: skipped
+  - name: process (no chapters)
+    command: |
+      ffmpeg -hide_banner -y -i "${PATH}" \
+        -map 0:v:0 -filter:v:0 fps=fps=8 \
+        -map 0:a:0 -codec:a:0  copy \
+        -map 0:v:1 -codec:v:1  copy \
+        "/mnt/md1/youtube/${CHANNEL}/${FILE_NAME}"
+    preconditions:
+      - command: ffprobe -i "${PATH}" \
+          -loglevel error -show_chapters | grep --max-count=1 --quiet CHAPTER
+        negate: true
+    continue_on: skipped
+  - name: cleanup
+    command: rm "${PATH}"
+  - name: notify
+    type: http
+    command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+    config:
+      body: $FILE_NAME
+      headers:
+        Content-Type: text/plain
+        Tags: tv,+1
+        Title: "processed ${FILE_NAME}"
+      silent: true
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+  - name: sleep
+    command: sleep 5s

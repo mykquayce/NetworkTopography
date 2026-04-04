@@ -1,0 +1,29 @@
+schedule: CRON_TZ=Etc/UTC 0 */6 * * *
+
+steps:
+  - name: loop
+    call: server-processor
+    parallel:
+      items:
+        - "freeman.bob.house"
+        - "ransom.bob.house"
+        - "shaxs.bob.house"
+        - "tana.bob.house"
+    params: "SERVER_NAME=${ITEM}"
+---
+name: server-processor
+params:
+  - SERVER_NAME: ""
+
+ssh:
+  user: root
+  host: "${SERVER_NAME}"
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+
+steps:
+  - name: host name
+    command: hostname --long
+    output: HOSTNAME
+  - name: pull
+    command: docker compose --file "/root/NetworkTopography/${HOSTNAME}/docker-compose.yml" pull
