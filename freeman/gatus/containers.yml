@@ -355,6 +355,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: podfetch
+    group: containers
+    url: http://192.168.20.70:2375/v1.52/containers/tana-podfetch-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: portainer
     group: containers
     url: http://192.168.20.60:2375/v1.52/containers/freeman-portainer-1/json

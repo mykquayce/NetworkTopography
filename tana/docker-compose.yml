@@ -286,6 +286,53 @@ services:
       - /mnt/md1/downloads/pinchflat/:/downloads/:rw
       - ~/cookies.txt:/config/extras/cookies.txt:rw
 
+  podfetch:
+    image: samuel19982/podfetch:latest
+    depends_on:
+      podfetch-db:
+        condition: service_healthy
+      traefik:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@podfetch-db/podfetch
+      POLLING_INTERVAL: "300"
+      SERVER_URL: https://podfetch.bob.house
+    labels:
+      dev.dozzle.group: podfetch
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.podfetch-router.entrypoints: websecure
+      traefik.http.routers.podfetch-router.rule: Host(`podfetch.bob.house`)
+      traefik.http.routers.podfetch-router.tls: "true"
+      traefik.http.services.podfetch-service.loadbalancer.server.port: "8000"
+    networks:
+      default: null
+      podfetch: null
+      traefik: null
+    volumes:
+      - /mnt/md1/podcasts/:/app/podcasts/:rw
+      - ~/.podfetch/:/app/db/:rw
+
+  podfetch-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+      POSTGRES_DB: podfetch
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    labels:
+      dev.dozzle.group: podfetch
+      traefik.enable: "false"
+    networks:
+      podfetch: null
+    volumes:
+      - ~/.podfetch/:/data/postgres/:rw
+
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     depends_on:
@@ -570,6 +617,9 @@ services:
 networks:
   default:
     name: tana_default
+  podfetch:
+    name: tana_podfetch
+    internal: "true"
   traefik:
     name: tana_traefik
     internal: "true"
