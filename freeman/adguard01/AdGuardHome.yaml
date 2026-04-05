@@ -181,14 +181,15 @@ filtering:
       - betway
       - bigo_live
       - bilibili
-      - blizzard_entertainment
       - blaze
+      - blizzard_entertainment
       - canais_globo
       - chatgpt
       - claro
       - claude
       - clubhouse
       - coolapk
+      - copilot
       - crunchyroll
       - dailymotion
       - deepseek
@@ -201,9 +202,12 @@ filtering:
       - espn
       - facebook
       - fifa
+      - gemini
       - globoplay
+      - grok
       - hbomax
       - hulu
+      - icloud_private_relay
       - iheartradio
       - imgur
       - instagram
@@ -217,17 +221,25 @@ filtering:
       - lionsgateplus
       - looke
       - mail_ru
+      - manus
+      - mastodon
+      - max
       - mercado_libre
+      - meta_ai
+      - microsoft_teams
       - minecraft
       - nebula
       - netflix
+      - nintendo
       - odysee
       - ok
       - olvid
       - onlyfans
       - paramountplus
       - peacock_tv
+      - perplexity
       - pinterest
+      - playstation
       - plenty_of_fish
       - plex
       - pluto_tv
@@ -235,6 +247,7 @@ filtering:
       - rakuten_viki
       - riot_games
       - roblox
+      - rockstar_games
       - samsung_tv_plus
       - shein
       - shopee
@@ -255,9 +268,11 @@ filtering:
       - valorant
       - viber
       - vimeo
+      - vivo_play
       - vk
       - voot
       - wargaming
+      - warnerbrosgames
       - wechat
       - weibo
       - whatsapp
