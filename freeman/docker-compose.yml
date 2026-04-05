@@ -156,7 +156,8 @@ services:
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
 
   dagu:
-    image: ghcr.io/dagu-org/dagu:latest
+    image: ghcr.io/dagucloud/dagu:latest
+    command: ["dagu", "start-all"]
     entrypoint: []
     environment:
       DAGU_HOME: /var/lib/dagu
