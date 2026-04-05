@@ -34,6 +34,7 @@ function Add-Watch([string] $ExtractText, [string] $IncludeFilters, [string] $Ta
 }
 
 
+Add-Watch -Tag 'apps' -Title 'https://github.com/AdguardTeam/AdGuardHome/blob/master/internal/filtering/servicelist.go' -Uri 'https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/refs/heads/master/internal/filtering/servicelist.go'
 Add-Watch -Tag 'apps' -Title 'https://github.com/goauthentik/authentik/blob/main/.github/actions/setup/compose.yml' -Uri 'https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/.github/actions/setup/compose.yml'
 Add-Watch -Tag 'apps' -Title 'https://gethomepage.dev/widgets/' -Uri 'https://github.com/gethomepage/homepage/commits/dev/docs/widgets.atom'
 Add-Watch -Tag 'apps' -Title 'https://github.com/karakeep-app/karakeep/blob/main/docker/docker-compose.yml' -Uri 'https://raw.githubusercontent.com/karakeep-app/karakeep/refs/heads/main/docker/docker-compose.yml'
