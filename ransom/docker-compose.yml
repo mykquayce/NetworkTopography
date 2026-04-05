@@ -311,6 +311,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    labels:
+      wud.watch: "false"
     ports:
       - 192.168.1.65:53:53/tcp
       - 192.168.1.65:53:53/udp
@@ -330,6 +332,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    labels:
+      wud.watch: "false"
     ports:
       - 192.168.20.65:53:53/tcp
       - 192.168.20.65:53:53/udp
