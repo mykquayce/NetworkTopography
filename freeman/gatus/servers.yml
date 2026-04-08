@@ -83,6 +83,10 @@ suites:
         url: icmp://192.168.20.80
         conditions: *ping-conditions-definition
         alerts: *alerts-definition
+      - name: curl homeassistant
+        url: http://192.168.20.80:8123
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
   - name: ransom
     group: servers
     endpoints:
