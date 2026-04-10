@@ -216,7 +216,7 @@ services:
       karakeep: null
 
   karakeep-meilisearch:
-    image: getmeili/meilisearch:v1.37.0
+    image: getmeili/meilisearch:v1.41.0
     environment:
       MEILI_NO_ANALYTICS: "true"
     env_file:
@@ -224,7 +224,7 @@ services:
     labels:
       dev.dozzle.group: karakeep
       traefik.enable: "false"
-      wud.tag.include: ^v1\.37\.0$$
+      wud.tag.include: ^v1\.41$$
     networks:
       karakeep: null
     volumes:
