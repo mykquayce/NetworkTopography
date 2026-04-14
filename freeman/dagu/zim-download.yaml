@@ -1,0 +1,101 @@
+schedule: CRON_TZ=Etc/UTC 0 1 * * *
+
+steps:
+  - name: do work
+    parallel:
+      items:
+        [
+          {
+            "baseAddress": "https://download.kiwix.org/zim/gutenberg/",
+            "regexPattern": "gutenberg_en_all_[0-9]{4}-[0-9]{2}.zim",
+            "filePattern": "gutenberg_en_all_????-??.zim",
+          },
+          {
+            "baseAddress": "https://download.kiwix.org/zim/wikibooks/",
+            "regexPattern": "wikibooks_en_all_maxi_[0-9]{4}-[0-9]{2}.zim",
+            "filePattern": "wikibooks_en_all_maxi_????-??.zim",
+          },
+          {
+            "baseAddress": "https://download.kiwix.org/zim/wikipedia/",
+            "regexPattern": "wikipedia_en_all_maxi_[0-9]{4}-[0-9]{2}.zim",
+            "filePattern": "wikipedia_en_all_maxi_????-??.zim",
+          },
+          {
+            "baseAddress": "https://download.kiwix.org/zim/wikiquote/",
+            "regexPattern": "wikiquote_en_all_maxi_[0-9]{4}-[0-9]{2}.zim",
+            "filePattern": "wikiquote_en_all_maxi_????-??.zim",
+          },
+          {
+            "baseAddress": "https://download.kiwix.org/zim/wiktionary/",
+            "regexPattern": "wiktionary_en_all_nopic_[0-9]{4}-[0-9]{2}.zim",
+            "filePattern": "wiktionary_en_all_nopic_????-??.zim",
+          },
+        ]
+      max_concurrent: 1
+    call: worker
+    params: "ZIM=${ITEM}"
+---
+name: worker
+params:
+  - ZIM: ""
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+steps:
+  - name: download HTML
+    type: http
+    command: "GET ${ZIM.baseAddress}"
+    config:
+      headers:
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+    output: HTML
+  - name: parse
+    command: |
+      echo -n "${HTML}" \
+        | grep --extended-regexp --only-matching "${ZIM.regexPattern}" \
+        | sort --reverse \
+        | head --lines 1
+    output: FILENAME
+  - name: check target exists
+    command: |
+      (ls -1U "/mnt/md1/downloads/zim/${FILENAME}" 2>/dev/null || true) \
+        | grep --count ^ || true
+    output: TARGET_COUNT
+  - name: fail on target exists
+    command: echo dosent exist
+    preconditions:
+      - condition: "${TARGET_COUNT}"
+        expected: "0"
+  - name: stop kiwix
+    command: |
+      docker compose --file /root/NetworkTopography/tana/docker-compose.yml \
+        down kiwix
+  - name: remove old
+    command: rm --force "/mnt/md1/downloads/zim/${ZIM.filePattern}"
+  - name: download ZIM
+    command: |
+      curl \
+        --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
+        --location \
+        --output "/mnt/md1/downloads/zim/${FILENAME}" \
+        --url "${ZIM.baseAddress}${FILENAME}"
+  - name: start kiwix
+    command: |
+      docker compose --file /root/NetworkTopography/tana/docker-compose.yml \
+        up --detach kiwix
+  - name: notify
+    type: http
+    command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+    config:
+      body: "${FILENAME}"
+      headers:
+        Content-Type: text/plain
+        Tags: floppy_disk,page_facing_up,microscope
+        Title: "zim file downloaded"
+      silent: true
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
