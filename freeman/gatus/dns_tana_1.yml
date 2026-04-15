@@ -1,24 +1,15 @@
 endpoints:
-  - name: audiobookshelf .1
-    group: dns .1
-    url: 192.168.1.50
-    dns:
-      query-name: audiobookshelf.bob.house
-      query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == tana.bob.house."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
-
   - name: feishin .1
     group: dns .1
     url: 192.168.1.50
     dns:
       query-name: feishin.bob.house
       query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
+    conditions: &conditions-definition
+      - "[BODY] == tana.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: glances-tana .1
     group: dns .1
@@ -115,6 +106,15 @@ endpoints:
     url: 192.168.1.50
     dns:
       query-name: pinchflat.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: pinepods .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: pinepods.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition

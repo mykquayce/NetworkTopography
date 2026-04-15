@@ -28,15 +28,6 @@
         href: https://apprise.bob.house
         icon: apprise.png
         siteMonitor: https://apprise.bob.house/status
-    - Audiobookshelf: &audiobookshelf
-        description: Self-hosted audiobook and podcast server!
-        href: https://audiobookshelf.bob.house
-        icon: audiobookshelf.png
-        siteMonitor: https://audiobookshelf.bob.house
-        widget:
-          type: audiobookshelf
-          url: https://audiobookshelf.bob.house
-          key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
@@ -631,6 +622,11 @@
         href: https://pinchflat.bob.house/
         icon: pinchflat.png
         siteMonitor: https://pinchflat.bob.house
+    - Pinepods: &pinepods
+        description: A complete podcast management system
+        href: https://pinepods.bob.house/
+        icon: pinepods.png
+        siteMonitor: https://pinepods.bob.house
     - Planka: &planka
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
@@ -872,7 +868,6 @@
           - Traefik: *traefiktana
 
 - Media:
-    - Audiobookshelf: *audiobookshelf
     - Feishin: *feishin
     - Gluetun: *gluetun
     - Jellyfin: *jellyfin
@@ -882,6 +877,7 @@
     - Navidrome: *navidrome
     - Node RED: *nodered
     - Pinchflat: *pinchflat
+    - Pinepods: *pinepods
     - Prowlarr: *prowlarr
     - qBittorrent: *qbittorrent
     - Radarr: *radarr
