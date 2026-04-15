@@ -637,10 +637,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   trilium:
-    image: triliumnext/notes:latest
+    image: triliumnext/trilium:latest
     depends_on:
       traefik:
         condition: service_healthy
+    environment:
+      TRILIUM_DATA_DIR: /home/node/trilium-data
     labels:
       traefik.http.routers.trilium-router.entrypoints: websecure
       traefik.http.routers.trilium-router.rule: Host(`trilium.bob.house`)
@@ -650,6 +652,8 @@ services:
       traefik: null
     volumes:
       - ~/.trilium/:/home/node/trilium-data/:rw
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
   vikunja:
     image: vikunja/vikunja:latest
