@@ -2,9 +2,21 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/docker/
 
-# my-docker:
-#   host: 127.0.0.1
-#   port: 2375
+billups-docker:
+  host: billups.bob.house
+  port: 2375
 
-# my-docker:
-#   socket: /var/run/docker.sock
+freeman-docker:
+  socket: /var/run/docker.sock
+
+ransom-docker:
+  host: ransom.bob.house
+  port: 2375
+
+shaxs-docker:
+  host: shaxs.bob.house
+  port: 2375
+
+tana-docker:
+  host: tana.bob.house
+  port: 2375
