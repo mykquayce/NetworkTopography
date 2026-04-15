@@ -1,24 +1,4 @@
 services:
-  audiobookshelf:
-    image: ghcr.io/advplyr/audiobookshelf:latest
-    depends_on:
-      traefik:
-        condition: service_healthy
-    labels:
-      traefik.docker.network: tana_traefik
-      traefik.http.routers.audiobookshelf-router.entrypoints: websecure
-      traefik.http.routers.audiobookshelf-router.rule: Host(`audiobookshelf.bob.house`)
-      traefik.http.routers.audiobookshelf-router.tls: "true"
-      traefik.http.services.audiobookshelf-service.loadbalancer.server.port: "80"
-    networks:
-      default: null
-      traefik: null
-    volumes:
-      - ~/.audiobookshelf/config/:/config/:rw
-      - ~/.audiobookshelf/audiobooks/:/audiobooks/:rw
-      - ~/.audiobookshelf/podcasts/:/podcasts/:rw
-      - ~/.audiobookshelf/metadata/:/metadata/:rw
-
   feishin:
     image: ghcr.io/jeffvli/feishin:latest
     depends_on:
@@ -306,6 +286,83 @@ services:
       - /mnt/md1/downloads/pinchflat/:/downloads/:rw
       - ~/cookies.txt:/config/extras/cookies.txt:rw
 
+  pinepods:
+    image: madeofpendletonwool/pinepods:latest
+    depends_on:
+      pinepods-db:
+        condition: service_healthy
+      pinepods-valkey:
+        condition: service_started
+    env_file:
+      - ~/Configurations/pinepods.env
+    environment:
+      # Basic Server Info
+      SEARCH_API_URL: https://search.pinepods.online/api/search
+      PEOPLE_API_URL: https://people.pinepods.online
+      HOSTNAME: https://pinepods.bob.house
+      # Database Vars
+      DB_TYPE: postgresql
+      DB_HOST: pinepods-db
+      DB_PORT: "5432"
+      DB_USER: pinepods
+      DB_NAME: pinepods
+      # Valkey Settings
+      VALKEY_HOST: pinepods-valkey
+      VALKEY_PORT: "6379"
+      # Enable or Disable Debug Mode for additional Printing
+      DEBUG_MODE: "false"
+      PUID: ${UID:-911}
+      PGID: ${GID:-911}
+      # Add timezone configuration
+      TZ: Etc/UTC
+    labels:
+      dev.dozzle.group: pinepods
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.pinepods-router.entrypoints: websecure
+      traefik.http.routers.pinepods-router.rule: Host(`pinepods.bob.house`)
+      traefik.http.routers.pinepods-router.tls: "true"
+      traefik.http.services.pinepods-service.loadbalancer.server.port: "8040"
+    networks:
+      default: null
+      pinepods: null
+      traefik: null
+    volumes:
+      - /mnt/md1/podcasts/:/opt/pinepods/downloads/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  pinepods-db:
+    image: postgres:17
+    env_file:
+      - ~/Configurations/pinepods.env
+    environment:
+      POSTGRES_DB: pinepods
+      POSTGRES_USER: pinepods
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d pinepods -U pinepods"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    labels:
+      dev.dozzle.group: pinepods
+      traefik.enable: "false"
+      wud.tag.include: ^17-alpine$$
+    networks:
+      pinepods: null
+    volumes:
+      - ~/.pinepods/:/var/lib/postgresql/data/:rw
+
+  pinepods-valkey:
+    image: valkey/valkey:8-alpine
+    labels:
+      dev.dozzle.group: pinepods
+      traefik.enable: "false"
+      wud.tag.include: ^8-alpine$$
+    networks:
+      pinepods: null
+
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     depends_on:
@@ -590,6 +647,9 @@ services:
 networks:
   default:
     name: tana_default
+  pinepods:
+    name: tana_pinepods
+    internal: "true"
   traefik:
     name: tana_traefik
     internal: "true"
