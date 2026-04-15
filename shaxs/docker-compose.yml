@@ -1,6 +1,8 @@
 services:
   frigate:
     image: ghcr.io/blakeblackshear/frigate:stable
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, FOWNER, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -17,6 +19,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     shm_size: 192mb
     volumes:
       - ./frigate.yaml:/config/config.yaml:rw
@@ -29,6 +32,8 @@ services:
 
   glances:
     image: nicolargo/glances:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -42,12 +47,15 @@ services:
     networks:
       traefik: null
     pid: host
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   kopia:
     image: kopia/kopia:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_OVERRIDE, ]
     command:
       - server
       - start
@@ -68,6 +76,8 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -80,6 +90,7 @@ services:
 
   traefik:
     image: traefik:latest
+    cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
       - --api.insecure=true
@@ -119,6 +130,8 @@ services:
       traefik: null
     ports:
       - 443:443/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
