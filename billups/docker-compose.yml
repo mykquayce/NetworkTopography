@@ -1,6 +1,8 @@
 services:
   glances:
     image: nicolargo/glances:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -14,12 +16,15 @@ services:
     networks:
       traefik: null
     pid: host
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   kopia:
     image: kopia/kopia:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CAP_DAC_OVERRIDE, ]
     command:
       - server
       - start
@@ -40,6 +45,8 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -52,15 +59,18 @@ services:
 
   ollama:
     image: ollama/ollama:latest
+    cap_drop: [ ALL, ]
     labels:
       traefik.enable: "false"
     networks:
       ollama: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.ollama/:/root/.ollama/:rw
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
+    cap_drop: [ ALL, ]
     depends_on:
       ollama:
         condition: service_started
@@ -79,11 +89,13 @@ services:
     networks:
       ollama: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.open-webui/:/app/backend/data/:rw
 
   speakr:
     image: learnedmachine/speakr:latest
+    cap_drop: [ ALL, ]
     depends_on:
       ollama:
         condition: service_started
@@ -136,12 +148,14 @@ services:
     networks:
       ollama: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.speakr/uploads/:/data/uploads/:rw
       - ~/.speakr/instance/:/data/instance/:rw
 
   traefik:
     image: traefik:latest
+    cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
       - --api.insecure=true
@@ -179,6 +193,8 @@ services:
       traefik: null
     ports:
       - 443:443/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
@@ -186,6 +202,7 @@ services:
 
   whisper-asr:
     image: onerahmet/openai-whisper-asr-webservice:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -203,6 +220,7 @@ services:
     networks:
       ollama: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.whisper-asr/cache/:/root/.cache/:rw
       - ~/.whisper-asr/data/:/data/whisper/:rw
