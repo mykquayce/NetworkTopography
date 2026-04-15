@@ -7,7 +7,8 @@
         description: Network-wide ads & trackers blocking DNS server
         href: https://adguard01.bob.house
         icon: adguard-home.png
-        siteMonitor: https://adguard01.bob.house/login.html
+        server: freeman-docker
+        container: freeman-adguard01-1
         widget:
           type: adguard
           url: https://adguard01.bob.house
@@ -17,7 +18,8 @@
         description: Network-wide ads & trackers blocking DNS server
         href: https://adguard20.bob.house
         icon: adguard-home.png
-        siteMonitor: https://adguard20.bob.house/login.html
+        server: freeman-docker
+        container: freeman-adguard20-1
         widget:
           type: adguard
           url: https://adguard20.bob.house
@@ -27,26 +29,30 @@
         description: Push Notifications that work with just about every platform!
         href: https://apprise.bob.house
         icon: apprise.png
-        siteMonitor: https://apprise.bob.house/status
+        server: ransom-docker
+        container: ransom-apprise-1
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
         icon: authentik.png
-        siteMonitor: https://authentik.bob.house/if/flow/default-authentication-flow/?next=%2F
+        server: freeman-docker
+        container: freeman-authentik-server-1
         widget:
           type: authentik
           url: https://authentik.bob.house
           key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
-    - Baïkal: &bakial
+    - Baïkal: &baikal
         description: A lightweight CalDAV+CardDAV server
         href: https://baikal.bob.house
         icon: baikal.png
-        siteMonitor: https://baikal.bob.house
+        server: freeman-docker
+        container: freeman-baikal-1
     - Change Detection: &changedetection
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection.bob.house/
         icon: changedetection.svg
-        siteMonitor: https://changedetection.bob.house
+        server: ransom-docker
+        container: ransom-changedetection-1
         widget:
           type: changedetectionio
           url: https://changedetection.bob.house/
@@ -55,42 +61,50 @@
         description: A self-contained, lightweight workflow engine
         href: https://dagu.bob.house/
         icon: /icons/dagu.png
-        siteMonitor: https://dagu.bob.house/
+        server: freeman-docker
+        container: freeman-dagu-1
     - Docker Registry: &dockerregistry
         description: UI for your private docker registry
         href: https://registry-ui.bob.house/
         icon: docker-moby.svg
-        siteMonitor: https://registry-ui.bob.house/
+        server: ransom-docker
+        container: ransom-registry-1
     - Donetick: &donetick
         description: Simplify Tasks & Chores, Together
         href: https://donetick.bob.house/
         icon: donetick.png
-        siteMonitor: https://donetick.bob.house/
+        server: ransom-docker
+        container: ransom-donetick-1
     - Dozzle: &dozzle
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
         icon: dozzle.svg
-        siteMonitor: https://dozzle.bob.house/healthcheck
+        server: freeman-docker
+        container: freeman-dozzle-1
     - draw.io: &drawio
         description: a JavaScript, client-side editor for general diagramming
         href: https://drawio.bob.house
         icon: draw-io.svg
-        siteMonitor: https://drawio.bob.house
+        server: ransom-docker
+        container: ransom-drawio-1
     - Feishin: &feishin
         description: A modern self-hosted music player
         href: https://feishin.bob.house
         icon: feishin.png
-        siteMonitor: https://freshrss.bob.house/i/
+        server: tana-docker
+        container: tana-feishin-1
     - FreshRSS: &freshrss
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/
         icon: freshrss.svg
-        siteMonitor: https://freshrss.bob.house/i/
+        server: ransom-docker
+        container: ransom-freshrss-1
     - Frigate: &frigate
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate.bob.house/
         icon: frigate.svg
-        siteMonitor: https://frigate.bob.house/
+        server: shaxs-docker
+        container: shaxs-frigate-1
         widget:
           type: frigate
           url: https://frigate.bob.house/
@@ -99,7 +113,8 @@
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
         icon: gatus.svg
-        siteMonitor: https://gatus.bob.house/health
+        server: freeman-docker
+        container: freeman-gatus-1
         widget:
           type: gatus
           url: https://gatus.bob.house
@@ -107,11 +122,13 @@
         description: A self-hosted dashboard that puts all your feeds in one place
         href: https://glance.bob.house/
         icon: glance.png
-        siteMonitor: https://glance.bob.house/
+        server: freeman-docker
+        container: freeman-glance-1
     - Glances BILLUPS: &glancesbillups
         href: https://glances-billups.bob.house/
         icon: glances.png
-        siteMonitor: https://glances-billups.bob.house/api/4/status
+        server: billups-docker
+        container: billups-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -164,7 +181,8 @@
     - Glances FREEMAN: &glancesfreeman
         href: https://glances-freeman.bob.house/
         icon: glances.png
-        siteMonitor: https://glances-freeman.bob.house/api/4/status
+        server: freeman-docker
+        container: freeman-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -217,7 +235,8 @@
     - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
         icon: glances.png
-        siteMonitor: https://glances-ransom.bob.house/api/4/status
+        server: ransom-docker
+        container: ransom-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -270,7 +289,8 @@
     - Glances SHAXS: &glancesshaxs
         href: https://glances-shaxs.bob.house/
         icon: glances.png
-        siteMonitor: https://glances-shaxs.bob.house/api/4/status
+        server: shaxs-docker
+        container: shaxs-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -323,7 +343,8 @@
     - Glances TANA: &glancestana
         href: https://glances-tana.bob.house/
         icon: glances.png
-        siteMonitor: https://glances-tana.bob.house/api/4/status
+        server: tana-docker
+        container: tana-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -382,7 +403,8 @@
     - Gluetun: &gluetun
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
-        siteMonitor: https://gluetun.bob.house/
+        server: tana-docker
+        container: tana-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun.bob.house/
@@ -392,12 +414,14 @@
         description: Ultimate camera streaming application
         href: https://go2rtc.bob.house/
         icon: go2rtc.png
-        siteMonitor: https://go2rtc.bob.house/
+        server: freeman-docker
+        container: freeman-go2rtc-1
     - Grafana: &grafana
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
         icon: grafana.svg
-        siteMonitor: https://grafana.bob.house/login/generic_oauth?redirectTo=
+        server: ransom-docker
+        container: ransom-grafana-1
         widget:
           type: grafana
           url: https://grafana.bob.house
@@ -445,17 +469,20 @@
         description: A simple HTTP Request & Response Service
         href: https://httpbin.bob.house/
         icon: /icons/httpbin.png
-        siteMonitor: https://httpbin.bob.house/
+        server: ransom-docker
+        container: ransom-httpbin-1
     - IT-Tools: &ittools
         description: Collection of handy online tools for developers, with great UX
         href: https://it-tools.bob.house/
         icon: it-tools.svg
-        siteMonitor: https://it-tools.bob.house/
+        server: ransom-docker
+        container: ransom-it-tools-1
     - Jellyfin: &jellyfin
         description: Your media, on your terms
         href: https://jellyfin.bob.house/web/
         icon: jellyfin.svg
-        siteMonitor: https://jellyfin.bob.house/health
+        server: tana-docker
+        container: tana-jellyfin-1
         widgets:
           - type: jellyfin
             url: https://jellyfin.bob.house
@@ -484,7 +511,8 @@
         description: Request management and media discovery tool for the Jellyfin ecosystem
         href: https://jellyseerr.bob.house/
         icon: jellyseerr.svg
-        siteMonitor: https://jellyseerr.bob.house/login
+        server: tana-docker
+        container: tana-jellyseerr-1
         widget:
           type: jellyseerr
           url: https://jellyseerr.bob.house
@@ -493,7 +521,8 @@
         description: A self-hostable bookmark-everything app
         href: https://karakeep.bob.house/
         icon: karakeep.png
-        siteMonitor: https://karakeep.bob.house/
+        server: ransom-docker
+        container: ransom-karakeep-1
         widget:
           type: karakeep
           url: https://karakeep.bob.house
@@ -502,12 +531,14 @@
         description: When there is No Internet, there is Kiwix
         href: https://kiwix.bob.house/
         icon: kiwix-light.png
-        siteMonitor: https://kiwix.bob.house/
+        server: tana-docker
+        container: tana-kiwix-1
     - Kopia BILLUPS: &kopiabillups
         description: Cross-platform backup tool
         href: https://kopia-billups.bob.house/
         icon: kopia.svg
-        siteMonitor: https://kopia-billups.bob.house
+        server: billups-docker
+        container: billups-kopia-1
         widget:
           type: kopia
           url: https://kopia-billups.bob.house
@@ -517,7 +548,8 @@
         description: Cross-platform backup tool
         href: https://kopia-freeman.bob.house/
         icon: kopia.svg
-        siteMonitor: http://kopia:51515
+        server: freeman-docker
+        container: freeman-kopia-1
         widget:
           type: kopia
           url: http://kopia:51515
@@ -527,7 +559,8 @@
         description: Cross-platform backup tool
         href: https://kopia-ransom.bob.house/
         icon: kopia.svg
-        siteMonitor: https://kopia-ransom.bob.house
+        server: ransom-docker
+        container: ransom-kopia-1
         widget:
           type: kopia
           url: https://kopia-ransom.bob.house
@@ -537,7 +570,8 @@
         description: Cross-platform backup tool
         href: https://kopia-shaxs.bob.house/
         icon: kopia.svg
-        siteMonitor: https://kopia-shaxs.bob.house
+        server: shaxs-docker
+        container: shaxs-kopia-1
         widget:
           type: kopia
           url: https://kopia-shaxs.bob.house
@@ -547,7 +581,8 @@
         description: Cross-platform backup tool
         href: https://kopia-tana.bob.house/
         icon: kopia.svg
-        siteMonitor: https://kopia-tana.bob.house
+        server: tana-docker
+        container: tana-kopia-1
         widget:
           type: kopia
           url: https://kopia-tana.bob.house
@@ -557,7 +592,8 @@
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
         icon: lidarr.svg
-        siteMonitor: https://lidarr.bob.house/login?returnUrl=%2F
+        server: tana-docker
+        container: tana-lidarr-1
         widget:
           type: lidarr
           url: https://lidarr.bob.house
@@ -566,22 +602,26 @@
         description: Web UI for youtube-dl / yt-dlp
         href: https://metube.bob.house/
         icon: metube.svg
-        siteMonitor: https://metube.bob.house
+        server: tana-docker
+        container: tana-metube-1
     - moodist: &moodist
         description: Ambient sounds for focus and calm
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.07%2C%22crowd%22%3A0.59%2C%22inside-a-train%22%3A0.36%2C%22brown-noise%22%3A0.12%7D
         icon: moodist.png
-        siteMonitor: https://moodist.bob.house
+        server: ransom-docker
+        container: ransom-moodist-1
     - n8n: &n8n
         description: Secure, AI-native workflow automation
         href: https://n8n.bob.house/
         icon: n8n.svg
-        siteMonitor: https://n8n.bob.house/
+        server: ransom-docker
+        container: ransom-n8n-1
     - Navidrome: &navidrome
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
-        siteMonitor: https://navidrome.bob.house/app
+        server: tana-docker
+        container: tana-navidrome-1
         widget:
           type: navidrome
           url: https://navidrome.bob.house
@@ -592,27 +632,32 @@
         description: Low-code programming for event-driven applications
         href: https://nodered.bob.house
         icon: node-red.svg
-        siteMonitor: https://nodered.bob.house/
+        server: tana-docker
+        container: tana-nodered-1
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
         icon: ntfy.svg
-        siteMonitor: https://ntfy.bob.house/
+        server: ransom-docker
+        container: ransom-ntfy-1
     - NuGet: &nuget
         description: A lightweight NuGet and symbol server
         href: https://nuget.bob.house/
         icon: microsoft.svg
-        siteMonitor: https://nuget.bob.house/v3/index.json
+        server: ransom-docker
+        container: ransom-nuget-1
     - Open WebUI: &openwebui
         description: An extensible, feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline
         href: https://open-webui.bob.house
         icon: open-webui-light.webp
-        siteMonitor: https://open-webui.bob.house/
+        server: billups-docker
+        container: billups-open-webui-1
     - Paperless-ngx: &paperlessngx
         description: A community-supported open-source document management system
         href: https://paperless-ngx.bob.house
         icon: paperless-ngx.svg
-        siteMonitor: https://paperless-ngx.bob.house/accounts/login/?next=%2F
+        server: ransom-docker
+        container: ransom-paperless-ngx-1
         widget:
           type: paperlessngx
           url: https://paperless-ngx.bob.house
@@ -621,22 +666,26 @@
         description: Your next YouTube media manager
         href: https://pinchflat.bob.house/
         icon: pinchflat.png
-        siteMonitor: https://pinchflat.bob.house
+        server: tana-docker
+        container: tana-pinchflat-1
     - Pinepods: &pinepods
         description: A complete podcast management system
         href: https://pinepods.bob.house/
         icon: pinepods.png
-        siteMonitor: https://pinepods.bob.house
+        server: tana-docker
+        container: tana-pinepods-1
     - Planka: &planka
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
         icon: planka.svg
-        siteMonitor: https://planka.bob.house
+        server: ransom-docker
+        container: ransom-planka-1
     - Portainer: &portainer
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
-        siteMonitor: https://portainer.bob.house
+        server: freeman-docker
+        container: freeman-portainer-1
         widgets:
           - type: portainer
             url: https://portainer.bob.house
@@ -658,7 +707,8 @@
         description: The Prometheus monitoring system and time series database
         href: https://prometheus.bob.house/
         icon: prometheus.svg
-        siteMonitor: https://prometheus.bob.house/query
+        server: freeman-docker
+        container: freeman-prometheus-1
         widget:
           type: prometheus
           url: https://prometheus.bob.house
@@ -666,7 +716,8 @@
         description: Indexer manager / proxy
         href: https://prowlarr.bob.house/
         icon: prowlarr.svg
-        siteMonitor: https://prowlarr.bob.house/login?returnUrl=%2F
+        server: tana-docker
+        container: tana-prowlarr-1
         widget:
           type: prowlarr
           url: https://prowlarr.bob.house
@@ -675,7 +726,8 @@
         description: A BitTorrent client in Qt
         href: https://qbittorrent.bob.house
         icon: qbittorrent.svg
-        siteMonitor: https://qbittorrent.bob.house
+        server: tana-docker
+        container: tana-qbittorrent-1
         widget:
           type: qbittorrent
           url: https://qbittorrent.bob.house
@@ -685,7 +737,8 @@
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
         icon: radarr.svg
-        siteMonitor: https://radarr.bob.house/login?returnUrl=%2F
+        server: tana-docker
+        container: tana-radarr-1
         widget:
           type: radarr
           url: https://radarr.bob.house
@@ -695,7 +748,8 @@
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
         icon: sabnzbd.svg
-        siteMonitor: https://sabnzbd.bob.house
+        server: tana-docker
+        container: tana-sabnzbd-1
         widget:
           type: sabnzbd
           url: https://sabnzbd.bob.house
@@ -704,7 +758,8 @@
         description: Hard Drive S.M.A.R.T Monitoring, Historical Trends & Real World Failure Thresholds
         href: https://scrutiny.bob.house/web/
         icon: scrutiny-light.png
-        siteMonitor: https://scrutiny.bob.house/api/health
+        server: tana-docker
+        container: tana-scrutiny-1
         widget:
           type: scrutiny
           url: https://scrutiny.bob.house
@@ -712,12 +767,14 @@
         description: Fully automate TV enjoyment
         href: https://sickgear.bob.house/
         icon: sickbeard.svg
-        siteMonitor: https://sickgear.bob.house/daily-schedule
+        server: tana-docker
+        container: tana-sickgear-1
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
         icon: sonarr.svg
-        siteMonitor: https://sonarr.bob.house/login?returnUrl=%2F
+        server: tana-docker
+        container: tana-sonarr-1
         widget:
           type: sonarr
           url: https://sonarr.bob.house
@@ -727,12 +784,14 @@
         description: Self-hosted web application for transcribing audio recordings
         href: https://speakr.bob.house
         icon: /icons/speakr.png
-        siteMonitor: https://speakr.bob.house/login?next=%2F
+        server: billups-docker
+        container: billups-speakr-1
     - Speedtest: &speedtest
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
-        siteMonitor: https://speedtest.bob.house/api/healthcheck
+        server: ransom-docker
+        container: ransom-speedtest-tracker-1
         widget:
           type: speedtest
           url: https://speedtest.bob.house
@@ -741,12 +800,14 @@
         description: WebSSH & WebTelnet client
         href: https://sshwifty.bob.house/
         icon: sshwifty.svg
-        siteMonitor: https://sshwifty.bob.house/sshwifty/socket/verify
+        server: freeman-docker
+        container: freeman-sshwifty-1
     - Traefik BILLUPS: &traefikbillups
         description: HTTP reverse proxy and load balancer
         href: https://traefik-billups.bob.house/dashboard/
         icon: traefik-proxy.svg
-        siteMonitor: https://traefik-billups.bob.house/dashboard/
+        server: billups-docker
+        container: billups-traefik-1
         widget:
           type: traefik
           url: https://traefik-billups.bob.house
@@ -754,7 +815,8 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik.bob.house/dashboard/
         icon: traefik-proxy.svg
-        siteMonitor: https://traefik.bob.house/dashboard/
+        server: freeman-docker
+        container: freeman-traefik-1
         widget:
           type: traefik
           url: https://traefik.bob.house
@@ -762,7 +824,8 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-ransom.bob.house/dashboard/
         icon: traefik-proxy.svg
-        siteMonitor: https://traefik-ransom.bob.house/dashboard/
+        server: ransom-docker
+        container: ransom-traefik-1
         widget:
           type: traefik
           url: https://traefik-ransom.bob.house
@@ -770,7 +833,8 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-shaxs.bob.house/dashboard/
         icon: traefik-proxy.svg
-        siteMonitor: https://traefik-shaxs.bob.house/dashboard/
+        server: shaxs-docker
+        container: shaxs-traefik-1
         widget:
           type: traefik
           url: https://traefik-shaxs.bob.house
@@ -778,7 +842,8 @@
         description: HTTP reverse proxy and load balancer
         href: https://traefik-tana.bob.house/dashboard/
         icon: traefik-proxy.svg
-        siteMonitor: https://traefik-tana.bob.house/dashboard/
+        server: tana-docker
+        container: tana-traefik-1
         widget:
           type: traefik
           url: https://traefik-tana.bob.house
@@ -786,17 +851,20 @@
         description: Hierarchical note taking application
         href: https://trilium.bob.house/
         icon: trilium.svg
-        siteMonitor: https://trilium.bob.house/login
+        server: ransom-docker
+        container: ransom-trilium-1
     - Tunarr: &tunarr
         description: IPTV backed by Plex/Jellyfin/Emby
         href: https://tunarr.bob.house/web
         icon: tunarr.svg
-        siteMonitor: https://tunarr.bob.house/web
+        server: tana-docker
+        container: tana-tunarr-1
     - Vikunja: &vikunja
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
         icon: vikunja.svg
-        siteMonitor: https://vikunja.bob.house
+        server: ransom-docker
+        container: ransom-vikunja-1
         widget:
           type: vikunja
           url: https://vikunja.bob.house
@@ -806,7 +874,8 @@
         description: Gets you notified when a new version of your Docker Container is available
         href: https://whatsupdocker.bob.house/
         icon: whats-up-docker.svg
-        siteMonitor: https://whatsupdocker.bob.house/
+        server: ransom-docker
+        container: ransom-whatsupdocker-1
         widget:
           type: whatsupdocker
           url: https://whatsupdocker.bob.house
@@ -814,7 +883,8 @@
         description: Windows inside a Docker container
         href: https://windows-tana.bob.house/
         icon: windows-7.png
-        siteMonitor: https://windows-tana.bob.house/
+        server: tana-docker
+        container: tana-windows-tana-1
 
 - Essentials:
     - Change Detection: *changedetection
