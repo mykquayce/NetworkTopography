@@ -63,6 +63,12 @@
         icon: /icons/dagu.png
         server: freeman-docker
         container: freeman-dagu-1
+    - degoog: &degoog
+        description: Search engine aggregator with a comprehensive plugin/extension system
+        href: https://degoog.bob.house/
+        icon: /icons/degoog.svg
+        server: ransom-docker
+        container: ransom-degoog-1
     - Docker Registry: &dockerregistry
         description: UI for your private docker registry
         href: https://registry-ui.bob.house/
@@ -400,14 +406,24 @@
                 query: docker_n_containers_paused{host='tana'}
               - label: stopped containers
                 query: docker_n_containers_stopped{host='tana'}
-    - Gluetun: &gluetun
+    - Gluetun RANSOM: &gluetunransom
+        description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
+        icon: gluetun.svg
+        server: ransom-docker
+        container: ransom-gluetun-1
+        widget:
+          type: gluetun
+          url: https://gluetun-ransom.bob.house/
+          key: {{HOMEPAGE_VAR_GLUETUN_KEY}}
+          version: 2
+    - Gluetun TANA: &gluetuntana
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: tana-docker
         container: tana-gluetun-1
         widget:
           type: gluetun
-          url: https://gluetun.bob.house/
+          url: https://gluetun-tana.bob.house/
           key: {{HOMEPAGE_VAR_GLUETUN_KEY}}
           version: 2
     - go2rtc: &go2rtc
@@ -890,6 +906,7 @@
 
 - Essentials:
     - Change Detection: *changedetection
+    - degoog: *degoog
     - FreshRSS: *freshrss
     - Frigate: *frigate
     - Glance: *glance
@@ -941,7 +958,7 @@
 
 - Media:
     - Feishin: *feishin
-    - Gluetun: *gluetun
+    - Gluetun: *gluetuntana
     - Jellyfin: *jellyfin
     - Jellyseerr: *jellyseerr
     - Lidarr: *lidarr
