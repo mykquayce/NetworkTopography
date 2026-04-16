@@ -55,7 +55,7 @@ services:
     labels:
       traefik.docker.network: tana_traefik
       traefik.http.routers.gluetun-router.entrypoints: websecure
-      traefik.http.routers.gluetun-router.rule: Host(`gluetun.bob.house`)
+      traefik.http.routers.gluetun-router.rule: Host(`gluetun-tana.bob.house`)
       traefik.http.routers.gluetun-router.tls: "true"
       traefik.http.routers.gluetun-router.service: gluetun-service
       traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"

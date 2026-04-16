@@ -63,6 +63,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: degoog
+    group: containers
+    url: http://192.168.20.65:2375/v1.52/containers/ransom-degoog-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: donetick
     group: containers
     url: http://192.168.20.65:2375/v1.52/containers/ransom-donetick-1/json
@@ -142,7 +148,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: gluetun
+  - name: gluetun RANSOM
+    group: containers
+    url: http://192.168.20.65:2375/v1.52/containers/ransom-gluetun-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: gluetun TANA
     group: containers
     url: http://192.168.20.70:2375/v1.52/containers/tana-gluetun-1/json
     conditions: *conditions-definition

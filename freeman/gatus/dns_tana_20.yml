@@ -20,11 +20,11 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: gluetun .20
+  - name: gluetun-tana .20
     group: dns .20
     url: 192.168.20.60
     dns:
-      query-name: gluetun.bob.house
+      query-name: gluetun-tana.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition

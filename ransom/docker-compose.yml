@@ -59,6 +59,17 @@ services:
       - ~/.donetick/:/donetick-data/:rw
       - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
 
+  degoog:
+    image: ghcr.io/fccview/degoog:latest
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    labels:
+      traefik.enable: "false"
+    network_mode: service:gluetun
+    volumes:
+      - ~/.degoog/:/app/data/:rw
+
   drawio:
     image: jgraph/drawio:latest
     depends_on:
@@ -118,6 +129,36 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      traefik:
+        condition: service_healthy
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      TZ: Etc/UTC
+      UPDATER_PERIOD: 24h
+    env_file:
+      - ~/Configurations/gluetun.env
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.gluetun-router.entrypoints: websecure
+      traefik.http.routers.gluetun-router.rule: Host(`gluetun-ransom.bob.house`)
+      traefik.http.routers.gluetun-router.tls: "true"
+      traefik.http.routers.gluetun-router.service: gluetun-service
+      traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"
+      traefik.http.routers.degoog-router.entrypoints: websecure
+      traefik.http.routers.degoog-router.rule: Host(`degoog.bob.house`)
+      traefik.http.routers.degoog-router.tls: "true"
+      traefik.http.routers.degoog-router.service: degoog-service
+      traefik.http.services.degoog-service.loadbalancer.server.port: "4444"
+    networks:
+      default: null
+      traefik: null
 
   grafana:
     image: grafana/grafana-oss:latest

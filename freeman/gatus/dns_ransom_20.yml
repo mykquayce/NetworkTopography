@@ -29,6 +29,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: degoog .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: degoog.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: donetick .20
     group: dns .20
     url: 192.168.20.60
@@ -61,6 +70,15 @@ endpoints:
     url: 192.168.20.60
     dns:
       query-name: glances-ransom.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: gluetun-ransom .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: gluetun-ransom.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition
