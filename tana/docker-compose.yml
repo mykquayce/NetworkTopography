@@ -1,6 +1,7 @@
 services:
   feishin:
     image: ghcr.io/jeffvli/feishin:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -18,9 +19,12 @@ services:
       traefik.http.services.feishin-service.loadbalancer.server.port: "9180"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
 
   glances:
     image: nicolargo/glances:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -34,14 +38,15 @@ services:
     networks:
       traefik: null
     pid: host
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   gluetun:
     image: qmcgaw/gluetun:latest
-    cap_add:
-      - NET_ADMIN
+    cap_drop: [ ALL, ]
+    cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -70,9 +75,12 @@ services:
     ports:
       - 6881:6881/tcp # qbittorrent
       - 6881:6881/udp
+    security_opt: [ no-new-privileges=true, ]
 
   jellyfin:
     image: jellyfin/jellyfin:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CAP_DAC_OVERRIDE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -88,6 +96,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.jellyfin/config/:/config/:rw
       - ~/.jellyfin/cache/:/cache/:rw
@@ -102,6 +111,7 @@ services:
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
+    cap_drop: [ ALL, ]
     depends_on:
       jellyfin:
         condition: service_healthy
@@ -119,11 +129,14 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.jellyseerr/:/app/config/:rw
 
   kiwix:
     image: ghcr.io/kiwix/kiwix-serve:latest
+    cap_drop: [ ALL, ]
     command:
        - '*.zim'
     labels:
@@ -133,11 +146,14 @@ services:
       traefik.http.services.kiwix-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /mnt/md1/downloads/zim/:/data/:ro
 
   kopia:
     image: kopia/kopia:latest
+    cap_drop: [ ALL, ]
     command:
       - server
       - start
@@ -158,6 +174,8 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -170,6 +188,8 @@ services:
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -190,6 +210,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.lidarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -197,6 +218,8 @@ services:
 
   metube:
     image: ghcr.io/alexta69/metube:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -217,6 +240,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.metube/:/data/:rw
       - ~/cookies.txt:/cookies/cookies.txt:ro
@@ -224,6 +248,7 @@ services:
 
   navidrome:
     image: deluan/navidrome:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -240,12 +265,15 @@ services:
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.navidrome/:/data/:rw
       - /mnt/md1/music/:/music/:ro
 
   nodered:
     image: nodered/node-red:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -261,12 +289,15 @@ services:
       traefik.http.services.nodered-service.loadbalancer.server.port: "1880"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.nodered/:/data/:rw
       - /mnt/md1/youtube/:/youtube/:rw
 
   pinchflat:
     image: ghcr.io/kieraneglin/pinchflat:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -281,6 +312,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.pinchflat/config/:/config/:rw
       - /mnt/md1/downloads/pinchflat/:/downloads/:rw
@@ -288,6 +320,8 @@ services:
 
   pinepods:
     image: madeofpendletonwool/pinepods:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CAP_CHOWN, CAP_DAC_OVERRIDE, CAP_SETGID, CAP_SETUID, ]
     depends_on:
       pinepods-db:
         condition: service_healthy
@@ -326,6 +360,7 @@ services:
       default: null
       pinepods: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /mnt/md1/podcasts/:/opt/pinepods/downloads/:rw
       - /etc/localtime:/etc/localtime:ro
@@ -333,6 +368,8 @@ services:
 
   pinepods-db:
     image: postgres:17
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
       - ~/Configurations/pinepods.env
     environment:
@@ -351,20 +388,26 @@ services:
       wud.tag.include: ^17-alpine$$
     networks:
       pinepods: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.pinepods/:/var/lib/postgresql/data/:rw
 
   pinepods-valkey:
     image: valkey/valkey:8-alpine
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     labels:
       dev.dozzle.group: pinepods
       traefik.enable: "false"
       wud.tag.include: ^8-alpine$$
     networks:
       pinepods: null
+    security_opt: [ no-new-privileges=true, ]
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -385,11 +428,14 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.prowlarr/:/config/:rw
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     depends_on:
       gluetun:
         condition: service_healthy
@@ -402,12 +448,15 @@ services:
     labels:
       traefik.enable: "false"
     network_mode: service:gluetun
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.qbittorrent/:/config/:rw
       - /mnt/md1/downloads/:/downloads/:rw
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -428,6 +477,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.radarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -435,6 +485,8 @@ services:
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -452,6 +504,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.sabnzbd/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -459,8 +512,8 @@ services:
 
   scrutiny:
     image: ghcr.io/analogj/scrutiny:master-omnibus
-    cap_add:
-      - SYS_RAWIO
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_READ_SEARCH, SYS_RAWIO, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -478,6 +531,7 @@ services:
       traefik.http.services.scutiny-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.scrutiny/config/:/opt/scrutiny/config/:rw
       - ~/.scrutiny/influxdb/:/opt/scrutiny/influxdb/:rw
@@ -485,6 +539,8 @@ services:
 
   sickgear:
     image: sickgear/sickgear:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -495,6 +551,8 @@ services:
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.sickgear/config/:/config/:rw
       - ~/.sickgear/data/:/data/:rw
@@ -509,6 +567,8 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -531,6 +591,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.sonarr/:/config/:rw
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
@@ -538,6 +599,7 @@ services:
 
   traefik:
     image: traefik:latest
+    cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
       - --api.insecure=true
@@ -574,6 +636,8 @@ services:
       traefik: null
     ports:
       - 443:443/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
@@ -581,6 +645,8 @@ services:
 
   tunarr:
     image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_OVERRIDE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -596,6 +662,7 @@ services:
       traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.tunarr/:/config/tunarr/:rw
       - /mnt/md1/anime/:/media/anime/:ro
@@ -609,8 +676,8 @@ services:
 
   windows-tana:
     image: dockurr/windows:latest
-    cap_add:
-      - NET_ADMIN
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, NET_ADMIN, NET_BIND_SERVICE, NET_RAW, SETGID, SETUID, SYS_CHROOT, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -639,6 +706,7 @@ services:
     ports:
       - 3389:3389/tcp
       - 3389:3389/udp
+    security_opt: [ no-new-privileges=true, ]
     stop_grace_period: 2m0s
     volumes:
       - /mnt/md1/windows/:/storage/:rw
