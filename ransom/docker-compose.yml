@@ -1,12 +1,16 @@
 services:
   apprise:
     image: caronc/apprise:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
     environment:
+      APPRISE_ADMIN: "y"
       APPRISE_STATEFUL_MODE: simple
       APPRISE_WORKER_COUNT: "1"
+      TZ: Etc/UTC
     healthcheck:
       test: curl --fail http://localhost:8000/status || exit 1
     labels:
@@ -18,6 +22,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.apprise/attach/:/attach/:rw
       - ~/.apprise/config/:/config/:rw
@@ -25,6 +30,7 @@ services:
 
   changedetection:
     image: dgtlmoon/changedetection.io:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -37,11 +43,14 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.changedetection/:/datastore/:rw
 
   donetick:
     image: donetick/donetick:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -55,23 +64,29 @@ services:
       traefik.http.services.donetick-service.loadbalancer.server.port: "2021"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.donetick/:/donetick-data/:rw
       - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
 
   degoog:
     image: ghcr.io/fccview/degoog:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       gluetun:
         condition: service_healthy
     labels:
       traefik.enable: "false"
     network_mode: service:gluetun
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.degoog/:/app/data/:rw
 
   drawio:
     image: jgraph/drawio:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -84,9 +99,13 @@ services:
       traefik.http.services.drawio-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
 
   freshrss:
     image: freshrss/freshrss:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -104,15 +123,18 @@ services:
     logging:
       options:
         max-size: 10m
+    security_opt: [ no-new-privileges=true, ]
     networks:
       default: null
       traefik: null
     volumes:
-      - ~/.freshrss/:/var/www/FreshRSS/data:rw
-      - ~/.freshrss-extensions/:/var/www/FreshRSS/extensions/:ro
+      - ~/.freshrss/data/:/var/www/FreshRSS/data/:rw
+      - ~/.freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
 
   jsonpath:
     image: ashphy/jsonpath-online-evaluator:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -123,9 +145,12 @@ services:
       traefik.http.services.jsonpath-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
 
   glances:
     image: nicolargo/glances:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -139,14 +164,15 @@ services:
     networks:
       traefik: null
     pid: host
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   gluetun:
     image: qmcgaw/gluetun:latest
-    cap_add:
-      - NET_ADMIN
+    cap_drop: [ ALL, ]
+    cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -172,9 +198,11 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
 
   grafana:
     image: grafana/grafana-oss:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -193,12 +221,15 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     user: "0"
     volumes:
       - ~/.grafana/:/var/lib/grafana/:rw
 
   httpbin:
     image: mccutchen/go-httpbin:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -209,9 +240,13 @@ services:
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
 
   it-tools:
     image: ghcr.io/corentinth/it-tools:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -222,9 +257,11 @@ services:
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
 
   karakeep:
     image: ghcr.io/karakeep-app/karakeep:release
+    cap_drop: [ ALL, ]
     environment:
       BROWSER_WEB_URL: http://karakeep-chrome:9222
       DATA_DIR: /data
@@ -249,11 +286,13 @@ services:
       default: null
       karakeep: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.karakeep/data/:/data/:rw
 
   karakeep-chrome:
     image: gcr.io/zenika-hub/alpine-chrome:124
+    cap_drop: [ ALL, ]
     command:
       - --disable-dev-shm-usage
       - --disable-gpu
@@ -268,9 +307,11 @@ services:
     networks:
       default: null
       karakeep: null
+    security_opt: [ no-new-privileges=true, ]
 
   karakeep-meilisearch:
     image: getmeili/meilisearch:v1.41.0
+    cap_drop: [ ALL, ]
     environment:
       MEILI_NO_ANALYTICS: "true"
     env_file:
@@ -281,11 +322,14 @@ services:
       wud.tag.include: ^v1\.41$$
     networks:
       karakeep: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.karakeep/meilisearch/:/meili_data/:rw
 
   kopia:
     image: kopia/kopia:latest
+    cap_drop: [ ALL, ]
     command:
       - server
       - start
@@ -306,6 +350,8 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -318,6 +364,8 @@ services:
 
   moodist:
     image: ghcr.io/remvze/moodist:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -331,9 +379,11 @@ services:
         max-size: 1g
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
 
   n8n:
     image: docker.n8n.io/n8nio/n8n:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -349,6 +399,7 @@ services:
       traefik.http.services.n8n-service.loadbalancer.server.port: "5678"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     user: "0"
     volumes:
       - ~/.n8n/:/home/node/.n8n/:rw
@@ -359,6 +410,8 @@ services:
         FROM alpine:latest
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     healthcheck:
       test: ["CMD-SHELL", "nslookup -type=CNAME homepage.bob.house 127.0.0.1"]
       interval: 1m
@@ -370,6 +423,7 @@ services:
     ports:
       - 192.168.1.65:53:53/tcp
       - 192.168.1.65:53:53/udp
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
       - ./nsd/db.bob.house.1:/zones/db.bob.house:ro
@@ -380,6 +434,8 @@ services:
         FROM alpine:latest
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
     healthcheck:
       test: ["CMD-SHELL", "nslookup -type=CNAME homepage.bob.house 127.0.0.1"]
       interval: 1m
@@ -391,12 +447,14 @@ services:
     ports:
       - 192.168.20.65:53:53/tcp
       - 192.168.20.65:53:53/udp
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
       - ./nsd/db.bob.house.20:/zones/db.bob.house:ro
 
   ntfy:
     image: binwiederhier/ntfy:latest
+    cap_drop: [ ALL, ]
     command:
       - serve
     depends_on:
@@ -411,12 +469,15 @@ services:
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.ntfy/:/var/cache/ntfy/:rw
       - ./ntfy.yml:/etc/ntfy/server.yml:ro
 
   nuget:
     image: bagetter/bagetter:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -429,11 +490,15 @@ services:
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.bagetter/:/data:rw
 
   paperless-ngx:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       paperless-ngx-db:
         condition: service_healthy
@@ -467,6 +532,7 @@ services:
     networks:
       paperless-ngx: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.paperless-ngx/consume/:/usr/src/paperless/consume/:rw
       - ~/.paperless-ngx/data/:/usr/src/paperless/data/:rw
@@ -476,6 +542,8 @@ services:
 
   paperless-ngx-db:
     image: docker.io/library/postgres:18
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: paperless
@@ -492,11 +560,14 @@ services:
       wud.tag.include: ^18$$
     networks:
       paperless-ngx: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.paperless-ngx/db/:/var/lib/postgresql/:rw
 
   paperless-ngx-redis:
     image: docker.io/library/redis:8
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETPCAP, SETUID, ]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -509,11 +580,13 @@ services:
       wud.tag.include: ^8$$
     networks:
       paperless-ngx: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.paperless-ngx/redis/:/data/:rw
 
   planka:
     image: ghcr.io/plankanban/planka:latest
+    cap_drop: [ ALL, ]
     depends_on:
       planka-db:
         condition: service_healthy
@@ -543,11 +616,14 @@ services:
       default: null
       planka: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.planka/data:/app/data/:rw
 
   planka-db:
     image: postgres:16-alpine
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     environment:
       POSTGRES_DB: planka
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -564,11 +640,13 @@ services:
       wud.tag.include: ^16-alpine$$
     networks:
       planka: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.planka/db:/var/lib/postgresql/data:rw
 
   registry:
     image: registry:latest
+    cap_drop: [ ALL, ]
     environment:
       OTEL_TRACES_EXPORTER: none
       REGISTRY_LOG_LEVEL: info
@@ -588,11 +666,15 @@ services:
       default: null
       registry: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.registry/:/var/lib/registry/:rw
 
   registry-ui:
     image: joxit/docker-registry-ui:main
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, SETGID, SETUID, ]
     depends_on:
       registry:
         condition: service_started
@@ -620,9 +702,12 @@ services:
     networks:
       registry: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
 
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -644,11 +729,13 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.speedtest/:/config/:rw
 
   traefik:
     image: traefik:latest
+    cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
       - --api.insecure=true
@@ -685,6 +772,8 @@ services:
       traefik: null
     ports:
       - 443:443/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
@@ -692,6 +781,8 @@ services:
 
   trilium:
     image: triliumnext/trilium:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -704,6 +795,8 @@ services:
       traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
+    user: "0:0"
     volumes:
       - ~/.trilium/:/home/node/trilium-data/:rw
       - /etc/timezone:/etc/timezone:ro
@@ -711,6 +804,7 @@ services:
 
   vikunja:
     image: vikunja/vikunja:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -734,12 +828,16 @@ services:
     networks:
       traefik: null
       vikunja: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     user: "0"
     volumes:
       - ~/.vikunja/files/:/app/vikunja/files/:rw
 
   vikunja-db:
     image: postgres:18
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
       - ~/Configurations/vikunja.env
     environment:
@@ -754,11 +852,13 @@ services:
       wud.tag.include: ^18$$
     networks:
       vikunja: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.vikunja/db/:/var/lib/postgresql/:rw
 
   whatsupdocker:
     image: getwud/wud:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -787,6 +887,8 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
