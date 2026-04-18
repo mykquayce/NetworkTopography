@@ -105,6 +105,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: jsonpath
+    group: containers
+    url: http://192.168.20.65:2375/v1.52/containers/ransom-jsonpath-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: gatus
     group: containers
     url: http://192.168.20.60:2375/v1.52/containers/freeman-gatus-1/json

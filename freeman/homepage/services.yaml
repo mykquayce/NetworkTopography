@@ -115,6 +115,12 @@
           type: frigate
           url: https://frigate.bob.house/
           enableRecentEvents: false
+    - JSONPath: &jsonpath
+        description: JSONPath Online Evaluator
+        href: https://jsonpath.bob.house/
+        icon: /icons/jsonpath.svg
+        server: ransom-docker
+        container: ransom-jsonpath-1
     - Gatus: &gatus
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/

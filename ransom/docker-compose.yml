@@ -111,6 +111,19 @@ services:
       - ~/.freshrss/:/var/www/FreshRSS/data:rw
       - ~/.freshrss-extensions/:/var/www/FreshRSS/extensions/:ro
 
+  jsonpath:
+    image: ashphy/jsonpath-online-evaluator:latest
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.http.routers.jsonpath-router.entrypoints: websecure
+      traefik.http.routers.jsonpath-router.rule: Host(`jsonpath.bob.house`)
+      traefik.http.routers.jsonpath-router.tls: "true"
+      traefik.http.services.jsonpath-service.loadbalancer.server.port: "80"
+    networks:
+      traefik: null
+
   glances:
     image: nicolargo/glances:latest
     depends_on:
