@@ -65,6 +65,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: jsonpath .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: jsonpath.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances-ransom .20
     group: dns .20
     url: 192.168.20.60
