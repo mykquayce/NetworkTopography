@@ -1,6 +1,8 @@
 services:
   adguard01:
     image: adguard/adguardhome:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CAP_NET_BIND_SERVICE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -17,12 +19,15 @@ services:
     ports:
       - 192.168.1.60:53:53/tcp
       - 192.168.1.60:53:53/udp
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.adguard01/work/:/opt/adguardhome/work/:rw
       - ./adguard01/:/opt/adguardhome/conf/:rw
 
   adguard20:
     image: adguard/adguardhome:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CAP_NET_BIND_SERVICE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -39,12 +44,15 @@ services:
     ports:
       - 192.168.20.60:53:53/tcp
       - 192.168.20.60:53:53/udp
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.adguard20/work/:/opt/adguardhome/work/:rw
       - ./adguard20/:/opt/adguardhome/conf/:rw
 
   authentik-postgresql:
     image: docker.io/library/postgres:16-alpine
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
       - ~/Configurations/authentik.env
     healthcheck:
@@ -59,11 +67,14 @@ services:
       wud.tag.include: ^16-alpine$$
     networks:
       authentik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.authentik/postgres/:/var/lib/postgresql/data/:rw
 
   authentik-redis:
     image: docker.io/library/redis:alpine
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETPCAP, SETUID, ]
     command: --save 60 1 --loglevel warning
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
@@ -76,11 +87,13 @@ services:
       traefik.enable: "false"
     networks:
       authentik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.authentik/redis/:/data/:rw
 
   authentik-server:
     image: ghcr.io/goauthentik/server:latest
+    cap_drop: [ ALL, ]
     command: server
     depends_on:
       authentik-postgresql:
@@ -104,12 +117,16 @@ services:
     networks:
       authentik: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.authentik/media/:/media/:rw
       - ~/.authentik/custom-templates/:/templates/:rw
 
   authentik-worker:
     image: ghcr.io/goauthentik/server:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, FOWNER, SETGID, SETUID, ]
     command: worker
     depends_on:
       authentik-postgresql:
@@ -126,6 +143,7 @@ services:
       traefik.enable: "false"
     networks:
       authentik: null
+    security_opt: [ no-new-privileges=true, ]
     # `user: root` and the docker socket volume are optional.
     # See more for the docker socket integration here:
     # https://goauthentik.io/docs/outposts/integrations/docker
@@ -141,6 +159,8 @@ services:
 
   baikal:
     image: ckulka/baikal:nginx
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -151,12 +171,14 @@ services:
       traefik.http.services.baikal-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.baikal/config/:/var/www/baikal/config/:rw
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
 
   dagu:
     image: ghcr.io/dagucloud/dagu:latest
+    cap_drop: [ ALL, ]
     command: ["dagu", "start-all"]
     entrypoint: []
     environment:
@@ -175,9 +197,11 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
     secrets:
       - source: id_rsa
       - source: known_hosts
+    security_opt: [ no-new-privileges=true, ]
     user: "0:0"
     volumes:
       - ~/.dagu/:/var/lib/dagu/:rw
@@ -186,6 +210,7 @@ services:
 
   dozzle:
     image: amir20/dozzle:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -209,12 +234,16 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./dozzle.yml:/data/users.yml:ro
 
   gatus:
     image: ghcr.io/twin/gatus:stable
+    cap_drop: [ ALL, ]
+    cap_add: [ NET_RAW, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -231,12 +260,15 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./gatus/:/config/:ro
       - ~/.gatus/sqlite-db/:/data/:rw
 
   glance:
     image: glanceapp/glance:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -249,6 +281,8 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./glance.yml:/app/config/glance.yml:ro
       - ~/.glance/:/app/assets/:rw
@@ -257,6 +291,8 @@ services:
 
   glances:
     image: nicolargo/glances:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -270,12 +306,14 @@ services:
     networks:
       traefik: null
     pid: host
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/os-release:/etc/os-release:ro
 
   go2rtc:
     image: alexxit/go2rtc:latest
+    cap_drop: [ ALL, ]
     environment:
       TZ: Etc/UTC
     env_file:
@@ -285,11 +323,15 @@ services:
       traefik.http.routers.go2rtc-router.rule: Host(`go2rtc.bob.house`)
       traefik.http.routers.go2rtc-router.tls: "true"
       traefik.http.services.go2rtc-service.loadbalancer.server.port: "1984"
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./go2rtc/:/config/:ro
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, NET_ADMIN, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -309,6 +351,7 @@ services:
     networks:
       default: null
       traefik: null
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./homepage/:/app/config/:rw
       - ./homepage/icons/:/app/public/icons/:ro
@@ -317,6 +360,7 @@ services:
 
   kopia:
     image: kopia/kopia:latest
+    cap_drop: [ ALL, ]
     command:
       - server
       - start
@@ -337,6 +381,8 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/config/:/app/config/:rw
@@ -349,6 +395,7 @@ services:
 
   portainer:
     image: portainer/portainer-ce:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -361,12 +408,15 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - ~/.portainer/:/data/:rw
 
   prometheus:
     image: prom/prometheus:latest
+    cap_drop: [ ALL, ]
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     depends_on:
@@ -383,12 +433,15 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ~/.prometheus/:/prometheus/:rw
 
   sshwifty:
     image: niruix/sshwifty:latest
+    cap_drop: [ ALL, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -401,14 +454,17 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
     secrets:
       - source: id_rsa
+    security_opt: [ no-new-privileges=true, ]
     user: root
     volumes:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
 
   traefik:
     image: traefik:latest
+    cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
       - --api.insecure=true
@@ -450,6 +506,8 @@ services:
         ipv4_address: 172.18.0.2
     ports:
       - 443:443/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
