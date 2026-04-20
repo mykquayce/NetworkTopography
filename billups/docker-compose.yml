@@ -164,6 +164,8 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.websecure.address=:443
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
       - --log.level=INFO
       - --metrics.prometheus=true
