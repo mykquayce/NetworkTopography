@@ -7,8 +7,10 @@ services:
       traefik:
         condition: service_healthy
     environment:
+      APPRISE_ADMIN: "y"
       APPRISE_STATEFUL_MODE: simple
       APPRISE_WORKER_COUNT: "1"
+      TZ: Etc/UTC
     healthcheck:
       test: curl --fail http://localhost:8000/status || exit 1
     labels:
@@ -126,24 +128,8 @@ services:
       default: null
       traefik: null
     volumes:
-      - ~/.freshrss/:/var/www/FreshRSS/data:rw
-      - ~/.freshrss-extensions/:/var/www/FreshRSS/extensions/:ro
-
-  jsonpath:
-    image: ashphy/jsonpath-online-evaluator:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETUID, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    labels:
-      traefik.http.routers.jsonpath-router.entrypoints: websecure
-      traefik.http.routers.jsonpath-router.rule: Host(`jsonpath.bob.house`)
-      traefik.http.routers.jsonpath-router.tls: "true"
-      traefik.http.services.jsonpath-service.loadbalancer.server.port: "80"
-    networks:
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
+      - ~/.freshrss/data/:/var/www/FreshRSS/data/:rw
+      - ~/.freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
 
   glances:
     image: nicolargo/glances:latest
@@ -253,6 +239,22 @@ services:
       traefik.http.routers.it-tools-router.rule: Host(`it-tools.bob.house`)
       traefik.http.routers.it-tools-router.tls: "true"
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
+    networks:
+      traefik: null
+    security_opt: [ no-new-privileges=true, ]
+
+  jsonpath:
+    image: ashphy/jsonpath-online-evaluator:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.http.routers.jsonpath-router.entrypoints: websecure
+      traefik.http.routers.jsonpath-router.rule: Host(`jsonpath.bob.house`)
+      traefik.http.routers.jsonpath-router.tls: "true"
+      traefik.http.services.jsonpath-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
     security_opt: [ no-new-privileges=true, ]
@@ -641,7 +643,7 @@ services:
       planka: null
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.planka/db:/var/lib/postgresql/data:rw
+      - ~/.planka/db/:/var/lib/postgresql/data/:rw
 
   registry:
     image: registry:latest

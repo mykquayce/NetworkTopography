@@ -53,7 +53,6 @@ endpoints:
     group: iot
     url: "icmp://192.168.20.107"
     conditions: *conditions-definition
-    alerts: *alerts-definition
 
   - name: nanoleaf shapes
     group: iot

@@ -3,6 +3,8 @@ services:
     image: ghcr.io/jeffvli/feishin:latest
     cap_drop: [ ALL, ]
     depends_on:
+      navidrome:
+        condition: service_started
       traefik:
         condition: service_healthy
     environment:
@@ -139,6 +141,9 @@ services:
     cap_drop: [ ALL, ]
     command:
        - '*.zim'
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
       traefik.http.routers.kiwix-router.entrypoints: websecure
       traefik.http.routers.kiwix-router.rule: Host(`kiwix.bob.house`)
@@ -328,6 +333,8 @@ services:
         condition: service_healthy
       pinepods-valkey:
         condition: service_started
+      traefik:
+        condition: service_healthy
     env_file:
       - ~/Configurations/pinepods.env
     environment:
@@ -386,7 +393,7 @@ services:
     labels:
       dev.dozzle.group: pinepods
       traefik.enable: "false"
-      wud.tag.include: ^17-alpine$$
+      wud.tag.include: ^17$$
     networks:
       pinepods: null
     security_opt: [ no-new-privileges=true, ]
