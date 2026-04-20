@@ -33,7 +33,7 @@ function Add-Watch([string] $ExtractText, [string] $IncludeFilters, [string] $Ta
 	Write-Log "Added: $Uri"
 }
 
-
+Add-Watch -Tag 'apps' -Title 'https://github.com/AdguardTeam/AdGuardHome/blob/master/internal/configmigrate/configmigrate.go' -Uri 'https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/refs/heads/master/internal/configmigrate/configmigrate.go'
 Add-Watch -Tag 'apps' -Title 'https://github.com/AdguardTeam/AdGuardHome/blob/master/internal/filtering/servicelist.go' -Uri 'https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/refs/heads/master/internal/filtering/servicelist.go'
 Add-Watch -Tag 'apps' -Title 'https://github.com/goauthentik/authentik/blob/main/.github/actions/setup/compose.yml' -Uri 'https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/.github/actions/setup/compose.yml'
 Add-Watch -Tag 'apps' -Title 'https://docs.dagu.sh/server-admin/deployment/docker-compose#docker-compose' -Uri 'https://raw.githubusercontent.com/dagucloud/docs/refs/heads/main/server-admin/deployment/docker-compose.md'
