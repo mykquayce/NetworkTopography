@@ -11,6 +11,7 @@ services:
     env_file:
       - ~/Configurations/frigate.env
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.frigate-router.entrypoints: websecure
       traefik.http.routers.frigate-router.rule: Host(`frigate.bob.house`)
@@ -43,6 +44,7 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-shaxs.bob.house`)
@@ -74,6 +76,7 @@ services:
     env_file:
       - ~/Configurations/kopia.env
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: Host(`kopia-shaxs.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
@@ -110,6 +113,7 @@ services:
       retries: 3
       start_period: 5s
     labels:
+      dd.watch.digest: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -153,6 +157,7 @@ services:
       timeout: 10s
       retries: 5
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)
