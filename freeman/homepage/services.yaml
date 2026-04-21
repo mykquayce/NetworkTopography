@@ -895,15 +895,6 @@
           key: {{HOMEPAGE_VAR_VIKUNJA_KEY}}
           enableTaskList: true
           version: 2
-    - What's Up Docker: &whatsupdocker
-        description: Gets you notified when a new version of your Docker Container is available
-        href: https://whatsupdocker.bob.house/
-        icon: whats-up-docker.svg
-        server: ransom-docker
-        container: ransom-whatsupdocker-1
-        widget:
-          type: whatsupdocker
-          url: https://whatsupdocker.bob.house
     - Windows TANA: &windowstana
         description: Windows inside a Docker container
         href: https://windows-tana.bob.house/
@@ -945,7 +936,6 @@
     - Scrutiny: *scrutiny
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
-    - What's Up Docker: *whatsupdocker
     - Wireshark TANA: *wiresharkstana
 
 - Servers:

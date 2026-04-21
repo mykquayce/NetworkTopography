@@ -893,45 +893,6 @@ services:
     volumes:
       - ~/.vikunja/db/:/var/lib/postgresql/:rw
 
-  whatsupdocker:
-    image: getwud/wud:latest
-    cap_drop: [ ALL, ]
-    depends_on:
-      socket-proxy:
-        condition: service_started
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ~/Configurations/whatsupdocker.env
-    environment:
-      WUD_LOG_LEVEL: info # error info debug trace
-      WUD_TRIGGER_NTFY_PRIVATE_URL: https://ntfy.bob.house
-      WUD_WATCHER_FREEMAN_HOST: freeman.bob.house
-      WUD_WATCHER_RANSOM_HOST: socket-proxy
-      WUD_WATCHER_SHAXS_HOST: shaxs.bob.house
-      WUD_WATCHER_TANA_HOST: tana.bob.house
-    healthcheck:
-      test: curl --fail http://localhost:3000/health || exit 1
-      interval: 10s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-    labels:
-      traefik.docker.network: ransom_traefik
-      traefik.http.routers.whatsupdocker-router.entrypoints: websecure
-      traefik.http.routers.whatsupdocker-router.rule: Host(`whatsupdocker.bob.house`)
-      traefik.http.routers.whatsupdocker-router.tls: "true"
-      traefik.http.services.whatsupdocker-service.loadbalancer.server.port: "3000"
-      wud.link.template: https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
-    networks:
-      default: null
-      traefik: null
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ~/.whatsupdocker/:/store/:rw
-
 networks:
   default:
     name: ransom_default
