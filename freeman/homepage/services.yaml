@@ -93,6 +93,12 @@
         icon: draw-io.svg
         server: ransom-docker
         container: ransom-drawio-1
+    - drydock: &drydock
+        description: Open source container update monitoring
+        href: https://drydock.bob.house
+        icon: /icons/drydock.png
+        server: ransom-docker
+        container: ransom-drydock-1
     - Feishin: &feishin
         description: A modern self-hosted music player
         href: https://feishin.bob.house
@@ -928,6 +934,7 @@
     - Apprise: *apprise
     - Authentik: *authentik
     - Dozzle: *dozzle
+    - drydock: *drydock
     - Gatus: *gatus
     - Grafana: *grafana
     - ntfy: *ntfy
