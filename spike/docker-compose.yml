@@ -1,0 +1,140 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    cap_drop: [ ALL, ]
+    command: -H tcp://socket-proxy:2375
+    depends_on:
+      socket-proxy:
+        condition: service_started
+      traefik:
+        condition: service_healthy
+    labels:
+      dd.watch.digest: "true"
+      traefik.docker.network: spike_traefik
+      traefik.http.routers.portainer-router.entrypoints: websecure
+      traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
+      traefik.http.routers.portainer-router.tls: "true"
+      traefik.http.services.portainer-service.loadbalancer.server.port: "9000"
+    networks:
+      default: null
+      socket-proxy: null
+      traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    volumes:
+      - /opt/portainer/:/data/:rw
+
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    cap_drop: [ ALL, ]
+    environment:
+      DISABLE_IPV6: "true"
+      LOG_LEVEL: info
+      TZ: Etc/UTC
+
+      EVENTS: "1"
+      PING: "1"
+      VERSION: "1"
+
+      AUTH: "1"
+      POST: "1"
+      SECRETS: "1"
+
+      ALLOW_PAUSE: "1"
+      ALLOW_RESTARTS: "1"
+      ALLOW_START: "1"
+      ALLOW_STOP: "1"
+      ALLOW_UNPAUSE: "1"
+      BUILD: "1"
+      COMMIT: "1"
+      CONFIGS: "1"
+      CONTAINERS: "1"
+      DISTRIBUTION: "1"
+      EXEC: "1"
+      GRPC: "1"
+      IMAGES: "1"
+      INFO: "1"
+      NETWORKS: "1"
+      NODES: "1"
+      PLUGINS: "1"
+      SERVICES: "1"
+      SESSION: "1"
+      SWARM: "1"
+      SYSTEM: "1"
+      TASKS: "1"
+      VOLUMES: "1"
+    labels:
+      dd.watch.digest: "true"
+      traefik.enable: "false"
+    networks:
+      socket-proxy: null
+    ports: [ 2375:2375/tcp, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /run, /tmp, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
+
+  traefik:
+    image: traefik:latest
+    cap_drop: [ ALL, ]
+    command:
+      # - --accesslog=true
+      - --api.insecure=true
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.websecure.address=:443
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --ping
+      - --providers.docker
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+    depends_on:
+      socket-proxy:
+        condition: service_started
+    env_file:
+      - /opt/Configurations/traefik.env
+    healthcheck:
+      test: [ "CMD-SHELL", "traefik healthcheck --ping", ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    labels:
+      traefik.docker.network: spike_traefik
+      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
+      traefik.http.routers.traefik-router.tls: "true"
+      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      socket-proxy: null
+      traefik: null
+    ports: [ 443:443/tcp, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    volumes:
+      - certificates-volume:/var/certs/:rw
+      - /etc/localtime:/etc/localtime:ro
+
+networks:
+  default:
+    name: spike_default
+  socket-proxy:
+    name: spike_socket-proxy
+    internal: true
+  traefik:
+    name: spike_traefik
+    internal: true
+
+volumes:
+  certificates-volume:
