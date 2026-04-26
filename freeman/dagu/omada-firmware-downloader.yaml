@@ -1,0 +1,93 @@
+schedule: CRON_TZ=Etc/UTC 0 2 * * *
+steps:
+  - name: loop
+    call: worker-processor
+    parallel:
+      - "https://support.omadanetworks.com/us/product/sg2210mp/v4.20/?resourceType=download"
+      - "https://support.omadanetworks.com/us/product/er7206/v2.20/?resourceType=download"
+    params: "WEBPAGE-URI=${ITEM}"
+---
+name: worker-processor
+params:
+  - WEBPAGE-URI: ""
+steps:
+  - name: mktemp
+    command: mktemp --quiet --suffix .html
+    output: HTML_FILE
+  - name: download WEBPAGE
+    type: http
+    command: "GET ${WEBPAGE-URI}"
+    config:
+      headers:
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: true
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+    stdout: "${HTML_FILE}"
+  - name: find uris
+    command: |
+      cat "${HTML_FILE}" \
+      | grep --extended-regexp --only-matching 'https://static.tp-link.com/upload/firmware/.{,80}\.zip' \
+      | sort \
+      | uniq \
+      | sed 's/ /%20/g'
+    output: FILE_URIS
+  - name: cleanup
+    command: rm "${HTML_FILE}"
+  - name: iterate
+    call: iterator-processor
+    parallel:
+      items: ${FILE_URIS}
+    params: "SOURCE_FILE_URI=${ITEM}"
+---
+name: iterator-processor
+params:
+  - SOURCE_FILE_URI: ""
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+steps:
+  - name: get filename
+    command: |
+      echo -n "${SOURCE_FILE_URI}" \
+      | rev \
+      | cut --delimiter '/' --fields 1 --only-delimited \
+      | rev
+    output: FILENAME
+  - name: build target file path
+    command: echo -n "/mnt/md1/downloads/firmware/${FILENAME}"
+    output: TARGET_FILE_PATH
+  - name: count target files
+    command: |
+      ( ls -1U --literal "${TARGET_FILE_PATH}" 2>/dev/null || true ) \
+        | grep --count ^ || true
+    output: TARGET_COUNT
+  - name: download
+    command: |
+      curl \
+        --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
+        --output "${TARGET_FILE_PATH}" \
+        --silent \
+        --url "${SOURCE_FILE_URI}" \
+        --verbose
+    preconditions:
+      - command: "${TARGET_COUNT}"
+        expected: "0"
+  - name: notify
+    type: http
+    command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+    config:
+      body: "${FILENAME}"
+      headers:
+        Content-Type: text/plain
+        Priority: high
+        Tags: desktop_computer,+1
+        Title: 'downloaded omada firmware'
+      silent: true
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
