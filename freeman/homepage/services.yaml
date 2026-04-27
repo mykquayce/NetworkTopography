@@ -668,6 +668,28 @@
         icon: ntfy.svg
         server: ransom-docker
         container: ransom-ntfy-1
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: messages
+                query: ntfy_messages_published_success
+              - label: memory usage
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 2
+                query: docker_container_mem_usage{com_docker_compose_project="ransom",com_docker_compose_service="ntfy"}
+              - label: uptime
+                format:
+                  type: duration
+                  scale: .000000001
+                query: docker_container_status_uptime_ns{com_docker_compose_project="ransom",com_docker_compose_service="ntfy"}
+          - type: ntfy
+            fields: [ "title", "message", "lastReceived", ]
+            url: https://ntfy.bob.house
+            topic: {{HOMEPAGE_VAR_NTFY_TOPIC}}
     - NuGet: &nuget
         description: A lightweight NuGet and symbol server
         href: https://nuget.bob.house/
