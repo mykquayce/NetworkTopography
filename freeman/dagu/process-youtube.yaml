@@ -1,106 +1,143 @@
 schedule: CRON_TZ=Etc/UTC 0,10,20,30,40,50 * * * *
 
 steps:
-  - name: get files
-    type: ssh
-    config:
-      user: root
-      host: tana.bob.house
-      key: /run/secrets/id_rsa
-      known_host_file: /run/secrets/known_hosts
-    command: ls -1U /mnt/md1/downloads/pinchflat/*/*.mp4 2>/dev/null || true
-    output: PATHS
-  - name: count
-    command: echo -n "${PATHS}" | grep --count ^ || true
-    output: COUNT
-  - name: one-item
-    call: file-processor
-    params: "PATH=${PATHS}"
-    preconditions:
-      - command: "${COUNT}"
-        expected: "1"
-    continue_on: skipped
-  - name: multiple
-    call: file-processor
-    parallel:
-      items: "${PATHS}"
-      max_concurrent: 1
-    params: "PATH=${ITEM}"
-    preconditions:
-      - command: "${COUNT}"
-        expected: "0"
-        negate: true
-      - command: "${COUNT}"
-        expected: "1"
-        negate: true
-    continue_on: skipped
+  - name: loop
+    call: processor
+    output: PROCESSOR_OUTPUT
+    repeat_policy:
+      repeat: while
+      condition: "${PROCESSOR_OUTPUT.outputs.SOURCE_COUNT}"
+      expected: "1"
+      interval_sec: 5
+      limit: 5
 ---
+name: processor
 ssh:
   user: root
   host: tana.bob.house
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
-  timeout: 15m
-
-name: file-processor
-params:
-  - PATH: ""
 steps:
-  - name: get channel name
-    command: echo -n "${PATH}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\1/p'
-    output: CHANNEL
-  - name: get filename
-    command: echo -n "${PATH}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\2/p'
-    output: FILE_NAME
-  - name: make target directory
-    command: mkdir "/mnt/md1/youtube/${CHANNEL}/"
+  - name: make temp files
+    call: make-temp-files
+    output: TEMP_FILES_DAG_OUTPUT
+  - name: format
+    type: jq
+    command: .outputs
+    script: $TEMP_FILES_DAG_OUTPUT
+    output: TEMP_FILES
+  - name: find a file to process and put its fully-qualified path in the temp file
+    command: |
+      ( ls -1U --literal /mnt/md1/downloads/pinchflat/*/*.mp4 2>/dev/null || true ) \
+        | head --lines=1 \
+        > "${TEMP_FILES.SOURCE_PATH}"
+  - name: count newlines in the temp file
+    command: cat "${TEMP_FILES.SOURCE_PATH}" | grep --count ^ || true
+    output: SOURCE_COUNT
+  - name: check non-zero sources
+    command: echo work to do
     preconditions:
-      - condition: test -d "/mnt/md1/youtube/${CHANNEL}/"
-    continue_on: skipped
-  - name: check existing
-    command: echo "target directory exists"
-    preconditions:
-      - condition: test -f "/mnt/md1/youtube/${CHANNEL}/${FILE_NAME}"
+      - command: "${SOURCE_COUNT}"
+        expected: "0"
         negate: true
+  - name: get the details
+    command: |
+      cat "${TEMP_FILES.SOURCE_PATH}" \
+        | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\1/p' \
+        > "${TEMP_FILES.CHANNEL_NAME}"
+      cat "${TEMP_FILES.SOURCE_PATH}" \
+        | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\2/p' \
+        > "${TEMP_FILES.VIDEO_NAME}"
+      echo -n "/mnt/md1/youtube/$(cat ${TEMP_FILES.CHANNEL_NAME})/$(cat ${TEMP_FILES.VIDEO_NAME})" \
+        > "${TEMP_FILES.TARGET_PATH}"
+  - name: count files at the target
+    command: |
+      ( ls -1U "$(cat ${TEMP_FILES.TARGET_PATH})" 2>/dev/null || true ) \
+        | grep --count ^ || true
+    output: TARGET_COUNT
+  - name: do work
+    call: worker
+    params: "TEMP_FILES=${TEMP_FILES}"
+    preconditions:
+      - command: "${TARGET_COUNT}"
+        expected: "0"
+    continue_on: skipped
+  - name: cleanup
+    command:
+      - rm "${TEMP_FILES.CHANNEL_NAME}"
+      - rm "${TEMP_FILES.SOURCE_PATH}"
+      - rm "${TEMP_FILES.TARGET_PATH}"
+      - rm "${TEMP_FILES.VIDEO_NAME}"
+---
+name: make-temp-files
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+steps:
+  - command: mktemp --quiet --suffix .txt
+    output: CHANNEL_NAME
+  - command: mktemp --quiet --suffix .txt
+    output: SOURCE_PATH
+  - command: mktemp --quiet --suffix .txt
+    output: TARGET_PATH
+  - command: mktemp --quiet --suffix .txt
+    output: VIDEO_NAME
+---
+name: worker
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+params:
+  - TEMP_FILES: ""
+steps:
+  - name: count chapters
+    command: |
+      ffprobe -hide_banner -loglevel error -i "$(cat ${TEMP_FILES.SOURCE_PATH})" -show_chapters \
+        | grep --count CHAPTER || true
+    output: CHAPTER_COUNT
   - name: process (chapters)
     command: |
-      ffmpeg -hide_banner -y -i "${PATH}" \
+      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${TEMP_FILES.SOURCE_PATH})" \
         -map 0:v:0 -filter:v:0 fps=fps=8 \
         -map 0:a:0 -codec:a:0  copy \
         -map 0:v:1 -codec:v:1  copy \
         -map 0:d:0 -codec:d:0  copy \
-        "/mnt/md1/youtube/${CHANNEL}/${FILE_NAME}"
+        "$(cat ${TEMP_FILES.TARGET_PATH})"
     preconditions:
-      - command: ffprobe -i "${PATH}" \
-          -loglevel error -show_chapters | grep --max-count=1 --quiet CHAPTER
+      - condition: "${CHAPTER_COUNT}"
+        expected: "0"
+        negate: true
     continue_on: skipped
   - name: process (no chapters)
     command: |
-      ffmpeg -hide_banner -y -i "${PATH}" \
+      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${TEMP_FILES.SOURCE_PATH})" \
         -map 0:v:0 -filter:v:0 fps=fps=8 \
         -map 0:a:0 -codec:a:0  copy \
         -map 0:v:1 -codec:v:1  copy \
-        "/mnt/md1/youtube/${CHANNEL}/${FILE_NAME}"
+        "$(cat ${TEMP_FILES.TARGET_PATH})"
     preconditions:
-      - command: ffprobe -i "${PATH}" \
-          -loglevel error -show_chapters | grep --max-count=1 --quiet CHAPTER
-        negate: true
+      - condition: "${CHAPTER_COUNT}"
+        expected: "0"
     continue_on: skipped
-  - name: cleanup
-    command: rm "${PATH}"
+  - command: cat "${TEMP_FILES.VIDEO_NAME}"
+    output: VIDEO_NAME
   - name: notify
     type: http
     command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     config:
-      body: $FILE_NAME
+      body: $VIDEO_NAME
       headers:
         Content-Type: text/plain
         Tags: tv,+1
-        Title: "processed ${FILE_NAME}"
+        Title: "processed ${VIDEO_NAME}"
       silent: true
       timeout: 5
     retry_policy:
       limit: 3
       interval_sec: 5
-  - name: sleep
-    command: sleep 5s
+  - name: cleanup
+    command: rm "$(cat ${TEMP_FILES.SOURCE_PATH})"
