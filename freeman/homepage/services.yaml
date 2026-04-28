@@ -909,7 +909,7 @@
         href: https://windows-tana.bob.house/
         icon: windows-7.png
         server: tana-docker
-        container: tana-windows-tana-1
+        container: tana-windows-1
 
 - Essentials:
     - Change Detection: *changedetection

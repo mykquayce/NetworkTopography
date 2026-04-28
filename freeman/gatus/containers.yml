@@ -534,6 +534,6 @@ endpoints:
 
   - name: windows-tana
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/tana-windows-tana-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/tana-windows-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition

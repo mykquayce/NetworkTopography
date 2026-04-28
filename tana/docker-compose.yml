@@ -718,10 +718,10 @@ services:
       - /mnt/md1/pictures/:/media/pictures/:ro
       - /mnt/md1/youtube/:/media/youtube/:ro
 
-  windows-tana:
+  windows:
     image: dockurr/windows:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, DAC_OVERRIDE, NET_ADMIN, NET_BIND_SERVICE, NET_RAW, SETGID, SETUID, SYS_CHROOT, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_BIND_SERVICE, NET_RAW, SETGID, SETUID, SYS_CHROOT, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -733,17 +733,17 @@ services:
     environment:
       VERSION: "2022"
       CPU_CORES: "4"
-      DISK_SIZE: 64G
+      DISK_SIZE: 32G
       RAM_SIZE: 8G
       REGION: en-GB
       KEYBOARD: en-GB
       USERNAME: bob
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.windows-tana-router.entrypoints: websecure
-      traefik.http.routers.windows-tana-router.rule: Host(`windows-tana.bob.house`)
-      traefik.http.routers.windows-tana-router.tls: "true"
-      traefik.http.services.windows-tana-service.loadbalancer.server.port: "8006"
+      traefik.http.routers.windows-router.entrypoints: websecure
+      traefik.http.routers.windows-router.rule: Host(`windows-tana.bob.house`)
+      traefik.http.routers.windows-router.tls: "true"
+      traefik.http.services.windows-service.loadbalancer.server.port: "8006"
     networks:
       default: null
       traefik: null
