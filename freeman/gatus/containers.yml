@@ -537,3 +537,9 @@ endpoints:
     url: http://tana.bob.house:2375/v1.52/containers/tana-windows-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
+
+  - name: wireshark-tana
+    group: containers
+    url: http://tana.bob.house:2375/v1.52/containers/tana-wireshark-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition

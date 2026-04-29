@@ -910,6 +910,12 @@
         icon: windows-7.png
         server: tana-docker
         container: tana-windows-1
+    - Wireshark TANA: &wiresharkstana
+        description: Powerful, open-source network protocol analyser
+        href: https://wireshark-tana.bob.house/
+        icon: wireshark.webp
+        server: tana-docker
+        container: tana-wireshark-1
 
 - Essentials:
     - Change Detection: *changedetection
@@ -940,6 +946,7 @@
     - Speedtest: *speedtest
     - Sshwifty: *sshwifty
     - What's Up Docker: *whatsupdocker
+    - Wireshark TANA: *wiresharkstana
 
 - Servers:
     - Billups:
