@@ -114,6 +114,7 @@ services:
       - /mnt/md1/music/:/media/music/:rw
       - /mnt/md1/pictures/:/media/pictures/:rw
       - /mnt/md1/youtube/:/media/youtube/:rw
+      - /mnt/md1/MediaThumbnails/jellyfin/:/config/metadata/:rw
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -225,6 +226,7 @@ services:
       - ~/.lidarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
       - /mnt/md1/music/:/music/:rw
+      - /mnt/md1/MediaThumbnails/lidarr/:/config/MediaCover/:rw
 
   metube:
     image: ghcr.io/alexta69/metube:latest
@@ -494,6 +496,7 @@ services:
       - ~/.radarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
       - /mnt/md1/films/:/movies/:rw
+      - /mnt/md1/MediaThumbnails/radarr/:/config/MediaCover/:rw
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -636,6 +639,7 @@ services:
       - ~/.sonarr/:/config/:rw
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/MediaThumbnails/sonarr/:/config/MediaCover/:rw
 
   traefik:
     image: traefik:latest
