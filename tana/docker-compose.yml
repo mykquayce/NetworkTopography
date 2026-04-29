@@ -760,6 +760,30 @@ services:
       - /mnt/md1/windows/:/storage/:rw
       - /mnt/:/data/:rw
 
+  wireshark:
+    image: lscr.io/linuxserver/wireshark:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETGID, SETUID, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Etc/UTC
+    labels:
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.wireshark-router.entrypoints: websecure
+      traefik.http.routers.wireshark-router.rule: Host(`wireshark-tana.bob.house`)
+      traefik.http.routers.wireshark-router.tls: "true"
+      traefik.http.services.wireshark-service.loadbalancer.server.port: "3000"
+    networks:
+      default: null
+      traefik: null
+    shm_size: "1gb"
+    stop_grace_period: 2m0s
+    volumes: [ ~/.wireshark/:/config/:rw, ]
+
 networks:
   default:
     name: tana_default

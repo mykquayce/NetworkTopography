@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026041800 ; Serial
+                                         2026042900 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -112,3 +112,4 @@ sonarr              IN        CNAME                tana
 traefik-tana        IN        CNAME                tana
 tunarr              IN        CNAME                tana
 windows-tana        IN        CNAME                tana
+wireshark-tana      IN        CNAME                tana
