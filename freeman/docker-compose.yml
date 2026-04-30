@@ -236,7 +236,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ./dozzle.yml:/data/users.yml:ro
+      - ./dozzle/:/data/:ro
 
   gatus:
     image: ghcr.io/twin/gatus:stable
