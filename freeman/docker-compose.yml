@@ -210,7 +210,7 @@ services:
     cap_drop: [ ALL, ]
     depends_on:
       socket-proxy:
-        condition: service_healthy
+        condition: service_started
       traefik:
         condition: service_healthy
     environment:
@@ -293,7 +293,7 @@ services:
     cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
     depends_on:
       socket-proxy:
-        condition: service_healthy
+        condition: service_started
       traefik:
         condition: service_healthy
     environment:
@@ -335,6 +335,8 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, DAC_OVERRIDE, NET_ADMIN, ]
     depends_on:
+      socket-proxy:
+        condition: service_started
       traefik:
         condition: service_healthy
     environment:
@@ -352,6 +354,7 @@ services:
       traefik.http.services.homepage-service.loadbalancer.server.port: "3000"
     networks:
       default: null
+      socket-proxy: null
       traefik: null
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -401,7 +404,7 @@ services:
     command: -H tcp://socket-proxy:2375
     depends_on:
       socket-proxy:
-        condition: service_healthy
+        condition: service_started
       traefik:
         condition: service_healthy
     labels:
@@ -450,29 +453,28 @@ services:
     cap_drop: [ ALL, ]
     environment:
       DISABLE_IPV6: "true"
+      LOG_LEVEL: info
+      TZ: Etc/UTC
 
       CONTAINERS: "1"
       EVENTS: "1"
       IMAGES: "1"
       INFO: "1"
       NETWORKS: "1"
+      PING: "1"
       SERVICES: "1"
       VERSION: "1"
-    healthcheck:
-      test: wget --spider http://localhost:2375/version || exit 1
-      interval: 5s
-      timeout: 3s
-      retries: 3
-      start_period: 5s
+      VOLUMES: "1"
     labels:
       traefik.enable: "false"
     networks:
       default: null
       socket-proxy: null
     ports: [ 2375:2375/tcp, ]
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
+    tmpfs: [ /run, /tmp, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock:ro, ]
 
   sshwifty:
     image: niruix/sshwifty:latest
@@ -522,7 +524,7 @@ services:
       - --providers.docker.endpoint=tcp://socket-proxy:2375
     depends_on:
       socket-proxy:
-        condition: service_healthy
+        condition: service_started
     env_file:
       - ~/Configurations/traefik.env
     healthcheck:
