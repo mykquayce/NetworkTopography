@@ -711,19 +711,19 @@
         widgets:
           - type: portainer
             url: https://portainer.bob.house
-            env: 16
+            env: 1
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 17
+            env: 2
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 18
+            env: 3
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 19
+            env: 4
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus: &prometheus
         description: The Prometheus monitoring system and time series database
