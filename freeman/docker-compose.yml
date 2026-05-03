@@ -3,6 +3,9 @@ services:
     image: adguard/adguardhome:latest
     cap_drop: [ ALL, ]
     cap_add: [ CAP_NET_BIND_SERVICE, ]
+    configs:
+      - source: kopiaignore-adguard
+        target: /opt/adguardhome/work/data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -22,13 +25,16 @@ services:
       - 192.168.1.60:53:53/udp
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.adguard01/work/:/opt/adguardhome/work/:rw
+      - ~/.adguard01/:/opt/adguardhome/work/data/:rw
       - ./adguard01/:/opt/adguardhome/conf/:rw
 
   adguard20:
     image: adguard/adguardhome:latest
     cap_drop: [ ALL, ]
     cap_add: [ CAP_NET_BIND_SERVICE, ]
+    configs:
+      - source: kopiaignore-adguard
+        target: /opt/adguardhome/work/data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -48,7 +54,7 @@ services:
       - 192.168.20.60:53:53/udp
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.adguard20/work/:/opt/adguardhome/work/:rw
+      - ~/.adguard20/:/opt/adguardhome/work/data/:rw
       - ./adguard20/:/opt/adguardhome/conf/:rw
 
   authentik-postgresql:
@@ -208,6 +214,13 @@ services:
       - source: id_rsa
       - source: known_hosts
     security_opt: [ no-new-privileges=true, ]
+    tmpfs:
+      [
+        /var/lib/dagu/logs/,
+        /var/lib/dagu/data/dag-runs/,
+        /opt/dagu/dags/docs/,
+        /opt/dagu/dags/memory/,
+      ]
     user: "0:0"
     volumes:
       - ~/.dagu/:/var/lib/dagu/:rw
@@ -292,9 +305,9 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/assets/, ]
     volumes:
       - ./glance.yml:/app/config/glance.yml:ro
-      - ~/.glance/:/app/assets/:rw
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -371,6 +384,7 @@ services:
       socket-proxy: null
       traefik: null
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/config/logs/, ]
     volumes:
       - ./homepage/:/app/config/:rw
       - ./homepage/icons/:/app/public/icons/:ro
@@ -403,11 +417,10 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - ~/.kopia/config/:/app/config/:rw
-      - ~/.kopia/cache/:/app/cache/:rw
-      - ~/.kopia/logs/:/app/logs/:rw
+      - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
       - ~/:/data/:ro
       # Mount repository location
@@ -435,6 +448,7 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /data/backups/, ]
     volumes:
       - ~/.portainer/:/data/:rw
 
@@ -573,6 +587,11 @@ services:
       - certificates-volume:/var/certs/:rw
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
+
+configs:
+  kopiaignore-adguard:
+    content: |
+      /querylog.json.*
 
 networks:
   authentik:

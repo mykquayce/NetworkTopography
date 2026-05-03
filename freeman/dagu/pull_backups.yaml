@@ -16,7 +16,7 @@ steps:
   - name: tana
     command: rsync --archive --delete --partial --progress /repository/ /mnt/md2/backup/tana/
   - name: cctv
-    command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/root/.frigate/media/recordings/ /mnt/md2/backup/cctv/
+    command: rsync --archive --delete --partial --progress root@shaxs.bob.house:/recordings/ /mnt/md2/backup/cctv/
   - name: get disk usage
     command: df --human-readable --print-type /mnt/md2/
     output: USAGE

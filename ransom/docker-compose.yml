@@ -171,6 +171,7 @@ services:
     networks:
       default: null
       traefik: null
+    tmpfs: [ /var/www/FreshRSS/data/cache/, ]
     volumes:
       - ~/.freshrss/data/:/var/www/FreshRSS/data/:rw
       - ~/.freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
@@ -411,11 +412,10 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - ~/.kopia/config/:/app/config/:rw
-      - ~/.kopia/cache/:/app/cache/:rw
-      - ~/.kopia/logs/:/app/logs/:rw
+      - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
       - ~/:/data/:ro
       # Mount repository location
@@ -597,6 +597,7 @@ services:
       paperless-ngx: null
       traefik: null
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /usr/src/paperless/data/log/, ]
     volumes:
       - ~/.paperless-ngx/consume/:/usr/src/paperless/consume/:rw
       - ~/.paperless-ngx/data/:/usr/src/paperless/data/:rw
@@ -902,6 +903,7 @@ services:
     networks:
       traefik: null
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /home/node/trilium-data/backup/, /home/node/trilium-data/log/, /home/node/trilium-data/tmp/, ]
     user: "0:0"
     volumes:
       - ~/.trilium/:/home/node/trilium-data/:rw

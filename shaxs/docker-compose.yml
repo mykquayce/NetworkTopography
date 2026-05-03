@@ -24,8 +24,8 @@ services:
     shm_size: 192mb
     volumes:
       - ./frigate.yaml:/config/config.yaml:rw
-      - ~/.frigate/config/:/config/:rw
-      - ~/.frigate/media/:/media/frigate/:rw
+      - ~/.frigate/:/config/:rw
+      - /recordings/:/media/frigate/:rw
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
@@ -85,11 +85,10 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - ~/.kopia/config/:/app/config/:rw
-      - ~/.kopia/cache/:/app/cache/:rw
-      - ~/.kopia/logs/:/app/logs/:rw
+      - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
       - ~/:/data/:ro
       # Mount repository location
