@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026042900 ; Serial
+                                         2026042101 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -61,6 +61,7 @@ changedetection     IN        CNAME                ransom
 degoog              IN        CNAME                ransom
 donetick            IN        CNAME                ransom
 drawio              IN        CNAME                ransom
+drydock             IN        CNAME                ransom
 freshrss            IN        CNAME                ransom
 jsonpath            IN        CNAME                ransom
 glances-ransom      IN        CNAME                ransom
@@ -82,7 +83,6 @@ speedtest           IN        CNAME                ransom
 traefik-ransom      IN        CNAME                ransom
 trilium             IN        CNAME                ransom
 vikunja             IN        CNAME                ransom
-whatsupdocker       IN        CNAME                ransom
 
 frigate             IN        CNAME                shaxs
 glances-shaxs       IN        CNAME                shaxs

@@ -56,6 +56,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: drydock .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: drydock.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: freshrss .1
     group: dns .1
     url: 192.168.1.50
@@ -241,15 +250,6 @@ endpoints:
     url: 192.168.1.50
     dns:
       query-name: vikunja.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: whatsupdocker .1
-    group: dns .1
-    url: 192.168.1.50
-    dns:
-      query-name: whatsupdocker.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition

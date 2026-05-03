@@ -15,6 +15,7 @@ services:
       SERVER_TYPE: navidrome
       SERVER_URL: https://navidrome.bob.house
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.feishin-router.entrypoints: websecure
       traefik.http.routers.feishin-router.rule: Host(`feishin.bob.house`)
       traefik.http.routers.feishin-router.tls: "true"
@@ -36,6 +37,7 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-tana.bob.house`)
@@ -64,6 +66,7 @@ services:
     env_file:
       - ~/Configurations/gluetun.env
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.gluetun-router.entrypoints: websecure
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-tana.bob.house`)
@@ -95,6 +98,7 @@ services:
     healthcheck:
       test: curl -f http://localhost:8096/health
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.jellyfin-router.entrypoints: websecure
       traefik.http.routers.jellyfin-router.rule: Host(`jellyfin.bob.house`)
       traefik.http.routers.jellyfin-router.tls: "true"
@@ -128,6 +132,7 @@ services:
       LOG_LEVEL: debug
       TZ: UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.jellyseerr-router.entrypoints: websecure
       traefik.http.routers.jellyseerr-router.rule: Host(`jellyseerr.bob.house`)
@@ -150,6 +155,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.kiwix-router.entrypoints: websecure
       traefik.http.routers.kiwix-router.rule: Host(`kiwix.bob.house`)
       traefik.http.routers.kiwix-router.tls: "true"
@@ -179,6 +185,7 @@ services:
     env_file:
       - ~/Configurations/kopia.env
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: Host(`kopia-tana.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
@@ -213,6 +220,7 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.lidarr-router.entrypoints: websecure
       traefik.http.routers.lidarr-router.rule: Host(`lidarr.bob.house`)
@@ -244,6 +252,7 @@ services:
       PGID: "0"
       PUID: "0"
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.metube-router.entrypoints: websecure
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
@@ -271,6 +280,7 @@ services:
       ND_SCANSCHEDULE: 1h
       ND_SESSIONTIMEOUT: 24h
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.navidrome-router.entrypoints: websecure
       traefik.http.routers.navidrome-router.rule: Host(`navidrome.bob.house`)
       traefik.http.routers.navidrome-router.tls: "true"
@@ -295,6 +305,7 @@ services:
       NODE_RED_DISABLE_TELEMETRY: "true"
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.nodered-router.entrypoints: websecure
       traefik.http.routers.nodered-router.rule: Host(`nodered.bob.house`)
       traefik.http.routers.nodered-router.tls: "true"
@@ -316,6 +327,7 @@ services:
     environment:
       TZ: Etc\UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.pinchflat-router.entrypoints: websecure
       traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
@@ -364,6 +376,7 @@ services:
       # Add timezone configuration
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       dev.dozzle.group: pinepods
       traefik.docker.network: tana_traefik
       traefik.http.routers.pinepods-router.entrypoints: websecure
@@ -397,9 +410,10 @@ services:
       retries: 5
       timeout: 5s
     labels:
+      dd.tag.include: ^17$$
+      dd.watch.digest: "true"
       dev.dozzle.group: pinepods
       traefik.enable: "false"
-      wud.tag.include: ^17$$
     networks:
       pinepods: null
     security_opt: [ no-new-privileges=true, ]
@@ -411,9 +425,10 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ SETGID, SETUID, ]
     labels:
+      dd.tag.include: ^8-alpine$$
+      dd.watch.digest: "true"
       dev.dozzle.group: pinepods
       traefik.enable: "false"
-      wud.tag.include: ^8-alpine$$
     networks:
       pinepods: null
     security_opt: [ no-new-privileges=true, ]
@@ -434,6 +449,7 @@ services:
       PGID: "1000"
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.prowlarr-router.entrypoints: websecure
       traefik.http.routers.prowlarr-router.rule: Host(`prowlarr.bob.house`)
@@ -460,6 +476,7 @@ services:
       WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
     labels:
+      dd.watch.digest: "true"
       traefik.enable: "false"
     network_mode: service:gluetun
     security_opt: [ no-new-privileges=true, ]
@@ -483,6 +500,7 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.radarr-router.entrypoints: websecure
       traefik.http.routers.radarr-router.rule: Host(`radarr.bob.house`)
@@ -511,6 +529,7 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.sabnzbd-router.entrypoints: websecure
       traefik.http.routers.sabnzbd-router.rule: Host(`sabnzbd.bob.house`)
@@ -540,6 +559,7 @@ services:
       - /dev/sde
       - /dev/sdf
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.scrutiny-router.entrypoints: websecure
       traefik.http.routers.scrutiny-router.rule: Host(`scrutiny.bob.house`)
       traefik.http.routers.scrutiny-router.tls: "true"
@@ -560,6 +580,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.sickgear-router.entrypoints: websecure
       traefik.http.routers.sickgear-router.rule: Host(`sickgear.bob.house`)
       traefik.http.routers.sickgear-router.tls: "true"
@@ -598,6 +619,7 @@ services:
       retries: 3
       start_period: 5s
     labels:
+      dd.watch.digest: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -626,6 +648,7 @@ services:
     extra_hosts:
       - "ntfy.bob.house=192.168.20.65"
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.sonarr-router.entrypoints: websecure
       traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
@@ -671,6 +694,7 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
@@ -704,6 +728,7 @@ services:
       LOG_LEVEL: INFO
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.http.routers.tunarr-router.entrypoints: websecure
       traefik.http.routers.tunarr-router.rule: Host(`tunarr.bob.house`)
       traefik.http.routers.tunarr-router.tls: "true"
@@ -743,6 +768,7 @@ services:
       KEYBOARD: en-GB
       USERNAME: bob
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.windows-router.entrypoints: websecure
       traefik.http.routers.windows-router.rule: Host(`windows-tana.bob.house`)
@@ -772,6 +798,7 @@ services:
       PGID: "1000"
       TZ: Etc/UTC
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.wireshark-router.entrypoints: websecure
       traefik.http.routers.wireshark-router.rule: Host(`wireshark-tana.bob.house`)

@@ -87,6 +87,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: drydock
+    group: containers
+    url: http://ransom.bob.house:2375/v1.52/containers/ransom-drydock-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: feishin
     group: containers
     url: http://tana.bob.house:2375/v1.52/containers/tana-feishin-1/json
@@ -516,12 +522,6 @@ endpoints:
   - name: vikunja-db
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-vikunja-db-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: whatsupdocker
-    group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-whatsupdocker-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
