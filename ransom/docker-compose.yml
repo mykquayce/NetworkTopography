@@ -388,7 +388,7 @@ services:
   kopia:
     image: kopia/kopia:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_DAC_OVERRIDE, ]
+    cap_add: [ DAC_OVERRIDE, ]
     command:
       - server
       - start
