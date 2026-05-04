@@ -2,7 +2,7 @@ services:
   adguard01:
     image: adguard/adguardhome:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_NET_BIND_SERVICE, ]
+    cap_add: [ NET_BIND_SERVICE, ]
     configs:
       - source: kopiaignore-adguard
         target: /opt/adguardhome/work/data/.kopiaignore
@@ -31,7 +31,7 @@ services:
   adguard20:
     image: adguard/adguardhome:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_NET_BIND_SERVICE, ]
+    cap_add: [ NET_BIND_SERVICE, ]
     configs:
       - source: kopiaignore-adguard
         target: /opt/adguardhome/work/data/.kopiaignore
@@ -393,7 +393,7 @@ services:
   kopia:
     image: kopia/kopia:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_DAC_OVERRIDE, ]
+    cap_add: [ DAC_OVERRIDE, ]
     command:
       - server
       - start

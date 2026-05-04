@@ -89,7 +89,7 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_DAC_OVERRIDE, ]
+    cap_add: [ DAC_OVERRIDE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -171,7 +171,7 @@ services:
   kopia:
     image: kopia/kopia:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_DAC_OVERRIDE, ]
+    cap_add: [ DAC_OVERRIDE, ]
     command:
       - server
       - start
@@ -355,7 +355,7 @@ services:
   pinepods:
     image: madeofpendletonwool/pinepods:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CAP_CHOWN, CAP_DAC_OVERRIDE, CAP_SETGID, CAP_SETUID, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, SETGID, SETUID, ]
     depends_on:
       pinepods-db:
         condition: service_healthy
