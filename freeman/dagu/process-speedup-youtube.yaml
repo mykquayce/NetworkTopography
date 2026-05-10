@@ -61,7 +61,9 @@ steps:
     preconditions:
       - command: "${TARGET_COUNT}"
         expected: "0"
-    continue_on: skipped
+    continue_on:
+      failure: true
+      skipped: true
   - name: cleanup
     command:
       - rm "${TEMP_FILES.ADJUSTED_METADATA}"
@@ -103,6 +105,9 @@ ssh:
 params:
   - TEMP_FILES: ""
 steps:
+  - name: create target directory
+    command: |
+      mkdir --parents --verbose "/mnt/md1/youtube/$(cat ${TEMP_FILES.CHANNEL_NAME})/"
   - name: extract metadata
     command: ffmpeg -hide_banner -y -i "$(cat ${TEMP_FILES.SOURCE_PATH})" -f ffmetadata "${TEMP_FILES.METADATA}"
   - name: adjust chapters

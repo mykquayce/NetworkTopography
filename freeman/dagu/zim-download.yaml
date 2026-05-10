@@ -73,13 +73,14 @@ steps:
       docker compose --file /root/NetworkTopography/tana/docker-compose.yml \
         down kiwix
   - name: remove old
-    command: rm --force "/mnt/md1/downloads/zim/${ZIM.filePattern}"
+    command: rm --force --verbose "/mnt/md1/downloads/zim/${ZIM.filePattern}"
   - name: download ZIM
     command: |
       curl \
         --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
         --location \
         --output "/mnt/md1/downloads/zim/${FILENAME}" \
+        --silent \
         --url "${ZIM.baseAddress}${FILENAME}"
   - name: start kiwix
     command: |

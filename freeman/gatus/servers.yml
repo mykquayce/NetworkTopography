@@ -1,6 +1,8 @@
 suites:
   - name: badgey
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping badgey
         url: icmp://192.168.1.50
@@ -19,6 +21,8 @@ suites:
         alerts: *alerts-definition
   - name: billups
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping billups
         url: icmp://192.168.1.75
@@ -52,6 +56,8 @@ suites:
         alerts: *alerts-definition
   - name: freeman
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping freeman .1
         url: icmp://192.168.1.60
@@ -78,6 +84,8 @@ suites:
         alerts: *alerts-definition
   - name: haos
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping haos .20
         url: icmp://192.168.20.80
@@ -89,6 +97,8 @@ suites:
         alerts: *alerts-definition
   - name: ransom
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping ransom .1
         url: icmp://192.168.1.65
@@ -115,6 +125,8 @@ suites:
         alerts: *alerts-definition
   - name: shaxs
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping shaxs .1
         url: icmp://192.168.1.55
@@ -141,6 +153,8 @@ suites:
         alerts: *alerts-definition
   - name: tana
     group: servers
+    interval: 1m
+    timeout: 30s
     endpoints:
       - name: ping tana .1
         url: icmp://192.168.1.70

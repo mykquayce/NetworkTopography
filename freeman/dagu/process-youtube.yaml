@@ -61,7 +61,9 @@ steps:
     preconditions:
       - command: "${TARGET_COUNT}"
         expected: "0"
-    continue_on: skipped
+    continue_on:
+      failure: true
+      skipped: true
   - name: cleanup
     command:
       - rm "${TEMP_FILES.CHANNEL_NAME}"
@@ -94,6 +96,9 @@ ssh:
 params:
   - TEMP_FILES: ""
 steps:
+  - name: create target directory
+    command: |
+      mkdir --parents --verbose "/mnt/md1/youtube/$(cat ${TEMP_FILES.CHANNEL_NAME})/"
   - name: count chapters
     command: |
       ffprobe -hide_banner -loglevel error -i "$(cat ${TEMP_FILES.SOURCE_PATH})" -show_chapters \
