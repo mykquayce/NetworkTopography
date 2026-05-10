@@ -146,6 +146,9 @@ user_rules:
   - '||measure.office.net^'
   - '||e.reddit.com^'
   - '||w3-reporting.reddit.com^'
+  - '||ingest.sentry.io^'
+  - '||sentry.servarr.com^'
+  - '||sentry.sonarr.tv^'
   - '||tplinkcloud.com^'
   - '||tplinknbu.com^'
   - '||tplinkra.com^'
@@ -238,7 +241,6 @@ filtering:
       - minecraft
       - nebula
       - netflix
-      - nintendo
       - odysee
       - ok
       - olvid
@@ -251,6 +253,7 @@ filtering:
       - plenty_of_fish
       - plex
       - pluto_tv
+      - privacy
       - qq
       - rakuten_viki
       - riot_games
