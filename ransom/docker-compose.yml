@@ -14,7 +14,6 @@ services:
     healthcheck:
       test: curl --fail http://localhost:8000/status || exit 1
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.apprise-router.entrypoints: websecure
       traefik.http.routers.apprise-router.rule: Host(`apprise.bob.house`)
@@ -36,7 +35,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.changedetection-router.entrypoints: websecure
       traefik.http.routers.changedetection-router.rule: Host(`changedetection.bob.house`)
@@ -60,7 +58,6 @@ services:
       DT_ENV: selfhosted
       DT_SQLITE_PATH: /donetick-data/donetick.db
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.donetick-router.entrypoints: websecure
       traefik.http.routers.donetick-router.rule: Host(`donetick.bob.house`)
       traefik.http.routers.donetick-router.tls: "true"
@@ -81,7 +78,6 @@ services:
       gluetun:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.enable: "false"
     network_mode: service:gluetun
     security_opt: [ no-new-privileges=true, ]
@@ -97,7 +93,6 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.drawio-router.entrypoints: websecure
       traefik.http.routers.drawio-router.rule: Host(`drawio.bob.house`)
       traefik.http.routers.drawio-router.tls: "true"
@@ -124,15 +119,14 @@ services:
       DD_NOTIFICATION_NTFY_NTFY_URL: https://ntfy.bob.house/
       DD_SERVER_FEATURE_DELETE: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
-      DD_WATCHER_FREEMAN_CRON: 0 */6 * * *
+      DD_WATCHER_FREEMAN_CRON: 0 0,4,8,12,16,20 * * *
       DD_WATCHER_RANSOM_HOST: socket-proxy
-      DD_WATCHER_RANSOM_CRON: 15 */6 * * *
+      DD_WATCHER_RANSOM_CRON: 0 1,5,9,13,17,21 * * *
       DD_WATCHER_SHAXS_HOST: shaxs.bob.house
-      DD_WATCHER_SHAXS_CRON: 30 */6 * * *
+      DD_WATCHER_SHAXS_CRON: 0 2,6,10,14,18,22 * * *
       DD_WATCHER_TANA_HOST: tana.bob.house
-      DD_WATCHER_TANA_CRON: 45 */6 * * *
+      DD_WATCHER_TANA_CRON: 0 3,7,11,15,19,23 * * *
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.drydock-router.entrypoints: websecure
       traefik.http.routers.drydock-router.rule: Host(`drydock.bob.house`)
@@ -158,7 +152,6 @@ services:
     env_file:
       - ~/Configurations/freshrss.env
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.freshrss-router.entrypoints: websecure
       traefik.http.routers.freshrss-router.rule: Host(`freshrss.bob.house`)
@@ -189,7 +182,6 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-ransom.bob.house`)
@@ -218,7 +210,6 @@ services:
     env_file:
       - ~/Configurations/gluetun.env
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.gluetun-router.entrypoints: websecure
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-ransom.bob.house`)
@@ -248,7 +239,6 @@ services:
     env_file:
       - ~/Configurations/grafana.env
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.grafana-router.entrypoints: websecure
       traefik.http.routers.grafana-router.rule: Host(`grafana.bob.house`)
@@ -270,7 +260,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.httpbin-router.entrypoints: websecure
       traefik.http.routers.httpbin-router.rule: Host(`httpbin.bob.house`)
       traefik.http.routers.httpbin-router.tls: "true"
@@ -288,7 +277,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.it-tools-router.entrypoints: websecure
       traefik.http.routers.it-tools-router.rule: Host(`it-tools.bob.house`)
       traefik.http.routers.it-tools-router.tls: "true"
@@ -305,7 +293,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.jsonpath-router.entrypoints: websecure
       traefik.http.routers.jsonpath-router.rule: Host(`jsonpath.bob.house`)
       traefik.http.routers.jsonpath-router.tls: "true"
@@ -331,7 +318,6 @@ services:
     env_file:
       - ~/Configurations/karakeep.env
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: karakeep
       traefik.docker.network: ransom_traefik
       traefik.http.routers.karakeep-router.entrypoints: websecure
@@ -358,7 +344,6 @@ services:
       - --remote-debugging-port=9222
     labels:
       dd.tag.include: ^124$$
-      dd.watch.digest: "true"
       dev.dozzle.group: karakeep
       traefik.enable: "false"
     networks:
@@ -375,7 +360,6 @@ services:
       - ~/Configurations/karakeep.env
     labels:
       dd.tag.include: ^v1\.41\.\d+$$
-      dd.watch.digest: "true"
       dev.dozzle.group: karakeep
       traefik.enable: "false"
     networks:
@@ -403,7 +387,6 @@ services:
     env_file:
       - ~/Configurations/kopia.env
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: Host(`kopia-ransom.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
@@ -429,7 +412,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.moodist-router.entrypoints: websecure
       traefik.http.routers.moodist-router.rule: Host(`moodist.bob.house`)
       traefik.http.routers.moodist-router.tls: "true"
@@ -453,7 +435,6 @@ services:
        N8N_PROXY_HOPS: "1"
        TZ: UTC
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.n8n-router.entrypoints: websecure
       traefik.http.routers.n8n-router.rule: Host(`n8n.bob.house`)
       traefik.http.routers.n8n-router.tls: "true"
@@ -524,7 +505,6 @@ services:
     environment:
       TZ: UTC
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.ntfy-router.entrypoints: websecure
       traefik.http.routers.ntfy-router.rule: Host(`ntfy.bob.house`)
       traefik.http.routers.ntfy-router.tls: "true"
@@ -546,7 +526,6 @@ services:
     env_file:
       - ~/Configurations/nuget.env
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.nuget-router.entrypoints: websecure
       traefik.http.routers.nuget-router.rule: Host(`nuget.bob.house`)
       traefik.http.routers.nuget-router.tls: "true"
@@ -586,7 +565,6 @@ services:
       start_period: 10s
       retries: 10
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: paperless-ngx
       traefik.docker.network: ransom_traefik
       traefik.http.routers.paperless-ngx-router.entrypoints: websecure
@@ -621,7 +599,6 @@ services:
       retries: 10
     labels:
       dd.tag.include: ^18$$
-      dd.watch.digest: "true"
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
     networks:
@@ -642,7 +619,6 @@ services:
       retries: 10
     labels:
       dd.tag.include: ^8$$
-      dd.watch.digest: "true"
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
     networks:
@@ -673,7 +649,6 @@ services:
     env_file:
       - ~/Configurations/planka.env
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: planka
       traefik.docker.network: ransom_traefik
       traefik.http.routers.planka-router.entrypoints: websecure
@@ -704,7 +679,6 @@ services:
       retries: 5
     labels:
       dd.tag.include: ^16-alpine$$
-      dd.watch.digest: "true"
       dev.dozzle.group: planka
       traefik.enable: "false"
     networks:
@@ -725,7 +699,6 @@ services:
     env_file:
       - ~/Configurations/registry.env
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
       traefik.http.routers.registry-router.entrypoints: websecure
@@ -763,7 +736,6 @@ services:
       SINGLE_REGISTRY: "true"
       TAGLIST_PAGE_SIZE: "100"
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
       traefik.http.routers.registry-ui-router.entrypoints: websecure
@@ -793,7 +765,6 @@ services:
       retries: 3
       start_period: 5s
     labels:
-      dd.watch.digest: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -821,7 +792,6 @@ services:
     env_file:
       - ~/Configurations/speedtest-tracker.env
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.speedtest-router.entrypoints: websecure
       traefik.http.routers.speedtest-router.rule: Host(`speedtest.bob.house`)
@@ -864,7 +834,6 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-ransom.bob.house`)
@@ -895,7 +864,6 @@ services:
     environment:
       TRILIUM_DATA_DIR: /home/node/trilium-data
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.trilium-router.entrypoints: websecure
       traefik.http.routers.trilium-router.rule: Host(`trilium.bob.house`)
       traefik.http.routers.trilium-router.tls: "true"
@@ -927,7 +895,6 @@ services:
       VIKUNJA_DATABASE_USER: vikunja
       VIKUNJA_DATABASE_DATABASE: vikunja
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: vikunja
       traefik.docker.network: ransom_traefik
       traefik.http.routers.vikunja-router.entrypoints: websecure
@@ -957,7 +924,6 @@ services:
       start_period: 30s
     labels:
       dd.tag.include: ^18$$
-      dd.watch.digest: "true"
       dev.dozzle.group: vikunja
       traefik.enable: "false"
     networks:
