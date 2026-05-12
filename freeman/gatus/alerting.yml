@@ -3,6 +3,6 @@ alerting:
     url: https://ntfy.bob.house
     topic: ${NTFY_TOPIC}
     default-alert:
-      failure-threshold: 3
-      success-threshold: 3
+      failure-threshold: 2
+      success-threshold: 2
       send-on-resolved: true
