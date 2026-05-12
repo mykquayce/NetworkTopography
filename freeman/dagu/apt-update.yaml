@@ -1,5 +1,8 @@
 schedule: CRON_TZ=Etc/UTC 0 2 * * *
 
+env:
+  - NTFY_TOPIC=${NTFY_TOPIC}
+
 steps:
   - call: update-processor
     name: update
@@ -15,7 +18,7 @@ steps:
     output: FORMATTED
   - name: ntfy
     type: http
-    command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+    command: POST https://ntfy.bob.house/${NTFY_TOPIC}
     config:
       body: $FORMATTED
       headers:

@@ -197,6 +197,7 @@ services:
       DAGU_HOME: /var/lib/dagu
       DAGU_DAGS_DIR: /opt/dagu/dags
       DAGU_TZ: Etc/UTC
+      NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     depends_on:
       traefik:
         condition: service_healthy
@@ -271,6 +272,7 @@ services:
       - ~/Configurations/gatus.env
     environment:
       GATUS_CONFIG_PATH: /config
+      NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     labels:
       dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
