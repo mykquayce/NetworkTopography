@@ -700,6 +700,7 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
