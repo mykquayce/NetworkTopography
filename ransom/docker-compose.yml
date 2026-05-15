@@ -111,12 +111,22 @@ services:
         condition: service_healthy
       traefik:
         condition: service_healthy
+      trivy:
+        condition: service_healthy
     env_file:
       - ~/Configurations/drydock.env
     environment:
       DD_AUTH_BASIC_ADMIN_USER: admin
       DD_NOTIFICATION_NTFY_NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
       DD_NOTIFICATION_NTFY_NTFY_URL: https://ntfy.bob.house/
+      DD_SECURITY_BLOCK_SEVERITY: CRITICAL,HIGH
+      DD_SECURITY_SCANNER: trivy
+      DD_SECURITY_SCAN_CRON: 0 3 * * *          # every day at 3 AM
+      DD_SECURITY_SCAN_JITTER: "60000"          # up to 60s random delay
+      DD_SECURITY_SCAN_CONCURRENCY: "4"         # scan up to 4 digests in parallel
+      DD_SECURITY_SCAN_BATCH_TIMEOUT: "1800000" # abort remaining digest queue after 30m
+      DD_SECURITY_TRIVY_SERVER: https://trivy.bob.house
+      DD_SECURITY_TRIVY_TIMEOUT: "120000"
       DD_SERVER_FEATURE_DELETE: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
       DD_WATCHER_FREEMAN_CRON: 0 0,4,8,12,16,20 * * *
@@ -877,6 +887,36 @@ services:
       - ~/.trilium/:/home/node/trilium-data/:rw
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+
+  trivy:
+    image: aquasec/trivy:latest
+    cap_drop: [ ALL, ]
+    command: server
+    depends_on:
+      traefik:
+        condition: service_healthy
+    environment:
+      TRIVY_DISABLE_TELEMETRY: "true"
+      TRIVY_LISTEN: 0.0.0.0:4954
+    healthcheck:
+      test: wget --spider http://localhost:4954/healthz || exit 1
+      start_period: 30s
+      interval: 30s
+      retries: 3
+      timeout: 5s
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.trivy-router.entrypoints: websecure
+      traefik.http.routers.trivy-router.rule: Host(`trivy.bob.house`)
+      traefik.http.routers.trivy-router.tls: "true"
+      traefik.http.services.trivy-service.loadbalancer.server.port: "4954"
+    networks:
+      default: null
+      traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /tmp/, ]
+    volumes: [ ~/.trivy/:/root/.cache/trivy/:rw, ]
 
   vikunja:
     image: vikunja/vikunja:latest
