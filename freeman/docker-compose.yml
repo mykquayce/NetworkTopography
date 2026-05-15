@@ -70,7 +70,6 @@ services:
       retries: 5
       timeout: 5s
     labels:
-      dd.watch.digest: "true"
       dd.tag.include: ^16-alpine$$
       dev.dozzle.group: authentik
       traefik.enable: "false"
@@ -92,7 +91,6 @@ services:
       retries: 5
       timeout: 3s
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: authentik
       traefik.enable: "false"
     networks:
@@ -118,7 +116,6 @@ services:
     env_file:
       - ~/Configurations/authentik.env
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: authentik
       traefik.docker.network: freeman_traefik
       traefik.http.routers.authentik-router.entrypoints: websecure
@@ -150,7 +147,6 @@ services:
     env_file:
       - ~/Configurations/authentik.env
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: authentik
       traefik.enable: "false"
     networks:
@@ -176,7 +172,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.baikal-router.entrypoints: websecure
       traefik.http.routers.baikal-router.rule: Host(`baikal.bob.house`)
       traefik.http.routers.baikal-router.tls: "true"
@@ -202,7 +197,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.dagu-router.entrypoints: websecure
       traefik.http.routers.dagu-router.rule: Host(`dagu.bob.house`)
@@ -246,7 +240,6 @@ services:
       start_period: 5s
       start_interval: 5s
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.dozzle-router.entrypoints: websecure
       traefik.http.routers.dozzle-router.rule: Host(`dozzle.bob.house`)
@@ -274,7 +267,6 @@ services:
       GATUS_CONFIG_PATH: /config
       NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.gatus-router.entrypoints: websecure
       traefik.http.routers.gatus-router.rule: Host(`gatus.bob.house`)
@@ -296,7 +288,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.glance-router.entrypoints: websecure
       traefik.http.routers.glance-router.rule: Host(`glance.bob.house`)
@@ -326,7 +317,6 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
       traefik.http.routers.glances-router.rule: Host(`glances-freeman.bob.house`)
@@ -348,7 +338,6 @@ services:
     env_file:
       - ~/Configurations/go2rtc.env
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.go2rtc-router.entrypoints: websecure
       traefik.http.routers.go2rtc-router.rule: Host(`go2rtc.bob.house`)
       traefik.http.routers.go2rtc-router.tls: "true"
@@ -375,7 +364,6 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.homepage-router.entrypoints: websecure
       traefik.http.routers.homepage-router.rule: Host(`homepage.bob.house`)
@@ -410,7 +398,6 @@ services:
     env_file:
       - ~/Configurations/kopia.env
     labels:
-      dd.watch.digest: "true"
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: Host(`kopia-freeman.bob.house`)
       traefik.http.routers.kopia-router.tls: "true"
@@ -438,7 +425,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.portainer-router.entrypoints: websecure
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
@@ -465,7 +451,6 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.prometheus-router.entrypoints: websecure
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.bob.house`)
@@ -499,7 +484,6 @@ services:
       VERSION: "1"
       VOLUMES: "1"
     labels:
-      dd.watch.digest: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -517,7 +501,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.sshwifty-router.entrypoints: websecure
       traefik.http.routers.sshwifty-router.rule: Host(`sshwifty.bob.house`)
