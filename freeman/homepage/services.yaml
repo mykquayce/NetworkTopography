@@ -777,6 +777,12 @@
           url: https://qbittorrent.bob.house
           username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
           password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
+    - RabbitMQ: &rabbitmq
+        description: One broker to queue them all
+        href: https://rabbitmq.bob.house/
+        icon: rabbitmq.png
+        server: ransom-docker
+        container: ransom-rabbitmq-1
     - Radarr: &radarr
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
