@@ -191,6 +191,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: rabbitmq .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: rabbitmq.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: registry .20
     group: dns .20
     url: 192.168.20.60

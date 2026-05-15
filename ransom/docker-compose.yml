@@ -690,6 +690,23 @@ services:
     volumes:
       - ~/.planka/db/:/var/lib/postgresql/data/:rw
 
+  rabbitmq:
+    image: rabbitmq:management
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, SETGID, SETUID, ]
+    env_file: [ ~/Configurations/rabbitmq.env, ]
+    hostname: rabbitmq
+    labels:
+      traefik.http.routers.rabbitmq-router.entrypoints: websecure
+      traefik.http.routers.rabbitmq-router.rule: Host(`rabbitmq.bob.house`)
+      traefik.http.routers.rabbitmq-router.tls: "true"
+      traefik.http.services.rabbitmq-service.loadbalancer.server.port: "15672"
+    networks:
+      traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    volumes: [ ~/.rabbitmq/:/var/lib/rabbitmq/:rw, ]
+
   registry:
     image: registry:latest
     cap_drop: [ ALL, ]
