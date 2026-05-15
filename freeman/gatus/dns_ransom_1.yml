@@ -245,6 +245,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: trivy .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: trivy.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: vikunja .1
     group: dns .1
     url: 192.168.1.50
