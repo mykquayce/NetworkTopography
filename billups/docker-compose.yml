@@ -118,7 +118,7 @@ services:
     networks:
       default: null
       socket-proxy: null
-    ports: [ 2375:2375/tcp, ]
+    ports: [ 192.168.1.75:2375:2375/tcp, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run, ]
@@ -231,7 +231,7 @@ services:
       socket-proxy: null
       traefik: null
     ports:
-      - 443:443/tcp
+      - 192.168.1.75:443:443/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
