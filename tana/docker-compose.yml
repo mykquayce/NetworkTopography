@@ -79,8 +79,10 @@ services:
       default: null
       traefik: null
     ports:
-      - 6881:6881/tcp # qbittorrent
-      - 6881:6881/udp
+      - 192.168.1.70:6881:6881/tcp # qbittorrent
+      - 192.168.1.70:6881:6881/udp
+      - 192.168.20.70:6881:6881/tcp # qbittorrent
+      - 192.168.20.70:6881:6881/udp
     security_opt: [ no-new-privileges=true, ]
 
   jellyfin:
@@ -627,7 +629,9 @@ services:
     networks:
       default: null
       socket-proxy: null
-    ports: [ 2375:2375/tcp, ]
+    ports:
+      - 192.168.1.70:2375:2375/tcp
+      - 192.168.20.70:2375:2375/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run, ]
@@ -714,7 +718,8 @@ services:
       socket-proxy: null
       traefik: null
     ports:
-      - 443:443/tcp
+      - 192.168.1.70:443:443/tcp
+      - 192.168.20.70:443:443/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -787,8 +792,10 @@ services:
       default: null
       traefik: null
     ports:
-      - 3389:3389/tcp
-      - 3389:3389/udp
+      - 192.168.1.70:3389:3389/tcp
+      - 192.168.1.70:3389:3389/udp
+      - 192.168.20.70:3389:3389/tcp
+      - 192.168.20.70:3389:3389/udp
     security_opt: [ no-new-privileges=true, ]
     stop_grace_period: 2m0s
     volumes:
