@@ -7,18 +7,24 @@ ssh:
   known_host_file: /run/secrets/known_hosts
 
 steps:
-  - name: pull image
+  - name: docker pull
+    description: pull base image
     command: docker pull alpine:latest
-  - name: get date
+  - name: docker inspect1
+    description: get base image created date
     command: |
-      docker inspect --format '{{.Created}}' alpine:latest \
-        | { read dt; date --date "$dt" --iso-8601=seconds --universal; }
-    output: CREATED_DATE
-  - name: get offset
-    command: date --date "1 day ago" --iso-8601=seconds --universal
-    output: YESTERDAY
+      docker image inspect --format '{{.Created}}' alpine:latest \
+        | { read dt; date --date "$dt" --iso-8601=ns --universal; }
+    output: BASE_IMAGE_DATE
+  - name: docker inspect2
+    description: get image created date
+    command: |
+      docker image inspect --format '{{.Created}}' ransom-nsd01:latest \
+        | { read dt; date --date "$dt" --iso-8601=ns --universal; }
+    output: IMAGE_DATE
   - name: test
-    command: if [ '"${CREATED_DATE}"' \> '"${YESTERDAY}"' ]; then echo 1; else echo 2; fi
+    description: is the base image newer than the current image?
+    command: if [ '"${BASE_IMAGE_DATE}"' \> '"${IMAGE_DATE}"' ]; then echo 1; else echo 2; fi
     output: RESULT
   - name: rebuild
     command: |

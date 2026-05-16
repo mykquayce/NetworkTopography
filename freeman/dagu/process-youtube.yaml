@@ -1,139 +1,169 @@
 schedule: CRON_TZ=Etc/UTC 0,10,20,30,40,50 * * * *
-
 env:
-  - NTFY_TOPIC=${NTFY_TOPIC}
-
-steps:
-  - name: loop
-    call: processor
-    output: PROCESSOR_OUTPUT
-    repeat_policy:
-      repeat: while
-      condition: "${PROCESSOR_OUTPUT.outputs.SOURCE_COUNT}"
-      expected: "1"
-      interval_sec: 5
-      limit: 5
----
-name: processor
+  - NTFY_TOPIC: ${NTFY_TOPIC}
 ssh:
   user: root
   host: tana.bob.house
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
 steps:
-  - name: make temp files
-    call: make-temp-files
-    output: TEMP_FILES_DAG_OUTPUT
-  - name: format
-    type: jq
-    command: .outputs
-    script: $TEMP_FILES_DAG_OUTPUT
-    output: TEMP_FILES
-  - name: find a file to process and put its fully-qualified path in the temp file
+  - name: mktemp
+    description: make a temporary file to hold the list of files to process (new-line delimited)
+    command: mktemp --quiet
+    output: SOURCE_FILES_FILE
+  - name: ls
+    description: get a list of files to process
     command: |
       ( ls -1U --literal /mnt/md1/downloads/pinchflat/*/*.mp4 2>/dev/null || true ) \
-        | head --lines=1 \
-        > "${TEMP_FILES.SOURCE_PATH}"
-  - name: count newlines in the temp file
-    command: cat "${TEMP_FILES.SOURCE_PATH}" | grep --count ^ || true
+        > ${SOURCE_FILES_FILE}
+  - name: count
+    description: count the files
+    command: (cat "${SOURCE_FILES_FILE}" | grep --count ^) || true
     output: SOURCE_COUNT
-  - name: check non-zero sources
-    command: echo work to do
+  - name: indices
+    description: build a list of indicies
+    command: seq 1 "${SOURCE_COUNT}"
+    output: INDICES
+  - name: one-file
+    call: file-processor
+    params: "SOURCE_FILES_FILE=${SOURCE_FILES_FILE} INDEX=1"
+    preconditions:
+      - command: "${SOURCE_COUNT}"
+        expected: "1"
+    continue_on: skipped
+  - name: multiple
+    call: file-processor
+    parallel:
+      items: "${INDICES}"
+      max_concurrent: 1
+    params: "SOURCE_FILES_FILE=${SOURCE_FILES_FILE} INDEX=${ITEM}"
     preconditions:
       - command: "${SOURCE_COUNT}"
         expected: "0"
         negate: true
-  - name: get the details
-    command: |
-      cat "${TEMP_FILES.SOURCE_PATH}" \
-        | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\1/p' \
-        > "${TEMP_FILES.CHANNEL_NAME}"
-      cat "${TEMP_FILES.SOURCE_PATH}" \
-        | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\2/p' \
-        > "${TEMP_FILES.VIDEO_NAME}"
-      echo -n "/mnt/md1/youtube/$(cat ${TEMP_FILES.CHANNEL_NAME})/$(cat ${TEMP_FILES.VIDEO_NAME})" \
-        > "${TEMP_FILES.TARGET_PATH}"
-  - name: count files at the target
-    command: |
-      ( ls -1U "$(cat ${TEMP_FILES.TARGET_PATH})" 2>/dev/null || true ) \
-        | grep --count ^ || true
-    output: TARGET_COUNT
-  - name: do work
-    call: worker
-    params: "TEMP_FILES=${TEMP_FILES}"
-    preconditions:
-      - command: "${TARGET_COUNT}"
-        expected: "0"
-    continue_on:
-      failure: true
-      skipped: true
-  - name: cleanup
-    command:
-      - rm "${TEMP_FILES.CHANNEL_NAME}"
-      - rm "${TEMP_FILES.SOURCE_PATH}"
-      - rm "${TEMP_FILES.TARGET_PATH}"
-      - rm "${TEMP_FILES.VIDEO_NAME}"
+      - command: "${SOURCE_COUNT}"
+        expected: "1"
+        negate: true
+    continue_on: skipped
+  - name: rm
+    description: cleanup
+    command: rm --force "${SOURCE_FILES_FILE}"
 ---
-name: make-temp-files
-ssh:
-  user: root
-  host: tana.bob.house
-  key: /run/secrets/id_rsa
-  known_host_file: /run/secrets/known_hosts
-steps:
-  - command: mktemp --quiet --suffix .txt
-    output: CHANNEL_NAME
-  - command: mktemp --quiet --suffix .txt
-    output: SOURCE_PATH
-  - command: mktemp --quiet --suffix .txt
-    output: TARGET_PATH
-  - command: mktemp --quiet --suffix .txt
-    output: VIDEO_NAME
----
-name: worker
+name: file-processor
+env:
+  - NTFY_TOPIC: ${NTFY_TOPIC}
 ssh:
   user: root
   host: tana.bob.house
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
 params:
-  - TEMP_FILES: ""
+  - SOURCE_FILES_FILE: ""
+  - INDEX: ""
 steps:
-  - name: create target directory
+  - name: mktemp1
+    description: make the tmp file to hold the source file path
+    command: mktemp --quiet
+    output: SOURCE_FILE_FILE
+  - name: mktemp2
+    description: make the tmp file to hold the channel name
+    command: mktemp --quiet
+    output: CHANNEL_NAME_FILE
+  - name: mktemp3
+    description: make the tmp file to hold the video name
+    command: mktemp --quiet
+    output: VIDEO_NAME_FILE
+  - name: mktemp4
+    description: make the tmp file to hold the target file path
+    command: mktemp --quiet
+    output: TARGET_FILE_FILE
+  - id: variables
+    description: populate the variables
     command: |
-      mkdir --parents --verbose "/mnt/md1/youtube/$(cat ${TEMP_FILES.CHANNEL_NAME})/"
-  - name: count chapters
+      (sed --quiet "${INDEX}p" < "${SOURCE_FILES_FILE}") > "${SOURCE_FILE_FILE}"
+      (cat "${SOURCE_FILE_FILE}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\1/p') > "${CHANNEL_NAME_FILE}"
+      (cat "${SOURCE_FILE_FILE}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\2/p') > "${VIDEO_NAME_FILE}"
+      echo -n "/mnt/md1/youtube/$(cat ${CHANNEL_NAME_FILE})/$(cat ${VIDEO_NAME_FILE})" > "${TARGET_FILE_FILE}"
+  - name: count
+    description: count files at the target
     command: |
-      ffprobe -hide_banner -loglevel error -i "$(cat ${TEMP_FILES.SOURCE_PATH})" -show_chapters \
-        | grep --count CHAPTER || true
+      ( ls -1U --literal "$(cat ${TARGET_FILE_FILE})" 2>/dev/null || true ) \
+        | grep --count ^ || true
+    output: TARGET_COUNT
+  - call: worker
+    params: "SOURCE_FILE_FILE=${SOURCE_FILE_FILE} CHANNEL_NAME_FILE=${CHANNEL_NAME_FILE} VIDEO_NAME_FILE=${VIDEO_NAME_FILE} TARGET_FILE_FILE=${TARGET_FILE_FILE}"
+    preconditions:
+      - command: "${TARGET_COUNT}"
+        expected: "0"
+    continue_on: skipped
+  - id: rm
+    name: cleanup
+    command: |
+      rm --force "${SOURCE_FILE_FILE}"
+      rm --force "${CHANNEL_NAME_FILE}"
+      rm --force "${VIDEO_NAME_FILE}"
+      rm --force "${TARGET_FILE_FILE}"
+---
+name: worker
+env:
+  - NTFY_TOPIC: ${NTFY_TOPIC}
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+params:
+  - SOURCE_FILE_FILE: ""
+  - CHANNEL_NAME_FILE: ""
+  - VIDEO_NAME_FILE: ""
+  - TARGET_FILE_FILE: ""
+steps:
+  - name: echo
+    command: echo "processing $(cat ${SOURCE_FILE_FILE}) into $(cat ${TARGET_FILE_FILE})"
+  - name: mkdir
+    description: create target directory
+    command: mkdir --parents --verbose "/mnt/md1/youtube/$(cat ${CHANNEL_NAME_FILE})/"
+  - name: ffprobe
+    description: count the chapters
+    command: |
+      (ffprobe -hide_banner -loglevel error -i "$(cat ${SOURCE_FILE_FILE})" -show_chapters \
+        | grep --count \\[CHAPTER) || true
     output: CHAPTER_COUNT
-  - name: process (chapters)
+  - name: ffmpeg1
+    description: process (chapters)
     command: |
-      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${TEMP_FILES.SOURCE_PATH})" \
+      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${SOURCE_FILE_FILE})" \
         -map 0:v:0 -filter:v:0 fps=fps=8 \
         -map 0:a:0 -codec:a:0  copy \
         -map 0:v:1 -codec:v:1  copy \
         -map 0:d:0 -codec:d:0  copy \
-        "$(cat ${TEMP_FILES.TARGET_PATH})"
+        "$(cat ${TARGET_FILE_FILE})"
     preconditions:
       - condition: "${CHAPTER_COUNT}"
         expected: "0"
         negate: true
     continue_on: skipped
-  - name: process (no chapters)
+  - name: ffmpeg2
+    description: process (no chapters)
     command: |
-      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${TEMP_FILES.SOURCE_PATH})" \
+      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${SOURCE_FILE_FILE})" \
         -map 0:v:0 -filter:v:0 fps=fps=8 \
         -map 0:a:0 -codec:a:0  copy \
         -map 0:v:1 -codec:v:1  copy \
-        "$(cat ${TEMP_FILES.TARGET_PATH})"
+        "$(cat ${TARGET_FILE_FILE})"
     preconditions:
       - condition: "${CHAPTER_COUNT}"
         expected: "0"
     continue_on: skipped
-  - command: cat "${TEMP_FILES.VIDEO_NAME}"
+  - name: notify1
+    description: get variables for the notify step
+    command: cat "${CHANNEL_NAME_FILE}"
+    output: CHANNEL_NAME
+  - name: notify2
+    description: get variables for the notify step
+    command: cat "${VIDEO_NAME_FILE}"
     output: VIDEO_NAME
-  - name: notify
+  - name: notify3
     type: http
     command: POST https://ntfy.bob.house/${NTFY_TOPIC}
     config:
@@ -141,11 +171,13 @@ steps:
       headers:
         Content-Type: text/plain
         Tags: tv,+1
-        Title: "processed ${VIDEO_NAME}"
+        Title: "new ${CHANNEL_NAME}"
       silent: true
       timeout: 5
     retry_policy:
       limit: 3
       interval_sec: 5
-  - name: cleanup
-    command: rm "$(cat ${TEMP_FILES.SOURCE_PATH})"
+    continue_on: failed
+  - name: rm
+    description: cleanup
+    command: rm --force "$(cat ${SOURCE_FILE_FILE})"
