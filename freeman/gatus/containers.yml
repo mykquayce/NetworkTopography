@@ -275,6 +275,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: miasma
+    group: containers
+    url: http://ransom.bob.house:2375/v1.52/containers/ransom-miasma-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: moodist
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-moodist-1/json
