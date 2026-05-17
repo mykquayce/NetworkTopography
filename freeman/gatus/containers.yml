@@ -15,12 +15,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: apprise
-    group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-apprise-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: authentik-postgresql
     group: containers
     url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-postgresql-1/json

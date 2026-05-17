@@ -1,33 +1,4 @@
 services:
-  apprise:
-    image: caronc/apprise:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETUID, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    environment:
-      APPRISE_ADMIN: "y"
-      APPRISE_STATEFUL_MODE: simple
-      APPRISE_WORKER_COUNT: "1"
-      TZ: Etc/UTC
-    healthcheck:
-      test: curl --fail http://localhost:8000/status || exit 1
-    labels:
-      traefik.docker.network: ransom_traefik
-      traefik.http.routers.apprise-router.entrypoints: websecure
-      traefik.http.routers.apprise-router.rule: Host(`apprise.bob.house`)
-      traefik.http.routers.apprise-router.tls: "true"
-      traefik.http.services.apprise-service.loadbalancer.server.port: "8000"
-    networks:
-      default: null
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - ~/.apprise/attach/:/attach/:rw
-      - ~/.apprise/config/:/config/:rw
-      - ~/.apprise/plugin/:/plugin/:rw
-
   changedetection:
     image: dgtlmoon/changedetection.io:latest
     cap_drop: [ ALL, ]

@@ -1,24 +1,15 @@
 endpoints:
-  - name: apprise .1
-    group: dns .1
-    url: 192.168.1.50
-    dns:
-      query-name: apprise.bob.house
-      query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == ransom.bob.house."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
-
   - name: baget .1
     group: dns .1
     url: 192.168.1.50
     dns:
       query-name: baget.bob.house
       query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
+    conditions: &conditions-definition
+      - "[BODY] == ransom.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: changedetection .1
     group: dns .1

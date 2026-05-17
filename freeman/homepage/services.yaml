@@ -25,12 +25,6 @@
           url: https://adguard20.bob.house
           username: f3b4707c9a7cd5b7
           password: {{HOMEPAGE_VAR_ADGUARD20_KEY}}
-    - Apprise: &apprise
-        description: Push Notifications that work with just about every platform!
-        href: https://apprise.bob.house
-        icon: apprise.png
-        server: ransom-docker
-        container: ransom-apprise-1
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
@@ -953,7 +947,6 @@
 - Services:
     - Adguard 01: *adguard01
     - Adguard 20: *adguard20
-    - Apprise: *apprise
     - Authentik: *authentik
     - Dozzle: *dozzle
     - drydock: *drydock

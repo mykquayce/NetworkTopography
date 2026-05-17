@@ -1,24 +1,15 @@
 endpoints:
-  - name: apprise .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: apprise.bob.house
-      query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == ransom.bob.house."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
-
   - name: baget .20
     group: dns .20
     url: 192.168.20.60
     dns:
       query-name: baget.bob.house
       query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
+    conditions: &conditions-definition
+      - "[BODY] == ransom.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
 
   - name: changedetection .20
     group: dns .20
