@@ -385,6 +385,28 @@ services:
       # Mount repository location
       - /repository/:/repository/:rw
 
+  miasma:
+    build:
+      dockerfile_inline: |
+        FROM alpine:latest
+        RUN apk add --no-cache --update cargo \
+          && cargo install --root / miasma
+        CMD ["sh", "-c", "/bin/miasma --host 0.0.0.0 --port 9999 --link-count 1 --max-depth 1"]
+    cap_drop: [ ALL, ]
+    healthcheck:
+      test: ["CMD", "/bin/miasma", "-V"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      default: null
+    ports:
+      - 192.168.1.65:9999:9999/tcp
+      - 192.168.20.65:9999:9999/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+
   moodist:
     image: ghcr.io/remvze/moodist:latest
     cap_drop: [ ALL, ]
