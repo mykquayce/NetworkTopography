@@ -269,7 +269,7 @@ services:
     tmpfs: [ /data/temp/, ]
     volumes:
       - ~/.metube/:/data/:rw
-      - ~/cookies.txt:/cookies/cookies.txt:ro
+      - ~/Configurations/cookies.txt:/cookies/cookies.txt:ro
       - /mnt/md1/youtube/:/downloads/:rw
 
   navidrome:
@@ -344,7 +344,7 @@ services:
     volumes:
       - ~/.pinchflat/:/config/:rw
       - /mnt/md1/downloads/pinchflat/:/downloads/:rw
-      - ~/cookies.txt:/config/extras/cookies.txt:rw
+      - ~/Configurations/cookies.txt:/config/extras/cookies.txt:rw
 
   pinepods:
     image: madeofpendletonwool/pinepods:latest
