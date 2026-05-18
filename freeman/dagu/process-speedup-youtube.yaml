@@ -1,6 +1,4 @@
 schedule: CRON_TZ=Etc/UTC 5,15,25,35,45,55 * * * *
-env:
-  - NTFY_TOPIC: ${NTFY_TOPIC}
 ssh:
   user: root
   host: tana.bob.house
@@ -50,8 +48,6 @@ steps:
     command: rm --force "${SOURCE_FILES_FILE}"
 ---
 name: file-processor
-env:
-  - NTFY_TOPIC: ${NTFY_TOPIC}
 ssh:
   user: root
   host: tana.bob.house
@@ -105,8 +101,6 @@ steps:
       rm --force "${TARGET_FILE_FILE}"
 ---
 name: worker
-env:
-  - NTFY_TOPIC: ${NTFY_TOPIC}
 ssh:
   user: root
   host: tana.bob.house
@@ -167,7 +161,7 @@ steps:
     output: VIDEO_NAME
   - name: notify3
     type: http
-    command: POST https://ntfy.bob.house/${NTFY_TOPIC}
+    command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     config:
       body: $VIDEO_NAME
       headers:
