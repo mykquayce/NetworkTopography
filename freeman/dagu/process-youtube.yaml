@@ -1,177 +1,119 @@
 schedule: CRON_TZ=Etc/UTC 0,10,20,30,40,50 * * * *
-ssh:
-  user: root
-  host: tana.bob.house
-  key: /run/secrets/id_rsa
-  known_host_file: /run/secrets/known_hosts
 steps:
-  - name: mktemp
-    description: make a temporary file to hold the list of files to process (new-line delimited)
-    command: mktemp --quiet
-    output: SOURCE_FILES_FILE
-  - name: ls
-    description: get a list of files to process
-    command: |
-      ( ls -1U --literal /mnt/md1/downloads/pinchflat/*/*.mp4 2>/dev/null || true ) \
-        > ${SOURCE_FILES_FILE}
-  - name: count
-    description: count the files
-    command: (cat "${SOURCE_FILES_FILE}" | grep --count ^) || true
-    output: SOURCE_COUNT
-  - name: indices
-    description: build a list of indicies
-    command: seq 1 "${SOURCE_COUNT}"
-    output: INDICES
-  - name: one-file
-    call: file-processor
-    params: "SOURCE_FILES_FILE=${SOURCE_FILES_FILE} INDEX=1"
-    preconditions:
-      - command: "${SOURCE_COUNT}"
-        expected: "1"
-    continue_on: skipped
-  - name: multiple
-    call: file-processor
+  - id: get_files
+    type: ssh
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+    script: |
+      #! /bin/bash
+      for source in /mnt/md1/downloads/pinchflat/*/*.mp4
+      do
+        if [ ! -f "${source}" ]; then continue; fi;
+
+        channel=$(printf "%s" "${source}" | rev | cut --delimiter / --fields 2 | rev)
+        filename=$(printf "%s" "${source}" | rev | cut --delimiter / --fields 1 | rev)
+        target=$(printf "/mnt/md1/youtube/%s/%s" "${channel}" "${filename}")
+        if [ ! -f "${target}" ]; then
+          printf "{\"channel\":\"%s\",\"filename\":\"%s\",\"source\":\"%s\",\"target\":\"%s\"}" \
+            "${channel}" "${filename}" "${source}" "${target}"
+        fi
+      done
+    output: VIDEOS_LIST
+  - id: format
+    run: printf "%s" "${VIDEOS_LIST}" | jq --slurp
+    depends: get_files
+    output: VIDEOS
+  - id: process_files
+    action: dag.run
+    with:
+      dag: file-processor
+      params: "VIDEO=${ITEM}"
     parallel:
-      items: "${INDICES}"
+      items: "${VIDEOS}"
       max_concurrent: 1
-    params: "SOURCE_FILES_FILE=${SOURCE_FILES_FILE} INDEX=${ITEM}"
     preconditions:
-      - command: "${SOURCE_COUNT}"
-        expected: "0"
+      - condition: "${VIDEOS}"
+        expected: "[]"
         negate: true
-      - command: "${SOURCE_COUNT}"
-        expected: "1"
-        negate: true
-    continue_on: skipped
-  - name: rm
-    description: cleanup
-    command: rm --force "${SOURCE_FILES_FILE}"
+    depends: format
 ---
 name: file-processor
+params:
+  - VIDEO: ""
 ssh:
   user: root
   host: tana.bob.house
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
-params:
-  - SOURCE_FILES_FILE: ""
-  - INDEX: ""
+handler_on:
+  success:
+    call: success-processor
+    params: "VIDEO=${VIDEO}"
 steps:
-  - name: mktemp1
-    description: make the tmp file to hold the source file path
-    command: mktemp --quiet
-    output: SOURCE_FILE_FILE
-  - name: mktemp2
-    description: make the tmp file to hold the channel name
-    command: mktemp --quiet
-    output: CHANNEL_NAME_FILE
-  - name: mktemp3
-    description: make the tmp file to hold the video name
-    command: mktemp --quiet
-    output: VIDEO_NAME_FILE
-  - name: mktemp4
-    description: make the tmp file to hold the target file path
-    command: mktemp --quiet
-    output: TARGET_FILE_FILE
-  - id: variables
-    description: populate the variables
-    command: |
-      (sed --quiet "${INDEX}p" < "${SOURCE_FILES_FILE}") > "${SOURCE_FILE_FILE}"
-      (cat "${SOURCE_FILE_FILE}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\1/p') > "${CHANNEL_NAME_FILE}"
-      (cat "${SOURCE_FILE_FILE}" | sed --quiet --regexp-extended 's/^.+\/(.+?)\/(.+?)$/\2/p') > "${VIDEO_NAME_FILE}"
-      echo -n "/mnt/md1/youtube/$(cat ${CHANNEL_NAME_FILE})/$(cat ${VIDEO_NAME_FILE})" > "${TARGET_FILE_FILE}"
-  - name: count
-    description: count files at the target
-    command: |
-      ( ls -1U --literal "$(cat ${TARGET_FILE_FILE})" 2>/dev/null || true ) \
-        | grep --count ^ || true
-    output: TARGET_COUNT
-  - call: worker
-    params: "SOURCE_FILE_FILE=${SOURCE_FILE_FILE} CHANNEL_NAME_FILE=${CHANNEL_NAME_FILE} VIDEO_NAME_FILE=${VIDEO_NAME_FILE} TARGET_FILE_FILE=${TARGET_FILE_FILE}"
-    preconditions:
-      - command: "${TARGET_COUNT}"
-        expected: "0"
-    continue_on: skipped
-  - id: rm
-    name: cleanup
-    command: |
-      rm --force "${SOURCE_FILE_FILE}"
-      rm --force "${CHANNEL_NAME_FILE}"
-      rm --force "${VIDEO_NAME_FILE}"
-      rm --force "${TARGET_FILE_FILE}"
----
-name: worker
-ssh:
-  user: root
-  host: tana.bob.house
-  key: /run/secrets/id_rsa
-  known_host_file: /run/secrets/known_hosts
-params:
-  - SOURCE_FILE_FILE: ""
-  - CHANNEL_NAME_FILE: ""
-  - VIDEO_NAME_FILE: ""
-  - TARGET_FILE_FILE: ""
-steps:
-  - name: echo
-    command: echo "processing $(cat ${SOURCE_FILE_FILE}) into $(cat ${TARGET_FILE_FILE})"
-  - name: mkdir
-    description: create target directory
-    command: mkdir --parents --verbose "/mnt/md1/youtube/$(cat ${CHANNEL_NAME_FILE})/"
-  - name: ffprobe
-    description: count the chapters
-    command: |
-      (ffprobe -hide_banner -loglevel error -i "$(cat ${SOURCE_FILE_FILE})" -show_chapters \
+  - id: mkdir
+    run: mkdir --parents --verbose "$(dirname --zero "${VIDEO.target}")"
+  - id: count_chapters
+    run: |
+      (ffprobe -hide_banner -loglevel error -i "${VIDEO.source}" -show_chapters \
         | grep --count \\[CHAPTER) || true
     output: CHAPTER_COUNT
-  - name: ffmpeg1
-    description: process (chapters)
-    command: |
-      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${SOURCE_FILE_FILE})" \
+  - id: ffmpeg_chapters
+    run: |
+      ffmpeg -hide_banner -loglevel error -y -i "${VIDEO.source}" \
         -map 0:v:0 -filter:v:0 fps=fps=8 \
         -map 0:a:0 -codec:a:0  copy \
         -map 0:v:1 -codec:v:1  copy \
         -map 0:d:0 -codec:d:0  copy \
-        "$(cat ${TARGET_FILE_FILE})"
+        "${VIDEO.target}"
     preconditions:
       - condition: "${CHAPTER_COUNT}"
         expected: "0"
         negate: true
     continue_on: skipped
-  - name: ffmpeg2
-    description: process (no chapters)
-    command: |
-      ffmpeg -hide_banner -loglevel error -y -i "$(cat ${SOURCE_FILE_FILE})" \
+    depends: [mkdir, count_chapters]
+  - id: ffmpeg_no_chapters
+    run: |
+      ffmpeg -hide_banner -loglevel error -y -i "${VIDEO.source}" \
         -map 0:v:0 -filter:v:0 fps=fps=8 \
         -map 0:a:0 -codec:a:0  copy \
         -map 0:v:1 -codec:v:1  copy \
-        "$(cat ${TARGET_FILE_FILE})"
+        "${VIDEO.target}"
     preconditions:
       - condition: "${CHAPTER_COUNT}"
         expected: "0"
     continue_on: skipped
-  - name: notify1
-    description: get variables for the notify step
-    command: cat "${CHANNEL_NAME_FILE}"
-    output: CHANNEL_NAME
-  - name: notify2
-    description: get variables for the notify step
-    command: cat "${VIDEO_NAME_FILE}"
-    output: VIDEO_NAME
-  - name: notify3
+    depends: [mkdir, count_chapters]
+---
+name: success-processor
+params:
+  - VIDEO: ""
+steps:
+  - id: get_title
+    run: printf "%s" "${VIDEO.filename}" | cut --delimiter _ --fields 3
+    output: TITLE
+  - id: notify
     type: http
     command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     config:
-      body: $VIDEO_NAME
+      body: "${TITLE}"
       headers:
         Content-Type: text/plain
         Tags: tv,+1
-        Title: "new ${CHANNEL_NAME}"
+        Title: "new video from ${VIDEO.channel}"
       silent: true
       timeout: 5
     retry_policy:
       limit: 3
       interval_sec: 5
-    continue_on: failed
-  - name: rm
-    description: cleanup
-    command: rm --force "$(cat ${SOURCE_FILE_FILE})"
+    depends: get_title
+  - id: cleanup
+    type: ssh
+    command: rm --force "${VIDEO.source}"
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts

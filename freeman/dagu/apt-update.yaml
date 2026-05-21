@@ -1,18 +1,23 @@
 schedule: CRON_TZ=Etc/UTC 0 2 * * *
-
 steps:
-  - call: update-processor
-    name: update
+  - id: update
+    call: update-processor
     parallel:
-      items: [freeman.bob.house, ransom.bob.house, shaxs.bob.house, tana.bob.house]
-      max_concurrent: 1
+      items:
+        [
+          freeman.bob.house,
+          ransom.bob.house,
+          shaxs.bob.house,
+          tana.bob.house,
+        ]
     params: "SERVER=${ITEM}"
     output: SUMMARY
-  - name: format
+  - id: format
     type: jq
     command: .results[] | {params,summary:.outputs.UPDATES} | {(.params[7:]):.summary}
     script: $SUMMARY
     output: FORMATTED
+    depends: update
   - name: ntfy
     type: http
     command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
@@ -28,24 +33,26 @@ steps:
     retry_policy:
       limit: 3
       interval_sec: 5
+    depends: format
 ---
 name: update-processor
 params:
-  - SERVER:
+  - SERVER: ""
 ssh:
   user: root
   host: $SERVER
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
 steps:
-  - name: update
+  - id: update
     command: apt update -qq
     continue_on:
       exit_code: [0]
       output: "re:^[0-9]+ packages can be upgraded"
       mark_success: true
     timeout_sec: 60
-  - name: list
+  - id: list
     command: apt list -qq --upgradable
     output: UPDATES
     timeout_sec: 60
+    depends: update

@@ -7,29 +7,39 @@ ssh:
   known_host_file: /run/secrets/known_hosts
 
 steps:
-  - name: docker pull
-    description: pull base image
-    command: docker pull alpine:latest
-  - name: docker inspect1
-    description: get base image created date
-    command: |
-      docker image inspect --format '{{.Created}}' alpine:latest \
-        | { read dt; date --date "$dt" --iso-8601=ns --universal; }
-    output: BASE_IMAGE_DATE
-  - name: docker inspect2
-    description: get image created date
-    command: |
+  - id: inspect_image
+    run: |
       docker image inspect --format '{{.Created}}' ransom-nsd01:latest \
         | { read dt; date --date "$dt" --iso-8601=ns --universal; }
     output: IMAGE_DATE
-  - name: test
+  - id: pull
+    run: docker pull alpine:latest
+  - id: inspect_base_image
+    description: get base image created date
+    run: |
+      docker image inspect --format '{{.Created}}' alpine:latest \
+        | { read dt; date --date "$dt" --iso-8601=ns --universal; }
+    depends: pull
+    output: BASE_IMAGE_DATE
+  - id: test
     description: is the base image newer than the current image?
-    command: if [ '"${BASE_IMAGE_DATE}"' \> '"${IMAGE_DATE}"' ]; then echo 1; else echo 2; fi
+    run: |
+      if [ '"${BASE_IMAGE_DATE}"' \> '"${IMAGE_DATE}"' ]
+      then
+        printf "out-of-date"
+      else
+        printf "up-to-date"
+      fi
+    depends: [inspect_image,inspect_base_image]
     output: RESULT
+  - id: router
+    action: router.route
+    with:
+      value: ${RESULT}
+      routes:
+        "out-of-date": [rebuild]
+    depends: test
   - name: rebuild
-    command: |
+    run: |
       docker compose --file /root/NetworkTopography/ransom/docker-compose.yml build nsd01 nsd20 --pull
       docker compose --file /root/NetworkTopography/ransom/docker-compose.yml up nsd01 nsd20 --detach
-    preconditions:
-      - condition: "${RESULT}"
-        expected: "1"
