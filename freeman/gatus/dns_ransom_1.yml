@@ -209,6 +209,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: restfox .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: restfox.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: speedtest .1
     group: dns .1
     url: 192.168.1.50

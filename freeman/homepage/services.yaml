@@ -788,6 +788,12 @@
           url: https://radarr.bob.house
           key: {{HOMEPAGE_VAR_RADARR_KEY}}
           enableQueue: true # optional, defaults to false
+    - Restfox: &restfox
+        description: Offline-First Minimalistic HTTP & Socket Testing Client
+        href: https://restfox.bob.house/
+        icon: /icons/restfox.png
+        server: ransom-docker
+        container: ransom-restfox-1
     - SABnzbd: &sabnzbd
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
