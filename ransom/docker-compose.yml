@@ -750,6 +750,32 @@ services:
       traefik: null
     security_opt: [ no-new-privileges=true, ]
 
+  restfox:
+    image: flawiddsouza/restfox:latest
+    cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    healthcheck:
+      test: wget --spider http://localhost:4004/ || exit 1
+      interval: 1m
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.restfox-router.entrypoints: websecure
+      traefik.http.routers.restfox-router.rule: Host(`restfox.bob.house`)
+      traefik.http.routers.restfox-router.tls: "true"
+      traefik.http.services.restfox-service.loadbalancer.server.port: "4004"
+    networks:
+      default: null
+      traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /root/.npm/, ]
+    volumes: [ ~/.restfox/:/app/data/:rw, ]
+
   socket-proxy:
     image: lscr.io/linuxserver/socket-proxy:latest 
     cap_drop: [ ALL, ]

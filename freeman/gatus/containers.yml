@@ -415,6 +415,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: restfox
+    group: containers
+    url: http://ransom.bob.house:2375/v1.52/containers/ransom-restfox-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: qbittorrent
     group: containers
     url: http://tana.bob.house:2375/v1.52/containers/tana-qbittorrent-1/json
