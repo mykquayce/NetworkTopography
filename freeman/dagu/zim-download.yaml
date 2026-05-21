@@ -1,6 +1,6 @@
 schedule: CRON_TZ=Etc/UTC 0 1 * * *
 steps:
-  - name: get-details
+  - id: get_details
     parallel:
       items:
         [
@@ -25,16 +25,17 @@ steps:
             "regexPattern": "wiktionary_en_all_nopic_[0-9]{4}-[0-9]{2}.zim",
           },
         ]
-    call: get-details
+    call: get_details_processor
     params: "ZIM=${ITEM}"
     output: DETAILS
-  - name: filter
+  - id: filter
     type: jq
     command: '[.[] | select(.TARGET_COUNT == "0") | {PATH,URI}]'
     script: ${DETAILS.outputs}
     output: FILTERED
-  - name: do-work
-    call: do-work
+    depends: get_details
+  - id: do_work
+    call: do_work_processor
     parallel:
       items: "${FILTERED}"
     params: "ZIM=${ITEM}"
@@ -42,16 +43,17 @@ steps:
       - condition: "${FILTERED}"
         expected: "[]"
         negate: true
+    depends: filter
 ---
-name: get-details
+name: get_details_processor
 params:
   - ZIM: ""
 steps:
-  - name: mktemp
+  - id: mktemp
     description: make a temp file for the html
-    command: mktemp --quiet --suffix .html
+    run: mktemp --quiet --suffix .html
     output: TMP_FILE
-  - name: curl
+  - id: curl
     type: http
     command: "GET ${ZIM.baseAddress}"
     config:
@@ -62,36 +64,40 @@ steps:
       limit: 3
       interval_sec: 5
     stdout: "${TMP_FILE}"
-  - name: get-filename
-    command: |
+    depends: mktemp
+  - id: get_filename
+    run: |
       cat "${TMP_FILE}" \
         | grep --extended-regexp --only-matching "${ZIM.regexPattern}" \
         | sort \
         | uniq \
         | tail --lines 1
     output: FILENAME
-  - name: cleanup
-    command: rm --force "${TMP_FILE}"
-  - name: get-uri
+    depends: curl
+  - id: cleanup
+    run: rm --force "${TMP_FILE}"
+    depends: get_filename
+  - id: get_uri
     description: get the uri
-    command: echo -n "${ZIM.baseAddress}${FILENAME}"
+    run: printf "%s%s" ${ZIM.baseAddress} "${FILENAME}"
     output: URI
-  - name: get-path
-    command: echo -n "/mnt/md1/downloads/zim/${FILENAME}"
+    depends: get_filename
+  - id: get_path
+    run: printf "/mnt/md1/downloads/zim/%s" "${FILENAME}"
     output: PATH
-  - name: target exists?
+    depends: get_filename
+  - id: check_target_exists
     type: ssh
+    command: (ls -1U "${PATH}" 2>/dev/null || true) | grep --count ^ || true
     with:
       user: root
       host: tana.bob.house
       key: /run/secrets/id_rsa
       known_host_file: /run/secrets/known_hosts
-    command: (ls -1U "${PATH}" 2>/dev/null || true) | grep --count ^ || true
     output: TARGET_COUNT
+    depends: get_path
 ---
-name: do-work
-env:
-  - NTFY_TOPIC: ${NTFY_TOPIC}
+name: do_work_processor
 params:
   - ZIM: ""
 ssh:
@@ -100,21 +106,21 @@ ssh:
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
 steps:
-  - name: shutdown
+  - id: shutdown
     description: shutdown the kiwix docker container
     command: docker compose --file ~/NetworkTopography/tana/docker-compose.yml down kiwix
-  - name: download the new zim(s)
-    call: download
+  - id: download
+    call: download_processor
     parallel:
       items: "${ZIM}"
+      max_concurrent: 1
     params: "ZIM=${ITEM}"
-  - name: startup
-    description: startup the kiwix docker container
+  - id: restart
+    description: restart the kiwix docker container
     command: docker compose --file ~/NetworkTopography/tana/docker-compose.yml up --detach kiwix
+    depends: [shutdown, download]
 ---
-name: download
-env:
-  - NTFY_TOPIC: ${NTFY_TOPIC}
+name: download_processor
 params:
   - ZIM: ""
 ssh:
@@ -123,7 +129,7 @@ ssh:
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
 steps:
-  - name: download ZIM
+  - id: download_zim
     command: |
       curl \
         --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
@@ -132,18 +138,19 @@ steps:
         --silent \
         --url "${ZIM.URI}" \
         --verbose
-  - name: filename
+  - id: get_filename
     command: basename --zero "${ZIM.PATH}"
     output: FILENAME
-  - name: cleanup
+  - id: cleanup
     script: |
       #! /bin/bash
-      p=$( echo -n "${FILENAME}" | cut --delimiter _ --fields 1 )
+      p=$( printf "%s" "${FILENAME}" | cut --delimiter _ --fields 1 )
       find /mnt/md1/downloads/zim/ -name "$p*" -type f \
         | sort \
         | head --lines -1 \
         | xargs --no-run-if-empty rm
-  - name: notify
+    depends: [download_zim, get_filename]
+  - id: notify
     type: http
     command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     config:
@@ -157,3 +164,4 @@ steps:
     retry_policy:
       limit: 3
       interval_sec: 5
+    depends: [download_zim,get_filename]
