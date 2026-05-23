@@ -399,11 +399,20 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
+    labels:
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.miasma-router.entrypoints: websecure
+      traefik.http.routers.miasma-router.rule: Host(`miasma.bob.house`)
+      traefik.http.routers.miasma-router.tls: "true"
+      traefik.http.routers.miasma-router.service: miasma-service
+      traefik.http.services.miasma-service.loadbalancer.server.port: "9999"
+      traefik.http.routers.www-router.entrypoints: websecure
+      traefik.http.routers.www-router.rule: Host(`www.bob.house`)
+      traefik.http.routers.www-router.tls: "true"
+      traefik.http.routers.www-router.service: www-service
+      traefik.http.services.www-service.loadbalancer.server.port: "9999"
     networks:
       default: null
-    ports:
-      - 192.168.1.65:9999:9999/tcp
-      - 192.168.20.65:9999:9999/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
 
