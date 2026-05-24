@@ -1,34 +1,38 @@
 schedule: CRON_TZ=Etc/UTC 0 2 * * *
 steps:
   - id: loop
-    call: worker-processor
+    action: dag.run
     parallel:
-      - "https://support.omadanetworks.com/us/product/sg2210mp/v4.20/?resourceType=download"
-      - "https://support.omadanetworks.com/us/product/er7206/v2.20/?resourceType=download"
-    params: "WEBPAGE-URI=${ITEM}"
+      items:
+        - "https://support.omadanetworks.com/us/product/sg2210mp/v4.20/?resourceType=download"
+        - "https://support.omadanetworks.com/us/product/er7206/v2.20/?resourceType=download"
+    with:
+      dag: device-processor
+      params: "WEBPAGE-URI=${ITEM}"
 ---
-name: worker-processor
+name: device-processor
 params:
   - WEBPAGE-URI: ""
 steps:
   - id: mktemp
     run: mktemp --quiet --suffix .html
-    output: TMP_FILE
+    output:
+      path:
+        from: stdout
+        decode: text
   - id: download_webpage
-    type: http
-    command: "GET ${WEBPAGE-URI}"
-    config:
+    action: http.request
+    with:
+      method: GET
+      url: "${WEBPAGE-URI}"
       headers:
         User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
       silent: true
-    retry_policy:
-      limit: 3
-      interval_sec: 5
-    stdout: "${TMP_FILE}"
+    stdout: "${mktemp.output.path}"
     depends: mktemp
   - id: find_uris
     run: |
-      cat "${TMP_FILE}" \
+      cat "${mktemp.output.path}" \
       | grep --extended-regexp --only-matching 'https://static.tp-link.com/upload/firmware/.{,80}\.zip' \
       | sort \
       | uniq \
@@ -36,40 +40,28 @@ steps:
       | jq --raw-input . \
       | jq --slurp .
     depends: download_webpage
-    output: FILE_URIS
-  - id: cleanup
-    run: rm --force "${TMP_FILE}"
-    depends: find_uris
-  - id: count
-    type: jq
-    command: . | length
-    script: $FILE_URIS
-    depends: find_uris
-    output: COUNT
-  - id: router
-    action: router.route
-    with:
-      value: "${COUNT}"
-      routes:
-        "1": [one_file]
-        "re:.*": [many_files]
-    preconditions:
-      - command: "${COUNT}"
-        expected: "0"
-        negate: true
-    depends: count
-  - id: one_file
-    call: iterator-processor
-    params: "SOURCE_FILE_URI=${ITEM}"
-    depends: router
-  - id: many_files
-    call: iterator-processor
+    output:
+      uris:
+        from: stdout
+        decode: json
+  - id: get_files
+    action: dag.run
     parallel:
-      items: ${FILE_URIS}
-    params: "SOURCE_FILE_URI=${ITEM}"
-    depends: router
+      items: "${find_uris.output.uris}"
+      max_concurrent: 1
+    with:
+      dag: file-processor
+      params: "SOURCE_FILE_URI=${ITEM}"
+    preconditions:
+      - condition: "${find_uris.output.uris}"
+        expected: "[]"
+        negate: true
+    depends: find_uris
+  - id: clean_up
+    run: rm --force "${mktemp.output.path}"
+    depends: find_uris
 ---
-name: iterator-processor
+name: file-processor
 params:
   - SOURCE_FILE_URI: ""
 ssh:
@@ -80,41 +72,46 @@ ssh:
 steps:
   - id: get_filename
     run: |
-      echo -n "${SOURCE_FILE_URI}" \
-      | rev \
-      | cut --delimiter '/' --fields 1 --only-delimited \
-      | rev
-    output: FILENAME
+      printf "%s" "${SOURCE_FILE_URI}" \
+        | tr / \\n \
+        | tail --lines 1
+    output:
+      filename:
+        from: stdout
+        decode: text
   - id: build_target_file_path
-    run: printf "/mnt/md1/downloads/firmware/%s" "${FILENAME}"
+    run: printf "/mnt/md1/downloads/firmware/%s" "${get_filename.output.filename}"
     depends: get_filename
-    output: TARGET_FILE_PATH
+    output:
+      path:
+        from: stdout
+        decode: text
   - id: count_target_files
     run: |
-      ( ls -1U --literal "${TARGET_FILE_PATH}" 2>/dev/null || true ) \
+      ( ls -1U --literal "${build_target_file_path.output.path}" 2>/dev/null || true ) \
         | grep --count ^ || true
     depends: build_target_file_path
-    output: TARGET_COUNT
-  - id: router
-    action: router.route
-    with:
-      value: ${TARGET_COUNT}
-      routes:
-        "0": [download, notify]
-    depends: count_target_files
+    output:
+      count:
+        from: stdout
+        decode: text
   - id: download
     run: |
       curl \
         --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
-        --output "${TARGET_FILE_PATH}" \
+        --output "${build_target_file_path.output.path}" \
         --silent \
         --url "${SOURCE_FILE_URI}" \
         --verbose
+    preconditions:
+      - condition: "${count_target_files.output.count}"
+        expected: "0"
+    depends: count_target_files
   - id: notify
     type: http
     command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     config:
-      body: "${FILENAME}"
+      body: "${get_filename.output.filename}"
       headers:
         Content-Type: text/plain
         Priority: high

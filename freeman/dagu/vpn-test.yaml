@@ -1,0 +1,59 @@
+schedule: CRON_TZ=Etc/UTC 0 * * * *
+retry_policy:
+  limit: 0
+steps:
+  - id: test_containers
+    action: dag.run
+    parallel:
+      items:
+        - host: ransom.bob.house
+          container: ransom-gluetun-1
+        - host: tana.bob.house
+          container: tana-gluetun-1
+    with:
+      dag: server-processor
+      params:
+        HOST: ${ITEM.host}
+        CONTAINER: ${ITEM.container}
+---
+name: server-processor
+retry_policy:
+  limit: 0
+params:
+  - HOST: ""
+  - CONTAINER: ""
+steps:
+  - id: get_country
+    action: ssh.run
+    with:
+      user: root
+      host: "${HOST}"
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      command: |
+        docker exec "${CONTAINER}" \
+          wget --output-document - --quiet https://api.ipapi.is
+    output:
+      country:
+        from: stdout
+        decode: json
+        select: .location.country
+  - id: notify
+    action: http.request
+    with:
+      method: POST
+      url: https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+      headers:
+        Content-Type: text/plain
+        Priority: urgent
+        Tags: earth_africa
+        Title: "${CONTAINER} vpn failed"
+      format: "json"
+      silent: false
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+    preconditions:
+      - condition: "${get_country.output.country}"
+        expected: "United Kingdom"
+    depends: get_country
