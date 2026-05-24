@@ -87,7 +87,7 @@ steps:
   - id: update
     action: http.request
     with:
-      method: POST
+      method: PUT
       url: "https://api.cloudflare.com/client/v4/zones/${settings.output.zone_id}/dns_records/${settings.output.record_id}"
       body: '{ "content": "${get_ip.output.ip}", "name": "www.bob.house", "type": "A" }'
       headers:

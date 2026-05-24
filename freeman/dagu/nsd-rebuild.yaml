@@ -11,35 +11,37 @@ steps:
     run: |
       docker image inspect --format '{{.Created}}' ransom-nsd01:latest \
         | { read dt; date --date "$dt" --iso-8601=ns --universal; }
-    output: IMAGE_DATE
-  - id: pull
+    output:
+      image_date:
+        from: stdout
+  - id: pull_base_image
     run: docker pull alpine:latest
   - id: inspect_base_image
-    description: get base image created date
     run: |
       docker image inspect --format '{{.Created}}' alpine:latest \
         | { read dt; date --date "$dt" --iso-8601=ns --universal; }
-    depends: pull
-    output: BASE_IMAGE_DATE
+    depends: pull_base_image
+    output:
+      base_image_date:
+        from: stdout
   - id: test
     description: is the base image newer than the current image?
     run: |
-      if [ '"${BASE_IMAGE_DATE}"' \> '"${IMAGE_DATE}"' ]
+      if [ '"${inspct_base_image.output.base_image_daete}"' \> '"${inspect_image.output.image_date}"' ]
       then
         printf "out-of-date"
       else
         printf "up-to-date"
       fi
     depends: [inspect_image,inspect_base_image]
-    output: RESULT
-  - id: router
-    action: router.route
-    with:
-      value: ${RESULT}
-      routes:
-        "out-of-date": [rebuild]
-    depends: test
+    output:
+      result:
+        from: stdout
   - name: rebuild
     run: |
       docker compose --file /root/NetworkTopography/ransom/docker-compose.yml build nsd01 nsd20 --pull
       docker compose --file /root/NetworkTopography/ransom/docker-compose.yml up nsd01 nsd20 --detach
+    preconditions:
+      - condition: "${test.output.result}"
+        expected: "out-of-date"
+    depends: test
