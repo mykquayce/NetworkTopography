@@ -13,6 +13,7 @@ scrape_configs:
       - targets: ['192.168.1.50:9273']
       - targets: ['host.docker.internal:9273']
       - targets: ['billups.bob.house:9273']
+      - targets: ['kayshon.bob.house:9273']
       - targets: ['ransom.bob.house:9273']
       - targets: ['shaxs.bob.house:9273']
       - targets: ['tana.bob.house:9273']
@@ -27,6 +28,7 @@ scrape_configs:
     static_configs:
       - targets: ['traefik-billups.bob.house']
       - targets: ['traefik.bob.house']
+      - targets: ['traefik-kayshon.bob.house']
       - targets: ['traefik-ransom.bob.house']
       - targets: ['traefik-shaxs.bob.house']
       - targets: ['traefik-tana.bob.house']

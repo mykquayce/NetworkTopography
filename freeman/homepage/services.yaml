@@ -916,6 +916,13 @@
         widget:
           type: traefik
           url: https://traefik.bob.house
+    - Traefik KAYSHON: &traefikkayshon
+        description: HTTP reverse proxy and load balancer
+        href: https://traefik-kayshon.bob.house/dashboard/
+        icon: traefik-proxy.svg
+        widget:
+          type: traefik
+          url: https://traefik-kayshon.bob.house
     - Traefik RANSOM: &traefikransom
         description: HTTP reverse proxy and load balancer
         href: https://traefik-ransom.bob.house/dashboard/

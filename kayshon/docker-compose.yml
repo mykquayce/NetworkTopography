@@ -1,0 +1,45 @@
+services:
+  traefik:
+    image: traefik:latest
+    cap_drop: [ ALL, ]
+    command:
+      # - --accesslog=true
+      - --api.insecure=true
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
+      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.websecure.address=:443
+      - --experimental.plugins.method-whitelist.modulename=github.com/antoniomacri/traefik-method-whitelist
+      - --experimental.plugins.method-whitelist.version=v1.0.1
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
+      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
+      - --log.level=INFO
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addentrypointslabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addserviceslabels=true
+      - --ping
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
+    env_file:
+      - ~/Configurations/traefik.env
+    healthcheck:
+      test: /usr/local/bin/traefik healthcheck --ping
+    labels:
+      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+    ports:
+      - 192.168.20.85:443:443/tcp
+      - 192.168.20.85:8080:8080/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    volumes:
+      - ~/.traefik/plugins/:/plugins-storage/:rw
+      - certificates-volume:/var/certs/:rw
+      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  certificates-volume:
