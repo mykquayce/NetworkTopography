@@ -1,5 +1,5 @@
 endpoints:
-  - name: badgey .1
+  - name: badgey
     group: dns .1
     url: 192.168.1.50
     dns:
@@ -33,14 +33,14 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
 
-  - name: haos .1
+  - name: kayshon .1
     group: dns .1
     url: 192.168.1.50
     dns:
-      query-name: haos.bob.house
+      query-name: kayshon.bob.house
       query-type: A
     conditions:
-      - "[BODY] == 192.168.20.80"
+      - "[BODY] == 192.168.20.85"
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
 

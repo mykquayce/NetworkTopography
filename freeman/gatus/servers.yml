@@ -95,6 +95,26 @@ suites:
         url: http://192.168.20.80:8123
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
+  - name: kayshon
+    group: servers
+    interval: 1m
+    timeout: 30s
+    endpoints:
+      - name: ping kayshon .20
+        url: icmp://192.168.20.85
+        conditions: *ping-conditions-definition
+        alerts: *alerts-definition
+      - name: telegraf kayshon
+        url: http://192.168.20.85:9273/metrics
+        conditions: *telegraf-conditions-definition
+        alerts: *alerts-definition
+      - name: traefik kayshon
+        url: https://192.168.20.60/dashboard/
+        headers:
+          Host: traefik-kayshon.bob.house
+        client: *traefik-client-definition
+        conditions: *traefik-conditions-definition
+        alerts: *alerts-definition
   - name: ransom
     group: servers
     interval: 1m

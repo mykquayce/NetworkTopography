@@ -1,0 +1,32 @@
+http:
+  middlewares:
+    method-whitelist-plugin:
+      plugin:
+        method-whitelist:
+          Message: "Method Not Allowed"
+          Methods:
+            - GET
+  routers:
+    miasma-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`miasma.bob.house`)"
+      service: "miasma-service"
+      tls: "true"
+    www-router:
+      entryPoints:
+        - "websecure"
+      middlewares:
+        - method-whitelist-plugin
+      rule: "Host(`www.bob.house`)"
+      service: "www-service"
+      tls: "true"
+  services:
+    miasma-service:
+      loadBalancer:
+        servers:
+        - url: "https://miasma.bob.house"
+    www-service:
+      loadBalancer:
+        servers:
+        - url: "https://www.bob.house"
