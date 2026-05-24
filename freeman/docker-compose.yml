@@ -219,6 +219,7 @@ services:
     volumes:
       - ~/.dagu/:/var/lib/dagu/:rw
       - ./dagu/:/opt/dagu/dags/:rw
+      - ~/Configurations/dagu.json:/var/lib/dagu/dagu.json:ro
 
   dozzle:
     image: amir20/dozzle:latest
