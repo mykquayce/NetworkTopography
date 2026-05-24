@@ -1,0 +1,129 @@
+schedule: CRON_TZ=Etc/UTC 0,30 * * * *
+retry_policy:
+  limit: 0
+steps:
+  - id: path_to_settings_file
+    run: printf "%s/dagu.json" "${DAGU_HOME}"
+    output:
+      path:
+        from: stdout
+  - id: settings
+    action: jq.filter
+    with:
+      filter: .cloudflare
+      input: "${path_to_settings_file.output.path}"
+    output:
+      api_token:
+        from: stdout
+        decode: json
+        select: .api_token
+      zone_id:
+        from: stdout
+        decode: json
+        select: .zones[] | select(.name=="bob.house").id
+      record_id:
+        from: stdout
+        decode: json
+        select: .zones[] | select(.name=="bob.house").records[] | select(.name=="www.bob.house").id
+    depends: path_to_settings_file
+  - id: get_ip
+    action: http.request
+    with:
+      method: GET
+      url: https://api.ipapi.is
+      headers:
+        Accept: application/json
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      format: "json"
+      silent: false
+    output:
+      status_code:
+        from: stdout
+        decode: json
+        select: .status_code
+      ip:
+        from: stdout
+        decode: json
+        select: .body.ip
+  - id: get_dns
+    action: http.request
+    with:
+      method: GET
+      url: "https://api.cloudflare.com/client/v4/zones/${settings.output.zone_id}/dns_records/${settings.output.record_id}"
+      headers:
+        Accept: application/json
+        Authorization: "Bearer ${settings.output.api_token}"
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      format: "json"
+      silent: false
+    output:
+      status_code:
+        from: stdout
+        decode: json
+        select: .status_code
+      ip:
+        from: stdout
+        decode: json
+        select: .body.result.content
+    depends: settings
+  - id: test
+    run: |
+      if [ "${get_ip.output.ip}" != "${get_dns.output.ip}" ]
+      then
+        printf "true"
+      else
+        printf "false"
+      fi
+    output:
+      work_to_do:
+        from: stdout
+        decode: text
+    preconditions:
+      - condition: "${get_ip.output.status_code}"
+        expected: "200"
+      - condition: "${get_dns.output.status_code}"
+        expected: "200"
+    depends: [get_ip, get_dns]
+  - id: update
+    action: http.request
+    with:
+      method: POST
+      url: "https://api.cloudflare.com/client/v4/zones/${settings.output.zone_id}/dns_records/${settings.output.record_id}"
+      body: '{ "content": "${get_ip.output.ip}", "name": "www.bob.house", "type": "A" }'
+      headers:
+        Accept: application/json
+        Authorization: "Bearer ${settings.output.api_token}"
+        Content-Type: application/json
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      format: json
+      silent: false
+    output:
+      status_code:
+        from: stdout
+        decode: json
+        select: .status_code
+    preconditions:
+      - condition: "${test.output.work_to_do}"
+        expected: "true"
+    depends: [settings, test]
+  - id: notify
+    action: http.request
+    with:
+      method: POST
+      url: https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+      body: "www.bob.house updated to: ${get_ip.output.ip}"
+      headers:
+        Content-Type: text/plain
+        Priority: high
+        Tags: office,computer
+        Title: "dns updated"
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: false
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+    preconditions:
+      - condition: "${update.output.status_code}"
+        expected: "200"
+    depends: update
