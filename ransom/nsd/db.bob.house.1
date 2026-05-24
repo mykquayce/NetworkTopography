@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026061400 ; Serial
+                                         2026061401 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -21,6 +21,7 @@ badgey              IN        A                    192.168.1.50
 billups             IN        A                    192.168.1.75
 freeman             IN        A                    192.168.1.60
 haos                IN        A                    192.168.20.80
+kayshon             IN        A                    192.168.20.85
 ransom              IN        A                    192.168.1.65
 shaxs               IN        A                    192.168.1.55
 tana                IN        A                    192.168.1.70
@@ -57,6 +58,7 @@ prometheus          IN        CNAME                freeman
 squid               IN        CNAME                freeman
 sshwifty            IN        CNAME                freeman
 traefik             IN        CNAME                freeman
+traefik-kayshon     IN        CNAME                freeman
 uptimekuma          IN        CNAME                freeman
 www                 IN        CNAME                freeman
 

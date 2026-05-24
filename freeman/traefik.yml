@@ -24,6 +24,12 @@ http:
       rule: "Host(`main-switch.bob.house`)"
       service: "main-switch-service"
       tls: "true"
+    traefik-kayshon-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`traefik-kayshon.bob.house`)"
+      service: "traefik-kayshon-service"
+      tls: "true"
   services:
     homeassistant-service:
       loadBalancer:
@@ -41,3 +47,7 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.5"
+    traefik-kayshon-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.20.85:8080"

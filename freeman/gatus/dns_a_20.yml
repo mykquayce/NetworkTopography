@@ -44,6 +44,17 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
     alerts: *alerts-definition
 
+  - name: kayshon .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: kayshon.bob.house
+      query-type: A
+    conditions:
+      - "[BODY] == 192.168.20.85"
+      - "[DNS_RCODE] == NOERROR"
+    alerts: *alerts-definition
+
   - name: ransom .20
     group: dns .20
     url: 192.168.20.60
