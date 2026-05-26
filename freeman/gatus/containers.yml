@@ -93,6 +93,18 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: forgejo
+    group: containers
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-forgejo-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: forgejo-db
+    group: containers
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-forgejo-db-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: freshrss
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-freshrss-1/json

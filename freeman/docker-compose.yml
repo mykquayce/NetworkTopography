@@ -254,6 +254,66 @@ services:
     volumes:
       - ./dozzle/:/data/:ro
 
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:15
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID, SYS_CHROOT, ]
+    depends_on:
+      forgejo-db:
+        condition: service_healthy
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/forgejo.env
+    environment:
+      FORGEJO__database__DB_TYPE: postgres
+      FORGEJO__database__HOST: forgejo-db:5432
+      FORGEJO__database__NAME: forgejo
+      USER_UID: "1000"
+      USER_GID: "1000"
+    labels:
+      dev.dozzle.group: forgejo
+      traefik.docker.network: freeman_traefik
+      traefik.http.routers.forgejo-router.entrypoints: websecure
+      traefik.http.routers.forgejo-router.rule: Host(`git.bob.house`)
+      traefik.http.routers.forgejo-router.tls: "true"
+      traefik.http.routers.forgejo-router.service: forgejo-service
+      traefik.http.services.forgejo-service.loadbalancer.server.port: "3000"
+      traefik.tcp.routers.forgejo-ssh-router.entrypoints: ssh
+      traefik.tcp.routers.forgejo-ssh-router.rule: HostSNI(`*`)
+      traefik.tcp.routers.forgejo-ssh-router.service: forgejo-ssh-service
+      traefik.tcp.services.forgejo-ssh-service.loadbalancer.server.port: "22"
+    networks:
+      forgejo: null
+      traefik: null
+    security_opt: [ no-new-privileges=true, ]
+    volumes:
+      - ~/.forgejo/data/:/data/:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  forgejo-db:
+    image: postgres:14
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
+    env_file:
+      - ~/Configurations/forgejo.env
+    environment:
+      POSTGRES_DB: forgejo
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    labels:
+      dev.dozzle.group: forgejo
+    networks:
+      forgejo: null
+    security_opt: [ no-new-privileges=true, ]
+    volumes:
+      - ~/.forgejo/db/:/var/lib/postgresql/data/:rw
+
   gatus:
     image: ghcr.io/twin/gatus:stable
     cap_drop: [ ALL, ]
@@ -529,6 +589,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.ssh.address=:222
       - --entrypoints.websecure.address=:443
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
@@ -567,6 +628,8 @@ services:
       socket-proxy: null
       traefik: null
     ports:
+      - 192.168.1.60:222:222/tcp
+      - 192.168.20.60:222:222/tcp
       - 192.168.1.60:443:443/tcp
       - 192.168.20.60:443:443/tcp
     read_only: true
@@ -587,6 +650,9 @@ networks:
     internal: "true"
   default:
     name: freeman_default
+  forgejo:
+    name: freeman_forgejo
+    internal: "true"
   socket-proxy:
     name: freeman_socket-proxy
     internal: "true"

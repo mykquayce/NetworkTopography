@@ -99,6 +99,16 @@
         icon: feishin.png
         server: tana-docker
         container: tana-feishin-1
+    - Forgejo: &forgejo
+        description: A lightweight software forge focused on scaling, federation, and privacy
+        href: https://git.bob.house/
+        icon: forgejo.png
+        server: freeman-docker
+        container: freeman-forgejo-1
+        widget:
+          type: gitea
+          url: https://git.bob.house
+          key: {{HOMEPAGE_VAR_FORGEJO_KEY}}
     - FreshRSS: &freshrss
         description: A free, self-hostable news aggregator
         href: https://freshrss.bob.house/
