@@ -56,6 +56,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: git .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: git.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glance .1
     group: dns .1
     url: 192.168.1.50
