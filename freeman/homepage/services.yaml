@@ -125,12 +125,6 @@
           type: frigate
           url: https://frigate.bob.house/
           enableRecentEvents: false
-    - JSONPath: &jsonpath
-        description: JSONPath Online Evaluator
-        href: https://jsonpath.bob.house/
-        icon: /icons/jsonpath.svg
-        server: ransom-docker
-        container: ransom-jsonpath-1
     - Gatus: &gatus
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
@@ -549,6 +543,12 @@
           type: jellyseerr
           url: https://jellyseerr.bob.house
           key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
+    - JSONPath: &jsonpath
+        description: JSONPath Online Evaluator
+        href: https://jsonpath.bob.house/
+        icon: /icons/jsonpath.svg
+        server: ransom-docker
+        container: ransom-jsonpath-1
     - karakeep: &karakeep
         description: A self-hostable bookmark-everything app
         href: https://karakeep.bob.house/
@@ -958,7 +958,7 @@
         server: tana-docker
         container: tana-wireshark-1
 
-- Essentials:
+- Main:
     - Change Detection: *changedetection
     - degoog: *degoog
     - FreshRSS: *freshrss
@@ -972,7 +972,25 @@
     - Navidrome: *navidrome
     - Pinchflat: *pinchflat
 
-- Services:
+- Coding:
+    - Dagu: *dagu
+    - degoog: *degoog
+    - Docker Registry: *dockerregistry
+    - draw.io: *drawio
+    - Forgejo: *forgejo
+    - httpbin: *httpbin
+    - JSONPath: *jsonpath
+    - kiwix: *kiwix
+    - n8n: *n8n
+    - Node RED: *nodered
+    - Planka: *planka
+    - RabbitMQ: *rabbitmq
+    - Restfox: *restfox
+    - Sshwifty: *sshwifty
+    - Trilium: *trilium
+    - Vikunja: *vikunja
+
+- Monitoring:
     - Adguard 01: *adguard01
     - Adguard 20: *adguard20
     - Authentik: *authentik
