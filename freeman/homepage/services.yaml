@@ -958,7 +958,7 @@
         server: tana-docker
         container: tana-wireshark-1
 
-- Essentials:
+- Main:
     - Change Detection: *changedetection
     - degoog: *degoog
     - FreshRSS: *freshrss
@@ -972,7 +972,7 @@
     - Navidrome: *navidrome
     - Pinchflat: *pinchflat
 
-- Services:
+- Monitoring:
     - Adguard 01: *adguard01
     - Adguard 20: *adguard20
     - Authentik: *authentik
