@@ -125,12 +125,6 @@
           type: frigate
           url: https://frigate.bob.house/
           enableRecentEvents: false
-    - JSONPath: &jsonpath
-        description: JSONPath Online Evaluator
-        href: https://jsonpath.bob.house/
-        icon: /icons/jsonpath.svg
-        server: ransom-docker
-        container: ransom-jsonpath-1
     - Gatus: &gatus
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
@@ -549,6 +543,12 @@
           type: jellyseerr
           url: https://jellyseerr.bob.house
           key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
+    - JSONPath: &jsonpath
+        description: JSONPath Online Evaluator
+        href: https://jsonpath.bob.house/
+        icon: /icons/jsonpath.svg
+        server: ransom-docker
+        container: ransom-jsonpath-1
     - karakeep: &karakeep
         description: A self-hostable bookmark-everything app
         href: https://karakeep.bob.house/
