@@ -972,6 +972,23 @@
     - Navidrome: *navidrome
     - Pinchflat: *pinchflat
 
+- Coding:
+    - Dagu: *dagu
+    - degoog: *degoog
+    - Docker Registry: *dockerregistry
+    - draw.io: *drawio
+    - Forgejo: *forgejo
+    - httpbin: *httpbin
+    - kiwix: *kiwix
+    - n8n: *n8n
+    - Node RED: *nodered
+    - Planka: *planka
+    - RabbitMQ: *rabbitmq
+    - Restfox: *restfox
+    - Sshwifty: *sshwifty
+    - Trilium: *trilium
+    - Vikunja: *vikunja
+
 - Monitoring:
     - Adguard 01: *adguard01
     - Adguard 20: *adguard20

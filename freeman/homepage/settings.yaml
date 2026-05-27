@@ -24,6 +24,11 @@ layout:
     tab: Main
   Network:
     tab: Main
+  Coding:
+    columns: 4
+    header: false
+    style: row
+    tab: Coding
   Monitoring:
     columns: 4
     header: false
