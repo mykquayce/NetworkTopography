@@ -13,7 +13,7 @@ disableCollapse: true
 headerStyle: boxed
 
 layout:
-  Essentials:
+  Main:
     columns: 4
     header: false
     style: row
@@ -24,7 +24,12 @@ layout:
     tab: Main
   Network:
     tab: Main
-  Services:
+  Coding:
+    columns: 4
+    header: false
+    style: row
+    tab: Coding
+  Monitoring:
     columns: 4
     header: false
     style: row
