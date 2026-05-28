@@ -15,14 +15,25 @@ steps:
       summary:
         from: stdout
         decode: json
-        select: "[.results[].outputValues | select(.upgradable) | {(.server_name):.upgradable}] | add"
+        select: "[ .results[].outputValues | select(.upgradable) | {(.server_name):(.upgradable | fromjson)} ]"
+  - id: format
+    run: |
+      printf "${update.output.summary}" \
+        | jq --ascii-output --monochrome-output --sort-keys \
+        | xargs --null printf '```\n%s```'
+    depends: update
+    output:
+      formatted:
+        from: stdout
+        decode: text
   - name: ntfy
     type: http
     command: POST https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     config:
-      body: "${update.output.summary}"
+      body: "${format.output.formatted}"
       headers:
-        Content-Type: text/plain
+        Content-Type: application/json
+        Markdown: yes
         Priority: high
         Tags: computer,triangular_flag_on_post
         Title: "apt updates"
@@ -34,9 +45,9 @@ steps:
       interval_sec: 5
     preconditions:
       - condition: "${update.output.summary}"
-        expected: "{}"
+        expected: "[]"
         negate: true
-    depends: update
+    depends: format
 ---
 name: update-processor
 params:
@@ -47,25 +58,32 @@ ssh:
   key: /run/secrets/id_rsa
   known_host_file: /run/secrets/known_hosts
 steps:
-  - id: print_server_name
-    run: printf '%s' "${SERVER}"
-    stdout:
-      outputs: server_name
   - id: apt_update
     run: ( apt update -qq 2>/dev/nul ) || true
     timeout_sec: 60
     output:
-      count:
+      state:
         from: stdout
-    stdout:
-      outputs: count
+        decode: text
   - id: apt_list_upgradable
-    run: ( apt list -qq --upgradable 2>/dev/nul ) || true
+    run: |
+      ( apt list -qq --upgradable 2>/dev/nul || true ) \
+        | jq --raw-input \
+        | jq --compact-output --slurp
     timeout_sec: 60
     preconditions:
-      - condition: "${apt_update.output.count}"
+      - condition: "${apt_update.output.state}"
         expected: "All packages are up to date."
         negate: true
     depends: apt_update
-    stdout:
-      outputs: upgradable
+    output:
+      upgradable:
+        from: stdout
+        decode: json
+  - id: publish_result
+    action: outputs.write
+    with:
+      values:
+        server_name: "${SERVER}"
+        upgradable: "${apt_list_upgradable.output.upgradable}"
+    depends: apt_list_upgradable
