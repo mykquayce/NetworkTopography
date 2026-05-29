@@ -355,6 +355,13 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: otterwiki
+    group: containers
+    enabled: false
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-otterwiki-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: paperless-ngx
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-paperless-ngx-1/json

@@ -404,13 +404,7 @@ services:
       traefik.http.routers.miasma-router.entrypoints: websecure
       traefik.http.routers.miasma-router.rule: Host(`miasma.bob.house`)
       traefik.http.routers.miasma-router.tls: "true"
-      traefik.http.routers.miasma-router.service: miasma-service
       traefik.http.services.miasma-service.loadbalancer.server.port: "9999"
-      traefik.http.routers.www-router.entrypoints: websecure
-      traefik.http.routers.www-router.rule: Host(`www.bob.house`)
-      traefik.http.routers.www-router.tls: "true"
-      traefik.http.routers.www-router.service: www-service
-      traefik.http.services.www-service.loadbalancer.server.port: "9999"
     networks:
       default: null
     read_only: true

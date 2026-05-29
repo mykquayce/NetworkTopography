@@ -712,6 +712,12 @@
         icon: open-webui-light.webp
         server: billups-docker
         container: billups-open-webui-1
+    - Otter Wiki: &otterwiki
+        description: A minimalistic wiki powered by python, markdown and git
+        href: https://www.bob.house
+        icon: otter-wiki-dark.png
+        server: freeman-docker
+        container: freeman-otterwiki-1
     - Paperless-ngx: &paperlessngx
         description: A community-supported open-source document management system
         href: https://paperless-ngx.bob.house
@@ -983,6 +989,7 @@
     - kiwix: *kiwix
     - n8n: *n8n
     - Node RED: *nodered
+    - Otter Wiki: *otterwiki
     - Planka: *planka
     - RabbitMQ: *rabbitmq
     - Restfox: *restfox

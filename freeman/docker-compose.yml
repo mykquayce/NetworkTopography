@@ -475,6 +475,27 @@ services:
       # Mount repository location
       - /repository/:/repository/:rw
 
+  otterwiki:
+    image: redimp/otterwiki:2-slim
+    cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.http.routers.otterwiki-router.entrypoints: websecure
+      traefik.http.routers.otterwiki-router.rule: Host(`www.bob.house`)
+      traefik.http.routers.otterwiki-router.tls: "true"
+      traefik.http.services.otterwiki-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
+    ports:
+      - 192.168.1.60:8080:8080/tcp
+      - 192.168.20.60:8080:8080/tcp
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /tmp/, ]
+    volumes: [ ~/.otterwiki/:/app-data/:rw, ]
+
   portainer:
     image: portainer/portainer-ce:latest
     cap_drop: [ ALL, ]
