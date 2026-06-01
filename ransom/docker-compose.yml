@@ -540,6 +540,7 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /tmp/, ]
     volumes:
       - ~/.bagetter/:/data:rw
 
