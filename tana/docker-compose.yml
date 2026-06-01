@@ -116,6 +116,7 @@ services:
       - /mnt/md1/music/:/media/music/:rw
       - /mnt/md1/pictures/:/media/pictures/:rw
       - /mnt/md1/youtube/:/media/youtube/:rw
+      - /mnt/md1/youtarr/:/media/youtarr/:rw
       - /mnt/md1/MediaThumbnails/jellyfin/:/config/metadata/:rw
       - type: tmpfs
         target: /cache/
@@ -217,6 +218,7 @@ services:
       - ~/.sickgear/:/data/sickgear/:ro
       - ~/.sonarr/:/data/sonarr/:ro
       - ~/.tunarr/:/data/tunarr/:ro
+      - ~/.youtarr/:/data/youtarr/:ro
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -764,6 +766,7 @@ services:
       - /mnt/md1/music/:/media/music/:ro
       - /mnt/md1/pictures/:/media/pictures/:ro
       - /mnt/md1/youtube/:/media/youtube/:ro
+      - /mnt/md1/youtarr/:/media/youtarr/:ro
 
   windows:
     image: dockurr/windows:latest
@@ -829,6 +832,78 @@ services:
     stop_grace_period: 2m0s
     volumes: [ ~/.wireshark/:/config/:rw, ]
 
+  youtarr:
+    image: dialmaster/youtarr:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+      youtarr-db:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/youtarr.env
+    environment:
+      AUTH_ENABLED: "false"
+      DB_HOST: youtarr-db
+      DB_PORT: "3306"
+      DB_NAME: youtarr
+      LOG_LEVEL: INFO
+      TZ: UTC
+      YOUTUBE_OUTPUT_DIR: /mnt/md1/youtarr/
+      YOUTARR_UID: "1000"
+      YOUTARR_GID: "1000"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3011/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      dev.dozzle.group: youtarr
+      traefik.docker.network: tana_traefik
+      traefik.http.routers.youtarr-router.entrypoints: websecure
+      traefik.http.routers.youtarr-router.rule: Host(`youtarr.bob.house`)
+      traefik.http.routers.youtarr-router.tls: "true"
+      traefik.http.services.youtarr-service.loadbalancer.server.port: "3011"
+    networks:
+      default: null
+      traefik: null
+      youtarr: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/jobs/, /storage/rclone/storagebox/youtube/, /tmp/, ]
+    volumes:
+      - /mnt/md1/youtarr/:/usr/src/app/data/:rw
+      - ~/.youtarr/images/:/app/server/images/:rw
+      - ~/.youtarr/config/:/app/config/:rw
+
+  youtarr-db:
+    image: mariadb:10
+    cap_drop: [ ALL, ]
+    cap_add: [ CHOWN, DAC_READ_SEARCH, SETGID, SETUID, ]
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-file-per-table=1 --innodb-large-prefix=ON
+    env_file:
+      - ~/Configurations/youtarr.env
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+      MYSQL_DATABASE: youtarr
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u $${MYSQL_USER} -p$${MYSQL_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    labels:
+      dev.dozzle.group: youtarr
+    networks:
+      youtarr: null
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /tmp/, ]
+    volumes: [ ~/.youtarr/db/:/var/lib/mysql/:rw, ]
+
 configs:
   kopiaignore:
     content: |
@@ -850,6 +925,9 @@ networks:
     internal: "true"
   traefik:
     name: tana_traefik
+    internal: "true"
+  youtarr:
+    name: tana_youtarr
     internal: "true"
 
 volumes:
