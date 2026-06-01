@@ -979,6 +979,12 @@
         icon: wireshark.webp
         server: tana-docker
         container: tana-wireshark-1
+    - Youtarr: &youtarr
+        description: Automates downloading, organizing, and scheduling YouTube channel content
+        href: https://youtarr.bob.house/
+        icon: youtarr.png
+        server: tana-docker
+        container: tana-youtarr-1
     - ZIM API: &zimapi
         description: Wrapper API for the Kiwix official Download Repository
         href: https://zimapi.bob.house/library
@@ -1076,3 +1082,4 @@
     - Sonarr: *sonarr
     - Tunarr: *tunarr
     - Windows TANA: *windowstana
+    - Youtarr: *youtarr
