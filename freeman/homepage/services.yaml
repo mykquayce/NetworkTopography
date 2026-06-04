@@ -963,6 +963,12 @@
         icon: wireshark.webp
         server: tana-docker
         container: tana-wireshark-1
+    - ZIM API: &zimapi
+        description: Wrapper API for the Kiwix official Download Repository
+        href: https://zimapi.bob.house/library
+        icon: zim.png
+        server: ransom-docker
+        container: ransom-zimapi-1
 
 - Main:
     - Change Detection: *changedetection
