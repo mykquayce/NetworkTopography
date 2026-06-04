@@ -400,13 +400,14 @@ services:
       retries: 3
       start_period: 5s
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: ransom_traefik
       traefik.http.routers.miasma-router.entrypoints: websecure
       traefik.http.routers.miasma-router.rule: Host(`miasma.bob.house`)
       traefik.http.routers.miasma-router.tls: "true"
       traefik.http.services.miasma-service.loadbalancer.server.port: "9999"
     networks:
       default: null
+      traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
 
