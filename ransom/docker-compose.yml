@@ -1017,6 +1017,24 @@ services:
     volumes:
       - ~/.vikunja/db/:/var/lib/postgresql/:rw
 
+  zimapi:
+    image: eassbhhtgu/zimapi:latest
+    cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.zimapi-router.entrypoints: websecure
+      traefik.http.routers.zimapi-router.rule: Host(`zimapi.bob.house`)
+      traefik.http.routers.zimapi-router.tls: "true"
+      traefik.http.services.zimapi-service.loadbalancer.server.port: "8080"
+    networks:
+      default: null
+      traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+
 networks:
   default:
     name: ransom_default
