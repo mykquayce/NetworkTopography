@@ -1,0 +1,238 @@
+schedule: CRON_TZ=Etc/UTC 0 1 * * *
+retry_policy:
+  limit: 0
+steps:
+  - id: mktemp
+    run: mktemp --quiet --suffix .json
+    output:
+      path:
+        from: stdout
+        decode: text
+  - id: get_library
+    action: http.request
+    with:
+      method: GET
+      url: https://zimapi.bob.house/library
+      headers:
+        Accept: application/json; charset=utf-8
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      format: "json"
+      silent: false
+    depends: mktemp
+    output:
+      status_code:
+        from: stdout
+        decode: json
+        select: .status_code
+    stdout: "${mktemp.output.path}"
+  - id: bookloop
+    action: dag.run
+    parallel:
+      items:
+        - name: gutenberg_en_all
+        - name: wikibooks_en_all
+          flavor: maxi
+        - name: wikipedia_en_all
+          flavor: maxi
+        - name: wikiquote_en_all
+          flavor: maxi
+        - name: wiktionary_en_all
+          flavor: nopic
+    with:
+      dag: book_processor
+      params:
+        NAME: "${ITEM.name}"
+        FLAVOR: "${ITEM.flavor}"
+        LIBRARY_FILE_PATH: "${mktemp.output.path}"
+    depends: get_library
+    preconditions:
+      - condition: "${get_library.output.status_code}"
+        expected: "200"
+    output:
+      needed:
+        from: stdout
+        decode: json
+        select: "[.results[].outputValues | select(.)]"
+  - id: cleanup
+    run: rm --force "${mktemp.output.path}"
+    depends: bookloop
+  - run: echo "${bookloop.output.needed}"
+    depends: bookloop
+    output: OUTPUT
+  - id: shutdown_kiwix
+    action: ssh.run
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      command: docker compose --file /root/NetworkTopography/tana/docker-compose.yml down kiwix
+    depends: cleanup
+    preconditions:
+      - condition: "${bookloop.output.needed}"
+        expected: "[]"
+        negate: true
+  - id: download_loop
+    call: download_processor
+    parallel: "${bookloop.output.needed}"
+    params:
+      - TARGET_PATH: "${ITEM.path}"
+      - URI: "${ITEM.uri}"
+    depends: shutdown_kiwix
+  - id: startup_kiwix
+    action: ssh.run
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      command: docker compose --file /root/NetworkTopography/tana/docker-compose.yml up kiwix
+    depends: [shutdown_kiwix, download_loop]
+  - id: format
+    run: |
+      printf "${bookloop.output.needed}" \
+        | jq --ascii-output --monochrome-output --sort-keys \
+        | xargs --null printf '```\n%s```'
+    depends: download_loop
+    output:
+      formatted:
+        from: stdout
+        decode: text
+  - id: notify
+    action: http.request
+    with:
+      method: POST
+      url: https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+      body: "${format.output.formatted}"
+      headers:
+        Content-Type: application/json
+        Markdown: yes
+        Tags: floppy_disk,page_facing_up,microscope
+        Title: "zim file downloaded"
+      format: "json"
+      silent: false
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+    depends: format
+---
+name: book_processor
+retry_policy:
+  limit: 0
+params:
+  - NAME: ""
+  - FLAVOR: ""
+  - LIBRARY_FILE_PATH: ""
+steps:
+  - id: route
+    action: router.route
+    with:
+      value: "${FLAVOR}"
+      routes:
+        "re:^[a-z]+$": [filter_with_flavor]
+        "<nil>": [filter_without_flavor]
+  - id: filter_with_flavor
+    action: jq.filter
+    with:
+      raw: true
+      input: "${LIBRARY_FILE_PATH}"
+      filter: '.body[] | select(.name=="${NAME}" and .flavor=="${FLAVOR}").uri'
+    output: URI
+  - id: filter_without_flavor
+    action: jq.filter
+    with:
+      raw: true
+      input: "${LIBRARY_FILE_PATH}"
+      filter: '.body[] | select(.name=="${NAME}").uri'
+    output: URI
+  - id: get_filename
+    run: |
+      printf "%s" "${URI}" \
+      | rev \
+      | cut --delimiter / --fields 1 \
+      | rev \
+      | sed 's/\.meta4$//'
+    depends: [filter_with_flavor, filter_without_flavor]
+    output:
+      filename:
+        from: stdout
+        decode: text
+  - id: get_path
+    run: printf "/mnt/md1/downloads/zim/%s" "${get_filename.output.filename}"
+    depends: get_filename
+    output:
+      path:
+        from: stdout
+        decode: text
+  - id: count_targets
+    action: ssh.run
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      command: |
+        ls -1U --literal "${get_path.output.path}" 2>/dev/nul \
+          | grep --count ^ || true
+    depends: get_path
+    output:
+      count:
+        from: stdout
+        decode: text
+  - id: publish_result
+    action: outputs.write
+    with:
+      values:
+        path: "${get_path.output.path}"
+        uri: "${URI}"
+    depends: [get_path, count_targets]
+    preconditions:
+      - condition: "${count_targets.output.count}"
+        expected: "0"
+---
+name: download_processor
+retry_policy:
+  limit: 0
+params:
+  - TARGET_PATH: ""
+  - URI: ""
+steps:
+  - id: get_metadata
+    action: http.request
+    with:
+      method: GET
+      url: https://zimapi.bob.house/metadata
+      headers:
+        Accept: application/json; charset=utf-8
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      query:
+        uri: "${URI}"
+      format: "json"
+      silent: false
+    output:
+      status_code:
+        from: stdout
+        decode: json
+        select: .status_code
+      uri:
+        from: stdout
+        decode: json
+        select: .body[0]
+  - id: download
+    action: ssh.run
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      command: |
+        curl \
+          --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
+          --output "${TARGET_PATH}" \
+          --silent \
+          --url "${get_metadata.output.uri}" \
+          --verbose
+    preconditions:
+      - condition: "${get_metadata.output.status_code}"
+        expected: "200"
+    depends: get_metadata
