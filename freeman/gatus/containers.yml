@@ -15,6 +15,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: apache
+    group: containers
+    url: http://ransom.bob.house:2375/v1.52/containers/ransom-apache-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: authentik-postgresql
     group: containers
     url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-postgresql-1/json
@@ -157,6 +163,12 @@ endpoints:
   - name: glances TANA
     group: containers
     url: http://tana.bob.house:2375/v1.52/containers/tana-glances-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: gluetun FREEMAN
+    group: containers
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -486,6 +498,12 @@ endpoints:
     group: containers
     enabled: false
     url: http://billups.bob.house:2375/v1.52/containers/billups-speakr-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: squid
+    group: containers
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-squid-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

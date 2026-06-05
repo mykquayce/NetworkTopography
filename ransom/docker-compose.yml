@@ -1,4 +1,23 @@
 services:
+  apache:
+    image: httpd:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SETGID, SETUID, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      traefik.http.routers.apache-router.entrypoints: websecure
+      traefik.http.routers.apache-router.rule: Host(`apache.bob.house`)
+      traefik.http.routers.apache-router.tls: "true"
+      traefik.http.services.apache-service.loadbalancer.server.port: "80"
+    networks:
+      traefik: null
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /usr/local/apache2/logs/, ]
+    volumes: [ ./htdocs/:/usr/local/apache2/htdocs/:ro, ]
+
   changedetection:
     image: dgtlmoon/changedetection.io:latest
     cap_drop: [ ALL, ]

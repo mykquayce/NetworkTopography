@@ -1,0 +1,8 @@
+function FindProxyForURL(url, host) {
+	if (isInNet(host, "192.168.0.0", "255.255.0.0") ||
+		shExpMatch(host, "*bob.house")) {
+		return "DIRECT";
+	}
+
+	return "PROXY squid.bob.house:3128; DIRECT";
+}
