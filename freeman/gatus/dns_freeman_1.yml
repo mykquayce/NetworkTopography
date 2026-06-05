@@ -83,6 +83,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: gluetun-freeman .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: gluetun-freeman.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: go2rtc .1
     group: dns .1
     url: 192.168.1.50
@@ -160,6 +169,15 @@ endpoints:
     url: 192.168.1.50
     dns:
       query-name: prometheus.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: squid .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: squid.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition

@@ -6,6 +6,8 @@ steps:
     action: dag.run
     parallel:
       items:
+        - host: freeman.bob.house
+          container: freeman-gluetun-1
         - host: ransom.bob.house
           container: ransom-gluetun-1
         - host: tana.bob.house

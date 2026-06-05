@@ -390,6 +390,36 @@ services:
     volumes:
       - /etc/os-release:/etc/os-release:ro
 
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      TZ: Etc/UTC
+      UPDATER_PERIOD: 24h
+    env_file:
+      - ~/Configurations/gluetun.env
+    labels:
+      traefik.docker.network: freeman_traefik
+      traefik.http.routers.gluetun-router.entrypoints: websecure
+      traefik.http.routers.gluetun-router.rule: Host(`gluetun-freeman.bob.house`)
+      traefik.http.routers.gluetun-router.tls: "true"
+      traefik.http.routers.gluetun-router.service: gluetun-service
+      traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"
+      traefik.tcp.routers.squid-router.entrypoints: proxy
+      traefik.tcp.routers.squid-router.rule: HostSNI(`*`)
+      traefik.tcp.routers.squid-router.service: squid-service
+      traefik.tcp.services.squid-service.loadbalancer.server.port: "3128"
+    networks:
+      default: null
+      traefik: null
+    security_opt: [ no-new-privileges=true, ]
+
   go2rtc:
     image: alexxit/go2rtc:latest
     cap_drop: [ ALL, ]
@@ -577,6 +607,25 @@ services:
     tmpfs: [ /run, /tmp, ]
     volumes: [ /var/run/docker.sock:/var/run/docker.sock:ro, ]
 
+  squid:
+    image: ubuntu/squid:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_OVERRIDE, SETGID, SETUID, ]
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      TZ: Etc/UTC
+    labels:
+      traefik.enable: "false"
+    network_mode: service:gluetun
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /run/, /var/log/squid/, ]
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf:ro
+      - ~/.squid/:/var/spool/squid/:rw
+
   sshwifty:
     image: niruix/sshwifty:latest
     cap_drop: [ ALL, ]
@@ -610,6 +659,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.proxy.address=:3128
       - --entrypoints.ssh.address=:222
       - --entrypoints.websecure.address=:443
       - --global.checkNewVersion=false
@@ -653,6 +703,8 @@ services:
       - 192.168.20.60:222:222/tcp
       - 192.168.1.60:443:443/tcp
       - 192.168.20.60:443:443/tcp
+      - 192.168.1.60:3128:3128/tcp
+      - 192.168.20.60:3128:3128/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:

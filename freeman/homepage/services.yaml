@@ -25,6 +25,12 @@
           url: https://adguard20.bob.house
           username: f3b4707c9a7cd5b7
           password: {{HOMEPAGE_VAR_ADGUARD20_KEY}}
+    - Apache: &apache
+        description: The most popular web server on the Internet
+        href: https://apache.bob.house
+        icon: apache.png
+        server: ransom-docker
+        container: ransom-apache-1
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
@@ -416,6 +422,16 @@
                 query: docker_n_containers_paused{host='tana'}
               - label: stopped containers
                 query: docker_n_containers_stopped{host='tana'}
+    - Gluetun FREEMAN: &gluetunfreeman
+        description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
+        icon: gluetun.svg
+        server: freeman-docker
+        container: freeman-gluetun-1
+        widget:
+          type: gluetun
+          url: https://gluetun-freeman.bob.house/
+          key: {{HOMEPAGE_VAR_GLUETUN_KEY}}
+          version: 2
     - Gluetun RANSOM: &gluetunransom
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
