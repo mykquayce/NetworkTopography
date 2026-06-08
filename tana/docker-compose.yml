@@ -180,6 +180,9 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    configs:
+      - source: kopiaignore
+        target: /data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -192,24 +195,35 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
-    read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ~/:/data/:ro
+      - ~/.jellyfin/:/data/jellyfin/:ro
+      - ~/.jellyseerr/:/data/jellyseerr/:ro
+      - ~/.kopia//:/data/.kopia/:ro
+      - ~/.lidarr/:/data/lidarr/:ro
+      - ~/.metube/:/data/metube/:ro
+      - ~/.navidrome/:/data/navidrome/:ro
+      - ~/.nodered/:/data/nodered/:ro
+      - ~/.pinchflat/:/data/pinchflat/:ro
+      - ~/.pinepods/:/data/pinepods/:ro
+      - ~/.prowlarr/:/data/prowlarr/:ro
+      - ~/.qbittorrent/:/data/qbittorrent/:ro
+      - ~/.radarr/:/data/radarr/:ro
+      - ~/.sabnzbd/:/data/sabnzbd/:ro
+      - ~/.sickgear/:/data/sickgear/:ro
+      - ~/.sonarr/:/data/sonarr/:ro
+      - ~/.tunarr/:/data/tunarr/:ro
       # Mount repository location
       - /repository/:/repository/:rw
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     cap_drop: [ ALL, ]
-    cap_add: [ SETGID, SETUID, ]
-    configs:
-      - source: kopiaignore-lidarr
-        target: /config/.kopiaignore
+    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -230,8 +244,9 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
       - ~/.lidarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -242,9 +257,6 @@ services:
     image: ghcr.io/alexta69/metube:latest
     cap_drop: [ ALL, ]
     cap_add: [ SETGID, SETUID, ]
-    configs:
-      - source: kopiaignore-metube
-        target: /data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -438,9 +450,6 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
-    configs:
-      - source: kopiaignore-prowlarr
-        target: /config/.kopiaignore
     depends_on:
       qbittorrent:
         condition: service_started
@@ -461,8 +470,9 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
       - ~/.prowlarr/:/config/:rw
 
@@ -492,9 +502,6 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
-    configs:
-      - source: kopiaignore-radarr
-        target: /config/.kopiaignore
     depends_on:
       qbittorrent:
         condition: service_started
@@ -515,8 +522,9 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
       - ~/.radarr/:/config/:rw
       - /mnt/md1/downloads/:/config/Downloads/complete/:rw
@@ -641,9 +649,6 @@ services:
     image: lscr.io/linuxserver/sonarr:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
-    configs:
-      - source: kopiaignore-sonarr
-        target: /config/.kopiaignore
     depends_on:
       qbittorrent:
         condition: service_started
@@ -666,8 +671,9 @@ services:
     networks:
       default: null
       traefik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
       - ~/.sonarr/:/config/:rw
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
@@ -730,9 +736,6 @@ services:
     image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
     cap_drop: [ ALL, ]
     cap_add: [ DAC_OVERRIDE, ]
-    configs:
-      - source: kopiaignore-tunarr
-        target: /config/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -748,8 +751,9 @@ services:
       traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
     networks:
       traefik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/tunarr/backups/, /config/tunarr/cache/, /config/tunarr/logs/, ]
+    tmpfs: [ /config/tunarr/backups/, /config/tunarr/cache/, /config/tunarr/logs/, /tunarr/streams/, '/root/.cache/:exec', ]
     volumes:
       - ~/.tunarr/:/config/tunarr/:rw
       - /mnt/md1/MediaThumbnails/tunarr/:/config/tunarr/images/:rw
@@ -827,24 +831,14 @@ services:
     volumes: [ ~/.wireshark/:/config/:rw, ]
 
 configs:
-  kopiaignore-metube:
+  kopiaignore:
     content: |
-      /state/*.old
-  kopiaignore-lidarr:
-    content: |
-      /logs.db*
-  kopiaignore-prowlarr:
-    content: |
-      /logs.db*
-  kopiaignore-radarr:
-    content: |
-      /logs.db*
-  kopiaignore-sonarr:
-    content: |
-      /logs.db*
-  kopiaignore-tunarr:
-    content: |
-      /db*.bak
+      /lidarr/logs.db*
+      /metube/state/*.old
+      /prowlarr/logs.db*
+      /radarr/logs.db*
+      /sonarr/logs.db*
+      /tunarr/db*.bak
 
 networks:
   default:

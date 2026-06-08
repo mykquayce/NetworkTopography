@@ -3,9 +3,6 @@ services:
     image: adguard/adguardhome:latest
     cap_drop: [ ALL, ]
     cap_add: [ NET_BIND_SERVICE, ]
-    configs:
-      - source: kopiaignore-adguard
-        target: /opt/adguardhome/work/data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -23,6 +20,7 @@ services:
     ports:
       - 192.168.1.60:53:53/tcp
       - 192.168.1.60:53:53/udp
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.adguard01/:/opt/adguardhome/work/data/:rw
@@ -32,9 +30,6 @@ services:
     image: adguard/adguardhome:latest
     cap_drop: [ ALL, ]
     cap_add: [ NET_BIND_SERVICE, ]
-    configs:
-      - source: kopiaignore-adguard
-        target: /opt/adguardhome/work/data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -52,6 +47,7 @@ services:
     ports:
       - 192.168.20.60:53:53/tcp
       - 192.168.20.60:53:53/udp
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.adguard20/:/opt/adguardhome/work/data/:rw
@@ -482,6 +478,9 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    configs:
+      - source: kopiaignore
+        target: /data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -494,14 +493,20 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
-    read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
       - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ~/:/data/:ro
+      - ~/.adguard01/:/data/adguard01/:ro
+      - ~/.adguard20/:/data/adguard20/:ro
+      - ~/.authentik/:/data/authentik/:ro
+      - ~/.baikal/:/data/baikal/:ro
+      - ~/.dagu/:/data/dagu/:ro
+      - ~/.gatus/:/data/gatus/:ro
+      - ~/.kopia/:/data/kopia/:ro
+      - ~/.otterwiki/:/data/otterwiki/:ro
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -714,9 +719,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
 configs:
-  kopiaignore-adguard:
+  kopiaignore:
     content: |
-      /querylog.json.*
+      /adguard01/querylog.json*
+      /adguard20/querylog.json*
 
 networks:
   authentik:
