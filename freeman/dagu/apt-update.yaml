@@ -32,7 +32,8 @@ steps:
     config:
       body: "${format.output.formatted}"
       headers:
-        Content-Type: application/json
+        Accept: applicaton/json
+        Content-Type: text/markdown
         Markdown: yes
         Priority: high
         Tags: computer,triangular_flag_on_post
@@ -52,25 +53,28 @@ steps:
 name: update-processor
 params:
   - SERVER: ""
-ssh:
-  user: root
-  host: $SERVER
-  key: /run/secrets/id_rsa
-  known_host_file: /run/secrets/known_hosts
 steps:
   - id: apt_update
-    run: ( apt update -qq 2>/dev/nul ) || true
-    timeout_sec: 60
-    output:
-      state:
-        from: stdout
-        decode: text
+    action: ssh.run
+    with:
+      user: root
+      host: "${SERVER}"
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      timeout_sec: 60s
+      command: ( apt update -qq 2>/dev/nul ) || true
   - id: apt_list_upgradable
-    run: |
-      ( apt list -qq --upgradable 2>/dev/nul || true ) \
-        | jq --raw-input \
-        | jq --compact-output --slurp
-    timeout_sec: 60
+    action: ssh.run
+    with:
+      user: root
+      host: "${SERVER}"
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      timeout_sec: 60s
+      command: |
+        ( apt list -qq --upgradable 2>/dev/nul || true ) \
+          | jq --raw-input \
+          | jq --compact-output --slurp
     preconditions:
       - condition: "${apt_update.output.state}"
         expected: "All packages are up to date."
