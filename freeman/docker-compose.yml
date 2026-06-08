@@ -621,10 +621,11 @@ services:
     network_mode: service:gluetun
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run/, /var/log/squid/, ]
+    tmpfs: [ /run/, ]
     volumes:
       - ./squid.conf:/etc/squid/squid.conf:ro
       - ~/.squid/:/var/spool/squid/:rw
+      - squid-log:/var/log/squid/:rw
 
   sshwifty:
     image: niruix/sshwifty:latest
@@ -741,3 +742,4 @@ secrets:
 
 volumes:
   certificates-volume:
+  squid-log:
