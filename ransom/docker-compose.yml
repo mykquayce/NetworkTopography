@@ -400,7 +400,20 @@ services:
       # Mount local folders needed by kopia
       - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ~/:/data/:ro
+      - ~/.bagetter/:/data/bagetter/:ro
+      - ~/.changedetection/:/data/changedetection/:ro
+      - ~/.donetick/:/data/donetick/:ro
+      - ~/.freshrss/:/data/freshrss/:ro
+      - ~/.grafana/:/data/grafana/:ro
+      - ~/.karakeep/:/data/karakeep/:ro
+      - ~/.kopia/:/data/kopia/:ro
+      - ~/.n8n/:/data/n8n/:ro
+      - ~/.ntfy/:/data/ntfy/:ro
+      - ~/.paperless-ngx/:/data/paperless/:ro
+      - ~/.planka/:/data/planka/:ro
+      - ~/.speedtest/:/data/speedtest/:ro
+      - ~/.trilium/:/data/trilium/:ro
+      - ~/.vikunja/:/data/vikunja/:ro
       # Mount repository location
       - /repository/:/repository/:rw
 

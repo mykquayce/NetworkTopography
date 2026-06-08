@@ -87,7 +87,8 @@ services:
       # Mount local folders needed by kopia
       - ~/.kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ~/:/data/:ro
+      - ~/.frigate/:/data/frigate/:ro
+      - ~/.kopia/:/data/kopia/:ro
       # Mount repository location
       - /repository/:/repository/:rw
 
