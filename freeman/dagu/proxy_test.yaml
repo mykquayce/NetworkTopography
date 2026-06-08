@@ -1,0 +1,185 @@
+schedule: CRON_TZ=Etc/UTC 15,45 * * * *
+retry_policy:
+  limit: 0
+handler_on:
+  failure:
+    action: http.request
+    with:
+      method: POST
+      url: https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+      body: "${DAG_NAME} failed"
+      headers:
+        Content-Type: text/plain
+        Priority: high
+        Tags: office,computer
+        Title: "${DAG_NAME} failed"
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: false
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+steps:
+  - id: path_to_settings_file
+    run: printf "%s/dagu.json" "${DAGU_HOME}"
+    output:
+      path:
+        from: stdout
+  - id: settings
+    action: jq.filter
+    with:
+      filter: .
+      input: "${path_to_settings_file.output.path}"
+    output:
+      gluetun_apikey:
+        from: stdout
+        decode: json
+        select: .gluetun.apikey
+    depends: path_to_settings_file
+  - id: test_loop
+    action: dag.run
+    parallel:
+      items:
+        - cname: "apache.bob.house"
+          server_name: "ransom.bob.house"
+          container_name: "ransom-apache-1"
+        - cname: "squid.bob.house"
+          server_name: "freeman.bob.house"
+          container_name: "freeman-squid-1"
+        - cname: "gluetun-freeman.bob.house"
+          server_name: "freeman.bob.house"
+          container_name: "freeman-gluetun-1"
+    with:
+      dag: service_test_processor
+      params:
+        cname: "${ITEM.cname}"
+        server_name: "${ITEM.server_name}"
+        container_name: "${ITEM.container_name}"
+    output:
+      successes_count:
+        from: stdout
+        decode: json
+        select: '[ .results[].outputValues.message | select(.=="Success") ] | length'
+  - id: get_auto_config
+    action: http.request
+    with:
+      method: GET
+      url: https://apache.bob.house/wpad.dat
+      headers:
+        Accept: application/x-ns-proxy-autoconfig
+        User-Apent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: true
+      timeout: 10
+    depends: test_loop
+    preconditions:
+      - condition: "${test_loop.output.successes_count}"
+        expected: "3"
+    output:
+      auto_config:
+        from: stdout
+        decode: text
+  - id: get_gluetun_status
+    action: http.request
+    with:
+      method: GET
+      url: https://gluetun-freeman.bob.house/v1/vpn/status
+      headers:
+        X-API-Key: "${settings.output.gluetun_apikey}"
+        User-Apent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: true
+      timeout: 10
+    depends: [settings, test_loop]
+    preconditions:
+      - condition: "${test_loop.output.successes_count}"
+        expected: "3"
+      - condition: "${settings.output.gluetun_apikey}"
+        expected: ""
+        negate: true
+    output:
+      status:
+        from: stdout
+        decode: json
+        select: .status
+  - id: get_location_via_proxy
+    action: ssh.run
+    with:
+      user: root
+      host: freeman.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      command: |
+        curl \
+          --header 'Accept: application/json; charset=utf-8' \
+          --header 'User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405' \
+          --proxy 'http://squid.bob.house:3128' \
+          --silent \
+          --url 'https://api.ipapi.is/'
+    depends: test_loop
+    preconditions:
+      - condition: "${test_loop.output.successes_count}"
+        expected: "3"
+    output:
+      country:
+        from: stdout
+        decode: json
+        select: .location.country
+  - id: publish_result
+    action: outputs.write
+    with:
+      values:
+        message: Success
+    depends: [get_auto_config, get_gluetun_status, get_location_via_proxy]
+    preconditions:
+      - condition: "${get_auto_config.output.auto_config}"
+        expected: "re:^function FindProxyForURL"
+      - condition: "${get_gluetun_status.output.status}"
+        expected: "running"
+      - condition: "${get_location.output.country}"
+        expected: "United Kingdom"
+        negate: true
+---
+name: service_test_processor
+params:
+  - cname: ""
+  - server_name: ""
+  - container_name: ""
+retry_policy:
+  limit: 0
+ssh:
+  user: root
+  host: freeman.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+steps:
+  - id: nslookup
+    run: nslookup ${cname}
+    timeout_sec: 10
+  - id: ping
+    run: ping -c1 -W10 ${cname}
+    timeout_sec: 10
+    depends: nslookup
+  - id: container
+    action: http.request
+    with:
+      method: GET
+      url: "http://${server_name}:2375/v1.52/containers/${container_name}/json"
+      headers:
+        Accept: application/x-ns-proxy-autoconfig
+        User-Apent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: true
+      timeout: 10
+    depends: ping
+    output:
+      is_running:
+        from: stdout
+        decode: json
+        select: .State.Running
+  - id: publish_result
+    action: outputs.write
+    with:
+      values:
+        message: Success
+    depends: [container]
+    preconditions:
+      - condition: "${container.output.is_running}"
+        expected: "true"
