@@ -406,7 +406,6 @@ services:
     volumes:
       - /mnt/md1/podcasts/:/opt/pinepods/downloads/:rw
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   pinepods-db:
     image: postgres:17

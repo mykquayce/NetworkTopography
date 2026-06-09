@@ -286,7 +286,6 @@ services:
     volumes:
       - ~/.forgejo/data/:/data/:rw
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   forgejo-db:
     image: postgres:14
@@ -358,7 +357,6 @@ services:
     volumes:
       - ./glance.yml:/app/config/glance.yml:ro
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   glances:
     image: nicolargo/glances:latest
