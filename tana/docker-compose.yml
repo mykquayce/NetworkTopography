@@ -209,7 +209,6 @@ services:
       - ~/.metube/:/data/metube/:ro
       - ~/.navidrome/:/data/navidrome/:ro
       - ~/.nodered/:/data/nodered/:ro
-      - ~/.pinchflat/:/data/pinchflat/:ro
       - ~/.pinepods/:/data/pinepods/:ro
       - ~/.prowlarr/:/data/prowlarr/:ro
       - ~/.qbittorrent/:/data/qbittorrent/:ro
@@ -335,30 +334,6 @@ services:
     volumes:
       - ~/.nodered/:/data/:rw
       - /mnt/md1/youtube/:/youtube/:rw
-
-  pinchflat:
-    image: ghcr.io/kieraneglin/pinchflat:latest
-    cap_drop: [ ALL, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    environment:
-      TZ: Etc\UTC
-    labels:
-      traefik.docker.network: tana_traefik
-      traefik.http.routers.pinchflat-router.entrypoints: websecure
-      traefik.http.routers.pinchflat-router.rule: Host(`pinchflat.bob.house`)
-      traefik.http.routers.pinchflat-router.tls: "true"
-      traefik.http.services.pinchflat-service.loadbalancer.server.port: "8945"
-    networks:
-      default: null
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/logs/, ]
-    volumes:
-      - ~/.pinchflat/:/config/:rw
-      - /mnt/md1/downloads/pinchflat/:/downloads/:rw
-      - ~/Configurations/cookies.txt:/config/extras/cookies.txt:rw
 
   pinepods:
     image: madeofpendletonwool/pinepods:latest
