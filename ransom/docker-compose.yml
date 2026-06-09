@@ -962,7 +962,6 @@ services:
     user: "0:0"
     volumes:
       - ~/.trilium/:/home/node/trilium-data/:rw
-      - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 
   trivy:
