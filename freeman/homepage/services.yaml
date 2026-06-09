@@ -744,12 +744,6 @@
           type: paperlessngx
           url: https://paperless-ngx.bob.house
           key: {{HOMEPAGE_VAR_PAPERLESSNGX}}
-    - Pinchflat: &pinchflat
-        description: Your next YouTube media manager
-        href: https://pinchflat.bob.house/
-        icon: pinchflat.png
-        server: tana-docker
-        container: tana-pinchflat-1
     - Pinepods: &pinepods
         description: A complete podcast management system
         href: https://pinepods.bob.house/
@@ -1004,7 +998,6 @@
     - Jellyfin: *jellyfin
     - Kiwix: *kiwix
     - Navidrome: *navidrome
-    - Pinchflat: *pinchflat
 
 - Coding:
     - Dagu: *dagu
@@ -1072,7 +1065,6 @@
     - MeTube: *metube
     - Navidrome: *navidrome
     - Node RED: *nodered
-    - Pinchflat: *pinchflat
     - Pinepods: *pinepods
     - Prowlarr: *prowlarr
     - qBittorrent: *qbittorrent

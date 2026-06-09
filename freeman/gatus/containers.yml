@@ -392,12 +392,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: pinchflat
-    group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/tana-pinchflat-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: pinepods
     group: containers
     url: http://tana.bob.house:2375/v1.52/containers/tana-pinepods-1/json
