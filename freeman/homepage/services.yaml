@@ -137,6 +137,12 @@
           type: frigate
           url: https://frigate.bob.house/
           enableRecentEvents: false
+    - Ganymede: &ganymede
+        description: Live stream archiving platform
+        href: https://ganymede.bob.house/
+        icon: /icons/ganymede.png
+        server: tana-docker
+        container: tana-ganymede-1
     - Gatus: &gatus
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
@@ -1065,6 +1071,7 @@
 
 - Media:
     - Feishin: *feishin
+    - Ganymede: *ganymede
     - Gluetun: *gluetuntana
     - Jellyfin: *jellyfin
     - Jellyseerr: *jellyseerr
