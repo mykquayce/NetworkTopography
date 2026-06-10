@@ -11,6 +11,24 @@ endpoints:
     alerts: &alerts-definition
       - type: ntfy
 
+  - name: ganymede .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: ganymede.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: ganymede-db .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: ganymede-db.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances-tana .20
     group: dns .20
     url: 192.168.20.60
