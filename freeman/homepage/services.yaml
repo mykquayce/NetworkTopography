@@ -676,12 +676,6 @@
         icon: moodist.png
         server: ransom-docker
         container: ransom-moodist-1
-    - n8n: &n8n
-        description: Secure, AI-native workflow automation
-        href: https://n8n.bob.house/
-        icon: n8n.svg
-        server: ransom-docker
-        container: ransom-n8n-1
     - Navidrome: &navidrome
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
@@ -1020,7 +1014,6 @@
     - httpbin: *httpbin
     - JSONPath: *jsonpath
     - kiwix: *kiwix
-    - n8n: *n8n
     - Node RED: *nodered
     - Otter Wiki: *otterwiki
     - Planka: *planka
