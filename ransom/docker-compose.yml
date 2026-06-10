@@ -440,7 +440,6 @@ services:
       - ~/.grafana/:/data/grafana/:ro
       - ~/.karakeep/:/data/karakeep/:ro
       - ~/.kopia/:/data/kopia/:ro
-      - ~/.n8n/:/data/n8n/:ro
       - ~/.ntfy/:/data/ntfy/:ro
       - ~/.paperless-ngx/:/data/paperless/:ro
       - ~/.planka/:/data/planka/:ro
@@ -494,29 +493,6 @@ services:
     networks:
       traefik: null
     security_opt: [ no-new-privileges=true, ]
-
-  n8n:
-    image: n8nio/n8n:latest
-    cap_drop: [ ALL, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    environment:
-       GENERIC_TIMEZONE: UTC
-       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "false"
-       N8N_PROXY_HOPS: "1"
-       TZ: UTC
-    labels:
-      traefik.http.routers.n8n-router.entrypoints: websecure
-      traefik.http.routers.n8n-router.rule: Host(`n8n.bob.house`)
-      traefik.http.routers.n8n-router.tls: "true"
-      traefik.http.services.n8n-service.loadbalancer.server.port: "5678"
-    networks:
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
-    user: "0"
-    volumes:
-      - ~/.n8n/:/home/node/.n8n/:rw
 
   nsd01:
     build:
