@@ -395,6 +395,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     environment:
       TZ: Etc/UTC
+      SERVER_COUNTRIES: Belgium,France,Spain,Switzerland,Portugal
       UPDATER_PERIOD: 24h
     env_file:
       - ~/Configurations/gluetun.env
