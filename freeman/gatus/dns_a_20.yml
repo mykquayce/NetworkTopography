@@ -1,15 +1,26 @@
 endpoints:
-  - name: badgey
+  - name: badgey .20
     group: dns .20
     url: 192.168.20.60
     dns:
       query-name: badgey.bob.house
       query-type: A
     conditions:
-      - "[BODY] == 192.168.20.50"
+      - "[BODY] == 192.168.1.50"
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
+
+  - name: billups .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: billups.bob.house
+      query-type: A
+    conditions:
+      - "[BODY] == 192.168.1.75"
+      - "[DNS_RCODE] == NOERROR"
+    alerts: *alerts-definition
 
   - name: freeman .20
     group: dns .20
