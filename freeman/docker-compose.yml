@@ -2,7 +2,7 @@ services:
   adguard01:
     image: adguard/adguardhome:v0.107.77
     cap_drop: [ ALL, ]
-    cap_add: [ NET_BIND_SERVICE, ]
+    cap_add: [ DAC_OVERRIDE, NET_BIND_SERVICE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -28,7 +28,7 @@ services:
   adguard20:
     image: adguard/adguardhome:v0.107.77
     cap_drop: [ ALL, ]
-    cap_add: [ NET_BIND_SERVICE, ]
+    cap_add: [ DAC_OVERRIDE, NET_BIND_SERVICE, ]
     depends_on:
       traefik:
         condition: service_healthy
