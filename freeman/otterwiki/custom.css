@@ -1,0 +1,18 @@
+/*
+* custom.css
+ *
+ * This file is loaded via the layout.html template in every
+ * page of an Otter Wiki.
+ *
+ * see https://otterwiki.com/Customization for examples.
+ *
+*/
+
+.content-wrapper, .navbar, .sidebar {
+    background-image:
+        radial-gradient(circle, #e80, #fa0)
+}
+.dark-mode .content-wrapper, .dark-mode .navbar, .dark-mode .sidebar {
+    background-image:
+        radial-gradient(circle, #532, #420)
+}
