@@ -890,7 +890,7 @@ services:
       - ~/.speedtest/:/config/:rw
 
   traefik:
-    image: traefik:latest
+    image: traefik:3.7.5
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
