@@ -69,43 +69,23 @@ services:
       traefik.enable: "false"
     networks:
       authentik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /var/run/postgresql/, ]
     volumes:
       - ~/.authentik/postgres/:/var/lib/postgresql/data/:rw
 
-  authentik-redis:
-    image: docker.io/library/redis:alpine
-    cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETPCAP, SETUID, ]
-    command: --save 60 1 --loglevel warning
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 3s
-    labels:
-      dev.dozzle.group: authentik
-      traefik.enable: "false"
-    networks:
-      authentik: null
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - ~/.authentik/redis/:/data/:rw
-
   authentik-server:
-    image: ghcr.io/goauthentik/server:latest
+    image: ghcr.io/goauthentik/server:2026.5.3
     cap_drop: [ ALL, ]
     command: server
     depends_on:
       authentik-postgresql:
         condition: service_healthy
-      authentik-redis:
-        condition: service_healthy
       traefik:
         condition: service_healthy
     environment:
-      AUTHENTIK_REDIS__HOST: authentik-redis
+      AUTHENTIK_ERROR_REPORTING__ENABLED: false
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
     env_file:
       - ~/Configurations/authentik.env
@@ -121,22 +101,20 @@ services:
       traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    shm_size: 512mb
     volumes:
-      - ~/.authentik/media/:/media/:rw
+      - ~/.authentik/data/:/data/:rw
       - ~/.authentik/custom-templates/:/templates/:rw
 
   authentik-worker:
-    image: ghcr.io/goauthentik/server:latest
+    image: ghcr.io/goauthentik/server:2026.5.3
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, FOWNER, SETGID, SETUID, ]
     command: worker
     depends_on:
       authentik-postgresql:
         condition: service_healthy
-      authentik-redis:
-        condition: service_healthy
     environment:
-      AUTHENTIK_REDIS__HOST: authentik-redis
+      AUTHENTIK_ERROR_REPORTING__ENABLED: false
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
     env_file:
       - ~/Configurations/authentik.env
@@ -145,16 +123,11 @@ services:
       traefik.enable: "false"
     networks:
       authentik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    # `user: root` and the docker socket volume are optional.
-    # See more for the docker socket integration here:
-    # https://goauthentik.io/docs/outposts/integrations/docker
-    # Removing `user: root` also prevents the worker from fixing the permissions
-    # on the mounted folders, so when removing this make sure the folders have the correct UID/GID
-    # (1000:1000 by default)
-    user: root
+    shm_size: 512mb
     volumes:
-      - ~/.authentik/media/:/media/:rw
+      - ~/.authentik/data/:/data/:rw
       - ~/.authentik/certs/:/certs/:rw
       - ~/.authentik/custom-templates/:/templates/:rw
 

@@ -33,12 +33,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: authentik-redis
-    group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-redis-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: authentik-server
     group: containers
     url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-server-1/json

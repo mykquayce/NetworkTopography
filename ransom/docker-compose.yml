@@ -266,6 +266,7 @@ services:
       traefik:
         condition: service_healthy
     environment:
+      GF_AUTH_OAUTH_ALLOW_INSECURE_EMAIL_LOOKUP: "true"
       GF_ENABLE_GZIP: "true"
       GF_SERVER_ROOT_URL: https://grafana.bob.house
       GF_USERS_ALLOW_SIGN_UP: "false"

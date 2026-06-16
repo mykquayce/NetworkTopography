@@ -47,6 +47,7 @@
           type: authentik
           url: https://authentik.bob.house
           key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
+          version: 2
     - Baïkal: &baikal
         description: A lightweight CalDAV+CardDAV server
         href: https://baikal.bob.house
