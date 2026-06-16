@@ -155,7 +155,6 @@ services:
       timeout: 10s
       retries: 5
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)

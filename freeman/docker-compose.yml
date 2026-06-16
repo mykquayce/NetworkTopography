@@ -7,7 +7,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard01-router.entrypoints: websecure
@@ -34,7 +33,6 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard20-router.entrypoints: websecure
@@ -690,7 +688,6 @@ services:
       timeout: 10s
       retries: 5
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)

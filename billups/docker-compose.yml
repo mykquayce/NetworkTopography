@@ -217,7 +217,6 @@ services:
       timeout: 10s
       retries: 5
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: billups_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-billups.bob.house`)
