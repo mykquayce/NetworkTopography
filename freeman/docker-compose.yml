@@ -525,7 +525,9 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
-    volumes: [ ~/.otterwiki/:/app-data/:rw, ]
+    volumes:
+      - ~/.otterwiki/:/app-data/:rw
+      - ./otterwiki/:/app/otterwiki/static/custom/:ro
 
   portainer:
     image: portainer/portainer-ce:latest
