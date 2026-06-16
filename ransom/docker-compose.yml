@@ -451,19 +451,9 @@ services:
       - /repository/:/repository/:rw
 
   miasma:
-    build:
-      dockerfile_inline: |
-        FROM alpine:latest
-        RUN apk add --no-cache --update cargo \
-          && cargo install --root / miasma
-        CMD ["sh", "-c", "/bin/miasma --host 0.0.0.0 --port 9999 --link-count 1 --max-depth 1"]
+    image: austinweeks/miasma:latest
     cap_drop: [ ALL, ]
-    healthcheck:
-      test: ["CMD", "/bin/miasma", "-V"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
+    command: [ "--host", "0.0.0.0", "--port", "9999", "--link-count", "5", "--max-depth", "8", "--max-in-flight", "50", ]
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.miasma-router.entrypoints: websecure
