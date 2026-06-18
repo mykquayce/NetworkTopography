@@ -1,13 +1,12 @@
 services:
   adguard01:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome:v0.107.77
     cap_drop: [ ALL, ]
     cap_add: [ NET_BIND_SERVICE, ]
     depends_on:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard01-router.entrypoints: websecure
@@ -27,14 +26,13 @@ services:
       - ./adguard01/:/opt/adguardhome/conf/:rw
 
   adguard20:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome:v0.107.77
     cap_drop: [ ALL, ]
     cap_add: [ NET_BIND_SERVICE, ]
     depends_on:
       traefik:
         condition: service_healthy
     labels:
-      dd.watch.digest: "true"
       dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard20-router.entrypoints: websecure
@@ -511,7 +509,7 @@ services:
       - /repository/:/repository/:rw
 
   otterwiki:
-    image: redimp/otterwiki:2-slim
+    image: redimp/otterwiki:2.20.6-slim
     cap_drop: [ ALL, ]
     depends_on:
       traefik:
@@ -582,7 +580,7 @@ services:
       - ~/.prometheus/:/prometheus/:rw
 
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:latest
+    image: tecnativa/docker-socket-proxy:v0.4.2
     cap_drop: [ ALL, ]
     environment:
       DISABLE_IPV6: "true"
@@ -655,7 +653,7 @@ services:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
 
   traefik:
-    image: traefik:latest
+    image: traefik:3.7.5
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
@@ -690,7 +688,6 @@ services:
       timeout: 10s
       retries: 5
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)

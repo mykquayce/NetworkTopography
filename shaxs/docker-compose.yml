@@ -93,7 +93,7 @@ services:
       - /repository/:/repository/:rw
 
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:latest
+    image: lscr.io/linuxserver/socket-proxy:3.4.0-r0-ls85
     cap_drop: [ ALL, ]
     environment:
       CONTAINERS: "1"
@@ -123,7 +123,7 @@ services:
     volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
 
   traefik:
-    image: traefik:latest
+    image: traefik:3.7.5
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
@@ -155,7 +155,6 @@ services:
       timeout: 10s
       retries: 5
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)
