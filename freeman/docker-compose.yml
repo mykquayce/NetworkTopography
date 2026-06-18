@@ -503,6 +503,7 @@ services:
       - ~/.authentik/:/data/authentik/:ro
       - ~/.baikal/:/data/baikal/:ro
       - ~/.dagu/:/data/dagu/:ro
+      - ~/.forgejo/:/data/forgejo/:ro
       - ~/.gatus/:/data/gatus/:ro
       - ~/.kopia/:/data/kopia/:ro
       - ~/.otterwiki/:/data/otterwiki/:ro
