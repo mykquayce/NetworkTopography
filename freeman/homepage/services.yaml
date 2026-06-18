@@ -772,19 +772,19 @@
         widgets:
           - type: portainer
             url: https://portainer.bob.house
-            env: 1
+            env: 5
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 2
+            env: 6
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 3
+            env: 7
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
           - type: portainer
             url: https://portainer.bob.house
-            env: 4
+            env: 8
             key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
     - Prometheus: &prometheus
         description: The Prometheus monitoring system and time series database
