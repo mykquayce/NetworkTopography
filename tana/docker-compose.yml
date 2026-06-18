@@ -671,7 +671,7 @@ services:
       - /mnt/md1/videos/:/videos/:rw
 
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:latest
+    image: lscr.io/linuxserver/socket-proxy:3.4.0-r0-ls85
     cap_drop: [ ALL, ]
     environment:
       CONTAINERS: "1"
@@ -736,7 +736,7 @@ services:
       - /mnt/md1/MediaThumbnails/sonarr/:/config/MediaCover/:rw
 
   traefik:
-    image: traefik:latest
+    image: traefik:3.7.5
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
@@ -765,7 +765,6 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
-      dd.watch.digest: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
