@@ -1,0 +1,138 @@
+retry_policy:
+  limit: 0
+steps:
+  - id: inspect_webhook
+    action: jq.filter
+    with:
+      data: $WEBHOOK_PAYLOAD
+      filter: .message | fromjson
+    output:
+      channel_display_name:
+        from: stdout
+        decode: json
+        select: .channel_display_name
+      vod_streamed_at:
+        from: stdout
+        decode: json
+        select: .vod_streamed_at
+      vod_ext_id:
+        from: stdout
+        decode: json
+        select: .vod_ext_id
+      vod_type:
+        from: stdout
+        decode: json
+        select: .vod_type
+      vod_id:
+        from: stdout
+        decode: json
+        select: .vod_id
+  - id: make_path
+    run: |
+      printf "/mnt/md1/ganymede/videos/%s/%.10s-%s-%s-%s/" \
+        "${inspect_webhook.output.channel_display_name}" \
+        "${inspect_webhook.output.vod_streamed_at}" \
+        "${inspect_webhook.output.vod_ext_id}" \
+        "${inspect_webhook.output.vod_type}" \
+        "${inspect_webhook.output.vod_id}"
+    depends: inspect_webhook
+    preconditions:
+      - condition: "${inspect_webhook.output.channel_display_name}"
+        expected: ""
+        negate: true
+      - condition: "${inspect_webhook.output.vod_streamed_at}"
+        expected: ""
+        negate: true
+      - condition: "${inspect_webhook.output.vod_ext_id}"
+        expected: ""
+        negate: true
+      - condition: "${inspect_webhook.output.vod_type}"
+        expected: ""
+        negate: true
+      - condition: "${inspect_webhook.output.vod_id}"
+        expected: ""
+        negate: true
+    output:
+      path:
+        from: stdout
+  - id: get_video_file_paths
+    action: ssh.run
+    with:
+      user: root
+      host: tana.bob.house
+      key: /run/secrets/id_rsa
+      known_host_file: /run/secrets/known_hosts
+      timeout_sec: 60s
+      command: |
+        find "${make_path.output.path}" -name "*.mp4" \
+          | jq --raw-input \
+          | jq --slurp
+    depends: make_path
+    preconditions:
+      - condition: "${make_path.output.path}"
+        expected: ""
+        negate: true
+    output:
+      files:
+        from: stdout
+        decode: json
+  - id: loop
+    action: dag.run
+    with:
+      dag: video_processor
+      params:
+        VIDEO_FILE_PATH: "${ITEM}"
+    parallel:
+      items: "${get_video_file_paths.output.files}"
+      max_concurrent: 1
+    depends: get_video_file_paths
+    preconditions:
+      - condition: "${get_video_file_paths.output.files}"
+        expected: "[]"
+        negate: true
+---
+name: video_processor
+retry_policy:
+  limit: 0
+params:
+  - VIDEO_FILE_PATH: ""
+ssh:
+  user: root
+  host: tana.bob.house
+  key: /run/secrets/id_rsa
+  known_host_file: /run/secrets/known_hosts
+steps:
+  - id: get_fps
+    run: |
+      ffprobe \
+        -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate \
+        "${VIDEO_FILE_PATH}"
+    output:
+      fps:
+        from: stdout
+  - id: mktemp
+    run: mktemp --suffix .mp4 --tmpdir=/mnt/md1/
+    depends: get_fps
+    preconditions:
+      - condition: "${get_fps.output.fps}"
+        expected: "30/1"
+    output:
+      path:
+        from: stdout
+  - id: process
+    run: |
+      ffmpeg -hide_banner -y \
+        -i "${VIDEO_FILE_PATH}" \
+        -r 8 -filter:v fps=fps=8 -crf 24 -c:a aac -q:a 1 \
+        "${mktemp.output.path}"
+    depends: mktemp
+    preconditions:
+      - condition: "${mktemp.output.path}"
+        expected: ""
+        negate: true
+  - id: move
+    run: mv --force --verbose "${mktemp.output.path}" "${VIDEO_FILE_PATH}"
+    depends: process
+  - id: chown
+    run: chown --from root:root --verbose 911:911 "${VIDEO_FILE_PATH}"
+    depends: move
