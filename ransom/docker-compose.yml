@@ -151,13 +151,13 @@ services:
       DD_SECURITY_TRIVY_TIMEOUT: "120000"
       DD_SERVER_FEATURE_DELETE: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
-      DD_WATCHER_FREEMAN_CRON: 0 0,4,8,12,16,20 * * *
+      DD_WATCHER_FREEMAN_CRON: 0 0,12 * * *
       DD_WATCHER_RANSOM_HOST: socket-proxy
-      DD_WATCHER_RANSOM_CRON: 0 1,5,9,13,17,21 * * *
+      DD_WATCHER_RANSOM_CRON: 0 3,15 * * *
       DD_WATCHER_SHAXS_HOST: shaxs.bob.house
-      DD_WATCHER_SHAXS_CRON: 0 2,6,10,14,18,22 * * *
+      DD_WATCHER_SHAXS_CRON: 0 6,18 * * *
       DD_WATCHER_TANA_HOST: tana.bob.house
-      DD_WATCHER_TANA_CRON: 0 3,7,11,15,19,23 * * *
+      DD_WATCHER_TANA_CRON: 0 9,21 * * *
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.drydock-router.entrypoints: websecure
@@ -394,7 +394,7 @@ services:
     env_file:
       - ~/Configurations/karakeep.env
     labels:
-      dd.tag.include: ^v1\.41\.\d+$$
+      dd.tag.include: ^v1\.
       dev.dozzle.group: karakeep
       traefik.enable: "false"
     networks:
@@ -502,6 +502,9 @@ services:
       start_period: 10s
     labels:
       dd.watch: "false"
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 192.168.1.65:53:53/tcp
       - 192.168.1.65:53:53/udp
@@ -526,6 +529,9 @@ services:
       start_period: 10s
     labels:
       dd.watch: "false"
+      traefik.enable: "false"
+    networks:
+      default: null
     ports:
       - 192.168.20.65:53:53/tcp
       - 192.168.20.65:53:53/udp
