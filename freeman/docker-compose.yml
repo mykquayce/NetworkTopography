@@ -509,7 +509,7 @@ services:
       - /repository/:/repository/:rw
 
   otterwiki:
-    image: redimp/otterwiki:2.20.6-slim
+    image: redimp/otterwiki:2.20.7-slim
     cap_drop: [ ALL, ]
     depends_on:
       traefik:
