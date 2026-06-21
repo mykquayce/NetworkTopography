@@ -6,14 +6,12 @@ pages:
           - type: twitch-channels
             channels:
               - alh4zr3d
-              - clarkio
               - csharpfritz
               - endingwithali
               - microsoftdeveloper
               - tbdgamer
               - technotim
               - visualstudio
-              - whitep4nth3r
             collapse-after: 16
             sort-by: viewers
 
@@ -58,13 +56,16 @@ pages:
 
           - type: videos
             channels:
+              - UCgd5-BWtbgOw5Hx2wP3qxzg # Cyb3rMaddy
               - UCvtT19MZW8dq5Wwfu6B0oxw # dotnet
               - UCOY6oNxodGWbFg6CjXtae5g # fixtSE
               - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
               - UCUUTdohVElFLSP4NBnlPEwA # Jim's Garage
+              - UCJXa3_WNNmIpewOtCHf3B0g # LaurieWired
               - UCrkPsvLGln62OMZRO6K-llg # Nick Chapsas
               - UCv6J_jJa8GJqFwQNgNrMuww # ServeTheHome
               - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
+              - UCsnGwSIHyoYN0kiINAGUKxg # Wolfgang's Channel
             collapse-after-rows: 4
             limit: 32
             style: grid-cards
@@ -75,10 +76,9 @@ pages:
         widgets:
           - type: twitch-channels
             channels:
+              - classykatie
               - enemycharlie
               - kaisa
-              - lowco
-              - munecatmusic
               - sashagrey
             collapse-after: 16
             sort-by: viewers
@@ -109,11 +109,13 @@ pages:
 
           - type: videos
             channels:
-              - UCduKuJToxWPizJ7I2E6n1kA # BroScienceLife
+              - UCTSRIY3GLFYIpkR2QwyeklA # Drew Gooden
+              - UCyWDmyZRjrGHeKF-ofFsT5Q # Internet Comment Etiquette with Erik
+              - UCpq_GFqDneAHWrUmZ0wM34A # LazerPig
               - UC9Kq-yEt1iYsbUzNOoIRK0g # Pitch Meeting
               - UCrTNhL_yO3tPTdQ5XgmmWjA # RedLetterMedia
-              - UC0aanx5rpr7D1M7KCFYzrLQ # Shoe0nHead
               - UCvlj0IzjSnNoduQF0l3VGng # Some More News
+              - UCrq3JYirgV-BLluzTF6X_7A # STRANGE ÆONS
             collapse-after-rows: 2
             limit: 32
             style: grid-cards
@@ -125,11 +127,13 @@ pages:
           - type: twitch-channels
             channels:
               - 2dkiri
-              - jenandaliona
+              - alionaand
               - jeffgerstmann
-              - kimknibble
+              - mandycandysupersandy
+              - memoria
+              - oboeshoesgames
+              - squirrel
               - thedivisiongame
-              - ubisoft
             collapse-after: 16
             sort-by: viewers
 
@@ -169,11 +173,15 @@ pages:
 
           - type: videos
             channels:
+              - UCKpBmnEfSy20al-Fk_2YzVA # Alanah Pearce
+              - UCha281fQ2nzE0WCerE4RohQ # Evercade
+              - UCMrvc5gVjmEqZe-mPX9Vh1A # Memoria
               - UCr8t0PrQ1gZkLs53lE-HTpw # Mightykeef
               - UCZw4WkJhfoovdJ1eYwa7qyA # oboeshoesgames
               - UCNoyrAASAelSBLX_ZWIq0uA # oboeshoestwos
               - UCKk076mm-7JjLxJcFSXIPJA # outsidexbox
               - UC1wZGocgLvopgOqBUFCyIJA # Second Wind
+              - UCsvn_Po0SmunchJYOWpOxMg # videogamedunkey
             collapse-after-rows: 2
             limit: 32
             style: grid-cards
