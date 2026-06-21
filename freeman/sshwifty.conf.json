@@ -37,7 +37,7 @@
         "Authentication": "Private Key",
         "User": "root",
         "Private Key": "file:////run/secrets/id_rsa",
-        "Fingerprint": "SHA256:jitHOBIEk9d/YYuyjjQQHNPKj8VuH2Qq2YaE52gP+V4",
+        "Fingerprint": "SHA256:c9Tk46AfbH5cYNfBVba5j2uZsah65aT+w42aJlv6Cr0",
         "Encoding": "utf-8"
       }
     },
