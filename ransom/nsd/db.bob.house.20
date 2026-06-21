@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026061401 ; Serial
+                                         2026062100 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -30,6 +30,7 @@ tana                IN        A                    192.168.20.70
 
 glances-billups     IN        CNAME                billups
 kopia-billups       IN        CNAME                billups
+ollama              IN        CNAME                billups
 open-webui          IN        CNAME                billups
 speakr              IN        CNAME                billups
 traefik-billups     IN        CNAME                billups
