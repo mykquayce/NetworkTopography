@@ -337,6 +337,7 @@ services:
   karakeep:
     image: ghcr.io/karakeep-app/karakeep:release
     cap_drop: [ ALL, ]
+    #command: meilisearch --experimental-dumpless-upgrade # for upgrading
     environment:
       BROWSER_WEB_URL: http://karakeep-chrome:9222
       DATA_DIR: /data
@@ -362,6 +363,7 @@ services:
       karakeep: null
       traefik: null
     security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/apps/web/.next/cache/, ]
     volumes:
       - ~/.karakeep/data/:/data/:rw
 
@@ -385,7 +387,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
 
   karakeep-meilisearch:
-    image: getmeili/meilisearch:v1.41.0
+    image: getmeili/meilisearch:v1
     cap_drop: [ ALL, ]
     environment:
       MEILI_NO_ANALYTICS: "true"
@@ -397,7 +399,6 @@ services:
       traefik.enable: "false"
     networks:
       karakeep: null
-    read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.karakeep/meilisearch/:/meili_data/:rw
