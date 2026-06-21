@@ -63,10 +63,18 @@ services:
   ollama:
     image: ollama/ollama:latest
     cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
     labels:
-      traefik.enable: "false"
+      traefik.http.routers.ollama-router.entrypoints: websecure
+      traefik.http.routers.ollama-router.rule: Host(`ollama.bob.house`)
+      traefik.http.routers.ollama-router.tls: "true"
+      traefik.http.services.ollama-service.loadbalancer.server.port: "11434"
     networks:
       ollama: null
+      traefik: null
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.ollama/:/root/.ollama/:rw
