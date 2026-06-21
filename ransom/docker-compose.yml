@@ -385,7 +385,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
 
   karakeep-meilisearch:
-    image: getmeili/meilisearch:v1.41.0
+    image: getmeili/meilisearch:v1
     cap_drop: [ ALL, ]
     environment:
       MEILI_NO_ANALYTICS: "true"
