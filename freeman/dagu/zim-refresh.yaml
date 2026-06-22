@@ -52,7 +52,7 @@ steps:
       needed:
         from: stdout
         decode: json
-        select: "[.results[].outputValues | select(.)]"
+        select: "[.results[].outputValues | select(.count==\"0\")]"
   - id: cleanup
     run: rm --force "${mktemp.output.path}"
     depends: bookloop
@@ -86,7 +86,7 @@ steps:
       host: tana.bob.house
       key: /run/secrets/id_rsa
       known_host_file: /run/secrets/known_hosts
-      command: docker compose --file /root/NetworkTopography/tana/docker-compose.yml up kiwix
+      command: docker compose --file /root/NetworkTopography/tana/docker-compose.yml up --detach kiwix
     depends: [shutdown_kiwix, download_loop]
   - id: format
     run: |
@@ -145,14 +145,28 @@ steps:
       input: "${LIBRARY_FILE_PATH}"
       filter: '.body[] | select(.name=="${NAME}").uri'
     output: URI
+  - id: get_uri
+    run: printf "%s" "${URI}"
+    depends: [filter_with_flavor,filter_without_flavor]
+    preconditions:
+      - condition: "${URI}"
+        expected: ""
+        negate: true
+    output:
+      uri:
+        from: stdout
+        decode: text
   - id: get_filename
     run: |
-      printf "%s" "${URI}" \
-      | rev \
-      | cut --delimiter / --fields 1 \
-      | rev \
+      printf "%s" "${get_uri.output.uri}" \
+      | tr / \\n \
+      | tail --lines 1 \
       | sed 's/\.meta4$//'
-    depends: [filter_with_flavor, filter_without_flavor]
+    depends: get_uri
+    preconditions:
+      - condition: "${get_uri.output.uri}"
+        expected: ""
+        negate: true
     output:
       filename:
         from: stdout
@@ -160,6 +174,10 @@ steps:
   - id: get_path
     run: printf "/mnt/md1/downloads/zim/%s" "${get_filename.output.filename}"
     depends: get_filename
+    preconditions:
+      - condition: "${get_filename.output.filename}"
+        expected: ""
+        negate: true
     output:
       path:
         from: stdout
@@ -179,16 +197,6 @@ steps:
       count:
         from: stdout
         decode: text
-  - id: publish_result
-    action: outputs.write
-    with:
-      values:
-        path: "${get_path.output.path}"
-        uri: "${URI}"
-    depends: [get_path, count_targets]
-    preconditions:
-      - condition: "${count_targets.output.count}"
-        expected: "0"
 ---
 name: download_processor
 retry_policy:
@@ -209,6 +217,10 @@ steps:
         uri: "${URI}"
       format: "json"
       silent: false
+    preconditions:
+      - condition: "${URI}"
+        expected: "<nil>"
+        negate: true
     output:
       status_code:
         from: stdout
