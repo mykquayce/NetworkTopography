@@ -1,0 +1,5 @@
+retry_policy:
+  limit: 0
+steps:
+  - id: inspect_webhook
+    run: echo "${$WEBHOOK_PAYLOAD}"
