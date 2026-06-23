@@ -128,6 +128,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: leafwiki .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: leafwiki.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: main-router .20
     group: dns .20
     url: 192.168.20.60

@@ -299,6 +299,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: leafwiki
+    group: containers
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-leafwiki-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: lidarr
     group: containers
     url: http://tana.bob.house:2375/v1.52/containers/tana-lidarr-1/json

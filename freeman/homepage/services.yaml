@@ -649,6 +649,12 @@
           url: https://kopia-tana.bob.house
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
+    - LeafWiki: &leafwiki
+        description: A real wiki app without the heavy stack
+        href: https://leafwiki.bob.house/
+        icon: /icons/leafwiki.svg
+        server: freeman-docker
+        container: freeman-leafwiki-1
     - Lidarr: &lidarr
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
@@ -1022,6 +1028,7 @@
     - httpbin: *httpbin
     - JSONPath: *jsonpath
     - kiwix: *kiwix
+    - LeafWiki: *leafwiki
     - Node RED: *nodered
     - Otter Wiki: *otterwiki
     - Planka: *planka
