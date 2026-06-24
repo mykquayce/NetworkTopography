@@ -1,5 +1,11 @@
 http:
   routers:
+    glances-kayshon-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`glances-kayshon.bob.house`)"
+      service: "glances-kayshon-service"
+      tls: "true"
     homeassistant-router:
       entryPoints:
         - "websecure"
@@ -49,6 +55,10 @@ http:
       service: "traefik-kayshon-service"
       tls: "true"
   services:
+    glances-kayshon-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.20.85:61208"
     homeassistant-service:
       loadBalancer:
         servers:

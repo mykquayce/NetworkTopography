@@ -1,4 +1,20 @@
 services:
+  glances:
+    image: nicolargo/glances:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
+    depends_on:
+      socket-proxy:
+        condition: service_started
+    environment:
+      DOCKER_HOST: tcp://socket-proxy:2375
+      GLANCES_OPT: -w
+    pid: host
+    ports: [ 192.168.20.85:61208:61208/tcp, ]
+    security_opt: [ no-new-privileges=true, ]
+    volumes:
+      - /etc/os-release:/etc/os-release:ro
+
   kopia:
     image: kopia/kopia:latest
     cap_drop: [ ALL, ]
