@@ -54,6 +54,8 @@ services:
       - ~/Configurations/leafwiki.env
     environment:
       LEAFWIKI_ALLOW_INSECURE: "true"
+      LEAFWIKI_CUSTOM_STYLESHEET: custom.css
+      LEAFWIKI_PUBLIC_ACCESS: "true"
     healthcheck:
       test: [ "CMD-SHELL", "wget --spider http://localhost:8080/api/config || exit 1", ]
       interval: 1m
@@ -64,7 +66,9 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     user: 1000:1000
-    volumes: [ ~/.leafwiki/:/app/data/:rw, ]
+    volumes:
+      - ~/.leafwiki/:/app/data/:rw
+      - ./kayshon.css:/app/data/custom.css:ro
 
   miasma:
     image: austinweeks/miasma:latest
