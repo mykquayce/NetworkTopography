@@ -25,7 +25,7 @@ http:
     miasma-service:
       loadBalancer:
         servers:
-        - url: "https://miasma.bob.house"
+        - url: "http://192.168.20.85:9999"
     www-service:
       loadBalancer:
         servers:

@@ -452,22 +452,6 @@ services:
       # Mount repository location
       - /repository/:/repository/:rw
 
-  miasma:
-    image: austinweeks/miasma:latest
-    cap_drop: [ ALL, ]
-    command: [ "--host", "0.0.0.0", "--port", "9999", "--link-count", "5", "--max-depth", "8", "--max-in-flight", "50", ]
-    labels:
-      traefik.docker.network: ransom_traefik
-      traefik.http.routers.miasma-router.entrypoints: websecure
-      traefik.http.routers.miasma-router.rule: Host(`miasma.bob.house`)
-      traefik.http.routers.miasma-router.tls: "true"
-      traefik.http.services.miasma-service.loadbalancer.server.port: "9999"
-    networks:
-      default: null
-      traefik: null
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-
   moodist:
     image: ghcr.io/remvze/moodist:latest
     cap_drop: [ ALL, ]

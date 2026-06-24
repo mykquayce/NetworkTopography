@@ -20,6 +20,18 @@ services:
     security_opt: [ no-new-privileges=true, ]
     user: 1000:1000
     volumes: [ ~/.leafwiki/:/app/data/:rw, ]
+
+  miasma:
+    image: austinweeks/miasma:latest
+    cap_drop: [ ALL, ]
+    command: [ "--host", "0.0.0.0", "--port", "9999", "--link-count", "5", "--max-depth", "8", "--max-in-flight", "50", ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    ports: [ 192.168.20.85:9999:9999/tcp, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+
   traefik:
     image: traefik:3.7.5
     cap_drop: [ ALL, ]
