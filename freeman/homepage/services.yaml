@@ -267,6 +267,60 @@
                 query: docker_n_containers_paused{host='freeman'}
               - label: stopped containers
                 query: docker_n_containers_stopped{host='freeman'}
+    - Glances KAYSHON: &glanceskayshon
+        href: https://glances-kayshon.bob.house/
+        icon: glances.png
+        server: kayshon-docker
+        container: kayshon-glances-1
+        widgets:
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: uptime
+                format:
+                  type: duration
+                query: system_uptime{host='kayshon'}
+              - label: user cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_user{host='kayshon'}[5m])
+              - label: system cpu
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                  scale: 100
+                query: rate(cpu_usage_system{host='kayshon'}[5m])
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: free disk
+                format:
+                  type: bytes
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_free{host='kayshon',path='/'}
+              - label: disk used
+                format:
+                  type: percent
+                  options:
+                    maximumFractionDigits: 1
+                query: disk_used_percent{host='kayshon',path='/'}
+          - type: prometheusmetric
+            url: https://prometheus.bob.house
+            refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+            metrics:
+              - label: running containers
+                query: docker_n_containers_running{host='kayshon'}
+              - label: paused containers
+                query: docker_n_containers_paused{host='kayshon'}
+              - label: stopped containers
+                query: docker_n_containers_stopped{host='kayshon'}
     - Glances RANSOM: &glancesransom
         href: https://glances-ransom.bob.house/
         icon: glances.png
@@ -614,6 +668,17 @@
         widget:
           type: kopia
           url: http://kopia:51515
+          username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
+          password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
+    - Kopia KAYSHON: &kopiakayshon
+        description: Cross-platform backup tool
+        href: https://kopia-kayshon.bob.house/
+        icon: kopia.svg
+        server: kayshon-docker
+        container: kayshon-kopia-1
+        widget:
+          type: kopia
+          url: https://kopia-kayshon.bob.house
           username: {{HOMEPAGE_VAR_KOPIA_USERNAME}}
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - Kopia RANSOM: &kopiaransom
@@ -1064,6 +1129,10 @@
           - Glances: *glancesfreeman
           - Kopia: *kopiafreeman
           - Traefik: *traefikfreeman
+    - Kayshon:
+          - Glances: *glanceskayshon
+          - Kopia: *kopiakayshon
+          - Traefik: *traefikkayshon
     - Ransom:
           - Glances: *glancesransom
           - Kopia: *kopiaransom
