@@ -29,8 +29,10 @@ steps:
         select: .vod_id
   - id: make_path
     run: |
+      channel=$(echo -n "${inspect_webhook.output.channel_display_name}" | tr [:upper:] [:lower:])
+
       printf "/mnt/md1/ganymede/videos/%s/%.10s-%s-%s-%s/" \
-        "${inspect_webhook.output.channel_display_name}" \
+        "${channel}" \
         "${inspect_webhook.output.vod_streamed_at}" \
         "${inspect_webhook.output.vod_ext_id}" \
         "${inspect_webhook.output.vod_type}" \
