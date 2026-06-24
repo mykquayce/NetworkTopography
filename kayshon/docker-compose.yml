@@ -1,4 +1,33 @@
 services:
+  kopia:
+    image: kopia/kopia:latest
+    cap_drop: [ ALL, ]
+    cap_add: [ DAC_OVERRIDE, ]
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=a72691ffb1328c15
+      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/kopia.env
+    ports: [ 192.168.20.85:51515:51515/tcp, ]
+    security_opt: [ no-new-privileges=true, ]
+    tmpfs: [ /app/cache/, /app/logs/, ]
+    volumes:
+      # Mount local folders needed by kopia
+      - ~/.kopia/:/app/config/:rw
+      # Mount local folders to snapshot
+      - ~/.kopia/:/data/kopia/:ro
+      - ~/.leafwiki/:/data/leafwiki/:ro
+      # Mount repository location
+      - /repository/:/repository/:rw
+
   leafwiki:
     image: ghcr.io/perber/leafwiki:latest
     cap_drop: [ ALL, ]
