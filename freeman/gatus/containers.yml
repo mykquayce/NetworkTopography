@@ -301,7 +301,7 @@ endpoints:
 
   - name: leafwiki
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-leafwiki-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-leafwiki-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

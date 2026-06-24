@@ -480,37 +480,9 @@ services:
       - ~/.forgejo/:/data/forgejo/:ro
       - ~/.gatus/:/data/gatus/:ro
       - ~/.kopia/:/data/kopia/:ro
-      - ~/.leafwiki/:/data/leafwiki/:ro
       - ~/.otterwiki/:/data/otterwiki/:ro
       # Mount repository location
       - /repository/:/repository/:rw
-
-  leafwiki:
-    image: ghcr.io/perber/leafwiki:latest
-    cap_drop: [ ALL, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ~/Configurations/leafwiki.env
-    environment:
-      LEAFWIKI_ALLOW_INSECURE: "true"
-      #TRUSTED-PROXY-IPS: 172.30.0.0/16
-    healthcheck:
-      test: [ "CMD-SHELL", "wget --spider http://localhost:8080/api/config || exit 1", ]
-      interval: 1m
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-    labels:
-      traefik.http.routers.leafwiki-router.entrypoints: websecure
-      traefik.http.routers.leafwiki-router.rule: Host(`leafwiki.bob.house`)
-      traefik.http.routers.leafwiki-router.tls: "true"
-      traefik.http.services.leafwiki-service.loadbalancer.server.port: "8080"
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    user: 1000:1000
-    volumes: [ ~/.leafwiki/:/app/data/:rw, ]
 
   otterwiki:
     image: redimp/otterwiki:2.20.7-slim

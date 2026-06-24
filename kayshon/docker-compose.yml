@@ -1,4 +1,25 @@
 services:
+  leafwiki:
+    image: ghcr.io/perber/leafwiki:latest
+    cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/leafwiki.env
+    environment:
+      LEAFWIKI_ALLOW_INSECURE: "true"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider http://localhost:8080/api/config || exit 1", ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    ports: [ 192.168.20.85:4040:8080/tcp, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    user: 1000:1000
+    volumes: [ ~/.leafwiki/:/app/data/:rw, ]
   traefik:
     image: traefik:3.7.5
     cap_drop: [ ALL, ]
