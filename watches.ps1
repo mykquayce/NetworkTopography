@@ -26,7 +26,8 @@ function Add-Watch([string] $ExtractText, [string] $IncludeFilters, [string] $Ta
 
 	$Response = Invoke-WebRequest `
 		-Body ($Body | ConvertTo-Json -Compress) `
-		-Headers @{'Content-Type' = 'application/json'; 'x-api-key' = "${env:ChangeDetectionApiKey}"} `
+		-ContentType 'application/json' `
+		-Headers @{'x-api-key' = "${env:ChangeDetectionApiKey}"} `
 		-Method POST `
 		-Uri 'https://changedetection.bob.house/api/v1/watch'
 
