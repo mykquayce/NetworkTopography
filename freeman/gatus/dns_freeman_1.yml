@@ -83,6 +83,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: glances-kayshon .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: glances-kayshon.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: gluetun-freeman .1
     group: dns .1
     url: 192.168.1.50
@@ -124,6 +133,15 @@ endpoints:
     url: 192.168.1.50
     dns:
       query-name: kopia-freeman.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia-kayshon .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: kopia-kayshon.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition

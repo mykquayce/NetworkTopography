@@ -160,6 +160,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: glances KAYSHON
+    group: containers
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-glances-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: glances RANSOM
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-glances-1/json
@@ -281,6 +287,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: kopia KAYSHON
+    group: containers
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-kopia-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: kopia RANSOM
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-kopia-1/json
@@ -301,7 +313,7 @@ endpoints:
 
   - name: leafwiki
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-leafwiki-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-leafwiki-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

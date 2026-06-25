@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026062300 ; Serial
+                                         2026062401 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -46,13 +46,16 @@ gatus               IN        CNAME                freeman
 git                 IN        CNAME                freeman
 glance              IN        CNAME                freeman
 glances-freeman     IN        CNAME                freeman
+glances-kayshon     IN        CNAME                freeman
 gluetun-freeman     IN        CNAME                freeman
 go2rtc              IN        CNAME                freeman
 homeassistant       IN        CNAME                freeman
 homepage            IN        CNAME                freeman
 iot-switch          IN        CNAME                freeman
 kopia-freeman       IN        CNAME                freeman
+kopia-kayshon       IN        CNAME                freeman
 leafwiki            IN        CNAME                freeman
+miasma              IN        CNAME                freeman
 main-router         IN        CNAME                freeman
 main-switch         IN        CNAME                freeman
 portainer           IN        CNAME                freeman
@@ -81,7 +84,6 @@ it-tools            IN        CNAME                ransom
 jsonpath            IN        CNAME                ransom
 karakeep            IN        CNAME                ransom
 kopia-ransom        IN        CNAME                ransom
-miasma              IN        CNAME                ransom
 moodist             IN        CNAME                ransom
 ntfy                IN        CNAME                ransom
 nuget               IN        CNAME                ransom

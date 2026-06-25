@@ -35,7 +35,7 @@ layout:
     style: row
     tab: Monitoring
   Servers:
-    columns: 5
+    columns: 3
     header: false
     style: row
     tab: Monitoring
@@ -44,6 +44,10 @@ layout:
       style: column
       tab: Monitoring
     Freeman:
+      rows: 3
+      style: column
+      tab: Monitoring
+    Kayshon:
       rows: 3
       style: column
       tab: Monitoring

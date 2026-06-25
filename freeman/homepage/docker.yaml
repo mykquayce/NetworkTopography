@@ -10,6 +10,10 @@ freeman-docker:
   host: socket-proxy
   port: 2375
 
+kayshon-docker:
+  host: kayshon.bob.house
+  port: 2375
+
 ransom-docker:
   host: ransom.bob.house
   port: 2375

@@ -1,0 +1,13 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.clear-both { clear: both; }
+.clear-left { clear: left; }
+.clear-right { clear: right; }
+
+.float-left { float: left; }
+.float-right { float: right; }
+
+.pad-left-20 { padding-left: 20px; }
+.pad-right-20 { padding-right: 20px; }
