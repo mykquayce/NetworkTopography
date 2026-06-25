@@ -19,6 +19,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     shm_size: 192mb
     volumes:
@@ -52,6 +53,7 @@ services:
       socket-proxy: null
       traefik: null
     pid: host
+    profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /etc/os-release:/etc/os-release:ro

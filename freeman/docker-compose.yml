@@ -171,6 +171,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, monitoring, ]
     secrets:
       - source: id_rsa
       - source: known_hosts
@@ -216,6 +217,7 @@ services:
       default: null
       socket-proxy: null
       traefik: null
+    profiles: [ app, monitoring, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -254,6 +256,7 @@ services:
     networks:
       forgejo: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.forgejo/data/:/data/:rw
@@ -279,6 +282,7 @@ services:
       traefik.enable: "false"
     networks:
       forgejo: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.forgejo/db/:/var/lib/postgresql/data/:rw
@@ -304,6 +308,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -354,6 +359,7 @@ services:
       socket-proxy: null
       traefik: null
     pid: host
+    profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /etc/os-release:/etc/os-release:ro
@@ -497,6 +503,7 @@ services:
       traefik.http.services.otterwiki-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
@@ -523,6 +530,7 @@ services:
       default: null
       socket-proxy: null
       traefik: null
+    profiles: [ app, monitoring, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/backups/, ]
@@ -548,6 +556,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, monitoring, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     user: root
@@ -620,6 +629,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, monitoring, ]
     read_only: true
     secrets:
       - source: id_rsa

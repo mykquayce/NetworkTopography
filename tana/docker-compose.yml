@@ -19,6 +19,7 @@ services:
       traefik.http.routers.feishin-router.rule: Host(`feishin.bob.house`)
       traefik.http.routers.feishin-router.tls: "true"
       traefik.http.services.feishin-service.loadbalancer.server.port: "9180"
+    profiles: [ app, ]
     networks:
       traefik: null
     security_opt: [ no-new-privileges=true, ]
@@ -65,6 +66,7 @@ services:
       traefik.http.routers.ganymede-router.rule: Host(`ganymede.bob.house`)
       traefik.http.routers.ganymede-router.tls: "true"
       traefik.http.services.ganymede-service.loadbalancer.server.port: "4000"
+    profiles: [ app, ]
     networks:
       default: null
       ganymede: null
@@ -94,6 +96,7 @@ services:
       traefik.enable: "false"
     networks:
       ganymede: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /var/run/, ]
@@ -121,6 +124,7 @@ services:
     networks:
       socket-proxy: null
       traefik: null
+    profiles: [ app, monitoring, ]
     pid: host
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -182,6 +186,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/log/, ]
     volumes:
@@ -221,6 +226,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/config/logs/, ]
@@ -242,6 +248,7 @@ services:
       traefik.http.services.kiwix-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -324,6 +331,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
@@ -357,6 +365,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/temp/, ]
     volumes:
@@ -383,6 +392,7 @@ services:
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
     networks:
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/cache/, ]
@@ -408,6 +418,7 @@ services:
       traefik.http.services.nodered-service.loadbalancer.server.port: "1880"
     networks:
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -458,6 +469,7 @@ services:
       default: null
       pinepods: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /mnt/md1/podcasts/:/opt/pinepods/downloads/:rw
@@ -485,6 +497,7 @@ services:
       traefik.enable: "false"
     networks:
       pinepods: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.pinepods/:/var/lib/postgresql/data/:rw
@@ -499,6 +512,7 @@ services:
       traefik.enable: "false"
     networks:
       pinepods: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
 
   prowlarr:
@@ -525,6 +539,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
@@ -547,6 +562,7 @@ services:
     labels:
       traefik.enable: "false"
     network_mode: service:gluetun
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/qBittorrent/GeoDB/, /config/qBittorrent/logs/, ]
     volumes:
@@ -578,6 +594,7 @@ services:
       default: null
       traefik: null
     read_only: true
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
@@ -607,6 +624,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/logs/, ]
     volumes:
@@ -635,6 +653,7 @@ services:
       traefik.http.services.scutiny-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
+    profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.scrutiny/config/:/opt/scrutiny/config/:rw
@@ -655,6 +674,7 @@ services:
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
     networks:
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/backup/, /data/cache/, /data/Logs/, ]
@@ -726,6 +746,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
@@ -805,6 +826,7 @@ services:
       traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
     networks:
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/tunarr/backups/, /config/tunarr/cache/, /config/tunarr/logs/, /tunarr/streams/, '/root/.cache/:exec', ]
@@ -855,6 +877,7 @@ services:
       - 192.168.1.70:3389:3389/udp
       - 192.168.20.70:3389:3389/tcp
       - 192.168.20.70:3389:3389/udp
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     stop_grace_period: 2m0s
     volumes:
@@ -881,6 +904,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ app, ]
     shm_size: "1gb"
     stop_grace_period: 2m0s
     volumes: [ ~/.wireshark/:/config/:rw, ]
@@ -923,6 +947,7 @@ services:
       default: null
       traefik: null
       youtarr: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/jobs/, /storage/rclone/storagebox/youtube/, /tmp/, ]
@@ -955,6 +980,7 @@ services:
       traefik.enable: "false"
     networks:
       youtarr: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
     volumes: [ ~/.youtarr/db/:/var/lib/mysql/:rw, ]
