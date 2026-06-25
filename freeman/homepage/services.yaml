@@ -718,8 +718,8 @@
         description: A real wiki app without the heavy stack
         href: https://leafwiki.bob.house/
         icon: /icons/leafwiki.svg
-        server: freeman-docker
-        container: freeman-leafwiki-1
+        server: kayshon-docker
+        container: kayshon-leafwiki-1
     - Lidarr: &lidarr
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
@@ -740,8 +740,8 @@
         description: Trap AI web scrapers in an endless poison pit
         href: https://miasma.bob.house/
         icon: /icons/miasma.svg
-        server: ransom-docker
-        container: ransom-miasma-1
+        server: kayshon-docker
+        container: kayshon-miasma-1
     - moodist: &moodist
         description: Ambient sounds for focus and calm
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.24%2C%22crowd%22%3A0.96%2C%22inside-a-train%22%3A0.64%2C%22brown-noise%22%3A0.24%7D
