@@ -21,6 +21,7 @@ services:
       socket-proxy: null
       traefik: null
     pid: host
+    profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /etc/os-release:/etc/os-release:ro
@@ -74,6 +75,7 @@ services:
     networks:
       ollama: null
       traefik: null
+    profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -100,6 +102,7 @@ services:
     networks:
       ollama: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.open-webui/:/app/backend/data/:rw
@@ -187,6 +190,7 @@ services:
     networks:
       ollama: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.speakr/uploads/:/data/uploads/:rw
@@ -265,6 +269,7 @@ services:
     networks:
       ollama: null
       traefik: null
+    profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ~/.whisper-asr/cache/:/root/.cache/:rw
