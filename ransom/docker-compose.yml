@@ -152,12 +152,14 @@ services:
       DD_SERVER_FEATURE_DELETE: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
       DD_WATCHER_FREEMAN_CRON: 0 0,12 * * *
+      DD_WATCHER_KAYSHON_HOST: kayshon.bob.house
+      DD_WATCHER_KAYSHON_CRON: 24 2,14 * * *
       DD_WATCHER_RANSOM_HOST: socket-proxy
-      DD_WATCHER_RANSOM_CRON: 0 3,15 * * *
+      DD_WATCHER_RANSOM_CRON: 48 4,16 * * *
       DD_WATCHER_SHAXS_HOST: shaxs.bob.house
-      DD_WATCHER_SHAXS_CRON: 0 6,18 * * *
+      DD_WATCHER_SHAXS_CRON: 12 7,19 * * *
       DD_WATCHER_TANA_HOST: tana.bob.house
-      DD_WATCHER_TANA_CRON: 0 9,21 * * *
+      DD_WATCHER_TANA_CRON: 56 9,21 * * *
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.drydock-router.entrypoints: websecure
