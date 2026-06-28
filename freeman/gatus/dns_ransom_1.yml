@@ -137,15 +137,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: karakeep .1
-    group: dns .1
-    url: 192.168.1.50
-    dns:
-      query-name: karakeep.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: kopia-ransom .1
     group: dns .1
     url: 192.168.1.50
@@ -205,6 +196,15 @@ endpoints:
     url: 192.168.1.50
     dns:
       query-name: rabbitmq.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: readeck .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: readeck.bob.house
       query-type: CNAME
     conditions: *conditions-definition
     alerts: *alerts-definition

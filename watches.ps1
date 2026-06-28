@@ -39,7 +39,6 @@ Add-Watch -Tag 'apps' -Title 'https://github.com/AdguardTeam/AdGuardHome/blob/ma
 Add-Watch -Tag 'apps' -Uri 'https://docs.goauthentik.io/compose.yml'
 Add-Watch -Tag 'apps' -Title 'https://docs.dagu.sh/server-admin/deployment/docker-compose#docker-compose' -Uri 'https://raw.githubusercontent.com/dagucloud/docs/refs/heads/main/server-admin/deployment/docker-compose.md'
 Add-Watch -Tag 'apps' -Title 'https://gethomepage.dev/widgets/' -Uri 'https://github.com/gethomepage/homepage/commits/dev/docs/widgets.atom'
-Add-Watch -Tag 'apps' -Title 'https://github.com/karakeep-app/karakeep/blob/main/docker/docker-compose.yml' -Uri 'https://raw.githubusercontent.com/karakeep-app/karakeep/refs/heads/main/docker/docker-compose.yml'
 Add-Watch -Tag 'apps' -Title 'https://github.com/paperless-ngx/paperless-ngx/blob/dev/docker/compose/docker-compose.postgres.yml' -Uri 'https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/docker/compose/docker-compose.postgres.yml'
 Add-Watch -Tag 'apps' -Title 'https://github.com/plankanban/planka/blob/master/docker-compose.yml' -Uri 'https://raw.githubusercontent.com/plankanban/planka/refs/heads/master/docker-compose.yml'
 Add-Watch -Tag 'apps' -Title 'https://github.com/go-vikunja/website/blob/main/src/content/docs/setup/docker-start-to-finish.mdx' -Uri 'https://raw.githubusercontent.com/go-vikunja/website/refs/heads/main/src/content/docs/setup/docker-start-to-finish.mdx'
