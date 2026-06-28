@@ -313,7 +313,7 @@ endpoints:
 
   - name: miasma
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-miasma-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-miasma-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -528,6 +528,12 @@ endpoints:
   - name: traefik FREEMAN
     group: containers
     url: http://freeman.bob.house:2375/v1.52/containers/freeman-traefik-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik KAYSHON
+    group: containers
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
