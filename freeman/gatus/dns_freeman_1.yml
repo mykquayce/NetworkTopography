@@ -173,15 +173,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: otterwiki .1
-    group: dns .1
-    url: 192.168.1.50
-    dns:
-      query-name: www.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: portainer .1
     group: dns .1
     url: 192.168.1.50
