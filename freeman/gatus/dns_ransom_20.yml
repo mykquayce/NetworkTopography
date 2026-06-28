@@ -137,15 +137,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: karakeep .20
-    group: dns .20
-    url: 192.168.20.60
-    dns:
-      query-name: karakeep.bob.house
-      query-type: CNAME
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: kopia-ransom .20
     group: dns .20
     url: 192.168.20.60

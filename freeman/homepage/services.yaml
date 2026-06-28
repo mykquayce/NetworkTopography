@@ -632,16 +632,6 @@
         icon: /icons/jsonpath.svg
         server: ransom-docker
         container: ransom-jsonpath-1
-    - karakeep: &karakeep
-        description: A self-hostable bookmark-everything app
-        href: https://karakeep.bob.house/
-        icon: karakeep.png
-        server: ransom-docker
-        container: ransom-karakeep-1
-        widget:
-          type: karakeep
-          url: https://karakeep.bob.house
-          key: {{HOMEPAGE_VAR_KARAKEEP_KEY}}
     - kiwix: &kiwix
         description: When there is No Internet, there is Kiwix
         href: https://kiwix.bob.house/

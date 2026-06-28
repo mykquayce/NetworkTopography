@@ -250,24 +250,6 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
-  - name: karakeep
-    group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-karakeep-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: karakeep-chrome
-    group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-karakeep-chrome-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
-  - name: karakeep-meilisearch
-    group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-karakeep-meilisearch-1/json
-    conditions: *conditions-definition
-    alerts: *alerts-definition
-
   - name: kiwix
     group: containers
     url: http://tana.bob.house:2375/v1.52/containers/tana-kiwix-1/json
