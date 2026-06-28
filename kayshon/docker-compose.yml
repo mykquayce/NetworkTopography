@@ -70,7 +70,7 @@ services:
     user: 1000:1000
     volumes:
       - ~/.leafwiki/:/app/data/:rw
-      - ./kayshon.css:/app/data/custom.css:ro
+      - ./leafwiki.css:/app/data/custom.css:ro
 
   miasma:
     image: austinweeks/miasma:latest
