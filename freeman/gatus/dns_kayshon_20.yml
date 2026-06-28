@@ -1,0 +1,21 @@
+endpoints:
+  - name: miasma .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: miasma.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == kayshon.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
+  - name: www .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: www.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition

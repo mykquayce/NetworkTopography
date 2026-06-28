@@ -706,7 +706,7 @@
           password: {{HOMEPAGE_VAR_KOPIA_PASSWORD}}
     - LeafWiki: &leafwiki
         description: A real wiki app without the heavy stack
-        href: https://leafwiki.bob.house/
+        href: https://www.bob.house/
         icon: /icons/leafwiki.svg
         server: kayshon-docker
         container: kayshon-leafwiki-1
