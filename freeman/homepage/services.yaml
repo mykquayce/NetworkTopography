@@ -1091,6 +1091,7 @@
     - draw.io: *drawio
     - Forgejo: *forgejo
     - httpbin: *httpbin
+    - IT-Tools: *ittools
     - JSONPath: *jsonpath
     - kiwix: *kiwix
     - LeafWiki: *leafwiki
