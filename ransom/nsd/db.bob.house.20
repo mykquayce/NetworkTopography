@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026062401 ; Serial
+                                         2026062801 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -82,7 +82,6 @@ grafana             IN        CNAME                ransom
 httpbin             IN        CNAME                ransom
 it-tools            IN        CNAME                ransom
 jsonpath            IN        CNAME                ransom
-karakeep            IN        CNAME                ransom
 kopia-ransom        IN        CNAME                ransom
 moodist             IN        CNAME                ransom
 ntfy                IN        CNAME                ransom
@@ -90,6 +89,7 @@ nuget               IN        CNAME                ransom
 paperless-ngx       IN        CNAME                ransom
 planka              IN        CNAME                ransom
 rabbitmq            IN        CNAME                ransom
+readeck             IN        CNAME                ransom
 registry            IN        CNAME                ransom
 registry-ui         IN        CNAME                ransom
 restfox             IN        CNAME                ransom

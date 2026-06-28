@@ -349,78 +349,6 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
 
-  karakeep:
-    image: ghcr.io/karakeep-app/karakeep:release
-    cap_drop: [ ALL, ]
-    #command: meilisearch --experimental-dumpless-upgrade # for upgrading
-    environment:
-      BROWSER_WEB_URL: http://karakeep-chrome:9222
-      DATA_DIR: /data
-      MEILI_ADDR: http://karakeep-meilisearch:7700
-    depends_on:
-      traefik:
-        condition: service_healthy
-      karakeep-chrome:
-        condition: service_started
-      karakeep-meilisearch:
-        condition: service_started
-    env_file:
-      - ~/Configurations/karakeep.env
-    labels:
-      dev.dozzle.group: karakeep
-      traefik.docker.network: ransom_traefik
-      traefik.http.routers.karakeep-router.entrypoints: websecure
-      traefik.http.routers.karakeep-router.rule: Host(`karakeep.bob.house`)
-      traefik.http.routers.karakeep-router.tls: "true"
-      traefik.http.services.karakeep-service.loadbalancer.server.port: "3000"
-    networks:
-      default: null
-      karakeep: null
-      traefik: null
-    profiles: [ app, ]
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /app/apps/web/.next/cache/, ]
-    volumes:
-      - ~/.karakeep/data/:/data/:rw
-
-  karakeep-chrome:
-    image: gcr.io/zenika-hub/alpine-chrome:124
-    cap_drop: [ ALL, ]
-    command:
-      - --disable-dev-shm-usage
-      - --disable-gpu
-      - --hide-scrollbars
-      - --no-sandbox
-      - --remote-debugging-address=0.0.0.0
-      - --remote-debugging-port=9222
-    labels:
-      dd.tag.include: ^124$$
-      dev.dozzle.group: karakeep
-      traefik.enable: "false"
-    networks:
-      default: null
-      karakeep: null
-    profiles: [ app, ]
-    security_opt: [ no-new-privileges=true, ]
-
-  karakeep-meilisearch:
-    image: getmeili/meilisearch:v1
-    cap_drop: [ ALL, ]
-    environment:
-      MEILI_NO_ANALYTICS: "true"
-    env_file:
-      - ~/Configurations/karakeep.env
-    labels:
-      dd.tag.include: ^v1\.
-      dev.dozzle.group: karakeep
-      traefik.enable: "false"
-    networks:
-      karakeep: null
-    profiles: [ app, ]
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - ~/.karakeep/meilisearch/:/meili_data/:rw
-
   kopia:
     image: kopia/kopia:latest
     cap_drop: [ ALL, ]
@@ -458,11 +386,11 @@ services:
       - ~/.donetick/:/data/donetick/:ro
       - ~/.freshrss/:/data/freshrss/:ro
       - ~/.grafana/:/data/grafana/:ro
-      - ~/.karakeep/:/data/karakeep/:ro
       - ~/.kopia/:/data/kopia/:ro
       - ~/.ntfy/:/data/ntfy/:ro
       - ~/.paperless-ngx/:/data/paperless/:ro
       - ~/.planka/:/data/planka/:ro
+      - ~/.readeck/:/data/readeck/:ro
       - ~/.speedtest/:/data/speedtest/:ro
       - ~/.trilium/:/data/trilium/:ro
       - ~/.vikunja/:/data/vikunja/:ro
@@ -761,6 +689,28 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes: [ ~/.rabbitmq/:/var/lib/rabbitmq/:rw, ]
+
+  readeck:
+    image: codeberg.org/readeck/readeck:latest
+    cap_drop: [ ALL, ]
+    depends_on:
+      planka-db:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/readeck.env
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.readeck-router.entrypoints: websecure
+      traefik.http.routers.readeck-router.rule: Host(`readeck.bob.house`)
+      traefik.http.routers.readeck-router.tls: "true"
+      traefik.http.services.readeck-service.loadbalancer.server.port: "8000"
+    networks:
+      default: null
+      traefik: null
+    profiles: [ app, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    volumes: [ ~/.readeck/:/readeck/:rw, ]
 
   registry:
     image: registry:latest
@@ -1094,9 +1044,6 @@ services:
 networks:
   default:
     name: ransom_default
-  karakeep:
-    name: ransom_karakeep
-    internal: "true"
   paperless-ngx:
     name: ransom_paperless-ngx
     internal: "true"
