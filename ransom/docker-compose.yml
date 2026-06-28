@@ -390,6 +390,7 @@ services:
       - ~/.ntfy/:/data/ntfy/:ro
       - ~/.paperless-ngx/:/data/paperless/:ro
       - ~/.planka/:/data/planka/:ro
+      - ~/.readeck/:/data/readeck/:ro
       - ~/.speedtest/:/data/speedtest/:ro
       - ~/.trilium/:/data/trilium/:ro
       - ~/.vikunja/:/data/vikunja/:ro
@@ -688,6 +689,28 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes: [ ~/.rabbitmq/:/var/lib/rabbitmq/:rw, ]
+
+  readeck:
+    image: codeberg.org/readeck/readeck:latest
+    cap_drop: [ ALL, ]
+    depends_on:
+      planka-db:
+        condition: service_healthy
+    env_file:
+      - ~/Configurations/readeck.env
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.readeck-router.entrypoints: websecure
+      traefik.http.routers.readeck-router.rule: Host(`readeck.bob.house`)
+      traefik.http.routers.readeck-router.tls: "true"
+      traefik.http.services.readeck-service.loadbalancer.server.port: "8000"
+    networks:
+      default: null
+      traefik: null
+    profiles: [ app, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    volumes: [ ~/.readeck/:/readeck/:rw, ]
 
   registry:
     image: registry:latest

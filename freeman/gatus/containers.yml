@@ -440,6 +440,12 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: readeck
+    group: containers
+    url: http://ransom.bob.house:2375/v1.52/containers/ransom-readeck-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: registry
     group: containers
     url: http://ransom.bob.house:2375/v1.52/containers/ransom-registry-1/json

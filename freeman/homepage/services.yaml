@@ -894,6 +894,12 @@
           url: https://radarr.bob.house
           key: {{HOMEPAGE_VAR_RADARR_KEY}}
           enableQueue: true # optional, defaults to false
+    - Readeck: &readeck
+        description: Keep all that web content you'll want to revisit in an hour, tomorrow, or in 20 years
+        href: https://readeck.bob.house/
+        icon: readeck.png
+        server: ransom-docker
+        container: ransom-readeck-1
     - Restfox: &restfox
         description: Offline-First Minimalistic HTTP & Socket Testing Client
         href: https://restfox.bob.house/
@@ -1073,6 +1079,7 @@
     - Jellyfin: *jellyfin
     - Kiwix: *kiwix
     - Navidrome: *navidrome
+    - Readeck: *readeck
 
 - Coding:
     - Dagu: *dagu
