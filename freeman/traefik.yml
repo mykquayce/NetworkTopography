@@ -24,6 +24,12 @@ http:
       rule: "Host(`kopia-kayshon.bob.house`)"
       service: "kopia-kayshon-service"
       tls: "true"
+    leafwiki-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`www.bob.house`)"
+      service: "leafwiki-service"
+      tls: "true"
     main-router-router:
       entryPoints:
         - "websecure"
@@ -35,6 +41,12 @@ http:
         - "websecure"
       rule: "Host(`main-switch.bob.house`)"
       service: "main-switch-service"
+      tls: "true"
+    miasma-router:
+      entryPoints:
+        - "websecure"
+      rule: "Host(`miasma.bob.house`)"
+      service: "miasma-service"
       tls: "true"
     traefik-kayshon-router:
       entryPoints:
@@ -59,6 +71,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.20.85:51515"
+    leafwiki-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.20.85:4040"
     main-router-service:
       loadBalancer:
         servers:
@@ -67,6 +83,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.1.5"
+    miasma-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.20.85:9999"
     traefik-kayshon-service:
       loadBalancer:
         servers:
