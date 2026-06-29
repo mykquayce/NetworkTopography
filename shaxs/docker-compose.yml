@@ -11,6 +11,8 @@ services:
     env_file:
       - ~/Configurations/frigate.env
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.frigate-router.entrypoints: websecure
       traefik.http.routers.frigate-router.rule: Host(`frigate.bob.house`)
@@ -112,6 +114,8 @@ services:
       retries: 3
       start_period: 5s
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -157,6 +161,8 @@ services:
       timeout: 10s
       retries: 5
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)

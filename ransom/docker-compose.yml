@@ -818,6 +818,8 @@ services:
       retries: 3
       start_period: 5s
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -890,6 +892,8 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-ransom.bob.house`)

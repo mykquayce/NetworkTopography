@@ -67,6 +67,9 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    labels:
+      dd.tag.family: loose
+      dd.watch: "true"
     networks:
       traefik: null
     profiles: [ app, ]
@@ -108,7 +111,8 @@ services:
       VERSION: "1"
       VOLUMES: "1"
     labels:
-      traefik.enable: "false"
+      dd.tag.family: loose
+      dd.watch: "true"
     networks:
       default: null
     ports: [ 192.168.20.85:2375:2375/tcp, ]
@@ -145,6 +149,8 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: kayshon_traefik
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
