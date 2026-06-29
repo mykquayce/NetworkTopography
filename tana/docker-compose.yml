@@ -91,7 +91,6 @@ services:
       retries: 5
       start_period: 60s
     labels:
-      dd.tag.include: ^14$$
       dev.dozzle.group: ganymede
       traefik.enable: "false"
     networks:
@@ -492,7 +491,6 @@ services:
       retries: 5
       timeout: 5s
     labels:
-      dd.tag.include: ^17$$
       dev.dozzle.group: pinepods
       traefik.enable: "false"
     networks:
@@ -507,7 +505,6 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ SETGID, SETUID, ]
     labels:
-      dd.tag.include: ^8-alpine$$
       dev.dozzle.group: pinepods
       traefik.enable: "false"
     networks:
@@ -975,7 +972,6 @@ services:
       retries: 5
       start_period: 30s
     labels:
-      dd.tag.include: ^10
       dev.dozzle.group: youtarr
       traefik.enable: "false"
     networks:
