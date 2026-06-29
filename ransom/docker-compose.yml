@@ -807,18 +807,22 @@ services:
     volumes: [ ~/.restfox/:/app/data/:rw, ]
 
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:latest 
+    image: tecnativa/docker-socket-proxy:v0.4.2
     cap_drop: [ ALL, ]
     environment:
+      DISABLE_IPV6: "true"
+      LOG_LEVEL: info
+      TZ: Etc/UTC
+
       CONTAINERS: "1"
       EVENTS: "1"
       IMAGES: "1"
       INFO: "1"
-      NETWORKS: "1"
+      PING: "1"
       SERVICES: "1"
       VERSION: "1"
     healthcheck:
-      test: wget --spider http://localhost:2375/version || exit 1
+      test: wget --spider http://127.0.0.1:2375/version || exit 1
       interval: 5s
       timeout: 3s
       retries: 3
@@ -835,8 +839,8 @@ services:
       - 192.168.20.65:2375:2375/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
+    tmpfs: [ /run, /tmp, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
