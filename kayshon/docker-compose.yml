@@ -69,6 +69,7 @@ services:
       start_period: 30s
     labels:
       dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
     networks:
       traefik: null
