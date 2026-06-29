@@ -72,7 +72,9 @@ services:
       dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
     networks:
+      default: null
       traefik: null
+    ports: [ 192.168.20.85:4040:8080/tcp, ]
     profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
@@ -89,7 +91,9 @@ services:
       traefik:
         condition: service_healthy
     networks:
+      default: null
       traefik: null
+    ports: [ 192.168.20.85:9999:9999/tcp, ]
     profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]

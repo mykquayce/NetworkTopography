@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026062803 ; Serial
+                                         2026062900 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -54,6 +54,7 @@ homepage            IN        CNAME                freeman
 iot-switch          IN        CNAME                freeman
 kopia-freeman       IN        CNAME                freeman
 kopia-kayshon       IN        CNAME                freeman
+miasma              IN        CNAME                freeman
 main-router         IN        CNAME                freeman
 main-switch         IN        CNAME                freeman
 portainer           IN        CNAME                freeman
@@ -63,9 +64,7 @@ sshwifty            IN        CNAME                freeman
 traefik             IN        CNAME                freeman
 traefik-kayshon     IN        CNAME                freeman
 uptimekuma          IN        CNAME                freeman
-
-miasma              IN        CNAME                kayshon
-www                 IN        CNAME                kayshon
+www                 IN        CNAME                freeman
 
 apache              IN        CNAME                ransom
 apprise             IN        CNAME                ransom
