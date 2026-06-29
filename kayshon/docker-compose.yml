@@ -67,6 +67,10 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    labels:
+      dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
+      dd.watch: "true"
     networks:
       traefik: null
     profiles: [ app, ]
@@ -102,12 +106,18 @@ services:
       EVENTS: "1"
       IMAGES: "1"
       INFO: "1"
-      NETWORKS: "1"
       PING: "1"
       SERVICES: "1"
       VERSION: "1"
-      VOLUMES: "1"
+    healthcheck:
+      test: wget --spider http://127.0.0.1:2375/version || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -115,7 +125,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run, /tmp, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock:ro, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   traefik:
     image: traefik:3.7.5
@@ -145,6 +155,8 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: kayshon_traefik
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house

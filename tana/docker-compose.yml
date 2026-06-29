@@ -91,7 +91,6 @@ services:
       retries: 5
       start_period: 60s
     labels:
-      dd.tag.include: ^14$$
       dev.dozzle.group: ganymede
       traefik.enable: "false"
     networks:
@@ -492,7 +491,6 @@ services:
       retries: 5
       timeout: 5s
     labels:
-      dd.tag.include: ^17$$
       dev.dozzle.group: pinepods
       traefik.enable: "false"
     networks:
@@ -507,7 +505,6 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ SETGID, SETUID, ]
     labels:
-      dd.tag.include: ^8-alpine$$
       dev.dozzle.group: pinepods
       traefik.enable: "false"
     networks:
@@ -691,23 +688,29 @@ services:
       - /mnt/md1/videos/:/videos/:rw
 
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:3.4.0-r0-ls85
+    image: tecnativa/docker-socket-proxy:v0.4.2
     cap_drop: [ ALL, ]
     environment:
+      DISABLE_IPV6: "true"
+      LOG_LEVEL: info
+      TZ: Etc/UTC
+
       CONTAINERS: "1"
       EVENTS: "1"
       IMAGES: "1"
       INFO: "1"
-      NETWORKS: "1"
+      PING: "1"
       SERVICES: "1"
       VERSION: "1"
     healthcheck:
-      test: wget --spider http://localhost:2375/version || exit 1
+      test: wget --spider http://127.0.0.1:2375/version || exit 1
       interval: 5s
       timeout: 3s
       retries: 3
       start_period: 5s
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -717,8 +720,8 @@ services:
       - 192.168.20.70:2375:2375/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
+    tmpfs: [ /run, /tmp, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -786,6 +789,8 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: tana_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-tana.bob.house`)
@@ -975,7 +980,6 @@ services:
       retries: 5
       start_period: 30s
     labels:
-      dd.tag.include: ^10
       dev.dozzle.group: youtarr
       traefik.enable: "false"
     networks:

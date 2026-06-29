@@ -157,14 +157,19 @@ services:
       DD_SERVER_FEATURE_DELETE: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
       DD_WATCHER_FREEMAN_CRON: 0 0,12 * * *
+      DD_WATCHER_FREEMAN_WATCHBYDEFAULT: "false"
       DD_WATCHER_KAYSHON_HOST: kayshon.bob.house
       DD_WATCHER_KAYSHON_CRON: 24 2,14 * * *
+      DD_WATCHER_KAYSHON_WATCHBYDEFAULT: "false"
       DD_WATCHER_RANSOM_HOST: socket-proxy
       DD_WATCHER_RANSOM_CRON: 48 4,16 * * *
+      DD_WATCHER_RANSOM_WATCHBYDEFAULT: "false"
       DD_WATCHER_SHAXS_HOST: shaxs.bob.house
       DD_WATCHER_SHAXS_CRON: 12 7,19 * * *
+      DD_WATCHER_SHAXS_WATCHBYDEFAULT: "false"
       DD_WATCHER_TANA_HOST: tana.bob.house
       DD_WATCHER_TANA_CRON: 56 9,21 * * *
+      DD_WATCHER_TANA_WATCHBYDEFAULT: "false"
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.drydock-router.entrypoints: websecure
@@ -420,7 +425,7 @@ services:
   nsd01:
     build:
       dockerfile_inline: |
-        FROM alpine:latest
+        FROM alpine:3.23.5
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
     cap_drop: [ ALL, ]
@@ -432,7 +437,9 @@ services:
       retries: 3
       start_period: 10s
     labels:
-      dd.watch: "false"
+      dd.registry.lookup.image: library/alpine:3.23.5
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -447,7 +454,7 @@ services:
   nsd20:
     build:
       dockerfile_inline: |
-        FROM alpine:latest
+        FROM alpine:3.23.5
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
     cap_drop: [ ALL, ]
@@ -459,7 +466,9 @@ services:
       retries: 3
       start_period: 10s
     labels:
-      dd.watch: "false"
+      dd.registry.lookup.image: library/alpine:3.23.5
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -579,7 +588,6 @@ services:
       start_period: 10s
       retries: 10
     labels:
-      dd.tag.include: ^18$$
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
     networks:
@@ -600,7 +608,6 @@ services:
       start_period: 10s
       retries: 10
     labels:
-      dd.tag.include: ^8$$
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
     networks:
@@ -662,7 +669,6 @@ services:
       interval: 10s
       retries: 5
     labels:
-      dd.tag.include: ^16-alpine$$
       dev.dozzle.group: planka
       traefik.enable: "false"
     networks:
@@ -801,23 +807,29 @@ services:
     volumes: [ ~/.restfox/:/app/data/:rw, ]
 
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:latest 
+    image: tecnativa/docker-socket-proxy:v0.4.2
     cap_drop: [ ALL, ]
     environment:
+      DISABLE_IPV6: "true"
+      LOG_LEVEL: info
+      TZ: Etc/UTC
+
       CONTAINERS: "1"
       EVENTS: "1"
       IMAGES: "1"
       INFO: "1"
-      NETWORKS: "1"
+      PING: "1"
       SERVICES: "1"
       VERSION: "1"
     healthcheck:
-      test: wget --spider http://localhost:2375/version || exit 1
+      test: wget --spider http://127.0.0.1:2375/version || exit 1
       interval: 5s
       timeout: 3s
       retries: 3
       start_period: 5s
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -827,8 +839,8 @@ services:
       - 192.168.20.65:2375:2375/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock:rw, ]
+    tmpfs: [ /run, /tmp, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
@@ -890,6 +902,8 @@ services:
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: ransom_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik-ransom.bob.house`)
@@ -1012,7 +1026,6 @@ services:
       interval: 2s
       start_period: 30s
     labels:
-      dd.tag.include: ^18$$
       dev.dozzle.group: vikunja
       traefik.enable: "false"
     networks:

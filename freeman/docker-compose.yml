@@ -7,6 +7,9 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
+      dd.watch: "true"
       dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard01-router.entrypoints: websecure
@@ -33,6 +36,9 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
+      dd.watch: "true"
       dev.dozzle.group: adguard
       traefik.docker.network: freeman_traefik
       traefik.http.routers.adguard20-router.entrypoints: websecure
@@ -64,7 +70,6 @@ services:
       retries: 5
       timeout: 5s
     labels:
-      dd.tag.include: ^16-alpine$$
       dev.dozzle.group: authentik
       traefik.enable: "false"
     networks:
@@ -241,7 +246,6 @@ services:
       USER_UID: "1000"
       USER_GID: "1000"
     labels:
-      dd.watch: "false"
       dev.dozzle.group: forgejo
       traefik.docker.network: freeman_traefik
       traefik.http.routers.forgejo-router.entrypoints: websecure
@@ -277,7 +281,6 @@ services:
       retries: 5
       timeout: 5s
     labels:
-      dd.tag.include: ^14
       dev.dozzle.group: forgejo
       traefik.enable: "false"
     networks:
@@ -554,12 +557,18 @@ services:
       EVENTS: "1"
       IMAGES: "1"
       INFO: "1"
-      NETWORKS: "1"
       PING: "1"
       SERVICES: "1"
       VERSION: "1"
-      VOLUMES: "1"
+    healthcheck:
+      test: wget --spider http://127.0.0.1:2375/version || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -570,7 +579,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run, /tmp, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock:ro, ]
+    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   squid:
     image: ubuntu/squid:latest
@@ -643,7 +652,7 @@ services:
       - --providers.docker.endpoint=tcp://socket-proxy:2375
     depends_on:
       socket-proxy:
-        condition: service_started
+        condition: service_healthy
     env_file:
       - ~/Configurations/traefik.env
     healthcheck:
@@ -652,6 +661,8 @@ services:
       timeout: 10s
       retries: 5
     labels:
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
       traefik.http.routers.traefik-router.rule: Host(`traefik.bob.house`)
