@@ -493,6 +493,43 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: socket-proxy BILLUPS
+    group: containers
+    enabled: false
+    url: http://billups.bob.house:2375/v1.52/containers/billups-socket-proxy-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: socket-proxy FREEMAN
+    group: containers
+    url: http://freeman.bob.house:2375/v1.52/containers/freeman-socket-proxy-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: socket-proxy KAYSHON
+    group: containers
+    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-socket-proxy-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: socket-proxy RANSOM
+    group: containers
+    url: http://ransom.bob.house:2375/v1.52/containers/ransom-socket-proxy-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: socket-proxy SHAXS
+    group: containers
+    url: http://shaxs.bob.house:2375/v1.52/containers/shaxs-socket-proxy-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: socket-proxy TANA
+    group: containers
+    url: http://tana.bob.house:2375/v1.52/containers/tana-socket-proxy-1/json
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: speakr
     group: containers
     enabled: false
