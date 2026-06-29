@@ -337,7 +337,7 @@ services:
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
       - ~/.lidarr/:/config/:rw
-      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
       - /mnt/md1/music/:/music/:rw
       - /mnt/md1/MediaThumbnails/lidarr/:/config/MediaCover/:rw
 
@@ -567,7 +567,7 @@ services:
     tmpfs: [ /config/qBittorrent/GeoDB/, /config/qBittorrent/logs/, ]
     volumes:
       - ~/.qbittorrent/:/config/:rw
-      - /mnt/md1/downloads/:/downloads/:rw
+      - /mnt/md1/qbittorrent/:/downloads/:rw
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -599,7 +599,7 @@ services:
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
       - ~/.radarr/:/config/:rw
-      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
       - /mnt/md1/films/:/movies/:rw
       - /mnt/md1/MediaThumbnails/radarr/:/config/MediaCover/:rw
 
@@ -629,7 +629,7 @@ services:
     tmpfs: [ /config/logs/, ]
     volumes:
       - ~/.sabnzbd/:/config/:rw
-      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
       - /mnt/md1/downloads/incomplete/:/config/Downloads/incomplete/:rw
 
   scrutiny:
@@ -683,8 +683,8 @@ services:
       - ~/.sickgear/data/:/data/:rw
       - /mnt/md0/tvshows/:/tv/:rw
       - /mnt/md1/anime/:/anime/:rw
-      - /mnt/md1/downloads/:/downloads/:rw
-      - /mnt/md1/incoming/:/incoming/:rw
+      - /mnt/md1/downloads/incomplete/:/downloads/:rw
+      - /mnt/md1/downloads/complete/:/incoming/:rw
       - /mnt/md1/films/:/films/:rw
       - /mnt/md1/music/:/music/:rw
       - /mnt/md1/pictures/:/pictures/:rw
@@ -753,7 +753,7 @@ services:
     volumes:
       - ~/.sonarr/:/config/:rw
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
-      - /mnt/md1/downloads/:/config/Downloads/complete/:rw
+      - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
       - /mnt/md1/MediaThumbnails/sonarr/:/config/MediaCover/:rw
 
   traefik:
