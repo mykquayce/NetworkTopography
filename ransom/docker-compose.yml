@@ -157,14 +157,19 @@ services:
       DD_SERVER_FEATURE_DELETE: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
       DD_WATCHER_FREEMAN_CRON: 0 0,12 * * *
+      DD_WATCHER_FREEMAN_WATCHBYDEFAULT: "false"
       DD_WATCHER_KAYSHON_HOST: kayshon.bob.house
       DD_WATCHER_KAYSHON_CRON: 24 2,14 * * *
+      DD_WATCHER_KAYSHON_WATCHBYDEFAULT: "false"
       DD_WATCHER_RANSOM_HOST: socket-proxy
       DD_WATCHER_RANSOM_CRON: 48 4,16 * * *
+      DD_WATCHER_RANSOM_WATCHBYDEFAULT: "false"
       DD_WATCHER_SHAXS_HOST: shaxs.bob.house
       DD_WATCHER_SHAXS_CRON: 12 7,19 * * *
+      DD_WATCHER_SHAXS_WATCHBYDEFAULT: "false"
       DD_WATCHER_TANA_HOST: tana.bob.house
       DD_WATCHER_TANA_CRON: 56 9,21 * * *
+      DD_WATCHER_TANA_WATCHBYDEFAULT: "false"
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.drydock-router.entrypoints: websecure
@@ -432,7 +437,6 @@ services:
       retries: 3
       start_period: 10s
     labels:
-      dd.watch: "false"
       traefik.enable: "false"
     networks:
       default: null
@@ -459,7 +463,6 @@ services:
       retries: 3
       start_period: 10s
     labels:
-      dd.watch: "false"
       traefik.enable: "false"
     networks:
       default: null
@@ -579,7 +582,6 @@ services:
       start_period: 10s
       retries: 10
     labels:
-      dd.tag.include: ^18$$
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
     networks:
@@ -600,7 +602,6 @@ services:
       start_period: 10s
       retries: 10
     labels:
-      dd.tag.include: ^8$$
       dev.dozzle.group: paperless-ngx
       traefik.enable: "false"
     networks:
@@ -662,7 +663,6 @@ services:
       interval: 10s
       retries: 5
     labels:
-      dd.tag.include: ^16-alpine$$
       dev.dozzle.group: planka
       traefik.enable: "false"
     networks:
@@ -1012,7 +1012,6 @@ services:
       interval: 2s
       start_period: 30s
     labels:
-      dd.tag.include: ^18$$
       dev.dozzle.group: vikunja
       traefik.enable: "false"
     networks:
