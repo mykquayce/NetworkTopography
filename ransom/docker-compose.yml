@@ -425,7 +425,7 @@ services:
   nsd01:
     build:
       dockerfile_inline: |
-        FROM alpine:latest
+        FROM alpine:3.23.5
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
     cap_drop: [ ALL, ]
@@ -437,6 +437,9 @@ services:
       retries: 3
       start_period: 10s
     labels:
+      dd.registry.lookup.image: library/alpine:3.23.5
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
@@ -451,7 +454,7 @@ services:
   nsd20:
     build:
       dockerfile_inline: |
-        FROM alpine:latest
+        FROM alpine:3.23.5
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
     cap_drop: [ ALL, ]
@@ -463,6 +466,9 @@ services:
       retries: 3
       start_period: 10s
     labels:
+      dd.registry.lookup.image: library/alpine:3.23.5
+      dd.tag.family: loose
+      dd.watch: "true"
       traefik.enable: "false"
     networks:
       default: null
