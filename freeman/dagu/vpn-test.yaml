@@ -59,15 +59,3 @@ steps:
       - condition: "${get_country.output.country}"
         expected: "United Kingdom"
     depends: get_country
-  - id: www
-    action: http.request
-    with:
-      method: GET
-      url: https://www.bob.house
-      headers:
-        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
-    preconditions:
-      - condition: "${get_country.output.country}"
-        expected: "United Kingdom"
-        negate: true
-    depends: get_country
