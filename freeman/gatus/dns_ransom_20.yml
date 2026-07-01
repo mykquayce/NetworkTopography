@@ -236,6 +236,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: snipo .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: snipo.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: speedtest .20
     group: dns .20
     url: 192.168.20.60

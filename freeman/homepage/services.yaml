@@ -925,6 +925,12 @@
         icon: sickbeard.svg
         server: tana-docker
         container: tana-sickgear-1
+    - Snipo: &snipo
+        description: Single-user snippet-manager web app
+        href: https://snipo.bob.house/
+        icon: /icons/snipo.png
+        server: ransom-docker
+        container: ransom-snipo-1
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
@@ -1090,6 +1096,7 @@
     - Planka: *planka
     - RabbitMQ: *rabbitmq
     - Restfox: *restfox
+    - Snipo: *snipo
     - Sshwifty: *sshwifty
     - Trilium: *trilium
     - Vikunja: *vikunja
