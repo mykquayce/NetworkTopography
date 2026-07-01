@@ -396,6 +396,7 @@ services:
       - ~/.paperless-ngx/:/data/paperless/:ro
       - ~/.planka/:/data/planka/:ro
       - ~/.readeck/:/data/readeck/:ro
+      - ~/.snipo/:/data/snipo/:ro
       - ~/.speedtest/:/data/speedtest/:ro
       - ~/.trilium/:/data/trilium/:ro
       - ~/.vikunja/:/data/vikunja/:ro
@@ -805,6 +806,45 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /root/.npm/, ]
     volumes: [ ~/.restfox/:/app/data/:rw, ]
+
+  snipo:
+    image: ghcr.io/mohamedelashri/snipo:latest
+    cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file: [ ~/Configurations/snipo.env, ]
+    environment:
+      SNIPO_ENABLE_API_TOKENS: "true"
+      SNIPO_ENABLE_BACKUP_RESTORE: "true"
+      SNIPO_ENABLE_PUBLIC_SNIPPETS: "true"
+      SNIPO_LOG_FORMAT: json
+      SNIPO_LOG_LEVEL: info
+      SNIPO_HOST: 0.0.0.0
+      SNIPO_PORT: "8080"
+      SNIPO_RATE_LIMIT_READ: "1000"
+      SNIPO_RATE_LIMIT_WRITE: "500"
+      SNIPO_RATE_LIMIT_ADMIN: "100"
+    healthcheck:
+      test: [ "CMD", "/snipo", "health", ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    labels:
+      traefik.docker.network: ransom_traefik
+      traefik.http.routers.snipo-router.entrypoints: websecure
+      traefik.http.routers.snipo-router.rule: Host(`snipo.bob.house`)
+      traefik.http.routers.snipo-router.tls: "true"
+      traefik.http.services.snipo-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
+    profiles: [ app, ]
+    read_only: true
+    security_opt: [ no-new-privileges:true, ]
+    tmpfs: [ /tmp/, ]
+    user: 1000:1000
+    volumes: [ ~/.snipo/:/data/:rw, ]
 
   socket-proxy:
     image: tecnativa/docker-socket-proxy:v0.4.2
