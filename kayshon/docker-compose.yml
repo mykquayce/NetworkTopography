@@ -50,7 +50,7 @@ services:
       - /repository/:/repository/:rw
 
   leafwiki:
-    image: ghcr.io/perber/leafwiki:v0.11.2
+    image: ghcr.io/perber/leafwiki:v0.11.3
     cap_drop: [ ALL, ]
     depends_on:
       traefik:
@@ -132,7 +132,7 @@ services:
     volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   traefik:
-    image: traefik:3.7.5
+    image: traefik:3.7.6
     cap_drop: [ ALL, ]
     command:
       - --accesslog=true
