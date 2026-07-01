@@ -1057,7 +1057,7 @@
     - ZIM API: &zimapi
         description: Wrapper API for the Kiwix official Download Repository
         href: https://zimapi.bob.house/library
-        icon: zim.png
+        icon: /icons/zim.png
         server: ransom-docker
         container: ransom-zimapi-1
 
