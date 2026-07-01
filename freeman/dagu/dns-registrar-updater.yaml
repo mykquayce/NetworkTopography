@@ -7,6 +7,10 @@ steps:
     output:
       path:
         from: stdout
+    preconditions:
+      - condition: "${DAGU_HOME}"
+        expected: ""
+        negate: true
   - id: settings
     action: jq.filter
     with:
@@ -21,18 +25,18 @@ steps:
         from: stdout
         decode: json
         select: .zones[] | select(.name=="bob.house").id
-      record_id:
-        from: stdout
-        decode: json
-        select: .zones[] | select(.name=="bob.house").records[] | select(.name=="www.bob.house").id
     depends: path_to_settings_file
+    preconditions:
+      - condition: "${path_to_settings_file.output.path}"
+        expected: ""
+        negate: true
   - id: get_ip
     action: http.request
     with:
       method: GET
       url: https://api.ipapi.is
       headers:
-        Accept: application/json
+        Accept: application/json; charset=utf-8
         User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
       format: "json"
       silent: false
@@ -45,11 +49,15 @@ steps:
         from: stdout
         decode: json
         select: .body.ip
-  - id: get_dns
+      country:
+        from: stdout
+        decode: json
+        select: .body.location.country
+  - id: get_records
     action: http.request
     with:
       method: GET
-      url: "https://api.cloudflare.com/client/v4/zones/${settings.output.zone_id}/dns_records/${settings.output.record_id}"
+      url: "https://api.cloudflare.com/client/v4/zones/${settings.output.zone_id}/dns_records/"
       headers:
         Accept: application/json
         Authorization: "Bearer ${settings.output.api_token}"
@@ -61,14 +69,78 @@ steps:
         from: stdout
         decode: json
         select: .status_code
-      ip:
+      records:
         from: stdout
         decode: json
-        select: .body.result.content
+        select: '[ .body.result[] | select(.type=="A") | {id,name,content} ]'
     depends: settings
+  - id: record_loop
+    action: dag.run
+    parallel:
+      items: "${get_records.output.records}"
+    with:
+      dag: record_processor
+      params:
+        API_TOKEN: "${settings.output.api_token}"
+        IP: "${get_ip.output.ip}"
+        RECORD_ID: "${ITEM.id}"
+        RECORD_NAME: "${ITEM.name}"
+        RECORD_CONTENT: "${ITEM.content}"
+        ZONE_ID: "${settings.output.zone_id}"
+    depends: [ settings, get_ip, get_records, ]
+    preconditions:
+      - condition: "${settings.output.api_token}"
+        expected: ""
+        negate: true
+      - condition: "${get_ip.output.status_code}"
+        expected: "200"
+      - condition: "${get_ip.output.ip}"
+        expected: ""
+        negate: true
+      - condition: "${get_ip.output.country}"
+        expected: "United Kingdom"
+      - condition: "${get_records.output.records}"
+        expected: ""
+        negate: true
+      - condition: "${get_records.output.records}"
+        expected: "[]"
+        negate: true
+---
+name: record_processor
+retry_policy:
+  limit: 0
+params:
+  API_TOKEN: ""
+  IP: ""
+  RECORD_ID: ""
+  RECORD_NAME: ""
+  RECORD_CONTENT: ""
+  ZONE_ID: ""
+steps:
+  - id: check_params
+    run: echo 1
+    preconditions:
+      - condition: "${API_TOKEN}"
+        expected: ""
+        negate: true
+      - condition: "${IP}"
+        expected: ""
+        negate: true
+      - condition: "${RECORD_ID}"
+        expected: ""
+        negate: true
+      - condition: "${RECORD_NAME}"
+        expected: ""
+        negate: true
+      - condition: "${RECORD_CONTENT}"
+        expected: ""
+        negate: true
+      - condition: "${ZONE_ID}"
+        expected: ""
+        negate: true
   - id: test
     run: |
-      if [ "${get_ip.output.ip}" != "${get_dns.output.ip}" ]
+      if [ "${IP}" != "${RECORD_CONTENT}" ]
       then
         printf "true"
       else
@@ -78,21 +150,16 @@ steps:
       work_to_do:
         from: stdout
         decode: text
-    preconditions:
-      - condition: "${get_ip.output.status_code}"
-        expected: "200"
-      - condition: "${get_dns.output.status_code}"
-        expected: "200"
-    depends: [get_ip, get_dns]
+    depends: check_params
   - id: update
     action: http.request
     with:
       method: PUT
-      url: "https://api.cloudflare.com/client/v4/zones/${settings.output.zone_id}/dns_records/${settings.output.record_id}"
-      body: '{ "content": "${get_ip.output.ip}", "name": "www.bob.house", "type": "A" }'
+      url: "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${RECORD_ID}"
+      body: '{ "content": "${IP}", "name": "${RECORD_NAME}", "type": "A" }'
       headers:
         Accept: application/json
-        Authorization: "Bearer ${settings.output.api_token}"
+        Authorization: "Bearer ${API_TOKEN}"
         Content-Type: application/json
         User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
       format: json
@@ -102,17 +169,18 @@ steps:
         from: stdout
         decode: json
         select: .status_code
+    depends: test
     preconditions:
       - condition: "${test.output.work_to_do}"
         expected: "true"
-    depends: [settings, test]
   - id: notify
     action: http.request
     with:
       method: POST
       url: https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
-      body: "www.bob.house updated to: ${get_ip.output.ip}"
+      body: "${RECORD_NAME} updated to: ${IP}"
       headers:
+        Accept: application/json
         Content-Type: text/plain
         Priority: high
         Tags: office,computer
@@ -123,7 +191,7 @@ steps:
     retry_policy:
       limit: 3
       interval_sec: 5
+    depends: update
     preconditions:
       - condition: "${update.output.status_code}"
         expected: "200"
-    depends: update
