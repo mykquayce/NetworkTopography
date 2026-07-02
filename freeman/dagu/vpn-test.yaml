@@ -44,7 +44,7 @@ steps:
     action: http.request
     with:
       method: POST
-      url: https://ntfy.bob.house/364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
+      url: https://ntfy.bob.house/software
       headers:
         Content-Type: text/plain
         Priority: urgent
