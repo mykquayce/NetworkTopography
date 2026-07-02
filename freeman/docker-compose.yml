@@ -156,7 +156,7 @@ services:
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
 
   dagu:
-    image: ghcr.io/dagucloud/dagu:latest
+    image: ghcr.io/dagucloud/dagu:2.9.1
     cap_drop: [ ALL, ]
     command: ["dagu", "start-all"]
     entrypoint: []
@@ -168,6 +168,9 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.tag.family: loose
+      dd.tag.include: ^\d+\.\d+\.\d+$$
+      dd.watch: "true"
       traefik.docker.network: freeman_traefik
       traefik.http.routers.dagu-router.entrypoints: websecure
       traefik.http.routers.dagu-router.rule: Host(`dagu.bob.house`)
