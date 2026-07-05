@@ -4,20 +4,49 @@ http:
       plugin:
         method-whitelist:
           Message: "Method Not Allowed"
-          Methods:
-            - GET
+          Methods: [ GET, OPTIONS, ]
+    secure-headers:
+      headers:
+        accessControlAllowHeaders: [ "*", ]
+        accessControlAllowMethods: [ GET, OPTIONS, ]
+        accessControlAllowOriginList: [ https://www.bob.house, https://miasma.bob.house, ]
+        accessControlMaxAge: 100
+        addVaryHeader: true
+        browserXssFilter: true
+        contentSecurityPolicy: >-
+          default-src 'self';
+          script-src 'self';
+          connect-src 'self';
+          img-src 'self';
+          style-src 'self' 'unsafe-inline';
+          object-src 'none';
+          base-uri 'none';
+          frame-ancestors 'none';
+        contentTypeNosniff: true
+        customFrameOptionsValue: "SAMEORIGIN"
+        customResponseHeaders:
+          Cross-Origin-Embedder-Policy: require-corp
+          Cross-Origin-Opener-Policy: same-origin
+          Cross-Origin-Resource-Policy: same-origin
+          server: ""
+          x-powered-by: ""
+        frameDeny: true
+        referrerPolicy: same-origin
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
   routers:
     leafwiki-router:
       entryPoints:
         - "websecure"
-      middlewares:
-        - method-whitelist-plugin
+      middlewares: [ method-whitelist-plugin, secure-headers, ]
       rule: "Host(`www.bob.house`)"
       service: "leafwiki-service"
       tls: "true"
     miasma-router:
       entryPoints:
         - "websecure"
+      middlewares: [ method-whitelist-plugin, secure-headers, ]
       rule: "Host(`miasma.bob.house`)"
       service: "miasma-service"
       tls: "true"

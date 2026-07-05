@@ -142,6 +142,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.underscoreHeadersStrategy=delete
       - --experimental.plugins.method-whitelist.modulename=github.com/antoniomacri/traefik-method-whitelist
       - --experimental.plugins.method-whitelist.version=v1.0.1
       - --global.checkNewVersion=false

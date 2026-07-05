@@ -1,0 +1,79 @@
+schedule: CRON_TZ=Etc/UTC 0 */6 * * *
+retry_policy:
+  limit: 0
+handler_on:
+  failure:
+    action: http.request
+    with:
+      method: POST
+      url: https://ntfy.bob.house/software
+      body: "${DAG_NAME} failed"
+      headers:
+        Accept: application/json; charset=utf-8
+        Content-Type: text/plain; charset=utf-8
+        Priority: high
+        Tags: office,computer
+        Title: "${DAG_NAME} failed"
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: false
+      timeout: 5
+    retry_policy:
+      limit: 3
+      interval_sec: 5
+steps:
+  - id: test
+    action: http.request
+    with:
+      method: POST
+      url: https://observatory-api.mdn.mozilla.net/api/v2/scan?host=www.bob.house
+      headers:
+        Accept: application/json; charset=utf-8
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: false
+      format: json
+      timeout: 60
+    output:
+      status_code:
+        from: stdout
+        decode: json
+        select: .status_code
+      json:
+        from: stdout
+        decode: json
+        select: .body
+      tests_failed:
+        from: stdout
+        decode: json
+        select: .body.tests_failed
+  - id: format
+    run: |
+      printf "${test.output.json}" \
+        | jq --ascii-output --monochrome-output --sort-keys \
+        | xargs --null printf '```\n%s```'
+    depends: test
+    preconditions:
+      - condition: "${test.output.tests_failed}"
+        expected: "0"
+        negate: true
+    output:
+      formatted:
+        from: stdout
+        decode: text
+  - id: ntfy
+    action: http.request
+    with:
+      method: POST
+      url: https://ntfy.bob.house/software
+      body: "${format.output.formatted}"
+      headers:
+        Accept: application/json; charset=utf-8
+        Content-Type: text/markdown; charset=utf-8
+        Markdown: yes
+        Priority: high
+        Tags: earth_africa,triangular_flag_on_post
+        Title: Website failed security tests
+        User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
+      silent: false
+      format: json
+      timeout: 5
+    depends: format
