@@ -91,3 +91,14 @@ http:
       loadBalancer:
         servers:
         - url: "http://192.168.20.85:8080"
+tcp:
+  routers:
+    docker-kayshon-router:
+      entryPoints: [ "docker", ]
+      rule: "HostSNI(`*`)"
+      service: "docker-kayshon-service"
+  services:
+    docker-kayshon-service:
+      loadBalancer:
+        servers:
+        - address: "192.168.20.85:2375"
