@@ -1,4 +1,17 @@
 endpoints:
+  - name: docker-billups .1
+    group: dns .1
+    enabled: false
+    url: 192.168.1.50
+    dns:
+      query-name: docker-billups.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == billups.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy
+
   - name: glances-billups .1
     group: dns .1
     enabled: false
@@ -6,11 +19,8 @@ endpoints:
     dns:
       query-name: glances-billups.bob.house
       query-type: CNAME
-    conditions: &conditions-definition
-      - "[BODY] == billups.bob.house."
-      - "[DNS_RCODE] == NOERROR"
-    alerts: &alerts-definition
-      - type: ntfy
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: kopia-billups .1
     group: dns .1

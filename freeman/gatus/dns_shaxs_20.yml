@@ -1,15 +1,24 @@
 endpoints:
-  - name: frigate .20
+  - name: docker-shaxs .20
     group: dns .20
     url: 192.168.20.60
     dns:
-      query-name: frigate.bob.house
+      query-name: docker-shaxs.bob.house
       query-type: CNAME
     conditions: &conditions-definition
       - "[BODY] == shaxs.bob.house."
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
+
+  - name: frigate .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: frigate.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
 
   - name: glances-shaxs .20
     group: dns .20

@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026070100 ; Serial
+                                         2026070703 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -28,6 +28,7 @@ tana                IN        A                    192.168.20.70
 
 ; CNAME RECORDS
 
+docker-billups      IN        CNAME                billups
 glances-billups     IN        CNAME                billups
 kopia-billups       IN        CNAME                billups
 ollama              IN        CNAME                billups
@@ -41,6 +42,8 @@ adguard20           IN        CNAME                freeman
 authentik           IN        CNAME                freeman
 baikal              IN        CNAME                freeman
 dagu                IN        CNAME                freeman
+docker-freeman      IN        CNAME                freeman
+docker-kayshon      IN        CNAME                freeman
 dozzle              IN        CNAME                freeman
 gatus               IN        CNAME                freeman
 git                 IN        CNAME                freeman
@@ -71,6 +74,7 @@ apprise             IN        CNAME                ransom
 baget               IN        CNAME                ransom
 changedetection     IN        CNAME                ransom
 degoog              IN        CNAME                ransom
+docker-ransom       IN        CNAME                ransom
 donetick            IN        CNAME                ransom
 drawio              IN        CNAME                ransom
 drydock             IN        CNAME                ransom
@@ -100,11 +104,13 @@ trivy               IN        CNAME                ransom
 vikunja             IN        CNAME                ransom
 zimapi              IN        CNAME                ransom
 
+docker-shaxs        IN        CNAME                shaxs
 frigate             IN        CNAME                shaxs
 glances-shaxs       IN        CNAME                shaxs
 kopia-shaxs         IN        CNAME                shaxs
 traefik-shaxs       IN        CNAME                shaxs
 
+docker-tana         IN        CNAME                tana
 feishin             IN        CNAME                tana
 ganymede            IN        CNAME                tana
 glances-tana        IN        CNAME                tana
