@@ -156,7 +156,7 @@ services:
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
 
   dagu:
-    image: ghcr.io/dagucloud/dagu:2.10.0
+    image: ghcr.io/dagucloud/dagu:2.10.1
     cap_drop: [ ALL, ]
     command: ["dagu", "start-all"]
     entrypoint: []
