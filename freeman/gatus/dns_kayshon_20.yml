@@ -1,0 +1,12 @@
+endpoints:
+  - name: docker-kayshon .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: docker-kayshon.bob.house
+      query-type: CNAME
+    conditions: &conditions-definition
+      - "[BODY] == kayshon.bob.house."
+      - "[DNS_RCODE] == NOERROR"
+    alerts: &alerts-definition
+      - type: ntfy

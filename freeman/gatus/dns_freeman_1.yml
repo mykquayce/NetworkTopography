@@ -38,6 +38,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: docker-freeman .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: docker-freeman.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: dozzle .1
     group: dns .1
     url: 192.168.1.50

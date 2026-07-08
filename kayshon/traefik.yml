@@ -59,3 +59,14 @@ http:
       loadBalancer:
         servers:
         - url: "http://miasma:9999"
+tcp:
+  routers:
+    docker-kayshon-router:
+      entryPoints: [ "docker", ]
+      rule: "HostSNI(`*`)"
+      service: "docker-kayshon-service"
+  services:
+    docker-kayshon-service:
+      loadBalancer:
+        servers:
+        - address: "socket-proxy:2375"

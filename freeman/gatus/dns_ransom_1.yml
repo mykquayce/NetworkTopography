@@ -47,6 +47,15 @@ endpoints:
     conditions: *conditions-definition
     alerts: *alerts-definition
 
+  - name: docker-ransom .1
+    group: dns .1
+    url: 192.168.1.50
+    dns:
+      query-name: docker-ransom.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
   - name: donetick .1
     group: dns .1
     url: 192.168.1.50

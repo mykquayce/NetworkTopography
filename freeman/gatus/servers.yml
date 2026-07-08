@@ -21,6 +21,7 @@ suites:
         alerts: *alerts-definition
   - name: billups
     group: servers
+    enabled: false
     interval: 1m
     timeout: 30s
     endpoints:
@@ -33,7 +34,7 @@ suites:
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
       - name: docker billups
-        url: http://192.168.1.75:2375/v1.52/_ping
+        url: http://docker-billups.bob.house:2375/v1.52/_ping
         conditions: &docker-conditions-definition
           - "[CONNECTED] == true"
           - "[RESPONSE_TIME] < 100"
@@ -72,7 +73,7 @@ suites:
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
       - name: docker freeman
-        url: http://192.168.20.60:2375/v1.52/_ping
+        url: http://socket-proxy:2375/v1.52/_ping
         conditions: *docker-conditions-definition
         alerts: *alerts-definition
       - name: traefik freeman
@@ -133,7 +134,7 @@ suites:
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
       - name: docker ransom
-        url: http://192.168.20.65:2375/v1.52/_ping
+        url: http://docker-ransom.bob.house:2375/v1.52/_ping
         conditions: *docker-conditions-definition
         alerts: *alerts-definition
       - name: traefik ransom
@@ -161,7 +162,7 @@ suites:
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
       - name: docker shaxs
-        url: http://192.168.20.55:2375/v1.52/_ping
+        url: http://docker-shaxs.bob.house:2375/v1.52/_ping
         conditions: *docker-conditions-definition
         alerts: *alerts-definition
       - name: traefik shaxs
@@ -189,7 +190,7 @@ suites:
         conditions: *telegraf-conditions-definition
         alerts: *alerts-definition
       - name: docker tana
-        url: http://192.168.20.70:2375/v1.52/_ping
+        url: http://docker-tana.bob.house:2375/v1.52/_ping
         conditions: *docker-conditions-definition
         alerts: *alerts-definition
       - name: traefik tana

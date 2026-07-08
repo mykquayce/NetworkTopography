@@ -208,7 +208,7 @@ services:
     environment:
       DOZZLE_AUTH_PROVIDER: simple
       DOZZLE_NO_ANALYTICS: "true"
-      DOZZLE_REMOTE_HOST: tcp://socket-proxy:2375|freeman,tcp://kayshon.bob.house:2375|kayshon,tcp://ransom.bob.house:2375|ransom,tcp://shaxs.bob.house:2375|shaxs,tcp://192.168.1.70:2375|tana
+      DOZZLE_REMOTE_HOST: tcp://socket-proxy:2375|freeman,tcp://docker-kayshon.bob.house:2375|kayshon,tcp://docker-ransom.bob.house:2375|ransom,tcp://docker-shaxs.bob.house:2375|shaxs,tcp://docker-tana.bob.house:2375|tana
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 5s
@@ -317,6 +317,7 @@ services:
       traefik.http.services.gatus-service.loadbalancer.server.port: "8080"
     networks:
       default: null
+      socket-proxy: null
       traefik: null
     profiles: [ app, ]
     read_only: true
@@ -576,13 +577,13 @@ services:
     labels:
       dd.tag.family: loose
       dd.watch: "true"
-      traefik.enable: "false"
+      traefik.docker.network: freeman_traefik
+      traefik.tcp.routers.socket-proxy-router.entrypoints: docker
+      traefik.tcp.routers.socket-proxy-router.rule: HostSNI(`*`)
+      traefik.tcp.services.socket-proxy-service.loadbalancer.server.port: "2375"
     networks:
-      default: null
       socket-proxy: null
-    ports:
-      - 192.168.1.60:2375:2375/tcp
-      - 192.168.20.60:2375:2375/tcp
+      traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run, /tmp, ]
@@ -642,6 +643,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.docker.address=:2375
       - --entrypoints.proxy.address=:3128
       - --entrypoints.ssh.address=:222
       - --entrypoints.websecure.address=:443
@@ -687,6 +689,8 @@ services:
       - 192.168.20.60:222:222/tcp
       - 192.168.1.60:443:443/tcp
       - 192.168.20.60:443:443/tcp
+      - 192.168.1.60:2375:2375/tcp
+      - 192.168.20.60:2375:2375/tcp
       - 192.168.1.60:3128:3128/tcp
       - 192.168.20.60:3128:3128/tcp
     read_only: true

@@ -41,19 +41,19 @@ steps:
     parallel:
       items:
         - cname: "apache.bob.house"
-          server_name: "ransom.bob.house"
+          host: "docker-ransom.bob.house"
           container_name: "ransom-apache-1"
         - cname: "squid.bob.house"
-          server_name: "freeman.bob.house"
+          host: "docker-freeman.bob.house"
           container_name: "freeman-squid-1"
         - cname: "gluetun-freeman.bob.house"
-          server_name: "freeman.bob.house"
+          host: "docker-freeman.bob.house"
           container_name: "freeman-gluetun-1"
     with:
       dag: service_test_processor
       params:
         cname: "${ITEM.cname}"
-        server_name: "${ITEM.server_name}"
+        host: "${ITEM.host}"
         container_name: "${ITEM.container_name}"
     output:
       successes_count:
@@ -141,7 +141,7 @@ steps:
 name: service_test_processor
 params:
   - cname: ""
-  - server_name: ""
+  - host: ""
   - container_name: ""
 retry_policy:
   limit: 0
@@ -162,7 +162,7 @@ steps:
     action: http.request
     with:
       method: GET
-      url: "http://${server_name}:2375/v1.52/containers/${container_name}/json"
+      url: "http://${host}:2375/v1.52/containers/${container_name}/json"
       headers:
         Accept: application/x-ns-proxy-autoconfig
         User-Apent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
