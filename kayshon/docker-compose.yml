@@ -11,6 +11,7 @@ services:
       GLANCES_OPT: -w
     networks:
       default: null
+      socket-proxy: null
     profiles: [ app,monitoring, ]
     pid: host
     ports: [ 192.168.20.85:61208:61208/tcp, ]
@@ -122,10 +123,10 @@ services:
     labels:
       dd.tag.family: loose
       dd.watch: "true"
-      traefik.enable: "false"
+      traefik.docker.network: kayshon_traefik
     networks:
-      default: null
-    ports: [ 192.168.20.85:2375:2375/tcp, ]
+      socket-proxy: null
+      traefik: null
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run, /tmp, ]
@@ -141,6 +142,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
+      - --entrypoints.docker.address=:2375
       - --entrypoints.websecure.address=:443
       - --entrypoints.websecure.http.underscoreHeadersStrategy=delete
       - --experimental.plugins.method-whitelist.modulename=github.com/antoniomacri/traefik-method-whitelist
@@ -171,6 +173,7 @@ services:
       traefik_public: null
     ports:
       - 192.168.20.85:443:443/tcp
+      - 192.168.20.85:2375:2375/tcp
       - 192.168.20.85:8080:8080/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
@@ -183,6 +186,9 @@ services:
 networks:
   default:
     name: kayshon_default
+  socket-proxy:
+    name: kayshon_socket-proxy
+    internal: "true"
   traefik:
     name: kayshon_traefik
     internal: "true"
