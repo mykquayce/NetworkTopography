@@ -51,7 +51,7 @@ services:
       - /repository/:/repository/:rw
 
   leafwiki:
-    image: ghcr.io/perber/leafwiki:v0.11.3
+    image: ghcr.io/perber/leafwiki:v0.11.4
     cap_drop: [ ALL, ]
     depends_on:
       traefik:
