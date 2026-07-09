@@ -634,7 +634,7 @@ services:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
 
   traefik:
-    image: traefik:3.7.6
+    image: traefik:3.7.7
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true

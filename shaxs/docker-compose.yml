@@ -133,7 +133,7 @@ services:
     volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   traefik:
-    image: traefik:3.7.6
+    image: traefik:3.7.7
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true

@@ -205,7 +205,7 @@ services:
       - ~/.speakr/instance/:/data/instance/:rw
 
   traefik:
-    image: traefik:3.7.6
+    image: traefik:3.7.7
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
