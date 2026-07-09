@@ -688,7 +688,7 @@ services:
       - /mnt/md1/videos/:/videos/:rw
 
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
     cap_drop: [ ALL, ]
     environment:
       DISABLE_IPV6: "true"
@@ -760,7 +760,7 @@ services:
       - /mnt/md1/MediaThumbnails/sonarr/:/config/MediaCover/:rw
 
   traefik:
-    image: traefik:3.7.7
+    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true

@@ -1,6 +1,6 @@
 services:
   adguard01:
-    image: adguard/adguardhome:v0.107.77
+    image: adguard/adguardhome:${ADGUARDHOME_IMAGE_TAG?:missing adguardhome image tag}
     cap_drop: [ ALL, ]
     cap_add: [ DAC_OVERRIDE, NET_BIND_SERVICE, ]
     depends_on:
@@ -29,7 +29,7 @@ services:
       - ./adguard01/:/opt/adguardhome/conf/:rw
 
   adguard20:
-    image: adguard/adguardhome:v0.107.77
+    image: adguard/adguardhome:${ADGUARDHOME_IMAGE_TAG?:missing adguardhome image tag}
     cap_drop: [ ALL, ]
     cap_add: [ DAC_OVERRIDE, NET_BIND_SERVICE, ]
     depends_on:
@@ -81,7 +81,7 @@ services:
       - ~/.authentik/postgres/:/var/lib/postgresql/data/:rw
 
   authentik-server:
-    image: ghcr.io/goauthentik/server:2026.5.3
+    image: ghcr.io/goauthentik/server:${AUTHENTIK_IMAGE_TAG?:missing authentik image tag}
     cap_drop: [ ALL, ]
     command: server
     depends_on:
@@ -112,7 +112,7 @@ services:
       - ~/.authentik/custom-templates/:/templates/:rw
 
   authentik-worker:
-    image: ghcr.io/goauthentik/server:2026.5.3
+    image: ghcr.io/goauthentik/server:${AUTHENTIK_IMAGE_TAG?:missing authentik image tag}
     cap_drop: [ ALL, ]
     command: worker
     depends_on:
@@ -156,7 +156,7 @@ services:
       - ~/.baikal/data/:/var/www/baikal/Specific/:rw
 
   dagu:
-    image: ghcr.io/dagucloud/dagu:2.10.1
+    image: ghcr.io/dagucloud/dagu:${DAGU_IMAGE_TAG?:missing dagu image tag}
     cap_drop: [ ALL, ]
     command: ["dagu", "start-all"]
     entrypoint: []
@@ -554,7 +554,7 @@ services:
       - ~/.prometheus/:/prometheus/:rw
 
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
     cap_drop: [ ALL, ]
     environment:
       DISABLE_IPV6: "true"
@@ -634,7 +634,7 @@ services:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
 
   traefik:
-    image: traefik:3.7.7
+    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true

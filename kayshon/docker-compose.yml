@@ -51,7 +51,7 @@ services:
       - /repository/:/repository/:rw
 
   leafwiki:
-    image: ghcr.io/perber/leafwiki:v0.11.4
+    image: ghcr.io/perber/leafwiki:${LEAFWIKI_IMAGE_TAG?:missing leafwiki image tag}
     cap_drop: [ ALL, ]
     depends_on:
       traefik:
@@ -85,12 +85,15 @@ services:
       - ./leafwiki.css:/app/data/custom.css:ro
 
   miasma:
-    image: austinweeks/miasma:latest
+    image: austinweeks/miasma:${MIASMA_IMAGE_TAG?:missing miasma image tag}
     cap_drop: [ ALL, ]
     command: [ "--host", "0.0.0.0", "--port", "9999", "--link-count", "5", "--max-depth", "8", "--max-in-flight", "50", ]
     depends_on:
       traefik:
         condition: service_healthy
+    labels:
+      dd.tag.family: loose
+      dd.watch: "true"
     networks:
       default: null
       traefik: null
@@ -100,7 +103,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
 
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
     cap_drop: [ ALL, ]
     environment:
       DISABLE_IPV6: "true"
@@ -133,7 +136,7 @@ services:
     volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   traefik:
-    image: traefik:3.7.7
+    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
     cap_drop: [ ALL, ]
     command:
       - --accesslog=true

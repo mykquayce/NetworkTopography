@@ -1,6 +1,6 @@
 services:
   apache:
-    image: httpd:latest
+    image: httpd:${HTTPD_IMAGE_TAG:?missing apache image tag}
     cap_drop: [ ALL, ]
     cap_add: [ SETGID, SETUID, ]
     depends_on:
@@ -426,7 +426,7 @@ services:
   nsd01:
     build:
       dockerfile_inline: |
-        FROM alpine:3.23.5
+        FROM alpine:${ALPINE_IMAGE_TAG:?missing alpine image tag}
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
     cap_drop: [ ALL, ]
@@ -438,7 +438,7 @@ services:
       retries: 3
       start_period: 10s
     labels:
-      dd.registry.lookup.image: library/alpine:3.23.5
+      dd.registry.lookup.image: library/alpine:${ALPINE_IMAGE_TAG:?missing alpine image tag}
       dd.tag.family: loose
       dd.watch: "true"
       traefik.enable: "false"
@@ -455,7 +455,7 @@ services:
   nsd20:
     build:
       dockerfile_inline: |
-        FROM alpine:3.23.5
+        FROM alpine:${ALPINE_IMAGE_TAG:?missing alpine image tag}
         RUN apk add --no-cache --update nsd
         CMD ["sh", "-c", "nsd; sleep infinity"]
     cap_drop: [ ALL, ]
@@ -467,7 +467,7 @@ services:
       retries: 3
       start_period: 10s
     labels:
-      dd.registry.lookup.image: library/alpine:3.23.5
+      dd.registry.lookup.image: library/alpine:${ALPINE_IMAGE_TAG:?missing alpine image tag}
       dd.tag.family: loose
       dd.watch: "true"
       traefik.enable: "false"
@@ -847,7 +847,7 @@ services:
     volumes: [ ~/.snipo/:/data/:rw, ]
 
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
     cap_drop: [ ALL, ]
     environment:
       DISABLE_IPV6: "true"
@@ -913,7 +913,7 @@ services:
       - ~/.speedtest/:/config/:rw
 
   traefik:
-    image: traefik:3.7.7
+    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
     cap_drop: [ ALL, ]
     command:
       # - --accesslog=true
