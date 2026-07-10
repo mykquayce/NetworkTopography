@@ -758,7 +758,7 @@
         container: tana-nodered-1
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
-        href: https://ntfy.bob.house/
+        href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
         icon: ntfy.svg
         server: ransom-docker
         container: ransom-ntfy-1
@@ -783,23 +783,7 @@
           - type: ntfy
             fields: [ "title", "message", "lastReceived", ]
             url: https://ntfy.bob.house
-            topic: containers
-          - type: ntfy
-            fields: [ "title", "message", "lastReceived", ]
-            url: https://ntfy.bob.house
-            topic: dns
-          - type: ntfy
-            fields: [ "title", "message", "lastReceived", ]
-            url: https://ntfy.bob.house
-            topic: hardware
-          - type: ntfy
-            fields: [ "title", "message", "lastReceived", ]
-            url: https://ntfy.bob.house
-            topic: media
-          - type: ntfy
-            fields: [ "title", "message", "lastReceived", ]
-            url: https://ntfy.bob.house
-            topic: software
+            topic: {{HOMEPAGE_VAR_NTFY_TOPIC}}
     - NuGet: &nuget
         description: A lightweight NuGet and symbol server
         href: https://nuget.bob.house/

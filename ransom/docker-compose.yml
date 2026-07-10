@@ -144,7 +144,7 @@ services:
       - ~/Configurations/drydock.env
     environment:
       DD_AUTH_BASIC_ADMIN_USER: admin
-      DD_NOTIFICATION_NTFY_NTFY_TOPIC: containers
+      DD_NOTIFICATION_NTFY_NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
       DD_NOTIFICATION_NTFY_NTFY_URL: https://ntfy.bob.house/
       DD_SECURITY_BLOCK_SEVERITY: CRITICAL,HIGH
       DD_SECURITY_SCANNER: trivy

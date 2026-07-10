@@ -1,23 +1,8 @@
 alerting:
   ntfy:
     url: https://ntfy.bob.house
-    topic: "${NTFY_SOFTWARE_TOPIC}"
+    topic: ${NTFY_TOPIC}
     default-alert:
       failure-threshold: 2
       success-threshold: 2
       send-on-resolved: true
-    overrides:
-      - group: "containers"
-        topic: "${NTFY_CONTAINERS_TOPIC}"
-      - group: "dns .1"
-        topic: "${NTFY_DNS_TOPIC}"
-      - group: "dns .2"
-        topic: "${NTFY_DNS_TOPIC}"
-      - group: "infrastructure"
-        topic: "${NTFY_HARDWARE_TOPIC}"
-      - group: "iot"
-        topic: "${NTFY_HARDWARE_TOPIC}"
-      - group: "servers"
-        topic: "${NTFY_HARDWARE_TOPIC}"
-      - group: "services"
-        topic: "${NTFY_SOFTWARE_TOPIC}"
