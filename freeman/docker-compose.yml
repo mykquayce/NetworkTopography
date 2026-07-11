@@ -315,7 +315,7 @@ services:
       default: null
       socket-proxy: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ app, monitoring, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
