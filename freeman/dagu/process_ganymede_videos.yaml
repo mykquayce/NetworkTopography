@@ -40,20 +40,15 @@ steps:
     depends: inspect_webhook
     preconditions:
       - condition: "${inspect_webhook.output.channel_display_name}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${inspect_webhook.output.vod_streamed_at}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${inspect_webhook.output.vod_ext_id}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${inspect_webhook.output.vod_type}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${inspect_webhook.output.vod_id}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
     output:
       path:
         from: stdout
@@ -72,8 +67,7 @@ steps:
     depends: make_path
     preconditions:
       - condition: "${make_path.output.path}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
     output:
       files:
         from: stdout
@@ -130,8 +124,7 @@ steps:
     depends: mktemp
     preconditions:
       - condition: "${mktemp.output.path}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
   - id: move
     run: mv --force --verbose "${mktemp.output.path}" "${VIDEO_FILE_PATH}"
     depends: process

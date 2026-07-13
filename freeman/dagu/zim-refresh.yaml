@@ -151,8 +151,7 @@ steps:
     depends: [filter_with_flavor,filter_without_flavor]
     preconditions:
       - condition: "${URI}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
     output:
       uri:
         from: stdout
@@ -166,8 +165,7 @@ steps:
     depends: get_uri
     preconditions:
       - condition: "${get_uri.output.uri}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
     output:
       filename:
         from: stdout
@@ -177,8 +175,7 @@ steps:
     depends: get_filename
     preconditions:
       - condition: "${get_filename.output.filename}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
     output:
       path:
         from: stdout

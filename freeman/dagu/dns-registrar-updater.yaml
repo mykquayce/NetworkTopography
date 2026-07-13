@@ -9,8 +9,7 @@ steps:
         from: stdout
     preconditions:
       - condition: "${DAGU_HOME}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
   - id: settings
     action: jq.filter
     with:
@@ -28,8 +27,7 @@ steps:
     depends: path_to_settings_file
     preconditions:
       - condition: "${path_to_settings_file.output.path}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
   - id: get_ip
     action: http.request
     with:
@@ -90,18 +88,15 @@ steps:
     depends: [ settings, get_ip, get_records, ]
     preconditions:
       - condition: "${settings.output.api_token}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${get_ip.output.status_code}"
         expected: "200"
       - condition: "${get_ip.output.ip}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${get_ip.output.country}"
         expected: "United Kingdom"
       - condition: "${get_records.output.records}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${get_records.output.records}"
         expected: "[]"
         negate: true
@@ -121,23 +116,17 @@ steps:
     run: echo 1
     preconditions:
       - condition: "${API_TOKEN}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${IP}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${RECORD_ID}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${RECORD_NAME}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${RECORD_CONTENT}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
       - condition: "${ZONE_ID}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
   - id: test
     run: |
       if [ "${IP}" != "${RECORD_CONTENT}" ]
