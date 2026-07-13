@@ -93,8 +93,7 @@ steps:
       - condition: "${test_loop.output.successes_count}"
         expected: "3"
       - condition: "${settings.output.gluetun_apikey}"
-        expected: ""
-        negate: true
+        expected: "re:.+"
     output:
       status:
         from: stdout

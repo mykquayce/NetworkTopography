@@ -1,4 +1,6 @@
 schedule: CRON_TZ=Etc/UTC 0 2 * * *
+retry_policy:
+  limit: 0
 steps:
   - id: loop
     action: dag.run
@@ -8,11 +10,13 @@ steps:
         - "https://support.omadanetworks.com/us/product/er7206/v2.20/?resourceType=download"
     with:
       dag: device-processor
-      params: "WEBPAGE-URI=${ITEM}"
+      params: "WEBPAGE_URI=${ITEM}"
 ---
 name: device-processor
 params:
-  - WEBPAGE-URI: ""
+  - WEBPAGE_URI: ""
+retry_policy:
+  limit: 0
 steps:
   - id: mktemp
     run: mktemp --quiet --suffix .html
@@ -24,7 +28,7 @@ steps:
     action: http.request
     with:
       method: GET
-      url: "${WEBPAGE-URI}"
+      url: "${WEBPAGE_URI}"
       headers:
         User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405
       silent: true
@@ -64,6 +68,8 @@ steps:
 name: file-processor
 params:
   - SOURCE_FILE_URI: ""
+retry_policy:
+  limit: 0
 ssh:
   user: root
   host: tana.bob.house
