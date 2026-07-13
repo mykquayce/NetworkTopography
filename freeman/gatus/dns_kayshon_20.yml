@@ -10,3 +10,48 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
     alerts: &alerts-definition
       - type: ntfy
+
+  - name: glances-kayshon .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: glances-kayshon.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: kopia-kayshon .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: kopia-kayshon.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: leafwiki .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: www.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: miasma .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: miasma.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition
+
+  - name: traefik-kayshon .20
+    group: dns .20
+    url: 192.168.20.60
+    dns:
+      query-name: traefik-kayshon.bob.house
+      query-type: CNAME
+    conditions: *conditions-definition
+    alerts: *alerts-definition

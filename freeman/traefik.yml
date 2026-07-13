@@ -58,7 +58,7 @@ http:
     glances-kayshon-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.20.85:61208"
+        - url: "https://kayshon.bob.house"
     homeassistant-service:
       loadBalancer:
         servers:
@@ -70,11 +70,11 @@ http:
     kopia-kayshon-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.20.85:51515"
+        - url: "https://kayshon.bob.house"
     leafwiki-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.20.85:4040"
+        - url: "https://kayshon.bob.house"
     main-router-service:
       loadBalancer:
         servers:
@@ -86,8 +86,8 @@ http:
     miasma-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.20.85:9999"
+        - url: "https://kayshon.bob.house"
     traefik-kayshon-service:
       loadBalancer:
         servers:
-        - url: "http://192.168.20.85:8080"
+        - url: "https://kayshon.bob.house"

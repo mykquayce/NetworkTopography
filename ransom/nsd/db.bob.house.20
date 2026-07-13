@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026070704 ; Serial
+                                         2026071300 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -48,15 +48,12 @@ gatus               IN        CNAME                freeman
 git                 IN        CNAME                freeman
 glance              IN        CNAME                freeman
 glances-freeman     IN        CNAME                freeman
-glances-kayshon     IN        CNAME                freeman
 gluetun-freeman     IN        CNAME                freeman
 go2rtc              IN        CNAME                freeman
 homeassistant       IN        CNAME                freeman
 homepage            IN        CNAME                freeman
 iot-switch          IN        CNAME                freeman
 kopia-freeman       IN        CNAME                freeman
-kopia-kayshon       IN        CNAME                freeman
-miasma              IN        CNAME                freeman
 main-router         IN        CNAME                freeman
 main-switch         IN        CNAME                freeman
 portainer           IN        CNAME                freeman
@@ -64,11 +61,14 @@ prometheus          IN        CNAME                freeman
 squid               IN        CNAME                freeman
 sshwifty            IN        CNAME                freeman
 traefik             IN        CNAME                freeman
-traefik-kayshon     IN        CNAME                freeman
 uptimekuma          IN        CNAME                freeman
-www                 IN        CNAME                freeman
 
+miasma              IN        CNAME                kayshon
 docker-kayshon      IN        CNAME                kayshon
+glances-kayshon     IN        CNAME                kayshon
+kopia-kayshon       IN        CNAME                kayshon
+traefik-kayshon     IN        CNAME                kayshon
+www                 IN        CNAME                kayshon
 
 apache              IN        CNAME                ransom
 apprise             IN        CNAME                ransom
