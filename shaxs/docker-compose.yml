@@ -12,6 +12,7 @@ services:
       - ~/Configurations/frigate.env
     labels:
       dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.frigate-router.entrypoints: websecure
