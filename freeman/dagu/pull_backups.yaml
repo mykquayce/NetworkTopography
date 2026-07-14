@@ -9,6 +9,8 @@ ssh:
 steps:
   - id: freeman
     run: rsync --archive --delete --partial --progress root@freeman.bob.house:/repository/ /mnt/md2/backup/freeman/
+  - id: kayshon
+    run: rsync --archive --delete --partial --progress root@kayshon.bob.house:/repository/ /mnt/md2/backup/kayshon/
   - id: ransom
     run: rsync --archive --delete --partial --progress root@ransom.bob.house:/repository/ /mnt/md2/backup/ransom/
   - id: shaxs
@@ -20,7 +22,7 @@ steps:
     depends: shaxs
   - id: get_disk_usage
     run: df --human-readable --print-type /mnt/md2/
-    depends: [freeman, ransom, shaxs, tana, cctv]
+    depends: [freeman, kayshon, ransom, shaxs, tana, cctv]
     output: USAGE
   - id: notify
     type: http
