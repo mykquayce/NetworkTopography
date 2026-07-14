@@ -42,7 +42,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ~/Configurations/kopia.env
+      - /opt/git/Configurations/kopia.env
     labels:
       traefik.http.routers.kopia-router.entrypoints: lan
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
@@ -54,10 +54,9 @@ services:
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - ~/.kopia/:/app/config/:rw
+      - /opt/appdata/kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ~/.kopia/:/data/kopia/:ro
-      - ~/.leafwiki/:/data/leafwiki/:ro
+      - /opt/appdata/:/data/:rw
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -68,7 +67,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ~/Configurations/leafwiki.env
+      - /opt/git/Configurations/leafwiki.env
     environment:
       LEAFWIKI_ALLOW_INSECURE: "true"
       LEAFWIKI_CUSTOM_STYLESHEET: custom.css
@@ -103,7 +102,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     user: 1000:1000
     volumes:
-      - ~/.leafwiki/:/app/data/:rw
+      - /opt/appdata/leafwiki/:/app/data/:rw
       - ./leafwiki.css:/app/data/custom.css:ro
 
   miasma:
@@ -205,7 +204,7 @@ services:
       socket-proxy:
         condition: service_healthy
     env_file:
-      - ~/Configurations/traefik.env
+      - /opt/git/Configurations/traefik.env
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
       interval: 10s
@@ -235,7 +234,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.traefik/plugins/:/plugins-storage/:rw
+      - /opt/appdata/traefik/plugins/:/plugins-storage/:rw
       - certificates-volume:/var/certs/:rw
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
