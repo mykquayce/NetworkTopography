@@ -79,7 +79,7 @@ suites:
       - name: traefik freeman
         url: https://192.168.20.60/dashboard/
         headers:
-          Host: traefik.bob.house
+          Host: traefik-freeman.bob.house
         client: *traefik-client-definition
         conditions: *traefik-conditions-definition
         alerts: *alerts-definition

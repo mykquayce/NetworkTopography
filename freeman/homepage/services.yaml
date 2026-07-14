@@ -977,13 +977,13 @@
           url: https://traefik-billups.bob.house
     - Traefik FREEMAN: &traefikfreeman
         description: HTTP reverse proxy and load balancer
-        href: https://traefik.bob.house/dashboard/
+        href: https://traefik-freeman.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: freeman-docker
         container: freeman-traefik-1
         widget:
           type: traefik
-          url: https://traefik.bob.house
+          url: https://traefik-freeman.bob.house
     - Traefik KAYSHON: &traefikkayshon
         description: HTTP reverse proxy and load balancer
         href: https://traefik-kayshon.bob.house/dashboard/

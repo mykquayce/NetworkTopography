@@ -49,7 +49,7 @@ services:
     labels:
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.glances-router.entrypoints: websecure
-      traefik.http.routers.glances-router.rule: Host(`glances-shaxs.bob.house`)
+      traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     networks:
@@ -80,7 +80,7 @@ services:
       - ~/Configurations/kopia.env
     labels:
       traefik.http.routers.kopia-router.entrypoints: websecure
-      traefik.http.routers.kopia-router.rule: Host(`kopia-shaxs.bob.house`)
+      traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
@@ -171,7 +171,7 @@ services:
       dd.watch: "true"
       traefik.docker.network: shaxs_traefik
       traefik.http.routers.traefik-router.entrypoints: websecure
-      traefik.http.routers.traefik-router.rule: Host(`traefik-shaxs.bob.house`)
+      traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
       traefik.http.routers.traefik-router.tls.domains[0].main: bob.house

@@ -27,7 +27,7 @@ scrape_configs:
     scheme: https
     static_configs:
       - targets: ['traefik-billups.bob.house']
-      - targets: ['traefik.bob.house']
+      - targets: ['traefik-freeman.bob.house']
       - targets: ['traefik-kayshon.bob.house']
       - targets: ['traefik-ransom.bob.house']
       - targets: ['traefik-shaxs.bob.house']
