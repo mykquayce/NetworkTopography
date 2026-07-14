@@ -35,38 +35,3 @@ http:
         stsIncludeSubdomains: true
         stsPreload: true
         stsSeconds: 31536000
-  routers:
-    leafwiki-router:
-      entryPoints:
-        - "websecure"
-      middlewares: [ method-whitelist-plugin, secure-headers, ]
-      rule: "Host(`www.bob.house`)"
-      service: "leafwiki-service"
-      tls: "true"
-    miasma-router:
-      entryPoints:
-        - "websecure"
-      middlewares: [ method-whitelist-plugin, secure-headers, ]
-      rule: "Host(`miasma.bob.house`)"
-      service: "miasma-service"
-      tls: "true"
-  services:
-    leafwiki-service:
-      loadBalancer:
-        servers:
-        - url: "http://leafwiki:8080"
-    miasma-service:
-      loadBalancer:
-        servers:
-        - url: "http://miasma:9999"
-tcp:
-  routers:
-    docker-kayshon-router:
-      entryPoints: [ "docker", ]
-      rule: "HostSNI(`*`)"
-      service: "docker-kayshon-service"
-  services:
-    docker-kayshon-service:
-      loadBalancer:
-        servers:
-        - address: "socket-proxy:2375"

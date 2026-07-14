@@ -6,15 +6,22 @@ services:
     depends_on:
       socket-proxy:
         condition: service_started
+      traefik:
+        condition: service_healthy
     environment:
       DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
+    labels:
+      traefik.docker.network: kayshon_traefik
+      traefik.http.routers.glances-router.entrypoints: lan
+      traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
+      traefik.http.routers.glances-router.tls: "true"
+      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
     networks:
-      default: null
       socket-proxy: null
+      traefik: null
     profiles: [ app,monitoring, ]
     pid: host
-    ports: [ 192.168.20.85:61208:61208/tcp, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /etc/os-release:/etc/os-release:ro
@@ -36,9 +43,13 @@ services:
         condition: service_healthy
     env_file:
       - ~/Configurations/kopia.env
+    labels:
+      traefik.http.routers.kopia-router.entrypoints: lan
+      traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
+      traefik.http.routers.kopia-router.tls: "true"
+      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
-      default: null
-    ports: [ 192.168.20.85:51515:51515/tcp, ]
+      traefik: null
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
@@ -72,10 +83,21 @@ services:
       dd.tag.family: loose
       dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
+
+      traefik.http.routers.leafwiki-lan-router.entrypoints: lan
+      traefik.http.routers.leafwiki-lan-router.rule: Host(`www.bob.house`)
+      traefik.http.routers.leafwiki-lan-router.service: leafwiki-lan-service
+      traefik.http.routers.leafwiki-lan-router.tls: "true"
+      traefik.http.services.leafwiki-lan-service.loadbalancer.server.port: "8080"
+
+      traefik.http.routers.leafwiki-wan-router.entrypoints: wan
+      traefik.http.routers.leafwiki-wan-router.middlewares: method-whitelist-plugin@file,secure-headers@file
+      traefik.http.routers.leafwiki-wan-router.rule: Host(`www.bob.house`)
+      traefik.http.routers.leafwiki-wan-router.service: leafwiki-wan-service
+      traefik.http.routers.leafwiki-wan-router.tls: "true"
+      traefik.http.services.leafwiki-wan-service.loadbalancer.server.port: "8080"
     networks:
-      default: null
       traefik: null
-    ports: [ 192.168.20.85:4040:8080/tcp, ]
     profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
@@ -94,10 +116,23 @@ services:
     labels:
       dd.tag.family: loose
       dd.watch: "true"
+      traefik.docker.network: kayshon_traefik
+
+      traefik.http.routers.miasma-lan-router.entrypoints: lan
+      traefik.http.routers.miasma-lan-router.rule: Host(`miasma.bob.house`)
+      traefik.http.routers.miasma-lan-router.service: miasma-lan-service
+      traefik.http.routers.miasma-lan-router.tls: "true"
+      traefik.http.services.miasma-lan-service.loadbalancer.server.port: "9999"
+
+      traefik.http.routers.miasma-wan-router.entrypoints: wan
+      traefik.http.routers.miasma-wan-router.middlewares: method-whitelist-plugin@file,secure-headers@file
+      traefik.http.routers.miasma-wan-router.rule: Host(`miasma.bob.house`)
+      traefik.http.routers.miasma-wan-router.service: miasma-wan-service
+      traefik.http.routers.miasma-wan-router.tls: "true"
+      traefik.http.services.miasma-wan-service.loadbalancer.server.port: "9999"
     networks:
       default: null
       traefik: null
-    ports: [ 192.168.20.85:9999:9999/tcp, ]
     profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
@@ -127,6 +162,9 @@ services:
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: kayshon_traefik
+      traefik.tcp.routers.socket-proxy-router.entrypoints: docker
+      traefik.tcp.routers.socket-proxy-router.rule: HostSNI(`*`)
+      traefik.tcp.services.socket-proxy-service.loadbalancer.server.port: "2375"
     networks:
       socket-proxy: null
       traefik: null
@@ -146,8 +184,10 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.docker.address=:2375
-      - --entrypoints.websecure.address=:443
-      - --entrypoints.websecure.http.underscoreHeadersStrategy=delete
+      - --entrypoints.lan.address=:443
+      - --entrypoints.lan.http.underscoreHeadersStrategy=delete
+      - --entrypoints.wan.address=:4443
+      - --entrypoints.wan.http.underscoreHeadersStrategy=delete
       - --experimental.plugins.method-whitelist.modulename=github.com/antoniomacri/traefik-method-whitelist
       - --experimental.plugins.method-whitelist.version=v1.0.1
       - --global.checkNewVersion=false
@@ -160,24 +200,38 @@ services:
       - --metrics.prometheus.addserviceslabels=true
       - --ping
       - --providers.file.directory=/etc/traefik/dynamic_conf/
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+    depends_on:
+      socket-proxy:
+        condition: service_healthy
     env_file:
       - ~/Configurations/traefik.env
     healthcheck:
-      test: /usr/local/bin/traefik healthcheck --ping
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 10s
+      retries: 5
     labels:
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: kayshon_traefik
-      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
-      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
-      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
+
+      traefik.http.routers.traefik-lan-router.entrypoints: lan
+      traefik.http.routers.traefik-lan-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
+      traefik.http.routers.traefik-lan-router.service: traefik-lan-service
+      traefik.http.routers.traefik-lan-router.tls: "true"
+      traefik.http.routers.traefik-lan-router.tls.certresolver: cloudflare
+      traefik.http.routers.traefik-lan-router.tls.domains[0].main: bob.house
+      traefik.http.routers.traefik-lan-router.tls.domains[0].sans: '*.bob.house'
+      traefik.http.services.traefik-lan-service.loadbalancer.server.port: "8080"
     networks:
+      default: null
+      socket-proxy: null
       traefik: null
-      traefik_public: null
     ports:
       - 192.168.20.85:443:443/tcp
       - 192.168.20.85:2375:2375/tcp
-      - 192.168.20.85:8080:8080/tcp
+      - 192.168.20.85:4443:4443/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -195,8 +249,6 @@ networks:
   traefik:
     name: kayshon_traefik
     internal: "true"
-  traefik_public:
-    name: kayshon_traefik_public
 
 volumes:
   certificates-volume:
