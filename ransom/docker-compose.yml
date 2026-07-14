@@ -155,20 +155,24 @@ services:
       DD_SECURITY_TRIVY_SERVER: https://trivy.bob.house
       DD_SECURITY_TRIVY_TIMEOUT: "120000"
       DD_SERVER_FEATURE_DELETE: "false"
+      DD_SERVER_TRUSTPROXY: "1" 
+      #DD_WATCHER_BILLUPS_HOST: billups.bob.house
+      #DD_WATCHER_BILLUPS_CRON: 0 0,6,12,18 * * *
+      #DD_WATCHER_BILLUPS_WATCHBYDEFAULT: "false"
       DD_WATCHER_FREEMAN_HOST: freeman.bob.house
-      DD_WATCHER_FREEMAN_CRON: 0 0,12 * * *
+      DD_WATCHER_FREEMAN_CRON: 0 1,7,13,19 * * *
       DD_WATCHER_FREEMAN_WATCHBYDEFAULT: "false"
       DD_WATCHER_KAYSHON_HOST: kayshon.bob.house
-      DD_WATCHER_KAYSHON_CRON: 24 2,14 * * *
+      DD_WATCHER_KAYSHON_CRON: 0 2,8,14,20 * * *
       DD_WATCHER_KAYSHON_WATCHBYDEFAULT: "false"
       DD_WATCHER_RANSOM_HOST: socket-proxy
-      DD_WATCHER_RANSOM_CRON: 48 4,16 * * *
+      DD_WATCHER_RANSOM_CRON: 0 3,9,15,21 * * *
       DD_WATCHER_RANSOM_WATCHBYDEFAULT: "false"
       DD_WATCHER_SHAXS_HOST: shaxs.bob.house
-      DD_WATCHER_SHAXS_CRON: 12 7,19 * * *
+      DD_WATCHER_SHAXS_CRON: 0 4,10,16,22 * * *
       DD_WATCHER_SHAXS_WATCHBYDEFAULT: "false"
       DD_WATCHER_TANA_HOST: tana.bob.house
-      DD_WATCHER_TANA_CRON: 56 9,21 * * *
+      DD_WATCHER_TANA_CRON: 0 5,11,17,23 * * *
       DD_WATCHER_TANA_WATCHBYDEFAULT: "false"
     labels:
       traefik.docker.network: ransom_traefik
