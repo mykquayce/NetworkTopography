@@ -2,57 +2,57 @@ http:
   routers:
     glances-kayshon-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       priority: "2"
       rule: "Host(`glances-kayshon.bob.house`)"
       service: "glances-kayshon-service"
       tls: "true"
     homeassistant-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       rule: "Host(`homeassistant.bob.house`)"
       service: "homeassistant-service"
       tls: "true"
     iot-switch-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       rule: "Host(`iot-switch.bob.house`)"
       service: "iot-switch-service"
       tls: "true"
     kopia-kayshon-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       priority: "2"
       rule: "Host(`kopia-kayshon.bob.house`)"
       service: "kopia-kayshon-service"
       tls: "true"
     leafwiki-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       rule: "Host(`www.bob.house`)"
       service: "leafwiki-service"
       tls: "true"
     main-router-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       rule: "Host(`main-router.bob.house`)"
       service: "main-router-service"
       tls: "true"
     main-switch-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       rule: "Host(`main-switch.bob.house`)"
       service: "main-switch-service"
       tls: "true"
     miasma-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       rule: "Host(`miasma.bob.house`)"
       service: "miasma-service"
       tls: "true"
     traefik-kayshon-router:
       entryPoints:
-        - "websecure"
+        - "lan"
       priority: "2"
       rule: "Host(`traefik-kayshon.bob.house`)"
       service: "traefik-kayshon-service"

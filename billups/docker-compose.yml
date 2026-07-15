@@ -13,7 +13,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.docker.network: billups_traefik
-      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.entrypoints: lan
       traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
@@ -47,7 +47,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
     labels:
-      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.entrypoints: lan
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
@@ -70,7 +70,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.ollama-router.entrypoints: websecure
+      traefik.http.routers.ollama-router.entrypoints: lan
       traefik.http.routers.ollama-router.rule: Host(`ollama.bob.house`)
       traefik.http.routers.ollama-router.tls: "true"
       traefik.http.services.ollama-service.loadbalancer.server.port: "11434"
@@ -97,7 +97,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/open-webui.env
     labels:
       traefik.docker.network: billups_traefik
-      traefik.http.routers.open-webui-router.entrypoints: websecure
+      traefik.http.routers.open-webui-router.entrypoints: lan
       traefik.http.routers.open-webui-router.rule: Host(`open-webui.bob.house`)
       traefik.http.routers.open-webui-router.tls: "true"
       traefik.http.services.open-webui-service.loadbalancer.server.port: "8080"
@@ -193,7 +193,7 @@ services:
       USERS_CAN_DELETE: "true"
     labels:
       traefik.docker.network: billups_traefik
-      traefik.http.routers.speakr-router.entrypoints: websecure
+      traefik.http.routers.speakr-router.entrypoints: lan
       traefik.http.routers.speakr-router.rule: Host(`speakr.bob.house`)
       traefik.http.routers.speakr-router.tls: "true"
       traefik.http.services.speakr-service.loadbalancer.server.port: "8899"
@@ -217,7 +217,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.docker.address=:2375
-      - --entrypoints.websecure.address=:443
+      - --entrypoints.lan.address=:443
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
@@ -243,7 +243,7 @@ services:
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: billups_traefik
-      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.entrypoints: lan
       traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
@@ -276,7 +276,7 @@ services:
       ASR_MODEL_PATH: /data/whisper
     labels:
       traefik.docker.network: billups_traefik
-      traefik.http.routers.whisper-asr-router.entrypoints: websecure
+      traefik.http.routers.whisper-asr-router.entrypoints: lan
       traefik.http.routers.whisper-asr-router.rule: Host(`whisper-asr.bob.house`)
       traefik.http.routers.whisper-asr-router.tls: "true"
       traefik.http.services.whisper-asr-service.loadbalancer.server.port: "9000"

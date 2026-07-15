@@ -15,7 +15,7 @@ services:
       SERVER_TYPE: navidrome
       SERVER_URL: https://navidrome.bob.house
     labels:
-      traefik.http.routers.feishin-router.entrypoints: websecure
+      traefik.http.routers.feishin-router.entrypoints: lan
       traefik.http.routers.feishin-router.rule: Host(`feishin.bob.house`)
       traefik.http.routers.feishin-router.tls: "true"
       traefik.http.services.feishin-service.loadbalancer.server.port: "9180"
@@ -62,7 +62,7 @@ services:
     labels:
       dev.dozzle.group: ganymede
       traefik.docker.network: tana_traefik
-      traefik.http.routers.ganymede-router.entrypoints: websecure
+      traefik.http.routers.ganymede-router.entrypoints: lan
       traefik.http.routers.ganymede-router.rule: Host(`ganymede.bob.house`)
       traefik.http.routers.ganymede-router.tls: "true"
       traefik.http.services.ganymede-service.loadbalancer.server.port: "4000"
@@ -116,7 +116,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.entrypoints: lan
       traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
@@ -146,12 +146,12 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.gluetun-router.entrypoints: websecure
+      traefik.http.routers.gluetun-router.entrypoints: lan
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-tana.bob.house`)
       traefik.http.routers.gluetun-router.tls: "true"
       traefik.http.routers.gluetun-router.service: gluetun-service
       traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"
-      traefik.http.routers.qbittorrent-router.entrypoints: websecure
+      traefik.http.routers.qbittorrent-router.entrypoints: lan
       traefik.http.routers.qbittorrent-router.rule: Host(`qbittorrent.bob.house`)
       traefik.http.routers.qbittorrent-router.tls: "true"
       traefik.http.routers.qbittorrent-router.service: qbittorrent-service
@@ -178,7 +178,7 @@ services:
     healthcheck:
       test: curl -f http://localhost:8096/health
     labels:
-      traefik.http.routers.jellyfin-router.entrypoints: websecure
+      traefik.http.routers.jellyfin-router.entrypoints: lan
       traefik.http.routers.jellyfin-router.rule: Host(`jellyfin.bob.house`)
       traefik.http.routers.jellyfin-router.tls: "true"
       traefik.http.services.jellyfin-service.loadbalancer.server.port: "8096"
@@ -218,7 +218,7 @@ services:
       TZ: UTC
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.jellyseerr-router.entrypoints: websecure
+      traefik.http.routers.jellyseerr-router.entrypoints: lan
       traefik.http.routers.jellyseerr-router.rule: Host(`jellyseerr.bob.house`)
       traefik.http.routers.jellyseerr-router.tls: "true"
       traefik.http.services.jellyseerr-service.loadbalancer.server.port: "5055"
@@ -241,7 +241,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.kiwix-router.entrypoints: websecure
+      traefik.http.routers.kiwix-router.entrypoints: lan
       traefik.http.routers.kiwix-router.rule: Host(`kiwix.bob.house`)
       traefik.http.routers.kiwix-router.tls: "true"
       traefik.http.services.kiwix-service.loadbalancer.server.port: "8080"
@@ -274,7 +274,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
     labels:
-      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.entrypoints: lan
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
@@ -307,7 +307,7 @@ services:
       TZ: Etc/UTC
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.lidarr-router.entrypoints: websecure
+      traefik.http.routers.lidarr-router.entrypoints: lan
       traefik.http.routers.lidarr-router.rule: Host(`lidarr.bob.house`)
       traefik.http.routers.lidarr-router.tls: "true"
       traefik.http.services.lidarr-service.loadbalancer.server.port: "8686"
@@ -341,7 +341,7 @@ services:
       PUID: "0"
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.metube-router.entrypoints: websecure
+      traefik.http.routers.metube-router.entrypoints: lan
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
       traefik.http.routers.metube-router.tls: "true"
       traefik.http.services.metube-service.loadbalancer.server.port: "8081"
@@ -369,7 +369,7 @@ services:
       ND_SCANSCHEDULE: 1h
       ND_SESSIONTIMEOUT: 24h
     labels:
-      traefik.http.routers.navidrome-router.entrypoints: websecure
+      traefik.http.routers.navidrome-router.entrypoints: lan
       traefik.http.routers.navidrome-router.rule: Host(`navidrome.bob.house`)
       traefik.http.routers.navidrome-router.tls: "true"
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
@@ -395,7 +395,7 @@ services:
       NODE_RED_DISABLE_TELEMETRY: "true"
       TZ: Etc/UTC
     labels:
-      traefik.http.routers.nodered-router.entrypoints: websecure
+      traefik.http.routers.nodered-router.entrypoints: lan
       traefik.http.routers.nodered-router.rule: Host(`nodered.bob.house`)
       traefik.http.routers.nodered-router.tls: "true"
       traefik.http.services.nodered-service.loadbalancer.server.port: "1880"
@@ -444,7 +444,7 @@ services:
     labels:
       dev.dozzle.group: pinepods
       traefik.docker.network: tana_traefik
-      traefik.http.routers.pinepods-router.entrypoints: websecure
+      traefik.http.routers.pinepods-router.entrypoints: lan
       traefik.http.routers.pinepods-router.rule: Host(`pinepods.bob.house`)
       traefik.http.routers.pinepods-router.tls: "true"
       traefik.http.services.pinepods-service.loadbalancer.server.port: "8040"
@@ -513,7 +513,7 @@ services:
       TZ: Etc/UTC
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.prowlarr-router.entrypoints: websecure
+      traefik.http.routers.prowlarr-router.entrypoints: lan
       traefik.http.routers.prowlarr-router.rule: Host(`prowlarr.bob.house`)
       traefik.http.routers.prowlarr-router.tls: "true"
       traefik.http.services.prowlarr-service.loadbalancer.server.port: "9696"
@@ -567,7 +567,7 @@ services:
       TZ: Etc/UTC
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.radarr-router.entrypoints: websecure
+      traefik.http.routers.radarr-router.entrypoints: lan
       traefik.http.routers.radarr-router.rule: Host(`radarr.bob.house`)
       traefik.http.routers.radarr-router.tls: "true"
       traefik.http.services.radarr-service.loadbalancer.server.port: "7878"
@@ -598,7 +598,7 @@ services:
       TZ: Etc/UTC
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.sabnzbd-router.entrypoints: websecure
+      traefik.http.routers.sabnzbd-router.entrypoints: lan
       traefik.http.routers.sabnzbd-router.rule: Host(`sabnzbd.bob.house`)
       traefik.http.routers.sabnzbd-router.tls: "true"
       traefik.http.services.sabnzbd-service.loadbalancer.server.port: "8080"
@@ -628,7 +628,7 @@ services:
       - /dev/sde
       - /dev/sdf
     labels:
-      traefik.http.routers.scrutiny-router.entrypoints: websecure
+      traefik.http.routers.scrutiny-router.entrypoints: lan
       traefik.http.routers.scrutiny-router.rule: Host(`scrutiny.bob.house`)
       traefik.http.routers.scrutiny-router.tls: "true"
       traefik.http.services.scutiny-service.loadbalancer.server.port: "8080"
@@ -649,7 +649,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.sickgear-router.entrypoints: websecure
+      traefik.http.routers.sickgear-router.entrypoints: lan
       traefik.http.routers.sickgear-router.rule: Host(`sickgear.bob.house`)
       traefik.http.routers.sickgear-router.tls: "true"
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
@@ -726,7 +726,7 @@ services:
       - "ntfy.bob.house=192.168.20.65"
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.sonarr-router.entrypoints: websecure
+      traefik.http.routers.sonarr-router.entrypoints: lan
       traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
       traefik.http.routers.sonarr-router.tls: "true"
       traefik.http.services.sonarr-service.loadbalancer.server.port: "8989"
@@ -754,7 +754,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.docker.address=:2375
-      - --entrypoints.websecure.address=:443
+      - --entrypoints.lan.address=:443
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
@@ -777,7 +777,7 @@ services:
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: tana_traefik
-      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.entrypoints: lan
       traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
@@ -812,7 +812,7 @@ services:
       LOG_LEVEL: INFO
       TZ: Etc/UTC
     labels:
-      traefik.http.routers.tunarr-router.entrypoints: websecure
+      traefik.http.routers.tunarr-router.entrypoints: lan
       traefik.http.routers.tunarr-router.rule: Host(`tunarr.bob.house`)
       traefik.http.routers.tunarr-router.tls: "true"
       traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
@@ -857,7 +857,7 @@ services:
       USERNAME: bob
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.windows-router.entrypoints: websecure
+      traefik.http.routers.windows-router.entrypoints: lan
       traefik.http.routers.windows-router.rule: Host(`windows-tana.bob.house`)
       traefik.http.routers.windows-router.tls: "true"
       traefik.http.services.windows-service.loadbalancer.server.port: "8006"
@@ -889,7 +889,7 @@ services:
       TZ: Etc/UTC
     labels:
       traefik.docker.network: tana_traefik
-      traefik.http.routers.wireshark-router.entrypoints: websecure
+      traefik.http.routers.wireshark-router.entrypoints: lan
       traefik.http.routers.wireshark-router.rule: Host(`wireshark-tana.bob.house`)
       traefik.http.routers.wireshark-router.tls: "true"
       traefik.http.services.wireshark-service.loadbalancer.server.port: "3000"
@@ -931,7 +931,7 @@ services:
     labels:
       dev.dozzle.group: youtarr
       traefik.docker.network: tana_traefik
-      traefik.http.routers.youtarr-router.entrypoints: websecure
+      traefik.http.routers.youtarr-router.entrypoints: lan
       traefik.http.routers.youtarr-router.rule: Host(`youtarr.bob.house`)
       traefik.http.routers.youtarr-router.tls: "true"
       traefik.http.services.youtarr-service.loadbalancer.server.port: "3011"

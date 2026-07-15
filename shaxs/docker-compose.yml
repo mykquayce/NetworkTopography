@@ -15,7 +15,7 @@ services:
       dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
       traefik.docker.network: shaxs_traefik
-      traefik.http.routers.frigate-router.entrypoints: websecure
+      traefik.http.routers.frigate-router.entrypoints: lan
       traefik.http.routers.frigate-router.rule: Host(`frigate.bob.house`)
       traefik.http.routers.frigate-router.tls: "true"
       traefik.http.services.frigate-service.loadbalancer.server.port: "5000"
@@ -48,7 +48,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.docker.network: shaxs_traefik
-      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.entrypoints: lan
       traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
@@ -79,7 +79,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
     labels:
-      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.entrypoints: lan
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
@@ -143,7 +143,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.docker.address=:2375
-      - --entrypoints.websecure.address=:443
+      - --entrypoints.lan.address=:443
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
@@ -169,7 +169,7 @@ services:
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: shaxs_traefik
-      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.entrypoints: lan
       traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare

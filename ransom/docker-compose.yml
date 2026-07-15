@@ -7,7 +7,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.apache-router.entrypoints: websecure
+      traefik.http.routers.apache-router.entrypoints: lan
       traefik.http.routers.apache-router.rule: Host(`apache.bob.house`)
       traefik.http.routers.apache-router.tls: "true"
       traefik.http.services.apache-service.loadbalancer.server.port: "80"
@@ -34,7 +34,7 @@ services:
       test: curl --fail http://localhost:8000/status || exit 1
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.apprise-router.entrypoints: websecure
+      traefik.http.routers.apprise-router.entrypoints: lan
       traefik.http.routers.apprise-router.rule: Host(`apprise.bob.house`)
       traefik.http.routers.apprise-router.tls: "true"
       traefik.http.services.apprise-service.loadbalancer.server.port: "8000"
@@ -59,7 +59,7 @@ services:
         condition: service_healthy
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.changedetection-router.entrypoints: websecure
+      traefik.http.routers.changedetection-router.entrypoints: lan
       traefik.http.routers.changedetection-router.rule: Host(`changedetection.bob.house`)
       traefik.http.routers.changedetection-router.tls: "true"
       traefik.http.services.changedetection-service.loadbalancer.server.port: "5000"
@@ -82,7 +82,7 @@ services:
       DT_ENV: selfhosted
       DT_SQLITE_PATH: /donetick-data/donetick.db
     labels:
-      traefik.http.routers.donetick-router.entrypoints: websecure
+      traefik.http.routers.donetick-router.entrypoints: lan
       traefik.http.routers.donetick-router.rule: Host(`donetick.bob.house`)
       traefik.http.routers.donetick-router.tls: "true"
       traefik.http.services.donetick-service.loadbalancer.server.port: "2021"
@@ -119,7 +119,7 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
     labels:
-      traefik.http.routers.drawio-router.entrypoints: websecure
+      traefik.http.routers.drawio-router.entrypoints: lan
       traefik.http.routers.drawio-router.rule: Host(`drawio.bob.house`)
       traefik.http.routers.drawio-router.tls: "true"
       traefik.http.services.drawio-service.loadbalancer.server.port: "8080"
@@ -176,7 +176,7 @@ services:
       DD_WATCHER_TANA_WATCHBYDEFAULT: "false"
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.drydock-router.entrypoints: websecure
+      traefik.http.routers.drydock-router.entrypoints: lan
       traefik.http.routers.drydock-router.rule: Host(`drydock.bob.house`)
       traefik.http.routers.drydock-router.tls: "true"
       traefik.http.services.drydock-service.loadbalancer.server.port: "3000"
@@ -202,7 +202,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/freshrss.env
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.freshrss-router.entrypoints: websecure
+      traefik.http.routers.freshrss-router.entrypoints: lan
       traefik.http.routers.freshrss-router.rule: Host(`freshrss.bob.house`)
       traefik.http.routers.freshrss-router.tls: "true"
       traefik.http.services.freshrss-service.loadbalancer.server.port: "80"
@@ -233,7 +233,7 @@ services:
       GLANCES_OPT: -w
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.glances-router.entrypoints: websecure
+      traefik.http.routers.glances-router.entrypoints: lan
       traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
       traefik.http.routers.glances-router.tls: "true"
       traefik.http.services.glances-service.loadbalancer.server.port: "61208"
@@ -263,12 +263,12 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.gluetun-router.entrypoints: websecure
+      traefik.http.routers.gluetun-router.entrypoints: lan
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-ransom.bob.house`)
       traefik.http.routers.gluetun-router.tls: "true"
       traefik.http.routers.gluetun-router.service: gluetun-service
       traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"
-      traefik.http.routers.degoog-router.entrypoints: websecure
+      traefik.http.routers.degoog-router.entrypoints: lan
       traefik.http.routers.degoog-router.rule: Host(`degoog.bob.house`)
       traefik.http.routers.degoog-router.tls: "true"
       traefik.http.routers.degoog-router.service: degoog-service
@@ -293,7 +293,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/grafana.env
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.grafana-router.entrypoints: websecure
+      traefik.http.routers.grafana-router.entrypoints: lan
       traefik.http.routers.grafana-router.rule: Host(`grafana.bob.house`)
       traefik.http.routers.grafana-router.tls: "true"
       traefik.http.services.grafana-service.loadbalancer.server.port: "3000"
@@ -314,7 +314,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.httpbin-router.entrypoints: websecure
+      traefik.http.routers.httpbin-router.entrypoints: lan
       traefik.http.routers.httpbin-router.rule: Host(`httpbin.bob.house`)
       traefik.http.routers.httpbin-router.tls: "true"
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
@@ -332,7 +332,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.it-tools-router.entrypoints: websecure
+      traefik.http.routers.it-tools-router.entrypoints: lan
       traefik.http.routers.it-tools-router.rule: Host(`it-tools.bob.house`)
       traefik.http.routers.it-tools-router.tls: "true"
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
@@ -349,7 +349,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.jsonpath-router.entrypoints: websecure
+      traefik.http.routers.jsonpath-router.entrypoints: lan
       traefik.http.routers.jsonpath-router.rule: Host(`jsonpath.bob.house`)
       traefik.http.routers.jsonpath-router.tls: "true"
       traefik.http.services.jsonpath-service.loadbalancer.server.port: "80"
@@ -379,7 +379,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
     labels:
-      traefik.http.routers.kopia-router.entrypoints: websecure
+      traefik.http.routers.kopia-router.entrypoints: lan
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
       traefik.http.routers.kopia-router.tls: "true"
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
@@ -403,7 +403,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.http.routers.moodist-router.entrypoints: websecure
+      traefik.http.routers.moodist-router.entrypoints: lan
       traefik.http.routers.moodist-router.rule: Host(`moodist.bob.house`)
       traefik.http.routers.moodist-router.tls: "true"
       traefik.http.services.moodist-service.loadbalancer.server.port: "8080"
@@ -484,7 +484,7 @@ services:
     environment:
       TZ: UTC
     labels:
-      traefik.http.routers.ntfy-router.entrypoints: websecure
+      traefik.http.routers.ntfy-router.entrypoints: lan
       traefik.http.routers.ntfy-router.rule: Host(`ntfy.bob.house`)
       traefik.http.routers.ntfy-router.tls: "true"
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
@@ -506,7 +506,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/nuget.env
     labels:
-      traefik.http.routers.nuget-router.entrypoints: websecure
+      traefik.http.routers.nuget-router.entrypoints: lan
       traefik.http.routers.nuget-router.rule: Host(`nuget.bob.house`)
       traefik.http.routers.nuget-router.tls: "true"
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
@@ -549,7 +549,7 @@ services:
     labels:
       dev.dozzle.group: paperless-ngx
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.paperless-ngx-router.entrypoints: websecure
+      traefik.http.routers.paperless-ngx-router.entrypoints: lan
       traefik.http.routers.paperless-ngx-router.rule: Host(`paperless-ngx.bob.house`)
       traefik.http.routers.paperless-ngx-router.tls: "true"
       traefik.http.services.paperless-ngx-service.loadbalancer.server.port: "8000"
@@ -634,7 +634,7 @@ services:
     labels:
       dev.dozzle.group: planka
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.planka-router.entrypoints: websecure
+      traefik.http.routers.planka-router.entrypoints: lan
       traefik.http.routers.planka-router.rule: Host(`planka.bob.house`)
       traefik.http.routers.planka-router.tls: "true"
       traefik.http.services.planka-service.loadbalancer.server.port: "1337"
@@ -678,7 +678,7 @@ services:
     env_file: [ "${REPOS_DIR:-/opt/git}/Configurations/rabbitmq.env", ]
     hostname: rabbitmq
     labels:
-      traefik.http.routers.rabbitmq-router.entrypoints: websecure
+      traefik.http.routers.rabbitmq-router.entrypoints: lan
       traefik.http.routers.rabbitmq-router.rule: Host(`rabbitmq.bob.house`)
       traefik.http.routers.rabbitmq-router.tls: "true"
       traefik.http.services.rabbitmq-service.loadbalancer.server.port: "15672"
@@ -699,7 +699,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/readeck.env
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.readeck-router.entrypoints: websecure
+      traefik.http.routers.readeck-router.entrypoints: lan
       traefik.http.routers.readeck-router.rule: Host(`readeck.bob.house`)
       traefik.http.routers.readeck-router.tls: "true"
       traefik.http.services.readeck-service.loadbalancer.server.port: "8000"
@@ -725,7 +725,7 @@ services:
     labels:
       dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.registry-router.entrypoints: websecure
+      traefik.http.routers.registry-router.entrypoints: lan
       traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
       traefik.http.routers.registry-router.tls: "true"
       traefik.http.services.registry-service.loadbalancer.server.port: "5000"
@@ -762,7 +762,7 @@ services:
     labels:
       dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.registry-ui-router.entrypoints: websecure
+      traefik.http.routers.registry-ui-router.entrypoints: lan
       traefik.http.routers.registry-ui-router.rule: Host(`registry-ui.bob.house`)
       traefik.http.routers.registry-ui-router.tls: "true"
       traefik.http.services.registry-ui-service.loadbalancer.server.port: "80"
@@ -786,7 +786,7 @@ services:
       start_period: 10s
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.restfox-router.entrypoints: websecure
+      traefik.http.routers.restfox-router.entrypoints: lan
       traefik.http.routers.restfox-router.rule: Host(`restfox.bob.house`)
       traefik.http.routers.restfox-router.tls: "true"
       traefik.http.services.restfox-service.loadbalancer.server.port: "4004"
@@ -825,7 +825,7 @@ services:
       start_period: 5s
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.snipo-router.entrypoints: websecure
+      traefik.http.routers.snipo-router.entrypoints: lan
       traefik.http.routers.snipo-router.rule: Host(`snipo.bob.house`)
       traefik.http.routers.snipo-router.tls: "true"
       traefik.http.services.snipo-service.loadbalancer.server.port: "8080"
@@ -892,7 +892,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/speedtest-tracker.env
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.speedtest-router.entrypoints: websecure
+      traefik.http.routers.speedtest-router.entrypoints: lan
       traefik.http.routers.speedtest-router.rule: Host(`speedtest.bob.house`)
       traefik.http.routers.speedtest-router.tls: "true"
       traefik.http.services.speedtest-service.loadbalancer.server.port: "80"
@@ -915,7 +915,7 @@ services:
       - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.docker.address=:2375
-      - --entrypoints.websecure.address=:443
+      - --entrypoints.lan.address=:443
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
@@ -938,7 +938,7 @@ services:
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.traefik-router.entrypoints: websecure
+      traefik.http.routers.traefik-router.entrypoints: lan
       traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
       traefik.http.routers.traefik-router.tls: "true"
       traefik.http.routers.traefik-router.tls.certresolver: cloudflare
@@ -970,7 +970,7 @@ services:
     environment:
       TRILIUM_DATA_DIR: /home/node/trilium-data
     labels:
-      traefik.http.routers.trilium-router.entrypoints: websecure
+      traefik.http.routers.trilium-router.entrypoints: lan
       traefik.http.routers.trilium-router.rule: Host(`trilium.bob.house`)
       traefik.http.routers.trilium-router.tls: "true"
       traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
@@ -1002,7 +1002,7 @@ services:
       timeout: 5s
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.trivy-router.entrypoints: websecure
+      traefik.http.routers.trivy-router.entrypoints: lan
       traefik.http.routers.trivy-router.rule: Host(`trivy.bob.house`)
       traefik.http.routers.trivy-router.tls: "true"
       traefik.http.services.trivy-service.loadbalancer.server.port: "4954"
@@ -1034,7 +1034,7 @@ services:
     labels:
       dev.dozzle.group: vikunja
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.vikunja-router.entrypoints: websecure
+      traefik.http.routers.vikunja-router.entrypoints: lan
       traefik.http.routers.vikunja-router.rule: Host(`vikunja.bob.house`)
       traefik.http.routers.vikunja-router.tls: "true"
       traefik.http.services.vikunja-service.loadbalancer.server.port: "3456"
@@ -1078,7 +1078,7 @@ services:
         condition: service_healthy
     labels:
       traefik.docker.network: ransom_traefik
-      traefik.http.routers.zimapi-router.entrypoints: websecure
+      traefik.http.routers.zimapi-router.entrypoints: lan
       traefik.http.routers.zimapi-router.rule: Host(`zimapi.bob.house`)
       traefik.http.routers.zimapi-router.tls: "true"
       traefik.http.services.zimapi-service.loadbalancer.server.port: "8080"
