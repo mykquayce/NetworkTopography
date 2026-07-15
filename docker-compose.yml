@@ -1,4 +1,5 @@
 include:
+  - ./docker-compose-llm.yml
   - ./docker-compose-security.yml
 
 services:
@@ -40,6 +41,9 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    configs:
+      - source: kopiaignore
+        target: /data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
@@ -52,14 +56,13 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
-    read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
       - ${DATA_DIR:-/opt/appdata}/kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ${DATA_DIR:-/opt/appdata}/.:/data/:ro
+      - ${DATA_DIR:-/opt/appdata}/.:/data/:rw
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -156,9 +159,19 @@ services:
       - certificates-volume:/var/certs/:rw
       - /etc/localtime:/etc/localtime:ro
 
+configs:
+  kopiaignore:
+    content: |
+      /ollama/models/blobs/
+      /open-webui/cache/
+      /whisper-asr/data/
+
 networks:
   default:
     name: default-network
+  ollama:
+    name: ollama-network
+    internal: "true"
   socket-proxy:
     name: socket-proxy-network
     internal: "true"

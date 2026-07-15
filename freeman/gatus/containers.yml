@@ -150,7 +150,7 @@ endpoints:
   - name: glances BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-glances-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -259,7 +259,7 @@ endpoints:
   - name: kopia BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-kopia-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -362,14 +362,14 @@ endpoints:
   - name: ollama
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-ollama-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-ollama-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: open-webui
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-open-webui-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-open-webui-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -502,7 +502,7 @@ endpoints:
   - name: socket-proxy BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-socket-proxy-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -539,7 +539,7 @@ endpoints:
   - name: speakr
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-speakr-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-speakr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -564,7 +564,7 @@ endpoints:
   - name: traefik BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-traefik-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -631,7 +631,7 @@ endpoints:
   - name: whisper-asr
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/billups-whisper-asr-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/networktopography-whisper-asr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

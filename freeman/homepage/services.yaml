@@ -163,7 +163,7 @@
         href: https://glances-billups.bob.house/
         icon: glances.png
         server: billups-docker
-        container: billups-glances-1
+        container: networktopography-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -643,7 +643,7 @@
         href: https://kopia-billups.bob.house/
         icon: kopia.svg
         server: billups-docker
-        container: billups-kopia-1
+        container: networktopography-kopia-1
         widget:
           type: kopia
           url: https://kopia-billups.bob.house
@@ -795,7 +795,7 @@
         href: https://open-webui.bob.house
         icon: open-webui-light.webp
         server: billups-docker
-        container: billups-open-webui-1
+        container: networktopography-open-webui-1
     - Paperless-ngx: &paperlessngx
         description: A community-supported open-source document management system
         href: https://paperless-ngx.bob.house
@@ -947,7 +947,7 @@
         href: https://speakr.bob.house
         icon: /icons/speakr.png
         server: billups-docker
-        container: billups-speakr-1
+        container: networktopography-speakr-1
     - Speedtest: &speedtest
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
@@ -971,7 +971,7 @@
         href: https://traefik-billups.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: billups-docker
-        container: billups-traefik-1
+        container: networktopography-traefik-1
         widget:
           type: traefik
           url: https://traefik-billups.bob.house
