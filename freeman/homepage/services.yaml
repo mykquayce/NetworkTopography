@@ -30,13 +30,13 @@
         href: https://apache.bob.house
         icon: apache.png
         server: ransom-docker
-        container: ransom-apache-1
+        container: networktopography-apache-1
     - Apprise: &apprise
         description: Push Notifications that work with just about every platform!
         href: https://apprise.bob.house
         icon: apprise.png
         server: ransom-docker
-        container: ransom-apprise-1
+        container: networktopography-apprise-1
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
@@ -59,7 +59,7 @@
         href: https://changedetection.bob.house/
         icon: changedetection.svg
         server: ransom-docker
-        container: ransom-changedetection-1
+        container: networktopography-changedetection-1
         widget:
           type: changedetectionio
           url: https://changedetection.bob.house/
@@ -75,19 +75,19 @@
         href: https://degoog.bob.house/
         icon: /icons/degoog.svg
         server: ransom-docker
-        container: ransom-degoog-1
+        container: networktopography-degoog-1
     - Docker Registry: &dockerregistry
         description: UI for your private docker registry
         href: https://registry-ui.bob.house/
         icon: docker-moby.svg
         server: ransom-docker
-        container: ransom-registry-1
+        container: networktopography-registry-1
     - Donetick: &donetick
         description: Simplify Tasks & Chores, Together
         href: https://donetick.bob.house/
         icon: donetick.png
         server: ransom-docker
-        container: ransom-donetick-1
+        container: networktopography-donetick-1
     - Dozzle: &dozzle
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
@@ -99,13 +99,13 @@
         href: https://drawio.bob.house
         icon: draw-io.svg
         server: ransom-docker
-        container: ransom-drawio-1
+        container: networktopography-drawio-1
     - drydock: &drydock
         description: Open source container update monitoring
         href: https://drydock.bob.house
         icon: /icons/drydock.png
         server: ransom-docker
-        container: ransom-drydock-1
+        container: networktopography-drydock-1
     - Feishin: &feishin
         description: A modern self-hosted music player
         href: https://feishin.bob.house
@@ -127,7 +127,7 @@
         href: https://freshrss.bob.house/
         icon: freshrss.svg
         server: ransom-docker
-        container: ransom-freshrss-1
+        container: networktopography-freshrss-1
     - Frigate: &frigate
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate.bob.house/
@@ -325,7 +325,7 @@
         href: https://glances-ransom.bob.house/
         icon: glances.png
         server: ransom-docker
-        container: ransom-glances-1
+        container: networktopography-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -503,7 +503,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: ransom-docker
-        container: ransom-gluetun-1
+        container: networktopography-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-ransom.bob.house/
@@ -530,7 +530,7 @@
         href: https://grafana.bob.house/
         icon: grafana.svg
         server: ransom-docker
-        container: ransom-grafana-1
+        container: networktopography-grafana-1
         widget:
           type: grafana
           url: https://grafana.bob.house
@@ -579,13 +579,13 @@
         href: https://httpbin.bob.house/
         icon: /icons/httpbin.png
         server: ransom-docker
-        container: ransom-httpbin-1
+        container: networktopography-httpbin-1
     - IT-Tools: &ittools
         description: Collection of handy online tools for developers, with great UX
         href: https://it-tools.bob.house/
         icon: it-tools.svg
         server: ransom-docker
-        container: ransom-it-tools-1
+        container: networktopography-it-tools-1
     - Jellyfin: &jellyfin
         description: Your media, on your terms
         href: https://jellyfin.bob.house/web/
@@ -631,7 +631,7 @@
         href: https://jsonpath.bob.house/
         icon: /icons/jsonpath.svg
         server: ransom-docker
-        container: ransom-jsonpath-1
+        container: networktopography-jsonpath-1
     - kiwix: &kiwix
         description: When there is No Internet, there is Kiwix
         href: https://kiwix.bob.house/
@@ -676,7 +676,7 @@
         href: https://kopia-ransom.bob.house/
         icon: kopia.svg
         server: ransom-docker
-        container: ransom-kopia-1
+        container: networktopography-kopia-1
         widget:
           type: kopia
           url: https://kopia-ransom.bob.house
@@ -737,7 +737,7 @@
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.24%2C%22crowd%22%3A0.96%2C%22inside-a-train%22%3A0.64%2C%22brown-noise%22%3A0.24%7D
         icon: moodist.png
         server: ransom-docker
-        container: ransom-moodist-1
+        container: networktopography-moodist-1
     - Navidrome: &navidrome
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
@@ -761,7 +761,7 @@
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
         icon: ntfy.svg
         server: ransom-docker
-        container: ransom-ntfy-1
+        container: networktopography-ntfy-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -789,7 +789,7 @@
         href: https://nuget.bob.house/
         icon: microsoft.svg
         server: ransom-docker
-        container: ransom-nuget-1
+        container: networktopography-nuget-1
     - Open WebUI: &openwebui
         description: An extensible, feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline
         href: https://open-webui.bob.house
@@ -801,7 +801,7 @@
         href: https://paperless-ngx.bob.house
         icon: paperless-ngx.svg
         server: ransom-docker
-        container: ransom-paperless-ngx-1
+        container: networktopography-paperless-ngx-1
         widget:
           type: paperlessngx
           url: https://paperless-ngx.bob.house
@@ -817,7 +817,7 @@
         href: https://planka.bob.house/
         icon: planka.svg
         server: ransom-docker
-        container: ransom-planka-1
+        container: networktopography-planka-1
     - Portainer: &portainer
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
@@ -876,7 +876,7 @@
         href: https://rabbitmq.bob.house/
         icon: rabbitmq.png
         server: ransom-docker
-        container: ransom-rabbitmq-1
+        container: networktopography-rabbitmq-1
     - Radarr: &radarr
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
@@ -893,13 +893,13 @@
         href: https://readeck.bob.house/
         icon: readeck.png
         server: ransom-docker
-        container: ransom-readeck-1
+        container: networktopography-readeck-1
     - Restfox: &restfox
         description: Offline-First Minimalistic HTTP & Socket Testing Client
         href: https://restfox.bob.house/
         icon: /icons/restfox.png
         server: ransom-docker
-        container: ransom-restfox-1
+        container: networktopography-restfox-1
     - SABnzbd: &sabnzbd
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
@@ -930,7 +930,7 @@
         href: https://snipo.bob.house/
         icon: /icons/snipo.png
         server: ransom-docker
-        container: ransom-snipo-1
+        container: networktopography-snipo-1
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
@@ -953,7 +953,7 @@
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
         server: ransom-docker
-        container: ransom-speedtest-tracker-1
+        container: networktopography-speedtest-tracker-1
         widget:
           type: speedtest
           url: https://speedtest.bob.house
@@ -996,7 +996,7 @@
         href: https://traefik-ransom.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: ransom-docker
-        container: ransom-traefik-1
+        container: networktopography-traefik-1
         widget:
           type: traefik
           url: https://traefik-ransom.bob.house
@@ -1023,7 +1023,7 @@
         href: https://trilium.bob.house/
         icon: trilium.svg
         server: ransom-docker
-        container: ransom-trilium-1
+        container: networktopography-trilium-1
     - Tunarr: &tunarr
         description: IPTV backed by Plex/Jellyfin/Emby
         href: https://tunarr.bob.house/web
@@ -1035,7 +1035,7 @@
         href: https://vikunja.bob.house/
         icon: vikunja.svg
         server: ransom-docker
-        container: ransom-vikunja-1
+        container: networktopography-vikunja-1
         widget:
           type: vikunja
           url: https://vikunja.bob.house
@@ -1065,7 +1065,7 @@
         href: https://zimapi.bob.house/library
         icon: /icons/zim.png
         server: ransom-docker
-        container: ransom-zimapi-1
+        container: networktopography-zimapi-1
 
 - Main:
     - Change Detection: *changedetection

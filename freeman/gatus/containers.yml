@@ -17,13 +17,13 @@ endpoints:
 
   - name: apache
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-apache-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-apache-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: apprise
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-apprise-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-apprise-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -53,7 +53,7 @@ endpoints:
 
   - name: changedetection
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-changedetection-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-changedetection-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -65,13 +65,13 @@ endpoints:
 
   - name: degoog
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-degoog-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-degoog-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: donetick
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-donetick-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-donetick-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -83,13 +83,13 @@ endpoints:
 
   - name: drawio
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-drawio-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-drawio-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: drydock
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-drydock-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-drydock-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -113,7 +113,7 @@ endpoints:
 
   - name: freshrss
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-freshrss-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-freshrss-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -168,7 +168,7 @@ endpoints:
 
   - name: glances RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-glances-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -192,7 +192,7 @@ endpoints:
 
   - name: gluetun RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-gluetun-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -210,7 +210,7 @@ endpoints:
 
   - name: grafana
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-grafana-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-grafana-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -222,13 +222,13 @@ endpoints:
 
   - name: httpbin
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-httpbin-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-httpbin-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: it-tools
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-it-tools-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-it-tools-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -246,7 +246,7 @@ endpoints:
 
   - name: jsonpath
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-jsonpath-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-jsonpath-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -277,7 +277,7 @@ endpoints:
 
   - name: kopia RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-kopia-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -319,7 +319,7 @@ endpoints:
 
   - name: moodist
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-moodist-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-moodist-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -337,25 +337,25 @@ endpoints:
 
   - name: nsd01
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-nsd01-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-nsd01-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: nsd20
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-nsd20-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-nsd20-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: ntfy
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-ntfy-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-ntfy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: nuget
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-nuget-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-nuget-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -375,19 +375,19 @@ endpoints:
 
   - name: paperless-ngx
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-paperless-ngx-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-paperless-ngx-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: paperless-ngx-db
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-paperless-ngx-db-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-paperless-ngx-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: paperless-ngx-redis
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-paperless-ngx-redis-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-paperless-ngx-redis-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -399,13 +399,13 @@ endpoints:
 
   - name: planka
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-planka-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-planka-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: planka-db
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-planka-db-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-planka-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -429,31 +429,31 @@ endpoints:
 
   - name: rabbitmq
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-rabbitmq-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-rabbitmq-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: readeck
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-readeck-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-readeck-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: registry
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-registry-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-registry-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: registry-ui
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-registry-ui-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-registry-ui-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: restfox
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-restfox-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-restfox-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -489,7 +489,7 @@ endpoints:
 
   - name: snipo
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-snipo-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-snipo-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -520,7 +520,7 @@ endpoints:
 
   - name: socket-proxy RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-socket-proxy-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -557,7 +557,7 @@ endpoints:
 
   - name: speedtest-tracker
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-speedtest-tracker-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-speedtest-tracker-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -582,7 +582,7 @@ endpoints:
 
   - name: traefik RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-traefik-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -600,13 +600,13 @@ endpoints:
 
   - name: trilium
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-trilium-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-trilium-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: trivy
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-trivy-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-trivy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -618,13 +618,13 @@ endpoints:
 
   - name: vikunja
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-vikunja-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-vikunja-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: vikunja-db
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-vikunja-db-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-vikunja-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -655,6 +655,6 @@ endpoints:
 
   - name: zimapi
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/ransom-zimapi-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-zimapi-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
