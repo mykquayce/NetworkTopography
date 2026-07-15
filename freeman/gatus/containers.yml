@@ -119,7 +119,7 @@ endpoints:
 
   - name: frigate
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/shaxs-frigate-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-frigate-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -174,7 +174,7 @@ endpoints:
 
   - name: glances SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/shaxs-glances-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -283,7 +283,7 @@ endpoints:
 
   - name: kopia SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/shaxs-kopia-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -526,7 +526,7 @@ endpoints:
 
   - name: socket-proxy SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/shaxs-socket-proxy-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -588,7 +588,7 @@ endpoints:
 
   - name: traefik SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/shaxs-traefik-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

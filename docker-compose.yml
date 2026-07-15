@@ -1,39 +1,7 @@
-services:
-  frigate:
-    image: ghcr.io/blakeblackshear/frigate:0.17.2
-    cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, FOWNER, SETGID, SETUID, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    devices:
-      - /dev/apex_0:/dev/apex_0
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/frigate.env
-    labels:
-      dd.tag.family: loose
-      dd.tag.include: ^v\d+\.\d+\.\d+$$
-      dd.watch: "true"
-      traefik.docker.network: shaxs_traefik
-      traefik.http.routers.frigate-router.entrypoints: lan
-      traefik.http.routers.frigate-router.rule: Host(`frigate.bob.house`)
-      traefik.http.routers.frigate-router.tls: "true"
-      traefik.http.services.frigate-service.loadbalancer.server.port: "5000"
-    networks:
-      default: null
-      traefik: null
-    profiles: [ app, ]
-    security_opt: [ no-new-privileges=true, ]
-    shm_size: 192mb
-    volumes:
-      - ./frigate.yaml:/config/config.yaml:rw
-      - ${DATA_DIR:-/opt/appdata}/frigate/:/config/:rw
-      - /recordings/:/media/frigate/:rw
-      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
-        target: /tmp/cache
-        tmpfs:
-          size: 1gb
+include:
+  - ./docker-compose-security.yml
 
+services:
   glances:
     image: nicolargo/glances:latest
     cap_drop: [ ALL, ]
@@ -47,7 +15,7 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
       GLANCES_OPT: -w
     labels:
-      traefik.docker.network: shaxs_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.glances-router.entrypoints: lan
       traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
       traefik.http.routers.glances-router.tls: "true"
@@ -56,7 +24,6 @@ services:
       socket-proxy: null
       traefik: null
     pid: host
-    profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /etc/os-release:/etc/os-release:ro
@@ -120,7 +87,7 @@ services:
     labels:
       dd.tag.family: loose
       dd.watch: "true"
-      traefik.docker.network: shaxs_traefik
+      traefik.docker.network: traefik-network
       traefik.tcp.routers.socket-proxy-router.entrypoints: docker
       traefik.tcp.routers.socket-proxy-router.rule: HostSNI(`*`)
       traefik.tcp.services.socket-proxy-service.loadbalancer.server.port: "2375"
@@ -168,7 +135,7 @@ services:
     labels:
       dd.tag.family: loose
       dd.watch: "true"
-      traefik.docker.network: shaxs_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.traefik-router.entrypoints: lan
       traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
       traefik.http.routers.traefik-router.tls: "true"
@@ -181,10 +148,8 @@ services:
       socket-proxy: null
       traefik: null
     ports:
-      - 192.168.1.55:443:443/tcp
-      - 192.168.20.55:443:443/tcp
-      - 192.168.1.55:2375:2375/tcp
-      - 192.168.20.55:2375:2375/tcp
+      - 443:443/tcp
+      - 2375:2375/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -193,12 +158,12 @@ services:
 
 networks:
   default:
-    name: shaxs_default
+    name: default-network
   socket-proxy:
-    name: shaxs_socket-proxy
+    name: socket-proxy-network
     internal: "true"
   traefik:
-    name: shaxs_traefik
+    name: traefik-network
     internal: "true"
 
 volumes:

@@ -133,7 +133,7 @@
         href: https://frigate.bob.house/
         icon: frigate.svg
         server: shaxs-docker
-        container: shaxs-frigate-1
+        container: networktopography-frigate-1
         widget:
           type: frigate
           url: https://frigate.bob.house/
@@ -379,7 +379,7 @@
         href: https://glances-shaxs.bob.house/
         icon: glances.png
         server: shaxs-docker
-        container: shaxs-glances-1
+        container: networktopography-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -687,7 +687,7 @@
         href: https://kopia-shaxs.bob.house/
         icon: kopia.svg
         server: shaxs-docker
-        container: shaxs-kopia-1
+        container: networktopography-kopia-1
         widget:
           type: kopia
           url: https://kopia-shaxs.bob.house
@@ -1005,7 +1005,7 @@
         href: https://traefik-shaxs.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: shaxs-docker
-        container: shaxs-traefik-1
+        container: networktopography-traefik-1
         widget:
           type: traefik
           url: https://traefik-shaxs.bob.house
