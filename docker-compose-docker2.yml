@@ -101,11 +101,11 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
-      gluetun:
+      gluetun-ransom:
         condition: service_healthy
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun
+    network_mode: service:gluetun-ransom
     profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -220,7 +220,7 @@ services:
       - ${DATA_DIR:-/opt/appdata}/freshrss/data/:/var/www/FreshRSS/data/:rw
       - ${DATA_DIR:-/opt/appdata}/freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
 
-  gluetun:
+  gluetun-ransom:
     image: qmcgaw/gluetun:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]

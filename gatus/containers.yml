@@ -1,7 +1,7 @@
 endpoints:
   - name: adguard01
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-adguard01-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-adguard01-1/json
     conditions: &conditions-definition
       - "[BODY].State.Running == true"
       - "[RESPONSE_TIME] < 50"
@@ -11,7 +11,7 @@ endpoints:
 
   - name: adguard20
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-adguard20-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-adguard20-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -29,25 +29,25 @@ endpoints:
 
   - name: authentik-postgresql
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-postgresql-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-authentik-postgresql-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: authentik-server
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-server-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-authentik-server-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: authentik-worker
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-authentik-worker-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-authentik-worker-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: baikal
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-baikal-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-baikal-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -59,7 +59,7 @@ endpoints:
 
   - name: dagu
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-dagu-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-dagu-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -77,7 +77,7 @@ endpoints:
 
   - name: dozzle
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-dozzle-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-dozzle-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -101,13 +101,13 @@ endpoints:
 
   - name: forgejo
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-forgejo-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-forgejo-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: forgejo-db
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-forgejo-db-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-forgejo-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -137,13 +137,13 @@ endpoints:
 
   - name: gatus
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-gatus-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-gatus-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glance
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-glance-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-glance-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -156,7 +156,7 @@ endpoints:
 
   - name: glances FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-glances-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -186,7 +186,7 @@ endpoints:
 
   - name: gluetun FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-gluetun-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-gluetun-freeman-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -204,7 +204,7 @@ endpoints:
 
   - name: go2rtc
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-go2rtc-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-go2rtc-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -216,7 +216,7 @@ endpoints:
 
   - name: homepage
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-homepage-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-homepage-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -265,7 +265,7 @@ endpoints:
 
   - name: kopia FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-kopia-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -411,13 +411,13 @@ endpoints:
 
   - name: portainer
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-portainer-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-portainer-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: prometheus
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-prometheus-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-prometheus-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -508,7 +508,7 @@ endpoints:
 
   - name: socket-proxy FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-socket-proxy-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -545,13 +545,13 @@ endpoints:
 
   - name: squid
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-squid-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-squid-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: sshwifty
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-sshwifty-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-sshwifty-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -570,7 +570,7 @@ endpoints:
 
   - name: traefik FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/freeman-traefik-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

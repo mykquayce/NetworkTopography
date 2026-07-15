@@ -1,4 +1,5 @@
 include:
+  - ./docker-compose-docker1.yml
   - ./docker-compose-docker2.yml
   - ./docker-compose-llm.yml
   - ./docker-compose-security.yml
@@ -115,6 +116,8 @@ services:
       - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
       - --entrypoints.docker.address=:2375
       - --entrypoints.lan.address=:443
+      - --entrypoints.proxy.address=:3128
+      - --entrypoints.ssh.address=:222
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
@@ -126,6 +129,7 @@ services:
       - --ping
       - --providers.docker
       - --providers.docker.endpoint=tcp://socket-proxy:2375
+      - --providers.file.directory=/etc/traefik/dynamic_conf/
     depends_on:
       socket-proxy:
         condition: service_healthy
@@ -152,19 +156,25 @@ services:
       socket-proxy: null
       traefik: null
     ports:
+      - 222:222/tcp
       - 443:443/tcp
       - 2375:2375/tcp
+      - 3128:3128/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
+      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
       - /etc/localtime:/etc/localtime:ro
 
 configs:
   kopiaignore:
     content: |
+      /adguard01/querylog.json*
+      /adguard20/querylog.json*
       /ollama/models/blobs/
       /open-webui/cache/
+      /prometheus/
       /registry/docker/
       /trivy/db/
       /whisper-asr/data/
@@ -172,6 +182,12 @@ configs:
 networks:
   default:
     name: default-network
+  authentik:
+    name: authentik-network
+    internal: "true"
+  forgejo:
+    name: forgejo-network
+    internal: "true"
   ollama:
     name: ollama-network
     internal: "true"
@@ -194,5 +210,12 @@ networks:
     name: vikunja-network
     internal: "true"
 
+secrets:
+  id_rsa:
+    file: ~/.ssh/id_rsa
+  known_hosts:
+    file: ~/.ssh/known_hosts
+
 volumes:
   certificates-volume:
+  squid-log:

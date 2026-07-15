@@ -8,7 +8,7 @@
         href: https://adguard01.bob.house
         icon: adguard-home.png
         server: freeman-docker
-        container: freeman-adguard01-1
+        container: networktopography-adguard01-1
         widget:
           type: adguard
           url: https://adguard01.bob.house
@@ -19,7 +19,7 @@
         href: https://adguard20.bob.house
         icon: adguard-home.png
         server: freeman-docker
-        container: freeman-adguard20-1
+        container: networktopography-adguard20-1
         widget:
           type: adguard
           url: https://adguard20.bob.house
@@ -42,7 +42,7 @@
         href: https://authentik.bob.house
         icon: authentik.png
         server: freeman-docker
-        container: freeman-authentik-server-1
+        container: networktopography-authentik-server-1
         widget:
           type: authentik
           url: https://authentik.bob.house
@@ -53,7 +53,7 @@
         href: https://baikal.bob.house
         icon: baikal.png
         server: freeman-docker
-        container: freeman-baikal-1
+        container: networktopography-baikal-1
     - Change Detection: &changedetection
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection.bob.house/
@@ -69,7 +69,7 @@
         href: https://dagu.bob.house/
         icon: /icons/dagu.png
         server: freeman-docker
-        container: freeman-dagu-1
+        container: networktopography-dagu-1
     - degoog: &degoog
         description: Search engine aggregator with a comprehensive plugin/extension system
         href: https://degoog.bob.house/
@@ -93,7 +93,7 @@
         href: https://dozzle.bob.house/
         icon: dozzle.svg
         server: freeman-docker
-        container: freeman-dozzle-1
+        container: networktopography-dozzle-1
     - draw.io: &drawio
         description: a JavaScript, client-side editor for general diagramming
         href: https://drawio.bob.house
@@ -117,7 +117,7 @@
         href: https://git.bob.house/
         icon: forgejo.png
         server: freeman-docker
-        container: freeman-forgejo-1
+        container: networktopography-forgejo-1
         widget:
           type: gitea
           url: https://git.bob.house
@@ -149,7 +149,7 @@
         href: https://gatus.bob.house/
         icon: gatus.svg
         server: freeman-docker
-        container: freeman-gatus-1
+        container: networktopography-gatus-1
         widget:
           type: gatus
           url: https://gatus.bob.house
@@ -158,7 +158,7 @@
         href: https://glance.bob.house/
         icon: glance.png
         server: freeman-docker
-        container: freeman-glance-1
+        container: networktopography-glance-1
     - Glances BILLUPS: &glancesbillups
         href: https://glances-billups.bob.house/
         icon: glances.png
@@ -217,7 +217,7 @@
         href: https://glances-freeman.bob.house/
         icon: glances.png
         server: freeman-docker
-        container: freeman-glances-1
+        container: networktopography-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -493,7 +493,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: freeman-docker
-        container: freeman-gluetun-1
+        container: networktopography-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-freeman.bob.house/
@@ -524,7 +524,7 @@
         href: https://go2rtc.bob.house/
         icon: go2rtc.png
         server: freeman-docker
-        container: freeman-go2rtc-1
+        container: networktopography-go2rtc-1
     - Grafana: &grafana
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
@@ -654,7 +654,7 @@
         href: https://kopia-freeman.bob.house/
         icon: kopia.svg
         server: freeman-docker
-        container: freeman-kopia-1
+        container: networktopography-kopia-1
         widget:
           type: kopia
           url: http://kopia:51515
@@ -823,7 +823,7 @@
         href: https://portainer.bob.house/
         icon: portainer.svg
         server: freeman-docker
-        container: freeman-portainer-1
+        container: networktopography-portainer-1
         widgets:
           - type: portainer
             url: https://portainer.bob.house
@@ -846,7 +846,7 @@
         href: https://prometheus.bob.house/
         icon: prometheus.svg
         server: freeman-docker
-        container: freeman-prometheus-1
+        container: networktopography-prometheus-1
         widget:
           type: prometheus
           url: https://prometheus.bob.house
@@ -965,7 +965,7 @@
         href: https://sshwifty.bob.house/
         icon: sshwifty.svg
         server: freeman-docker
-        container: freeman-sshwifty-1
+        container: networktopography-sshwifty-1
     - Traefik BILLUPS: &traefikbillups
         description: HTTP reverse proxy and load balancer
         href: https://traefik-billups.bob.house/dashboard/
@@ -980,7 +980,7 @@
         href: https://traefik-freeman.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: freeman-docker
-        container: freeman-traefik-1
+        container: networktopography-traefik-1
         widget:
           type: traefik
           url: https://traefik-freeman.bob.house
