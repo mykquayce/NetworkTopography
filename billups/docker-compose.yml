@@ -38,11 +38,14 @@ services:
       - --address=0.0.0.0:51515
       - --server-username=a72691ffb1328c15
       - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
+    configs:
+      - source: kopiaignore
+        target: /data/.kopiaignore
     depends_on:
       traefik:
         condition: service_healthy
     env_file:
-      - ~/Configurations/kopia.env
+      - /opt/git/Configurations/kopia.env
     labels:
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
@@ -50,14 +53,13 @@ services:
       traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
     networks:
       traefik: null
-    read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - ~/.kopia/:/app/config/:rw
+      - /opt/appdata/kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - ~/:/data/:ro
+      - /opt/appdata/:/data/:rw
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -79,7 +81,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.ollama/:/root/.ollama/:rw
+      - /opt/appdata/ollama/:/root/.ollama/:rw
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
@@ -92,7 +94,7 @@ services:
     environment:
       OLLAMA_BASE_URL: http://ollama:11434
     env_file:
-      - ~/Configurations/open-webui.env
+      - /opt/git/Configurations/open-webui.env
     labels:
       traefik.docker.network: billups_traefik
       traefik.http.routers.open-webui-router.entrypoints: websecure
@@ -105,7 +107,7 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.open-webui/:/app/backend/data/:rw
+      - /opt/appdata/open-webui/:/app/backend/data/:rw
 
   socket-proxy:
     image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
@@ -154,7 +156,7 @@ services:
       whisper-asr:
         condition: service_started
     env_file:
-      - ~/Configurations/speakr.env
+      - /opt/git/Configurations/speakr.env
     environment:
       ADMIN_USERNAME: admin
       ADMIN_EMAIL: jenegol581@codgal.com
@@ -201,8 +203,8 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.speakr/uploads/:/data/uploads/:rw
-      - ~/.speakr/instance/:/data/instance/:rw
+      - /opt/appdata/speakr/uploads/:/data/uploads/:rw
+      - /opt/appdata/speakr/instance/:/data/instance/:rw
 
   traefik:
     image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
@@ -231,7 +233,7 @@ services:
       socket-proxy:
         condition: service_healthy
     env_file:
-      - ~/Configurations/traefik.env
+      - /opt/git/Configurations/traefik.env
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
       interval: 10s
@@ -284,8 +286,15 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ~/.whisper-asr/cache/:/root/.cache/:rw
-      - ~/.whisper-asr/data/:/data/whisper/:rw
+      - /opt/appdata/whisper-asr/cache/:/root/.cache/:rw
+      - /opt/appdata/whisper-asr/data/:/data/whisper/:rw
+
+configs:
+  kopiaignore:
+    content: |
+      /ollama/models/blobs/
+      /open-webui/cache/
+      /whisper-asr/data/
 
 networks:
   default:
