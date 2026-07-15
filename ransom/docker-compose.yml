@@ -47,9 +47,9 @@ services:
     user: 1000:1000
     tmpfs: [ /tmp/, ]
     volumes:
-      - /opt/appdata/apprise/attach/:/attach/:rw
-      - /opt/appdata/apprise/config/:/config/:rw
-      - /opt/appdata/apprise/plugin/:/plugin/:rw
+      - ${DATA_DIR:-/opt/appdata}/apprise/attach/:/attach/:rw
+      - ${DATA_DIR:-/opt/appdata}/apprise/config/:/config/:rw
+      - ${DATA_DIR:-/opt/appdata}/apprise/plugin/:/plugin/:rw
 
   changedetection:
     image: dgtlmoon/changedetection.io:latest
@@ -70,7 +70,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/changedetection/:/datastore/:rw
+      - ${DATA_DIR:-/opt/appdata}/changedetection/:/datastore/:rw
 
   donetick:
     image: donetick/donetick:latest
@@ -92,7 +92,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/donetick/:/donetick-data/:rw
+      - ${DATA_DIR:-/opt/appdata}/donetick/:/donetick-data/:rw
       - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
 
   degoog:
@@ -108,7 +108,7 @@ services:
     profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/degoog/:/app/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/degoog/:/app/data/:rw
 
   drawio:
     image: jgraph/drawio:latest
@@ -141,7 +141,7 @@ services:
       trivy:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/drydock.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/drydock.env
     environment:
       DD_AUTH_BASIC_ADMIN_USER: admin
       DD_NOTIFICATION_NTFY_NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
@@ -199,7 +199,7 @@ services:
       CRON_MIN: 3,33
       TZ: UTC
     env_file:
-      - /opt/git/Configurations/freshrss.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/freshrss.env
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.freshrss-router.entrypoints: websecure
@@ -216,8 +216,8 @@ services:
     profiles: [ app, monitoring, ]
     tmpfs: [ /var/www/FreshRSS/data/cache/, ]
     volumes:
-      - /opt/appdata/freshrss/data/:/var/www/FreshRSS/data/:rw
-      - /opt/appdata/freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
+      - ${DATA_DIR:-/opt/appdata}/freshrss/data/:/var/www/FreshRSS/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
 
   glances:
     image: nicolargo/glances:latest
@@ -260,7 +260,7 @@ services:
       SERVER_COUNTRIES: Austria,Germany,Italy,Luxembourg,Poland
       UPDATER_PERIOD: 24h
     env_file:
-      - /opt/git/Configurations/gluetun.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.gluetun-router.entrypoints: websecure
@@ -290,7 +290,7 @@ services:
       GF_SERVER_ROOT_URL: https://grafana.bob.house
       GF_USERS_ALLOW_SIGN_UP: "false"
     env_file:
-      - /opt/git/Configurations/grafana.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/grafana.env
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.grafana-router.entrypoints: websecure
@@ -305,7 +305,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     user: "0"
     volumes:
-      - /opt/appdata/grafana/:/var/lib/grafana/:rw
+      - ${DATA_DIR:-/opt/appdata}/grafana/:/var/lib/grafana/:rw
 
   httpbin:
     image: mccutchen/go-httpbin:latest
@@ -377,7 +377,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/kopia.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
     labels:
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
@@ -389,9 +389,9 @@ services:
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - /opt/appdata/kopia/:/app/config/:rw
+      - ${DATA_DIR:-/opt/appdata}/kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - /opt/appdata/:/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/:/data/:rw
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -494,7 +494,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/ntfy/:/var/cache/ntfy/:rw
+      - ${DATA_DIR:-/opt/appdata}/ntfy/:/var/cache/ntfy/:rw
       - ./ntfy.yml:/etc/ntfy/server.yml:ro
 
   nuget:
@@ -504,7 +504,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/nuget.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/nuget.env
     labels:
       traefik.http.routers.nuget-router.entrypoints: websecure
       traefik.http.routers.nuget-router.rule: Host(`nuget.bob.house`)
@@ -517,7 +517,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
     volumes:
-      - /opt/appdata/bagetter/:/data:rw
+      - ${DATA_DIR:-/opt/appdata}/bagetter/:/data:rw
 
   paperless-ngx:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -534,7 +534,7 @@ services:
         condition: service_healthy
         required: true
     env_file:
-      - /opt/git/Configurations/paperless-ngx.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/paperless-ngx.env
     environment:
       PAPERLESS_BIND_ADDR: 0.0.0.0
       PAPERLESS_DBHOST: paperless-ngx-db
@@ -560,11 +560,11 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /usr/src/paperless/data/log/, ]
     volumes:
-      - /opt/appdata/paperless-ngx/consume/:/usr/src/paperless/consume/:rw
-      - /opt/appdata/paperless-ngx/data/:/usr/src/paperless/data/:rw
-      - /opt/appdata/paperless-ngx/media/:/usr/src/paperless/media/:rw
-      - /opt/appdata/paperless-ngx/export/:/usr/src/paperless/export/:rw
-      - /opt/appdata/paperless-ngx/media/:/usr/src/paperless/media/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/consume/:/usr/src/paperless/consume/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/data/:/usr/src/paperless/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/media/:/usr/src/paperless/media/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/export/:/usr/src/paperless/export/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/media/:/usr/src/paperless/media/:rw
 
   paperless-ngx-db:
     image: docker.io/library/postgres:18
@@ -588,7 +588,7 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/paperless-ngx/db/:/var/lib/postgresql/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/db/:/var/lib/postgresql/:rw
 
   paperless-ngx-redis:
     image: docker.io/library/redis:8
@@ -608,7 +608,7 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/paperless-ngx/redis/:/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/paperless-ngx/redis/:/data/:rw
 
   planka:
     image: ghcr.io/plankanban/planka:latest
@@ -630,7 +630,7 @@ services:
       OIDC_ADMIN_ROLES: authentik Admins
       OIDC_ENFORCED: "true"
     env_file:
-      - /opt/git/Configurations/planka.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/planka.env
     labels:
       dev.dozzle.group: planka
       traefik.docker.network: ransom_traefik
@@ -645,7 +645,7 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/planka/data:/app/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/planka/data:/app/data/:rw
 
   planka-db:
     image: postgres:16-alpine
@@ -669,13 +669,13 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/planka/db/:/var/lib/postgresql/data/:rw
+      - ${DATA_DIR:-/opt/appdata}/planka/db/:/var/lib/postgresql/data/:rw
 
   rabbitmq:
     image: rabbitmq:management
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
-    env_file: [ /opt/git/Configurations/rabbitmq.env, ]
+    env_file: [ "${REPOS_DIR:-/opt/git}/Configurations/rabbitmq.env", ]
     hostname: rabbitmq
     labels:
       traefik.http.routers.rabbitmq-router.entrypoints: websecure
@@ -687,7 +687,7 @@ services:
     profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    volumes: [ /opt/appdata/rabbitmq/:/var/lib/rabbitmq/:rw, ]
+    volumes: [ "${DATA_DIR:-/opt/appdata}/rabbitmq/:/var/lib/rabbitmq/:rw", ]
 
   readeck:
     image: codeberg.org/readeck/readeck:latest
@@ -696,7 +696,7 @@ services:
       planka-db:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/readeck.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/readeck.env
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.readeck-router.entrypoints: websecure
@@ -709,7 +709,7 @@ services:
     profiles: [ app, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    volumes: [ /opt/appdata/readeck/:/readeck/:rw, ]
+    volumes: [ "${DATA_DIR:-/opt/appdata}/readeck/:/readeck/:rw", ]
 
   registry:
     image: registry:latest
@@ -721,7 +721,7 @@ services:
       REGISTRY_STORAGE_DELETE_ENABLED: "true"
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
     env_file:
-      - /opt/git/Configurations/registry.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/registry.env
     labels:
       dev.dozzle.group: registry
       traefik.docker.network: ransom_traefik
@@ -736,7 +736,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/registry/:/var/lib/registry/:rw
+      - ${DATA_DIR:-/opt/appdata}/registry/:/var/lib/registry/:rw
 
   registry-ui:
     image: joxit/docker-registry-ui:main
@@ -797,7 +797,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /root/.npm/, ]
-    volumes: [ /opt/appdata/restfox/:/app/data/:rw, ]
+    volumes: [ "${DATA_DIR:-/opt/appdata}/restfox/:/app/data/:rw", ]
 
   snipo:
     image: ghcr.io/mohamedelashri/snipo:latest
@@ -805,7 +805,7 @@ services:
     depends_on:
       traefik:
         condition: service_healthy
-    env_file: [ /opt/git/Configurations/snipo.env, ]
+    env_file: [ "${REPOS_DIR:-/opt/git}/Configurations/snipo.env", ]
     environment:
       SNIPO_ENABLE_API_TOKENS: "true"
       SNIPO_ENABLE_BACKUP_RESTORE: "true"
@@ -836,7 +836,7 @@ services:
     security_opt: [ no-new-privileges:true, ]
     tmpfs: [ /tmp/, ]
     user: 1000:1000
-    volumes: [ /opt/appdata/snipo/:/data/:rw, ]
+    volumes: [ "${DATA_DIR:-/opt/appdata}/snipo/:/data/:rw", ]
 
   socket-proxy:
     image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
@@ -889,7 +889,7 @@ services:
       SPEEDTEST_SERVERS: 2262, 3504, 20746, 48475, 57115, 59135, 62951, 67541
       PRUNE_RESULTS_OLDER_THAN: 28 #28 days
     env_file:
-      - /opt/git/Configurations/speedtest-tracker.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/speedtest-tracker.env
     labels:
       traefik.docker.network: ransom_traefik
       traefik.http.routers.speedtest-router.entrypoints: websecure
@@ -902,7 +902,7 @@ services:
     profiles: [ app, monitoring, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/speedtest/:/config/:rw
+      - ${DATA_DIR:-/opt/appdata}/speedtest/:/config/:rw
 
   traefik:
     image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
@@ -931,7 +931,7 @@ services:
       socket-proxy:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/traefik.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/traefik.env
     healthcheck:
       test: /usr/local/bin/traefik healthcheck --ping
     labels:
@@ -981,7 +981,7 @@ services:
     tmpfs: [ /home/node/trilium-data/backup/, /home/node/trilium-data/log/, /home/node/trilium-data/tmp/, ]
     user: "0:0"
     volumes:
-      - /opt/appdata/trilium/:/home/node/trilium-data/:rw
+      - ${DATA_DIR:-/opt/appdata}/trilium/:/home/node/trilium-data/:rw
       - /etc/localtime:/etc/localtime:ro
 
   trivy:
@@ -1013,7 +1013,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
-    volumes: [ /opt/appdata/trivy/:/root/.cache/trivy/:rw, ]
+    volumes: [ "${DATA_DIR:-/opt/appdata}/trivy/:/root/.cache/trivy/:rw", ]
 
   vikunja:
     image: vikunja/vikunja:latest
@@ -1024,7 +1024,7 @@ services:
       vikunja-db:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/vikunja.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/vikunja.env
     environment:
       VIKUNJA_SERVICE_PUBLICURL: https://vikunja.bob.house/
       VIKUNJA_DATABASE_HOST: vikunja-db
@@ -1046,14 +1046,14 @@ services:
     security_opt: [ no-new-privileges=true, ]
     user: "0"
     volumes:
-      - /opt/appdata/vikunja/files/:/app/vikunja/files/:rw
+      - ${DATA_DIR:-/opt/appdata}/vikunja/files/:/app/vikunja/files/:rw
 
   vikunja-db:
     image: postgres:18
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
-      - /opt/git/Configurations/vikunja.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/vikunja.env
     environment:
       POSTGRES_USER: vikunja
     healthcheck:
@@ -1068,7 +1068,7 @@ services:
     profiles: [ app, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - /opt/appdata/vikunja/db/:/var/lib/postgresql/:rw
+      - ${DATA_DIR:-/opt/appdata}/vikunja/db/:/var/lib/postgresql/:rw
 
   zimapi:
     image: eassbhhtgu/zimapi:latest

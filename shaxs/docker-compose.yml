@@ -9,7 +9,7 @@ services:
     devices:
       - /dev/apex_0:/dev/apex_0
     env_file:
-      - /opt/git/Configurations/frigate.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/frigate.env
     labels:
       dd.tag.family: loose
       dd.tag.include: ^v\d+\.\d+\.\d+$$
@@ -27,7 +27,7 @@ services:
     shm_size: 192mb
     volumes:
       - ./frigate.yaml:/config/config.yaml:rw
-      - /opt/appdata/frigate/:/config/:rw
+      - ${DATA_DIR:-/opt/appdata}/frigate/:/config/:rw
       - /recordings/:/media/frigate/:rw
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
@@ -77,7 +77,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/kopia.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
     labels:
       traefik.http.routers.kopia-router.entrypoints: websecure
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
@@ -90,9 +90,9 @@ services:
     tmpfs: [ /app/cache/, /app/logs/, ]
     volumes:
       # Mount local folders needed by kopia
-      - /opt/appdata/kopia/:/app/config/:rw
+      - ${DATA_DIR:-/opt/appdata}/kopia/:/app/config/:rw
       # Mount local folders to snapshot
-      - /opt/appdata/.:/data/:ro
+      - ${DATA_DIR:-/opt/appdata}/.:/data/:ro
       # Mount repository location
       - /repository/:/repository/:rw
 
@@ -159,7 +159,7 @@ services:
       socket-proxy:
         condition: service_healthy
     env_file:
-      - /opt/git/Configurations/traefik.env
+      - ${REPOS_DIR:-/opt/git}/Configurations/traefik.env
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
       interval: 10s
