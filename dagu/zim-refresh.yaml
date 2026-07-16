@@ -53,7 +53,7 @@ steps:
       needed:
         from: stdout
         decode: json
-        select: "[.results[].outputValues | select(.count==\"0\")]"
+        select: '[.results[].outputValues | select(.count=="0")]'
   - id: cleanup
     run: rm --force "${mktemp.output.path}"
     depends: bookloop
@@ -67,7 +67,7 @@ steps:
       host: tana.bob.house
       key: /run/secrets/id_rsa
       known_host_file: /run/secrets/known_hosts
-      command: docker compose --file /root/NetworkTopography/tana/docker-compose.yml down kiwix
+      command: docker compose --file /opt/git/NetworkTopography/docker-compose.yml down kiwix
     depends: cleanup
     preconditions:
       - condition: "${bookloop.output.needed}"
@@ -87,7 +87,7 @@ steps:
       host: tana.bob.house
       key: /run/secrets/id_rsa
       known_host_file: /run/secrets/known_hosts
-      command: docker compose --file /root/NetworkTopography/tana/docker-compose.yml up --detach kiwix
+      command: docker compose --file /opt/git/NetworkTopography/docker-compose.yml up --detach kiwix
     depends: [shutdown_kiwix, download_loop]
   - id: format
     run: |
@@ -148,7 +148,7 @@ steps:
     output: URI
   - id: get_uri
     run: printf "%s" "${URI}"
-    depends: [filter_with_flavor,filter_without_flavor]
+    depends: [filter_with_flavor, filter_without_flavor]
     preconditions:
       - condition: "${URI}"
         expected: "re:.+"

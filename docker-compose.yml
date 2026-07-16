@@ -2,6 +2,7 @@ include:
   - ./docker-compose-docker1.yml
   - ./docker-compose-docker2.yml
   - ./docker-compose-llm.yml
+  - ./docker-compose-media.yml
   - ./docker-compose-security.yml
 
 services:
@@ -172,10 +173,17 @@ configs:
     content: |
       /adguard01/querylog.json*
       /adguard20/querylog.json*
+      /lidarr/logs.db*
+      /metube/state/*.old
       /ollama/models/blobs/
       /open-webui/cache/
       /prometheus/
+      /prowlarr/logs.db*
+      /radarr/logs.db*
       /registry/docker/
+      /sonarr/logs.db*
+      /scrutiny/
+      /tunarr/db*.bak
       /trivy/db/
       /whisper-asr/data/
 
@@ -188,11 +196,17 @@ networks:
   forgejo:
     name: forgejo-network
     internal: "true"
+  ganymede:
+    name: ganymede-network
+    internal: "true"
   ollama:
     name: ollama-network
     internal: "true"
   paperless-ngx:
     name: paperless-ngx-network
+    internal: "true"
+  pinepods:
+    name: pinepods-network
     internal: "true"
   planka:
     name: planka-network
@@ -208,6 +222,9 @@ networks:
     internal: "true"
   vikunja:
     name: vikunja-network
+    internal: "true"
+  youtarr:
+    name: youtarr-network
     internal: "true"
 
 secrets:

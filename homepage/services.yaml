@@ -111,7 +111,7 @@
         href: https://feishin.bob.house
         icon: feishin.png
         server: tana-docker
-        container: tana-feishin-1
+        container: networktopography-feishin-1
     - Forgejo: &forgejo
         description: A lightweight software forge focused on scaling, federation, and privacy
         href: https://git.bob.house/
@@ -143,7 +143,7 @@
         href: https://ganymede.bob.house/
         icon: /icons/ganymede.png
         server: tana-docker
-        container: tana-ganymede-1
+        container: networktopography-ganymede-1
     - Gatus: &gatus
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
@@ -433,7 +433,7 @@
         href: https://glances-tana.bob.house/
         icon: glances.png
         server: tana-docker
-        container: tana-glances-1
+        container: networktopography-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -493,7 +493,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: freeman-docker
-        container: networktopography-gluetun-1
+        container: networktopography-gluetun-freeman-1
         widget:
           type: gluetun
           url: https://gluetun-freeman.bob.house/
@@ -503,7 +503,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: ransom-docker
-        container: networktopography-gluetun-1
+        container: networktopography-gluetun-ransom-1
         widget:
           type: gluetun
           url: https://gluetun-ransom.bob.house/
@@ -513,7 +513,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: tana-docker
-        container: tana-gluetun-1
+        container: networktopography-gluetun-tana-1
         widget:
           type: gluetun
           url: https://gluetun-tana.bob.house/
@@ -591,7 +591,7 @@
         href: https://jellyfin.bob.house/web/
         icon: jellyfin.svg
         server: tana-docker
-        container: tana-jellyfin-1
+        container: networktopography-jellyfin-1
         widgets:
           - type: jellyfin
             url: https://jellyfin.bob.house
@@ -621,7 +621,7 @@
         href: https://jellyseerr.bob.house/
         icon: jellyseerr.svg
         server: tana-docker
-        container: tana-jellyseerr-1
+        container: networktopography-jellyseerr-1
         widget:
           type: jellyseerr
           url: https://jellyseerr.bob.house
@@ -637,7 +637,7 @@
         href: https://kiwix.bob.house/
         icon: kiwix-light.png
         server: tana-docker
-        container: tana-kiwix-1
+        container: networktopography-kiwix-1
     - Kopia BILLUPS: &kopiabillups
         description: Cross-platform backup tool
         href: https://kopia-billups.bob.house/
@@ -698,7 +698,7 @@
         href: https://kopia-tana.bob.house/
         icon: kopia.svg
         server: tana-docker
-        container: tana-kopia-1
+        container: networktopography-kopia-1
         widget:
           type: kopia
           url: https://kopia-tana.bob.house
@@ -715,7 +715,7 @@
         href: https://lidarr.bob.house/
         icon: lidarr.svg
         server: tana-docker
-        container: tana-lidarr-1
+        container: networktopography-lidarr-1
         widget:
           type: lidarr
           url: https://lidarr.bob.house
@@ -725,7 +725,7 @@
         href: https://metube.bob.house/
         icon: metube.svg
         server: tana-docker
-        container: tana-metube-1
+        container: networktopography-metube-1
     - Miasma: &miasma
         description: Trap AI web scrapers in an endless poison pit
         href: https://miasma.bob.house/
@@ -743,7 +743,7 @@
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
         server: tana-docker
-        container: tana-navidrome-1
+        container: networktopography-navidrome-1
         widget:
           type: navidrome
           url: https://navidrome.bob.house
@@ -755,7 +755,7 @@
         href: https://nodered.bob.house
         icon: node-red.svg
         server: tana-docker
-        container: tana-nodered-1
+        container: networktopography-nodered-1
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
@@ -811,7 +811,7 @@
         href: https://pinepods.bob.house/
         icon: pinepods.png
         server: tana-docker
-        container: tana-pinepods-1
+        container: networktopography-pinepods-1
     - Planka: &planka
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
@@ -855,7 +855,7 @@
         href: https://prowlarr.bob.house/
         icon: prowlarr.svg
         server: tana-docker
-        container: tana-prowlarr-1
+        container: networktopography-prowlarr-1
         widget:
           type: prowlarr
           url: https://prowlarr.bob.house
@@ -865,7 +865,7 @@
         href: https://qbittorrent.bob.house
         icon: qbittorrent.svg
         server: tana-docker
-        container: tana-qbittorrent-1
+        container: networktopography-qbittorrent-1
         widget:
           type: qbittorrent
           url: https://qbittorrent.bob.house
@@ -882,7 +882,7 @@
         href: https://radarr.bob.house/
         icon: radarr.svg
         server: tana-docker
-        container: tana-radarr-1
+        container: networktopography-radarr-1
         widget:
           type: radarr
           url: https://radarr.bob.house
@@ -905,7 +905,7 @@
         href: https://sabnzbd.bob.house/
         icon: sabnzbd.svg
         server: tana-docker
-        container: tana-sabnzbd-1
+        container: networktopography-sabnzbd-1
         widget:
           type: sabnzbd
           url: https://sabnzbd.bob.house
@@ -915,7 +915,7 @@
         href: https://scrutiny.bob.house/web/
         icon: scrutiny-light.png
         server: tana-docker
-        container: tana-scrutiny-1
+        container: networktopography-scrutiny-1
         widget:
           type: scrutiny
           url: https://scrutiny.bob.house
@@ -924,7 +924,7 @@
         href: https://sickgear.bob.house/
         icon: sickbeard.svg
         server: tana-docker
-        container: tana-sickgear-1
+        container: networktopography-sickgear-1
     - Snipo: &snipo
         description: Single-user snippet-manager web app
         href: https://snipo.bob.house/
@@ -936,7 +936,7 @@
         href: https://sonarr.bob.house/
         icon: sonarr.svg
         server: tana-docker
-        container: tana-sonarr-1
+        container: networktopography-sonarr-1
         widget:
           type: sonarr
           url: https://sonarr.bob.house
@@ -1014,7 +1014,7 @@
         href: https://traefik-tana.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: tana-docker
-        container: tana-traefik-1
+        container: networktopography-traefik-1
         widget:
           type: traefik
           url: https://traefik-tana.bob.house
@@ -1029,7 +1029,7 @@
         href: https://tunarr.bob.house/web
         icon: tunarr.svg
         server: tana-docker
-        container: tana-tunarr-1
+        container: networktopography-tunarr-1
     - Vikunja: &vikunja
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
@@ -1047,19 +1047,19 @@
         href: https://windows-tana.bob.house/
         icon: windows-7.png
         server: tana-docker
-        container: tana-windows-1
+        container: networktopography-windows-1
     - Wireshark TANA: &wiresharkstana
         description: Powerful, open-source network protocol analyser
         href: https://wireshark-tana.bob.house/
         icon: wireshark.webp
         server: tana-docker
-        container: tana-wireshark-1
+        container: networktopography-wireshark-1
     - Youtarr: &youtarr
         description: Automates downloading, organizing, and scheduling YouTube channel content
         href: https://youtarr.bob.house/
         icon: youtarr.png
         server: tana-docker
-        container: tana-youtarr-1
+        container: networktopography-youtarr-1
     - ZIM API: &zimapi
         description: Wrapper API for the Kiwix official Download Repository
         href: https://zimapi.bob.house/library
