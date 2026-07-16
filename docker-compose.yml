@@ -4,6 +4,7 @@ include:
   - ./docker-compose-llm.yml
   - ./docker-compose-media.yml
   - ./docker-compose-security.yml
+  - ./docker-compose-wan.yml
 
 services:
   glances:
@@ -119,6 +120,10 @@ services:
       - --entrypoints.lan.address=:443
       - --entrypoints.proxy.address=:3128
       - --entrypoints.ssh.address=:222
+      - --entrypoints.wan.address=:4443
+      - --entrypoints.wan.http.underscoreHeadersStrategy=delete
+      - --experimental.plugins.method-whitelist.modulename=github.com/antoniomacri/traefik-method-whitelist
+      - --experimental.plugins.method-whitelist.version=v1.0.1
       - --global.checkNewVersion=false
       - --global.sendAnonymousUsage=false
       # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
@@ -161,11 +166,13 @@ services:
       - 443:443/tcp
       - 2375:2375/tcp
       - 3128:3128/tcp
+      - 4443:4443/tcp
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - certificates-volume:/var/certs/:rw
       - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
+      - ${DATA_DIR:-/opt/appdata}/traefik/plugins/:/plugins-storage/:rw
       - /etc/localtime:/etc/localtime:ro
 
 configs:

@@ -162,7 +162,7 @@ endpoints:
 
   - name: glances KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-glances-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -271,7 +271,7 @@ endpoints:
 
   - name: kopia KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-kopia-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -295,7 +295,7 @@ endpoints:
 
   - name: leafwiki
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-leafwiki-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-leafwiki-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -313,7 +313,7 @@ endpoints:
 
   - name: miasma
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-miasma-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-miasma-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -514,7 +514,7 @@ endpoints:
 
   - name: socket-proxy KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-socket-proxy-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
@@ -576,7 +576,7 @@ endpoints:
 
   - name: traefik KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/kayshon-traefik-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 

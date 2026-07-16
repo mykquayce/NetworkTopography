@@ -1,0 +1,76 @@
+services:
+  leafwiki:
+    image: ghcr.io/perber/leafwiki:${LEAFWIKI_IMAGE_TAG?:missing leafwiki image tag}
+    cap_drop: [ ALL, ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    env_file:
+      - ${REPOS_DIR:-/opt/git}/Configurations/leafwiki.env
+    environment:
+      LEAFWIKI_ALLOW_INSECURE: "true"
+      LEAFWIKI_CUSTOM_STYLESHEET: custom.css
+      LEAFWIKI_PUBLIC_ACCESS: "true"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider http://localhost:8080/api/config || exit 1", ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    labels:
+      dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
+      dd.watch: "true"
+
+      traefik.http.routers.leafwiki-lan-router.entrypoints: lan
+      traefik.http.routers.leafwiki-lan-router.rule: Host(`www.bob.house`)
+      traefik.http.routers.leafwiki-lan-router.service: leafwiki-lan-service
+      traefik.http.routers.leafwiki-lan-router.tls: "true"
+      traefik.http.services.leafwiki-lan-service.loadbalancer.server.port: "8080"
+
+      traefik.http.routers.leafwiki-wan-router.entrypoints: wan
+      traefik.http.routers.leafwiki-wan-router.middlewares: method-whitelist-plugin@file,secure-headers@file
+      traefik.http.routers.leafwiki-wan-router.rule: Host(`www.bob.house`)
+      traefik.http.routers.leafwiki-wan-router.service: leafwiki-wan-service
+      traefik.http.routers.leafwiki-wan-router.tls: "true"
+      traefik.http.services.leafwiki-wan-service.loadbalancer.server.port: "8080"
+    networks:
+      traefik: null
+    profiles: [ wan, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]
+    user: 1000:1000
+    volumes:
+      - ${DATA_DIR:-/opt/appdata}/leafwiki/:/app/data/:rw
+      - ./leafwiki.css:/app/data/custom.css:ro
+
+  miasma:
+    image: austinweeks/miasma:${MIASMA_IMAGE_TAG?:missing miasma image tag}
+    cap_drop: [ ALL, ]
+    command: [ "--host", "0.0.0.0", "--port", "9999", "--link-count", "5", "--max-depth", "8", "--max-in-flight", "50", ]
+    depends_on:
+      traefik:
+        condition: service_healthy
+    labels:
+      dd.tag.family: loose
+      dd.watch: "true"
+      traefik.docker.network: traefik-network
+
+      traefik.http.routers.miasma-lan-router.entrypoints: lan
+      traefik.http.routers.miasma-lan-router.rule: Host(`miasma.bob.house`)
+      traefik.http.routers.miasma-lan-router.service: miasma-lan-service
+      traefik.http.routers.miasma-lan-router.tls: "true"
+      traefik.http.services.miasma-lan-service.loadbalancer.server.port: "9999"
+
+      traefik.http.routers.miasma-wan-router.entrypoints: wan
+      traefik.http.routers.miasma-wan-router.middlewares: method-whitelist-plugin@file,secure-headers@file
+      traefik.http.routers.miasma-wan-router.rule: Host(`miasma.bob.house`)
+      traefik.http.routers.miasma-wan-router.service: miasma-wan-service
+      traefik.http.routers.miasma-wan-router.tls: "true"
+      traefik.http.services.miasma-wan-service.loadbalancer.server.port: "9999"
+    networks:
+      default: null
+      traefik: null
+    profiles: [ wan, ]
+    read_only: true
+    security_opt: [ no-new-privileges=true, ]

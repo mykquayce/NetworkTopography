@@ -271,7 +271,7 @@
         href: https://glances-kayshon.bob.house/
         icon: glances.png
         server: kayshon-docker
-        container: kayshon-glances-1
+        container: networktopography-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -665,7 +665,7 @@
         href: https://kopia-kayshon.bob.house/
         icon: kopia.svg
         server: kayshon-docker
-        container: kayshon-kopia-1
+        container: networktopography-kopia-1
         widget:
           type: kopia
           url: https://kopia-kayshon.bob.house
@@ -709,7 +709,7 @@
         href: https://www.bob.house/
         icon: /icons/leafwiki.svg
         server: kayshon-docker
-        container: kayshon-leafwiki-1
+        container: networktopography-leafwiki-1
     - Lidarr: &lidarr
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
@@ -731,7 +731,7 @@
         href: https://miasma.bob.house/
         icon: /icons/miasma.svg
         server: kayshon-docker
-        container: kayshon-miasma-1
+        container: networktopography-miasma-1
     - moodist: &moodist
         description: Ambient sounds for focus and calm
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.24%2C%22crowd%22%3A0.96%2C%22inside-a-train%22%3A0.64%2C%22brown-noise%22%3A0.24%7D
