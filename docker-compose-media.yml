@@ -19,7 +19,7 @@ services:
       traefik.http.routers.feishin-router.rule: Host(`feishin.bob.house`)
       traefik.http.routers.feishin-router.tls: "true"
       traefik.http.services.feishin-service.loadbalancer.server.port: "9180"
-    profiles: [ app, ]
+    profiles: [ media, ]
     networks:
       traefik: null
     security_opt: [ no-new-privileges=true, ]
@@ -61,12 +61,12 @@ services:
       timeout: 10s
     labels:
       dev.dozzle.group: ganymede
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.ganymede-router.entrypoints: lan
       traefik.http.routers.ganymede-router.rule: Host(`ganymede.bob.house`)
       traefik.http.routers.ganymede-router.tls: "true"
       traefik.http.services.ganymede-service.loadbalancer.server.port: "4000"
-    profiles: [ app, ]
+    profiles: [ media, ]
     networks:
       default: null
       ganymede: null
@@ -95,41 +95,14 @@ services:
       traefik.enable: "false"
     networks:
       ganymede: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /var/run/, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/ganymede/db/:/var/lib/postgresql/data/:rw
 
-  glances:
-    image: nicolargo/glances:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
-    depends_on:
-      socket-proxy:
-        condition: service_healthy
-      traefik:
-        condition: service_healthy
-    environment:
-      DOCKER_HOST: tcp://socket-proxy:2375
-      GLANCES_OPT: -w
-    labels:
-      traefik.docker.network: tana_traefik
-      traefik.http.routers.glances-router.entrypoints: lan
-      traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
-      traefik.http.routers.glances-router.tls: "true"
-      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
-    networks:
-      socket-proxy: null
-      traefik: null
-    profiles: [ app, monitoring, ]
-    pid: host
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - /etc/os-release:/etc/os-release:ro
-
-  gluetun:
+  gluetun-tana:
     image: qmcgaw/gluetun:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
@@ -145,7 +118,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.gluetun-router.entrypoints: lan
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-tana.bob.house`)
       traefik.http.routers.gluetun-router.tls: "true"
@@ -164,6 +137,7 @@ services:
       - 192.168.1.70:6881:6881/udp
       - 192.168.20.70:6881:6881/tcp # qbittorrent
       - 192.168.20.70:6881:6881/udp
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
 
   jellyfin:
@@ -185,7 +159,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/log/, ]
     volumes:
@@ -217,7 +191,7 @@ services:
       LOG_LEVEL: debug
       TZ: UTC
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.jellyseerr-router.entrypoints: lan
       traefik.http.routers.jellyseerr-router.rule: Host(`jellyseerr.bob.house`)
       traefik.http.routers.jellyseerr-router.tls: "true"
@@ -225,7 +199,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/config/logs/, ]
@@ -247,48 +221,11 @@ services:
       traefik.http.services.kiwix-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /mnt/md1/downloads/zim/:/data/:ro
-
-  kopia:
-    image: kopia/kopia:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ DAC_OVERRIDE, ]
-    command:
-      - server
-      - start
-      - --disable-csrf-token-checks
-      - --insecure
-      - --address=0.0.0.0:51515
-      - --server-username=a72691ffb1328c15
-      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
-    configs:
-      - source: kopiaignore
-        target: /data/.kopiaignore
-    depends_on:
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
-    labels:
-      traefik.http.routers.kopia-router.entrypoints: lan
-      traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
-      traefik.http.routers.kopia-router.tls: "true"
-      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
-    networks:
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /app/cache/, /app/logs/, ]
-    volumes:
-      # Mount local folders needed by kopia
-      - ${DATA_DIR:-/opt/appdata}/kopia/:/app/config/:rw
-      # Mount local folders to snapshot
-      - ${DATA_DIR:-/opt/appdata}/:/data/:rw
-      # Mount repository location
-      - /repository/:/repository/:rw
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -306,7 +243,7 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.lidarr-router.entrypoints: lan
       traefik.http.routers.lidarr-router.rule: Host(`lidarr.bob.house`)
       traefik.http.routers.lidarr-router.tls: "true"
@@ -314,7 +251,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
@@ -340,7 +277,7 @@ services:
       PGID: "0"
       PUID: "0"
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.metube-router.entrypoints: lan
       traefik.http.routers.metube-router.rule: Host(`metube.bob.house`)
       traefik.http.routers.metube-router.tls: "true"
@@ -348,7 +285,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/temp/, ]
     volumes:
@@ -375,7 +312,7 @@ services:
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/cache/, ]
@@ -401,7 +338,7 @@ services:
       traefik.http.services.nodered-service.loadbalancer.server.port: "1880"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -443,7 +380,7 @@ services:
       TZ: Etc/UTC
     labels:
       dev.dozzle.group: pinepods
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.pinepods-router.entrypoints: lan
       traefik.http.routers.pinepods-router.rule: Host(`pinepods.bob.house`)
       traefik.http.routers.pinepods-router.tls: "true"
@@ -452,7 +389,7 @@ services:
       default: null
       pinepods: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - /mnt/md1/podcasts/:/opt/pinepods/downloads/:rw
@@ -479,7 +416,7 @@ services:
       traefik.enable: "false"
     networks:
       pinepods: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/pinepods/:/var/lib/postgresql/data/:rw
@@ -493,7 +430,7 @@ services:
       traefik.enable: "false"
     networks:
       pinepods: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
 
   prowlarr:
@@ -512,7 +449,7 @@ services:
       PGID: "1000"
       TZ: Etc/UTC
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.prowlarr-router.entrypoints: lan
       traefik.http.routers.prowlarr-router.rule: Host(`prowlarr.bob.house`)
       traefik.http.routers.prowlarr-router.tls: "true"
@@ -520,7 +457,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
@@ -532,7 +469,7 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
-      gluetun:
+      gluetun-tana:
         condition: service_healthy
     environment:
       PUID: "0"
@@ -542,8 +479,8 @@ services:
       TORRENTING_PORT: "6881"
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun
-    profiles: [ app, ]
+    network_mode: service:gluetun-tana
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/qBittorrent/GeoDB/, /config/qBittorrent/logs/, ]
     volumes:
@@ -566,7 +503,7 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.radarr-router.entrypoints: lan
       traefik.http.routers.radarr-router.rule: Host(`radarr.bob.house`)
       traefik.http.routers.radarr-router.tls: "true"
@@ -575,7 +512,7 @@ services:
       default: null
       traefik: null
     read_only: true
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
     volumes:
@@ -597,7 +534,7 @@ services:
       PUID: "0"
       TZ: Etc/UTC
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.sabnzbd-router.entrypoints: lan
       traefik.http.routers.sabnzbd-router.rule: Host(`sabnzbd.bob.house`)
       traefik.http.routers.sabnzbd-router.tls: "true"
@@ -605,7 +542,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/logs/, ]
     volumes:
@@ -634,7 +571,7 @@ services:
       traefik.http.services.scutiny-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/scrutiny/config/:/opt/scrutiny/config/:rw
@@ -655,7 +592,7 @@ services:
       traefik.http.services.sickgear-service.loadbalancer.server.port: "8081"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/backup/, /data/cache/, /data/Logs/, ]
@@ -670,42 +607,6 @@ services:
       - /mnt/md1/music/:/music/:rw
       - /mnt/md1/pictures/:/pictures/:rw
       - /mnt/md1/videos/:/videos/:rw
-
-  socket-proxy:
-    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
-    cap_drop: [ ALL, ]
-    environment:
-      DISABLE_IPV6: "true"
-      LOG_LEVEL: info
-      TZ: Etc/UTC
-
-      CONTAINERS: "1"
-      EVENTS: "1"
-      IMAGES: "1"
-      INFO: "1"
-      PING: "1"
-      SERVICES: "1"
-      VERSION: "1"
-    healthcheck:
-      test: wget --spider http://127.0.0.1:2375/version || exit 1
-      interval: 5s
-      timeout: 3s
-      retries: 3
-      start_period: 5s
-    labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      traefik.docker.network: tana_traefik
-      traefik.tcp.routers.socket-proxy-router.entrypoints: docker
-      traefik.tcp.routers.socket-proxy-router.rule: HostSNI(`*`)
-      traefik.tcp.services.socket-proxy-service.loadbalancer.server.port: "2375"
-    networks:
-      socket-proxy: null
-      traefik: null
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, /tmp, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -725,7 +626,7 @@ services:
     extra_hosts:
       - "ntfy.bob.house=192.168.20.65"
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.sonarr-router.entrypoints: lan
       traefik.http.routers.sonarr-router.rule: Host(`sonarr.bob.house`)
       traefik.http.routers.sonarr-router.tls: "true"
@@ -733,7 +634,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
@@ -742,62 +643,6 @@ services:
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
       - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
       - /mnt/md1/MediaThumbnails/sonarr/:/config/MediaCover/:rw
-
-  traefik:
-    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
-    cap_drop: [ ALL, ]
-    command:
-      # - --accesslog=true
-      - --api.insecure=true
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
-      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
-      - --entrypoints.docker.address=:2375
-      - --entrypoints.lan.address=:443
-      - --global.checkNewVersion=false
-      - --global.sendAnonymousUsage=false
-      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
-      - --log.level=INFO
-      - --metrics.prometheus=true
-      - --metrics.prometheus.addentrypointslabels=true
-      - --metrics.prometheus.addrouterslabels=true
-      - --metrics.prometheus.addserviceslabels=true
-      - --ping
-      - --providers.docker
-      - --providers.docker.endpoint=tcp://socket-proxy:2375
-    depends_on:
-      socket-proxy:
-        condition: service_healthy
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/traefik.env
-    healthcheck:
-      test: /usr/local/bin/traefik healthcheck --ping
-    labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      traefik.docker.network: tana_traefik
-      traefik.http.routers.traefik-router.entrypoints: lan
-      traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
-      traefik.http.routers.traefik-router.tls: "true"
-      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
-      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
-      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
-      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
-    networks:
-      default: null
-      socket-proxy: null
-      traefik: null
-    ports:
-      - 192.168.1.70:443:443/tcp
-      - 192.168.20.70:443:443/tcp
-      - 192.168.1.70:2375:2375/tcp
-      - 192.168.20.70:2375:2375/tcp
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - certificates-volume:/var/certs/:rw
-      - /etc/localtime:/etc/localtime:ro
 
   tunarr:
     image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
@@ -818,7 +663,7 @@ services:
       traefik.http.services.tunarr-service.loadbalancer.server.port: "8000"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/tunarr/backups/, /config/tunarr/cache/, /config/tunarr/logs/, /tunarr/streams/, '/root/.cache/:exec', ]
@@ -856,7 +701,7 @@ services:
       KEYBOARD: en-GB
       USERNAME: bob
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.windows-router.entrypoints: lan
       traefik.http.routers.windows-router.rule: Host(`windows-tana.bob.house`)
       traefik.http.routers.windows-router.tls: "true"
@@ -869,7 +714,7 @@ services:
       - 192.168.1.70:3389:3389/udp
       - 192.168.20.70:3389:3389/tcp
       - 192.168.20.70:3389:3389/udp
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     stop_grace_period: 2m0s
     volumes:
@@ -888,7 +733,7 @@ services:
       PGID: "1000"
       TZ: Etc/UTC
     labels:
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.wireshark-router.entrypoints: lan
       traefik.http.routers.wireshark-router.rule: Host(`wireshark-tana.bob.house`)
       traefik.http.routers.wireshark-router.tls: "true"
@@ -896,7 +741,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     shm_size: "1gb"
     stop_grace_period: 2m0s
     volumes: [ "${DATA_DIR:-/opt/appdata}/wireshark/:/config/:rw", ]
@@ -930,7 +775,7 @@ services:
       start_period: 40s
     labels:
       dev.dozzle.group: youtarr
-      traefik.docker.network: tana_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.youtarr-router.entrypoints: lan
       traefik.http.routers.youtarr-router.rule: Host(`youtarr.bob.house`)
       traefik.http.routers.youtarr-router.tls: "true"
@@ -939,7 +784,7 @@ services:
       default: null
       traefik: null
       youtarr: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/jobs/, /storage/rclone/storagebox/youtube/, /tmp/, ]
@@ -971,40 +816,7 @@ services:
       traefik.enable: "false"
     networks:
       youtarr: null
-    profiles: [ app, ]
+    profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
     volumes: [ "${DATA_DIR:-/opt/appdata}/youtarr/db/:/var/lib/mysql/:rw", ]
-
-configs:
-  kopiaignore:
-    content: |
-      /lidarr/logs.db*
-      /metube/state/*.old
-      /prowlarr/logs.db*
-      /radarr/logs.db*
-      /sonarr/logs.db*
-      /scrutiny/
-      /tunarr/db*.bak
-
-networks:
-  default:
-    name: tana_default
-  ganymede:
-    name: tana_ganymede
-    internal: "true"
-  pinepods:
-    name: tana_pinepods
-    internal: "true"
-  socket-proxy:
-    name: tana_socket-proxy
-    internal: "true"
-  traefik:
-    name: tana_traefik
-    internal: "true"
-  youtarr:
-    name: tana_youtarr
-    internal: "true"
-
-volumes:
-  certificates-volume:

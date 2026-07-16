@@ -1,4 +1,51 @@
+entryPoints:
+  wan:
+    http:
+      encodedCharacters:
+        allowEncodedSlash: false          # %2F - Default: true
+        allowEncodedBackSlash: false      # %5C - Default: true
+        allowEncodedNullCharacter: false  # %00 - Default: true
+        allowEncodedSemicolon: false      # %3B - Default: true
+        allowEncodedPercent: false        # %25 - Default: true
+        allowEncodedQuestionMark: false   # %3F - Default: true
+        allowEncodedHash: false           # %23 - Default: true
 http:
+  middlewares:
+    method-whitelist-plugin:
+      plugin:
+        method-whitelist:
+          Message: "Method Not Allowed"
+          Methods: [ GET, OPTIONS, ]
+    secure-headers:
+      headers:
+        accessControlAllowHeaders: [ "*", ]
+        accessControlAllowMethods: [ GET, OPTIONS, ]
+        accessControlAllowOriginList: [ https://www.bob.house, https://miasma.bob.house, ]
+        accessControlMaxAge: 100
+        addVaryHeader: true
+        browserXssFilter: true
+        contentSecurityPolicy: >-
+          default-src 'self';
+          script-src 'self';
+          connect-src 'self';
+          img-src 'self';
+          style-src 'self' 'unsafe-inline';
+          object-src 'none';
+          base-uri 'none';
+          frame-ancestors 'none';
+        contentTypeNosniff: true
+        customFrameOptionsValue: "SAMEORIGIN"
+        customResponseHeaders:
+          Cross-Origin-Embedder-Policy: require-corp
+          Cross-Origin-Opener-Policy: same-origin
+          Cross-Origin-Resource-Policy: same-origin
+          server: ""
+          x-powered-by: ""
+        frameDeny: true
+        referrerPolicy: same-origin
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
   routers:
     glances-kayshon-router:
       entryPoints:

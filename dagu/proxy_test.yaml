@@ -41,14 +41,14 @@ steps:
     parallel:
       items:
         - cname: "apache.bob.house"
-          host: "docker-ransom.bob.house"
-          container_name: "ransom-apache-1"
+          host: "ransom.bob.house"
+          container_name: "networktopography-apache-1"
         - cname: "squid.bob.house"
-          host: "docker-freeman.bob.house"
-          container_name: "freeman-squid-1"
+          host: "freeman.bob.house"
+          container_name: "networktopography-squid-1"
         - cname: "gluetun-freeman.bob.house"
-          host: "docker-freeman.bob.house"
-          container_name: "freeman-gluetun-1"
+          host: "freeman.bob.house"
+          container_name: "networktopography-gluetun-freeman-1"
     with:
       dag: service_test_processor
       params:

@@ -11,7 +11,7 @@ services:
       dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
       dev.dozzle.group: adguard
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.adguard01-router.entrypoints: lan
       traefik.http.routers.adguard01-router.rule: Host(`adguard01.bob.house`)
       traefik.http.routers.adguard01-router.tls: "true"
@@ -22,6 +22,7 @@ services:
     ports:
       - 192.168.1.60:53:53/tcp
       - 192.168.1.60:53:53/udp
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -40,7 +41,7 @@ services:
       dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
       dev.dozzle.group: adguard
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.adguard20-router.entrypoints: lan
       traefik.http.routers.adguard20-router.rule: Host(`adguard20.bob.house`)
       traefik.http.routers.adguard20-router.tls: "true"
@@ -51,6 +52,7 @@ services:
     ports:
       - 192.168.20.60:53:53/tcp
       - 192.168.20.60:53:53/udp
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -74,6 +76,7 @@ services:
       traefik.enable: "false"
     networks:
       authentik: null
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /var/run/postgresql/, ]
@@ -96,7 +99,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/authentik.env
     labels:
       dev.dozzle.group: authentik
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.authentik-router.entrypoints: lan
       traefik.http.routers.authentik-router.rule: Host(`authentik.bob.house`)
       traefik.http.routers.authentik-router.tls: "true"
@@ -104,6 +107,7 @@ services:
     networks:
       authentik: null
       traefik: null
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     shm_size: 512mb
@@ -128,6 +132,7 @@ services:
       traefik.enable: "false"
     networks:
       authentik: null
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     shm_size: 512mb
@@ -150,6 +155,7 @@ services:
       traefik.http.services.baikal-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
+    profiles: [ docker1, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/baikal/config/:/var/www/baikal/config/:rw
@@ -171,7 +177,7 @@ services:
       dd.tag.family: loose
       dd.tag.include: ^\d+\.\d+\.\d+$$
       dd.watch: "true"
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.dagu-router.entrypoints: lan
       traefik.http.routers.dagu-router.rule: Host(`dagu.bob.house`)
       traefik.http.routers.dagu-router.tls: "true"
@@ -179,7 +185,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker1, ]
     secrets:
       - source: id_rsa
       - source: known_hosts
@@ -216,7 +222,7 @@ services:
       start_period: 5s
       start_interval: 5s
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.dozzle-router.entrypoints: lan
       traefik.http.routers.dozzle-router.rule: Host(`dozzle.bob.house`)
       traefik.http.routers.dozzle-router.tls: "true"
@@ -225,7 +231,7 @@ services:
       default: null
       socket-proxy: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -250,7 +256,7 @@ services:
       USER_GID: "1000"
     labels:
       dev.dozzle.group: forgejo
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.forgejo-router.entrypoints: lan
       traefik.http.routers.forgejo-router.rule: Host(`git.bob.house`)
       traefik.http.routers.forgejo-router.tls: "true"
@@ -263,7 +269,7 @@ services:
     networks:
       forgejo: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker1, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/forgejo/data/:/data/:rw
@@ -288,7 +294,7 @@ services:
       traefik.enable: "false"
     networks:
       forgejo: null
-    profiles: [ app, ]
+    profiles: [ docker1, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/forgejo/db/:/var/lib/postgresql/data/:rw
@@ -306,7 +312,7 @@ services:
       GATUS_CONFIG_PATH: /config
       NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.gatus-router.entrypoints: lan
       traefik.http.routers.gatus-router.rule: Host(`gatus.bob.house`)
       traefik.http.routers.gatus-router.tls: "true"
@@ -315,7 +321,7 @@ services:
       default: null
       socket-proxy: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -329,7 +335,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.glance-router.entrypoints: lan
       traefik.http.routers.glance-router.rule: Host(`glance.bob.house`)
       traefik.http.routers.glance-router.tls: "true"
@@ -337,6 +343,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/assets/, ]
@@ -344,35 +351,7 @@ services:
       - ./glance.yml:/app/config/glance.yml:ro
       - /etc/localtime:/etc/localtime:ro
 
-  glances:
-    image: nicolargo/glances:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
-    depends_on:
-      socket-proxy:
-        condition: service_started
-      traefik:
-        condition: service_healthy
-    environment:
-      DOCKER_HOST: tcp://socket-proxy:2375
-      GLANCES_OPT: -w
-    labels:
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.glances-router.entrypoints: lan
-      traefik.http.routers.glances-router.priority: "1"
-      traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
-      traefik.http.routers.glances-router.tls: "true"
-      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
-    networks:
-      socket-proxy: null
-      traefik: null
-    pid: host
-    profiles: [ app, monitoring, ]
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - /etc/os-release:/etc/os-release:ro
-
-  gluetun:
+  gluetun-freeman:
     image: qmcgaw/gluetun:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
@@ -388,7 +367,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.gluetun-router.entrypoints: lan
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-freeman.bob.house`)
       traefik.http.routers.gluetun-router.tls: "true"
@@ -401,6 +380,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ docker1, ]
     security_opt: [ no-new-privileges=true, ]
 
   go2rtc:
@@ -415,6 +395,7 @@ services:
       traefik.http.routers.go2rtc-router.rule: Host(`go2rtc.bob.house`)
       traefik.http.routers.go2rtc-router.tls: "true"
       traefik.http.services.go2rtc-service.loadbalancer.server.port: "1984"
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -437,7 +418,7 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.homepage-router.entrypoints: lan
       traefik.http.routers.homepage-router.rule: Host(`homepage.bob.house`)
       traefik.http.routers.homepage-router.tls: "true"
@@ -446,50 +427,13 @@ services:
       default: null
       socket-proxy: null
       traefik: null
+    profiles: [ docker1, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/config/logs/, ]
     volumes:
       - ./homepage/:/app/config/:rw
       - ./homepage/icons/:/app/public/icons/:ro
       - ./homepage/images/:/app/public/images/:ro
-
-  kopia:
-    image: kopia/kopia:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ DAC_OVERRIDE, ]
-    command:
-      - server
-      - start
-      - --disable-csrf-token-checks
-      - --insecure
-      - --address=0.0.0.0:51515
-      - --server-username=a72691ffb1328c15
-      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
-    configs:
-      - source: kopiaignore
-        target: /data/.kopiaignore
-    depends_on:
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
-    labels:
-      traefik.http.routers.kopia-router.entrypoints: lan
-      traefik.http.routers.kopia-router.priority: "1"
-      traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
-      traefik.http.routers.kopia-router.tls: "true"
-      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
-    networks:
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /app/cache/, /app/logs/, ]
-    volumes:
-      # Mount local folders needed by kopia
-      - ${DATA_DIR:-/opt/appdata}/kopia/:/app/config/:rw
-      # Mount local folders to snapshot
-      - ${DATA_DIR:-/opt/appdata}/:/data/:rw
-      # Mount repository location
-      - /repository/:/repository/:rw
 
   portainer:
     image: portainer/portainer-ce:latest
@@ -501,7 +445,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.portainer-router.entrypoints: lan
       traefik.http.routers.portainer-router.rule: Host(`portainer.bob.house`)
       traefik.http.routers.portainer-router.tls: "true"
@@ -510,7 +454,7 @@ services:
       default: null
       socket-proxy: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /data/backups/, ]
@@ -528,7 +472,7 @@ services:
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.prometheus-router.entrypoints: lan
       traefik.http.routers.prometheus-router.rule: Host(`prometheus.bob.house`)
       traefik.http.routers.prometheus-router.tls: "true"
@@ -536,7 +480,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     user: root
@@ -544,54 +488,19 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ${DATA_DIR:-/opt/appdata}/prometheus/:/prometheus/:rw
 
-  socket-proxy:
-    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
-    cap_drop: [ ALL, ]
-    environment:
-      DISABLE_IPV6: "true"
-      LOG_LEVEL: info
-      TZ: Etc/UTC
-
-      CONTAINERS: "1"
-      EVENTS: "1"
-      IMAGES: "1"
-      INFO: "1"
-      PING: "1"
-      SERVICES: "1"
-      VERSION: "1"
-    healthcheck:
-      test: wget --spider http://127.0.0.1:2375/version || exit 1
-      interval: 5s
-      timeout: 3s
-      retries: 3
-      start_period: 5s
-    labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      traefik.docker.network: freeman_traefik
-      traefik.tcp.routers.socket-proxy-router.entrypoints: docker
-      traefik.tcp.routers.socket-proxy-router.rule: HostSNI(`*`)
-      traefik.tcp.services.socket-proxy-service.loadbalancer.server.port: "2375"
-    networks:
-      socket-proxy: null
-      traefik: null
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, /tmp, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
-
   squid:
     image: ubuntu/squid:latest
     cap_drop: [ ALL, ]
     cap_add: [ DAC_OVERRIDE, SETGID, SETUID, ]
     depends_on:
-      gluetun:
+      gluetun-freeman:
         condition: service_healthy
     environment:
       TZ: Etc/UTC
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun
+    network_mode: service:gluetun-freeman
+    profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run/, ]
@@ -607,7 +516,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.docker.network: freeman_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.sshwifty-router.entrypoints: lan
       traefik.http.routers.sshwifty-router.rule: Host(`sshwifty.bob.house`)
       traefik.http.routers.sshwifty-router.tls: "true"
@@ -615,7 +524,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker1, ]
     read_only: true
     secrets:
       - source: id_rsa
@@ -623,104 +532,3 @@ services:
     user: root
     volumes:
       - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
-
-  traefik:
-    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
-    cap_drop: [ ALL, ]
-    command:
-      # - --accesslog=true
-      - --api.insecure=true
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
-      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
-      - --entrypoints.docker.address=:2375
-      - --entrypoints.proxy.address=:3128
-      - --entrypoints.ssh.address=:222
-      - --entrypoints.lan.address=:443
-      - --global.checkNewVersion=false
-      - --global.sendAnonymousUsage=false
-      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
-      - --log.level=INFO
-      - --metrics.prometheus=true
-      - --metrics.prometheus.addentrypointslabels=true
-      - --metrics.prometheus.addrouterslabels=true
-      - --metrics.prometheus.addserviceslabels=true
-      - --ping
-      - --providers.docker
-      - --providers.file.directory=/etc/traefik/dynamic_conf/
-      - --providers.docker.endpoint=tcp://socket-proxy:2375
-    depends_on:
-      socket-proxy:
-        condition: service_healthy
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/traefik.env
-    healthcheck:
-      test: ['CMD', 'traefik', 'healthcheck', '--ping']
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      traefik.docker.network: freeman_traefik
-      traefik.http.routers.traefik-router.entrypoints: lan
-      traefik.http.routers.traefik-router.priority: "1"
-      traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
-      traefik.http.routers.traefik-router.tls: "true"
-      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
-      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
-      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
-      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
-    networks:
-      default: null
-      socket-proxy: null
-      traefik: null
-    ports:
-      - 192.168.1.60:222:222/tcp
-      - 192.168.20.60:222:222/tcp
-      - 192.168.1.60:443:443/tcp
-      - 192.168.20.60:443:443/tcp
-      - 192.168.1.60:2375:2375/tcp
-      - 192.168.20.60:2375:2375/tcp
-      - 192.168.1.60:3128:3128/tcp
-      - 192.168.20.60:3128:3128/tcp
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - certificates-volume:/var/certs/:rw
-      - ./traefik.yml:/etc/traefik/dynamic_conf/conf.yml:ro
-      - /etc/localtime:/etc/localtime:ro
-
-configs:
-  kopiaignore:
-    content: |
-      /adguard01/querylog.json*
-      /adguard20/querylog.json*
-      /prometheus/
-
-networks:
-  authentik:
-    name: freeman_authentik
-    internal: "true"
-  default:
-    name: freeman_default
-  forgejo:
-    name: freeman_forgejo
-    internal: "true"
-  socket-proxy:
-    name: freeman_socket-proxy
-    internal: "true"
-  traefik:
-    name: freeman_traefik
-    internal: "true"
-
-secrets:
-  id_rsa:
-    file: ~/.ssh/id_rsa
-  known_hosts:
-    file: ~/.ssh/known_hosts
-
-volumes:
-  certificates-volume:
-  squid-log:

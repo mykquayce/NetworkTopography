@@ -13,6 +13,7 @@ services:
       traefik.http.services.apache-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /usr/local/apache2/logs/, ]
@@ -33,7 +34,7 @@ services:
     healthcheck:
       test: curl --fail http://localhost:8000/status || exit 1
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.apprise-router.entrypoints: lan
       traefik.http.routers.apprise-router.rule: Host(`apprise.bob.house`)
       traefik.http.routers.apprise-router.tls: "true"
@@ -41,7 +42,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     user: 1000:1000
@@ -58,7 +59,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.changedetection-router.entrypoints: lan
       traefik.http.routers.changedetection-router.rule: Host(`changedetection.bob.house`)
       traefik.http.routers.changedetection-router.tls: "true"
@@ -66,7 +67,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -88,7 +89,7 @@ services:
       traefik.http.services.donetick-service.loadbalancer.server.port: "2021"
     networks:
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -100,12 +101,12 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
-      gluetun:
+      gluetun-ransom:
         condition: service_healthy
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun
-    profiles: [ app, monitoring, ]
+    network_mode: service:gluetun-ransom
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/degoog/:/app/data/:rw
@@ -125,7 +126,7 @@ services:
       traefik.http.services.drawio-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
 
@@ -175,12 +176,12 @@ services:
       DD_WATCHER_TANA_CRON: 0 5,11,17,23 * * *
       DD_WATCHER_TANA_WATCHBYDEFAULT: "false"
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.drydock-router.entrypoints: lan
       traefik.http.routers.drydock-router.rule: Host(`drydock.bob.house`)
       traefik.http.routers.drydock-router.tls: "true"
       traefik.http.services.drydock-service.loadbalancer.server.port: "3000"
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     networks:
@@ -201,7 +202,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/freshrss.env
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.freshrss-router.entrypoints: lan
       traefik.http.routers.freshrss-router.rule: Host(`freshrss.bob.house`)
       traefik.http.routers.freshrss-router.tls: "true"
@@ -213,40 +214,13 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     tmpfs: [ /var/www/FreshRSS/data/cache/, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/freshrss/data/:/var/www/FreshRSS/data/:rw
       - ${DATA_DIR:-/opt/appdata}/freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
 
-  glances:
-    image: nicolargo/glances:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ SYS_ADMIN, SYS_RAWIO, ]
-    depends_on:
-      socket-proxy:
-        condition: service_healthy
-      traefik:
-        condition: service_healthy
-    environment:
-      DOCKER_HOST: tcp://socket-proxy:2375
-      GLANCES_OPT: -w
-    labels:
-      traefik.docker.network: ransom_traefik
-      traefik.http.routers.glances-router.entrypoints: lan
-      traefik.http.routers.glances-router.rule: HostRegexp(`^glances-\w+\.bob\.house$`)
-      traefik.http.routers.glances-router.tls: "true"
-      traefik.http.services.glances-service.loadbalancer.server.port: "61208"
-    networks:
-      socket-proxy: null
-      traefik: null
-    pid: host
-    profiles: [ app, monitoring, ]
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - /etc/os-release:/etc/os-release:ro
-
-  gluetun:
+  gluetun-ransom:
     image: qmcgaw/gluetun:latest
     cap_drop: [ ALL, ]
     cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
@@ -262,7 +236,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.gluetun-router.entrypoints: lan
       traefik.http.routers.gluetun-router.rule: Host(`gluetun-ransom.bob.house`)
       traefik.http.routers.gluetun-router.tls: "true"
@@ -276,6 +250,7 @@ services:
     networks:
       default: null
       traefik: null
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
 
   grafana:
@@ -292,7 +267,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/grafana.env
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.grafana-router.entrypoints: lan
       traefik.http.routers.grafana-router.rule: Host(`grafana.bob.house`)
       traefik.http.routers.grafana-router.tls: "true"
@@ -300,7 +275,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     user: "0"
@@ -320,7 +295,7 @@ services:
       traefik.http.services.httpbin-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
 
@@ -338,7 +313,7 @@ services:
       traefik.http.services.it-tools-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
 
   jsonpath:
@@ -355,45 +330,8 @@ services:
       traefik.http.services.jsonpath-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
-
-  kopia:
-    image: kopia/kopia:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ DAC_OVERRIDE, ]
-    command:
-      - server
-      - start
-      - --disable-csrf-token-checks
-      - --insecure
-      - --address=0.0.0.0:51515
-      - --server-username=a72691ffb1328c15
-      - --server-password=54b2ffddfbb10d02b59a5c2b8f9149ff
-    configs:
-      - source: kopiaignore
-        target: /data/.kopiaignore
-    depends_on:
-      traefik:
-        condition: service_healthy
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
-    labels:
-      traefik.http.routers.kopia-router.entrypoints: lan
-      traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
-      traefik.http.routers.kopia-router.tls: "true"
-      traefik.http.services.kopia-service.loadbalancer.server.port: "51515"
-    networks:
-      traefik: null
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /app/cache/, /app/logs/, ]
-    volumes:
-      # Mount local folders needed by kopia
-      - ${DATA_DIR:-/opt/appdata}/kopia/:/app/config/:rw
-      # Mount local folders to snapshot
-      - ${DATA_DIR:-/opt/appdata}/:/data/:rw
-      # Mount repository location
-      - /repository/:/repository/:rw
 
   moodist:
     image: ghcr.io/remvze/moodist:latest
@@ -412,7 +350,7 @@ services:
         max-size: 1g
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
 
   nsd01:
@@ -439,6 +377,7 @@ services:
     ports:
       - 192.168.1.65:53:53/tcp
       - 192.168.1.65:53:53/udp
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
@@ -468,6 +407,7 @@ services:
     ports:
       - 192.168.20.65:53:53/tcp
       - 192.168.20.65:53:53/udp
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
@@ -490,7 +430,7 @@ services:
       traefik.http.services.ntfy-service.loadbalancer.server.port: "80"
     networks:
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -512,7 +452,7 @@ services:
       traefik.http.services.nuget-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
@@ -548,7 +488,7 @@ services:
       retries: 10
     labels:
       dev.dozzle.group: paperless-ngx
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.paperless-ngx-router.entrypoints: lan
       traefik.http.routers.paperless-ngx-router.rule: Host(`paperless-ngx.bob.house`)
       traefik.http.routers.paperless-ngx-router.tls: "true"
@@ -556,7 +496,7 @@ services:
     networks:
       paperless-ngx: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /usr/src/paperless/data/log/, ]
     volumes:
@@ -585,7 +525,7 @@ services:
       traefik.enable: "false"
     networks:
       paperless-ngx: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/paperless-ngx/db/:/var/lib/postgresql/:rw
@@ -605,7 +545,7 @@ services:
       traefik.enable: "false"
     networks:
       paperless-ngx: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/paperless-ngx/redis/:/data/:rw
@@ -633,7 +573,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/planka.env
     labels:
       dev.dozzle.group: planka
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.planka-router.entrypoints: lan
       traefik.http.routers.planka-router.rule: Host(`planka.bob.house`)
       traefik.http.routers.planka-router.tls: "true"
@@ -642,7 +582,7 @@ services:
       default: null
       planka: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/planka/data:/app/data/:rw
@@ -666,7 +606,7 @@ services:
       traefik.enable: "false"
     networks:
       planka: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/planka/db/:/var/lib/postgresql/data/:rw
@@ -684,7 +624,7 @@ services:
       traefik.http.services.rabbitmq-service.loadbalancer.server.port: "15672"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes: [ "${DATA_DIR:-/opt/appdata}/rabbitmq/:/var/lib/rabbitmq/:rw", ]
@@ -698,7 +638,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/readeck.env
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.readeck-router.entrypoints: lan
       traefik.http.routers.readeck-router.rule: Host(`readeck.bob.house`)
       traefik.http.routers.readeck-router.tls: "true"
@@ -706,7 +646,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes: [ "${DATA_DIR:-/opt/appdata}/readeck/:/readeck/:rw", ]
@@ -724,7 +664,7 @@ services:
       - ${REPOS_DIR:-/opt/git}/Configurations/registry.env
     labels:
       dev.dozzle.group: registry
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: registry-network
       traefik.http.routers.registry-router.entrypoints: lan
       traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
       traefik.http.routers.registry-router.tls: "true"
@@ -733,6 +673,7 @@ services:
       default: null
       registry: null
       traefik: null
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -761,12 +702,12 @@ services:
       TAGLIST_PAGE_SIZE: "100"
     labels:
       dev.dozzle.group: registry
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.registry-ui-router.entrypoints: lan
       traefik.http.routers.registry-ui-router.rule: Host(`registry-ui.bob.house`)
       traefik.http.routers.registry-ui-router.tls: "true"
       traefik.http.services.registry-ui-service.loadbalancer.server.port: "80"
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     networks:
       registry: null
       traefik: null
@@ -785,7 +726,7 @@ services:
       retries: 5
       start_period: 10s
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.restfox-router.entrypoints: lan
       traefik.http.routers.restfox-router.rule: Host(`restfox.bob.house`)
       traefik.http.routers.restfox-router.tls: "true"
@@ -793,7 +734,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /root/.npm/, ]
@@ -824,55 +765,19 @@ services:
       retries: 3
       start_period: 5s
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.snipo-router.entrypoints: lan
       traefik.http.routers.snipo-router.rule: Host(`snipo.bob.house`)
       traefik.http.routers.snipo-router.tls: "true"
       traefik.http.services.snipo-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges:true, ]
     tmpfs: [ /tmp/, ]
     user: 1000:1000
     volumes: [ "${DATA_DIR:-/opt/appdata}/snipo/:/data/:rw", ]
-
-  socket-proxy:
-    image: tecnativa/docker-socket-proxy:${DOCKER_SOCKET_PROXY_IMAGE_TAG?:missing docker-socket-proxy image tag}
-    cap_drop: [ ALL, ]
-    environment:
-      DISABLE_IPV6: "true"
-      LOG_LEVEL: info
-      TZ: Etc/UTC
-
-      CONTAINERS: "1"
-      EVENTS: "1"
-      IMAGES: "1"
-      INFO: "1"
-      PING: "1"
-      SERVICES: "1"
-      VERSION: "1"
-    healthcheck:
-      test: wget --spider http://127.0.0.1:2375/version || exit 1
-      interval: 5s
-      timeout: 3s
-      retries: 3
-      start_period: 5s
-    labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      traefik.docker.network: ransom_traefik
-      traefik.tcp.routers.socket-proxy-router.entrypoints: docker
-      traefik.tcp.routers.socket-proxy-router.rule: HostSNI(`*`)
-      traefik.tcp.services.socket-proxy-service.loadbalancer.server.port: "2375"
-    networks:
-      socket-proxy: null
-      traefik: null
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /run, /tmp, ]
-    volumes: [ /var/run/docker.sock:/var/run/docker.sock, ]
 
   speedtest-tracker:
     image: lscr.io/linuxserver/speedtest-tracker:latest
@@ -891,7 +796,7 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/speedtest-tracker.env
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.speedtest-router.entrypoints: lan
       traefik.http.routers.speedtest-router.rule: Host(`speedtest.bob.house`)
       traefik.http.routers.speedtest-router.tls: "true"
@@ -899,66 +804,10 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/speedtest/:/config/:rw
-
-  traefik:
-    image: traefik:${TRAEFIK_IMAGE_TAG?:missing traefik image tag}
-    cap_drop: [ ALL, ]
-    command:
-      # - --accesslog=true
-      - --api.insecure=true
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --certificatesresolvers.cloudflare.acme.email=mail@bob.codes
-      - --certificatesresolvers.cloudflare.acme.storage=/var/certs/acme.json
-      - --entrypoints.docker.address=:2375
-      - --entrypoints.lan.address=:443
-      - --global.checkNewVersion=false
-      - --global.sendAnonymousUsage=false
-      # TRACE  DEBUG  INFO  WARN  ERROR  FATAL  PANIC
-      - --log.level=INFO
-      - --metrics.prometheus=true
-      - --metrics.prometheus.addentrypointslabels=true
-      - --metrics.prometheus.addrouterslabels=true
-      - --metrics.prometheus.addserviceslabels=true
-      - --ping
-      - --providers.docker
-      - --providers.docker.endpoint=tcp://socket-proxy:2375
-    depends_on:
-      socket-proxy:
-        condition: service_healthy
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/traefik.env
-    healthcheck:
-      test: /usr/local/bin/traefik healthcheck --ping
-    labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      traefik.docker.network: ransom_traefik
-      traefik.http.routers.traefik-router.entrypoints: lan
-      traefik.http.routers.traefik-router.rule: HostRegexp(`^traefik-\w+\.bob\.house$`)
-      traefik.http.routers.traefik-router.tls: "true"
-      traefik.http.routers.traefik-router.tls.certresolver: cloudflare
-      traefik.http.routers.traefik-router.tls.domains[0].main: bob.house
-      traefik.http.routers.traefik-router.tls.domains[0].sans: '*.bob.house'
-      traefik.http.services.traefik-service.loadbalancer.server.port: "8080"
-    networks:
-      default: null
-      socket-proxy: null
-      traefik: null
-    ports:
-      - 192.168.1.65:443:443/tcp
-      - 192.168.20.65:443:443/tcp
-      - 192.168.1.65:2375:2375/tcp
-      - 192.168.20.65:2375:2375/tcp
-    read_only: true
-    security_opt: [ no-new-privileges=true, ]
-    volumes:
-      - certificates-volume:/var/certs/:rw
-      - /etc/localtime:/etc/localtime:ro
 
   trilium:
     image: triliumnext/trilium:latest
@@ -976,7 +825,7 @@ services:
       traefik.http.services.trilium-service.loadbalancer.server.port: "8080"
     networks:
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /home/node/trilium-data/backup/, /home/node/trilium-data/log/, /home/node/trilium-data/tmp/, ]
     user: "0:0"
@@ -1001,7 +850,7 @@ services:
       retries: 3
       timeout: 5s
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.trivy-router.entrypoints: lan
       traefik.http.routers.trivy-router.rule: Host(`trivy.bob.house`)
       traefik.http.routers.trivy-router.tls: "true"
@@ -1009,7 +858,7 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, monitoring, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
@@ -1033,7 +882,7 @@ services:
       VIKUNJA_DATABASE_DATABASE: vikunja
     labels:
       dev.dozzle.group: vikunja
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.vikunja-router.entrypoints: lan
       traefik.http.routers.vikunja-router.rule: Host(`vikunja.bob.house`)
       traefik.http.routers.vikunja-router.tls: "true"
@@ -1041,7 +890,7 @@ services:
     networks:
       traefik: null
       vikunja: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     user: "0"
@@ -1065,7 +914,7 @@ services:
       traefik.enable: "false"
     networks:
       vikunja: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/vikunja/db/:/var/lib/postgresql/:rw
@@ -1077,7 +926,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
-      traefik.docker.network: ransom_traefik
+      traefik.docker.network: traefik-network
       traefik.http.routers.zimapi-router.entrypoints: lan
       traefik.http.routers.zimapi-router.rule: Host(`zimapi.bob.house`)
       traefik.http.routers.zimapi-router.tls: "true"
@@ -1085,37 +934,6 @@ services:
     networks:
       default: null
       traefik: null
-    profiles: [ app, ]
+    profiles: [ docker2, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-
-configs:
-  kopiaignore:
-    content: |
-      /registry/docker/
-      /trivy/db/
-
-networks:
-  default:
-    name: ransom_default
-  paperless-ngx:
-    name: ransom_paperless-ngx
-    internal: "true"
-  planka:
-    name: ransom_planka
-    internal: "true"
-  registry:
-    name: ransom_registry
-    internal: "true"
-  socket-proxy:
-    name: ransom_socket-proxy
-    internal: "true"
-  traefik:
-    name: ransom_traefik
-    internal: "true"
-  vikunja:
-    name: ransom_vikunja
-    internal: "true"
-
-volumes:
-  certificates-volume:
