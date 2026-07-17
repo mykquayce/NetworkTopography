@@ -3,7 +3,7 @@
 # https://gethomepage.dev/configs/docker/
 
 billups-docker:
-  host: docker-billups.bob.house
+  host: billups.bob.house
   port: 2375
 
 freeman-docker:
@@ -11,17 +11,17 @@ freeman-docker:
   port: 2375
 
 kayshon-docker:
-  host: docker-kayshon.bob.house
+  host: kayshon.bob.house
   port: 2375
 
 ransom-docker:
-  host: docker-ransom.bob.house
+  host: ransom.bob.house
   port: 2375
 
 shaxs-docker:
-  host: docker-shaxs.bob.house
+  host: shaxs.bob.house
   port: 2375
 
 tana-docker:
-  host: docker-tana.bob.house
+  host: tana.bob.house
   port: 2375

@@ -404,7 +404,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, DAC_OVERRIDE, NET_ADMIN, ]
+    cap_add: [ CHOWN, DAC_OVERRIDE, NET_ADMIN, SETGID, SETUID, ]
     depends_on:
       socket-proxy:
         condition: service_started
@@ -413,6 +413,8 @@ services:
     environment:
       HOMEPAGE_ALLOWED_HOSTS: homepage.bob.house
       HOSTNAME: 0.0.0.0
+      PUID: "1000"
+      PGID: "1000"
     env_file:
       - ${REPOS_DIR:-/opt/git}/Configurations/homepage.env
     extra_hosts:
@@ -431,7 +433,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/config/logs/, ]
     volumes:
-      - ./homepage/:/app/config/:rw
+      - ./homepage/config/:/app/config/:rw
       - ./homepage/icons/:/app/public/icons/:ro
       - ./homepage/images/:/app/public/images/:ro
 
