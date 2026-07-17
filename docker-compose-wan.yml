@@ -29,7 +29,7 @@ services:
       traefik.http.services.leafwiki-lan-service.loadbalancer.server.port: "8080"
 
       traefik.http.routers.leafwiki-wan-router.entrypoints: wan
-      traefik.http.routers.leafwiki-wan-router.middlewares: method-whitelist-plugin@file,secure-headers@file
+      traefik.http.routers.leafwiki-wan-router.middlewares: method-whitelist-plugin@file,secure-headers@file,block-path-middleware@file
       traefik.http.routers.leafwiki-wan-router.rule: Host(`www.bob.house`)
       traefik.http.routers.leafwiki-wan-router.service: leafwiki-wan-service
       traefik.http.routers.leafwiki-wan-router.tls: "true"

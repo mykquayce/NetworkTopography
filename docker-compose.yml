@@ -122,6 +122,8 @@ services:
       - --entrypoints.ssh.address=:222
       - --entrypoints.wan.address=:4443
       - --entrypoints.wan.http.underscoreHeadersStrategy=delete
+      - --experimental.plugins.block-path-plugin.modulename=github.com/traefik/plugin-blockpath
+      - --experimental.plugins.block-path-plugin.version=v0.2.1
       - --experimental.plugins.method-whitelist.modulename=github.com/antoniomacri/traefik-method-whitelist
       - --experimental.plugins.method-whitelist.version=v1.0.1
       - --global.checkNewVersion=false

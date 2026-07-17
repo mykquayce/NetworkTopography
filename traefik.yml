@@ -11,6 +11,11 @@ entryPoints:
         allowEncodedHash: false           # %23 - Default: true
 http:
   middlewares:
+    block-path-middleware:
+      plugin:
+        block-path-plugin:
+          regex: [ "^/api(.*)", "^/settings(.*)", "^/users(.*)", ]
+          code: 404
     method-whitelist-plugin:
       plugin:
         method-whitelist:
