@@ -48,7 +48,7 @@ steps:
           container_name: "networktopography-squid-1"
         - cname: "gluetun-freeman.bob.house"
           host: "freeman.bob.house"
-          container_name: "networktopography-gluetun-freeman-1"
+          container_name: "networktopography-gluetun-1"
     with:
       dag: service_test_processor
       params:

@@ -101,11 +101,11 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
-      gluetun-ransom:
+      gluetun:
         condition: service_healthy
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun-ransom
+    network_mode: service:gluetun
     profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:

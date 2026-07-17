@@ -431,7 +431,7 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
-      gluetun-tana:
+      gluetun:
         condition: service_healthy
     environment:
       PUID: "0"
@@ -441,7 +441,7 @@ services:
       TORRENTING_PORT: "6881"
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun-tana
+    network_mode: service:gluetun
     profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /config/qBittorrent/GeoDB/, /config/qBittorrent/logs/, ]

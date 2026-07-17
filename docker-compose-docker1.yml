@@ -463,13 +463,13 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ DAC_OVERRIDE, SETGID, SETUID, ]
     depends_on:
-      gluetun-freeman:
+      gluetun:
         condition: service_healthy
     environment:
       TZ: Etc/UTC
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun-freeman
+    network_mode: service:gluetun
     profiles: [ docker1, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]

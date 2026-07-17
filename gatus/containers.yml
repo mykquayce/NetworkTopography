@@ -186,19 +186,19 @@ endpoints:
 
   - name: gluetun FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-gluetun-freeman-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: gluetun RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-gluetun-ransom-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: gluetun TANA
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-gluetun-tana-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
