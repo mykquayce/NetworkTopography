@@ -101,11 +101,11 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
-      gluetun-ransom:
+      gluetun:
         condition: service_healthy
     labels:
       traefik.enable: "false"
-    network_mode: service:gluetun-ransom
+    network_mode: service:gluetun
     profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
@@ -219,39 +219,6 @@ services:
     volumes:
       - ${DATA_DIR:-/opt/appdata}/freshrss/data/:/var/www/FreshRSS/data/:rw
       - ${DATA_DIR:-/opt/appdata}/freshrss/extensions/:/var/www/FreshRSS/extensions/:rw
-
-  gluetun-ransom:
-    image: qmcgaw/gluetun:latest
-    cap_drop: [ ALL, ]
-    cap_add: [ CHECKPOINT_RESTORE, CHOWN, DAC_OVERRIDE, FOWNER, NET_ADMIN, NET_RAW, SETUID, ]
-    depends_on:
-      traefik:
-        condition: service_healthy
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    environment:
-      TZ: Etc/UTC
-      SERVER_COUNTRIES: Austria,Germany,Italy,Luxembourg,Poland
-      UPDATER_PERIOD: 24h
-    env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
-    labels:
-      traefik.docker.network: traefik-network
-      traefik.http.routers.gluetun-router.entrypoints: lan
-      traefik.http.routers.gluetun-router.rule: Host(`gluetun-ransom.bob.house`)
-      traefik.http.routers.gluetun-router.tls: "true"
-      traefik.http.routers.gluetun-router.service: gluetun-service
-      traefik.http.services.gluetun-service.loadbalancer.server.port: "8000"
-      traefik.http.routers.degoog-router.entrypoints: lan
-      traefik.http.routers.degoog-router.rule: Host(`degoog.bob.house`)
-      traefik.http.routers.degoog-router.tls: "true"
-      traefik.http.routers.degoog-router.service: degoog-service
-      traefik.http.services.degoog-service.loadbalancer.server.port: "4444"
-    networks:
-      default: null
-      traefik: null
-    profiles: [ docker2, ]
-    security_opt: [ no-new-privileges=true, ]
 
   grafana:
     image: grafana/grafana-oss:latest

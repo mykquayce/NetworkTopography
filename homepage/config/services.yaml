@@ -493,7 +493,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: freeman-docker
-        container: networktopography-gluetun-freeman-1
+        container: networktopography-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-freeman.bob.house/
@@ -503,7 +503,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: ransom-docker
-        container: networktopography-gluetun-ransom-1
+        container: networktopography-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-ransom.bob.house/
@@ -513,7 +513,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: tana-docker
-        container: networktopography-gluetun-tana-1
+        container: networktopography-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-tana.bob.house/
