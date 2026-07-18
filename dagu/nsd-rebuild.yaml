@@ -39,8 +39,8 @@ steps:
         from: stdout
   - name: rebuild
     run: |
-      docker compose --file /opt/git/stacks/ransom/docker-compose.yml build nsd01 nsd20 --pull
-      docker compose --file /opt/git/stacks/ransom/docker-compose.yml up nsd01 nsd20 --detach
+      docker compose --file /opt/repos/stacks/ransom/docker-compose.yml build nsd01 nsd20 --pull
+      docker compose --file /opt/repos/stacks/ransom/docker-compose.yml up nsd01 nsd20 --detach
     preconditions:
       - condition: "${test.output.result}"
         expected: "out-of-date"

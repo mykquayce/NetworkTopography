@@ -64,7 +64,7 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/authentik.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/authentik.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 20s
@@ -96,7 +96,7 @@ services:
       AUTHENTIK_ERROR_REPORTING__ENABLED: false
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/authentik.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/authentik.env
     labels:
       dev.dozzle.group: authentik
       traefik.docker.network: traefik-network
@@ -126,7 +126,7 @@ services:
       AUTHENTIK_ERROR_REPORTING__ENABLED: false
       AUTHENTIK_POSTGRESQL__HOST: authentik-postgresql
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/authentik.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/authentik.env
     labels:
       dev.dozzle.group: authentik
       traefik.enable: "false"
@@ -201,7 +201,7 @@ services:
     volumes:
       - ${DATA_DIR:-/opt/appdata}/dagu/:/var/lib/dagu/:rw
       - ./dagu/:/opt/dagu/dags/:rw
-      - ${REPOS_DIR:-/opt/git}/Configurations/dagu.json:/var/lib/dagu/dagu.json:ro
+      - ${REPOS_DIR:-/opt/repos}/Configurations/dagu.json:/var/lib/dagu/dagu.json:ro
 
   dozzle:
     image: amir20/dozzle:latest
@@ -247,7 +247,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/forgejo.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/forgejo.env
     environment:
       FORGEJO__database__DB_TYPE: postgres
       FORGEJO__database__HOST: forgejo-db:5432
@@ -280,7 +280,7 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/forgejo.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/forgejo.env
     environment:
       POSTGRES_DB: forgejo
     healthcheck:
@@ -307,7 +307,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/gatus.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/gatus.env
     environment:
       GATUS_CONFIG_PATH: /config
       NTFY_TOPIC: 364d0bdedc5b0bc275b048dc42e342460fb535dc1efcc5daf35460bf4ba4c26e
@@ -357,7 +357,7 @@ services:
     environment:
       TZ: Etc/UTC
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/go2rtc.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/go2rtc.env
     labels:
       traefik.http.routers.go2rtc-router.entrypoints: lan
       traefik.http.routers.go2rtc-router.rule: Host(`go2rtc.bob.house`)
@@ -384,7 +384,7 @@ services:
       PUID: "1000"
       PGID: "1000"
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/homepage.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/homepage.env
     extra_hosts:
       - host.docker.internal=host-gateway
     labels:

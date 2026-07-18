@@ -34,7 +34,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/ganymede.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/ganymede.env
     environment:
       DEBUG: "false"
       TZ: Etc/UTC
@@ -83,7 +83,7 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/ganymede.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/ganymede.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 30s
@@ -252,7 +252,7 @@ services:
     tmpfs: [ /data/temp/, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/metube/:/data/:rw
-      - ${REPOS_DIR:-/opt/git}/Configurations/cookies.txt:/cookies/cookies.txt:ro
+      - ${REPOS_DIR:-/opt/repos}/Configurations/cookies.txt:/cookies/cookies.txt:ro
       - /mnt/md1/youtube/:/downloads/:rw
 
   navidrome:
@@ -289,7 +289,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/nodered.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/nodered.env
     environment:
       NODE_RED_DISABLE_TELEMETRY: "true"
       TZ: Etc/UTC
@@ -319,7 +319,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/pinepods.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/pinepods.env
     environment:
       # Basic Server Info
       SEARCH_API_URL: https://search.pinepods.online/api/search
@@ -362,7 +362,7 @@ services:
     cap_drop: [ ALL, ]
     cap_add: [ CHOWN, DAC_READ_SEARCH, FOWNER, SETGID, SETUID, ]
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/pinepods.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/pinepods.env
     environment:
       POSTGRES_DB: pinepods
       POSTGRES_USER: pinepods
@@ -653,7 +653,7 @@ services:
       - /dev/kvm:/dev/kvm:rwm
       - /dev/net/tun:/dev/net/tun:rwm
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/windows-tana.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/windows-tana.env
     environment:
       VERSION: "2022"
       CPU_CORES: "4"
@@ -718,7 +718,7 @@ services:
       youtarr-db:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/youtarr.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/youtarr.env
     environment:
       AUTH_ENABLED: "false"
       DB_HOST: youtarr-db
@@ -761,7 +761,7 @@ services:
     cap_add: [ CHOWN, DAC_READ_SEARCH, SETGID, SETUID, ]
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-file-per-table=1 --innodb-large-prefix=ON
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/youtarr.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/youtarr.env
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "1"
       MYSQL_DATABASE: youtarr

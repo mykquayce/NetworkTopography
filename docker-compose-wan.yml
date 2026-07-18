@@ -6,7 +6,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/leafwiki.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/leafwiki.env
     environment:
       LEAFWIKI_ALLOW_INSECURE: "true"
       LEAFWIKI_CUSTOM_STYLESHEET: custom.css

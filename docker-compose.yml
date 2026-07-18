@@ -47,7 +47,7 @@ services:
       SERVER_COUNTRIES: Austria,France,Germany,Italy,Luxembourg,Portugal,Spain,Switzerland
       UPDATER_PERIOD: 24h
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/gluetun.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/gluetun.env
     labels:
       dd.tag.family: loose
       dd.watch: "true"
@@ -106,7 +106,7 @@ services:
       traefik:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/kopia.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/kopia.env
     labels:
       traefik.http.routers.kopia-router.entrypoints: lan
       traefik.http.routers.kopia-router.rule: HostRegexp(`^kopia-\w+\.bob\.house$`)
@@ -197,7 +197,7 @@ services:
       socket-proxy:
         condition: service_healthy
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/traefik.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/traefik.env
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
       interval: 10s

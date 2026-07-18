@@ -9,7 +9,7 @@ services:
     devices:
       - /dev/apex_0:/dev/apex_0
     env_file:
-      - ${REPOS_DIR:-/opt/git}/Configurations/frigate.env
+      - ${REPOS_DIR:-/opt/repos}/Configurations/frigate.env
     labels:
       dd.tag.family: loose
       dd.tag.include: ^v\d+\.\d+\.\d+$$
