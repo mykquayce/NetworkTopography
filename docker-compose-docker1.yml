@@ -27,7 +27,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/adguard01/:/opt/adguardhome/work/data/:rw
-      - ./adguard01/:/opt/adguardhome/conf/:rw
+      - ./configs/adguard01/:/opt/adguardhome/conf/:rw
 
   adguard20:
     image: adguard/adguardhome:${ADGUARDHOME_IMAGE_TAG?:missing adguardhome image tag}
@@ -57,7 +57,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/adguard20/:/opt/adguardhome/work/data/:rw
-      - ./adguard20/:/opt/adguardhome/conf/:rw
+      - ./configs/adguard20/:/opt/adguardhome/conf/:rw
 
   authentik-postgresql:
     image: docker.io/library/postgres:16-alpine
@@ -200,7 +200,7 @@ services:
     user: "0:0"
     volumes:
       - ${DATA_DIR:-/opt/appdata}/dagu/:/var/lib/dagu/:rw
-      - ./dagu/:/opt/dagu/dags/:rw
+      - ./configs/dagu/:/opt/dagu/dags/:rw
       - ${REPOS_DIR:-/opt/repos}/Configurations/dagu.json:/var/lib/dagu/dagu.json:ro
 
   dozzle:
@@ -235,7 +235,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ./dozzle/:/data/:ro
+      - ./configs/dozzle/:/data/:ro
 
   forgejo:
     image: codeberg.org/forgejo/forgejo:15
@@ -325,7 +325,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ./gatus/:/config/:ro
+      - ./configs/gatus/:/config/:ro
       - ${DATA_DIR:-/opt/appdata}/gatus/sqlite-db/:/data/:rw
 
   glance:
@@ -348,7 +348,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/assets/, ]
     volumes:
-      - ./glance.yml:/app/config/glance.yml:ro
+      - ./configs/glance.yml:/app/config/glance.yml:ro
       - /etc/localtime:/etc/localtime:ro
 
   go2rtc:
@@ -401,9 +401,9 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/config/logs/, ]
     volumes:
-      - ./homepage/config/:/app/config/:rw
-      - ./homepage/icons/:/app/public/icons/:ro
-      - ./homepage/images/:/app/public/images/:ro
+      - ./configs/homepage/config/:/app/config/:rw
+      - ./configs/homepage/icons/:/app/public/icons/:ro
+      - ./configs/homepage/images/:/app/public/images/:ro
 
   portainer:
     image: portainer/portainer-ce:latest
@@ -455,7 +455,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     user: root
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ${DATA_DIR:-/opt/appdata}/prometheus/:/prometheus/:rw
 
   squid:
@@ -475,7 +475,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /run/, ]
     volumes:
-      - ./squid.conf:/etc/squid/squid.conf:ro
+      - ./configs/squid.conf:/etc/squid/squid.conf:ro
       - ${DATA_DIR:-/opt/appdata}/squid/:/var/spool/squid/:rw
       - squid-log:/var/log/squid/:rw
 
@@ -501,4 +501,4 @@ services:
     security_opt: [ no-new-privileges=true, ]
     user: root
     volumes:
-      - ./sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro
+      - ./configs/sshwifty.conf.json:/root/.config/sshwifty.conf.json:ro

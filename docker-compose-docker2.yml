@@ -17,7 +17,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /usr/local/apache2/logs/, ]
-    volumes: [ ./htdocs/:/usr/local/apache2/htdocs/:ro, ]
+    volumes: [ ./configs/htdocs/:/usr/local/apache2/htdocs/:ro, ]
 
   apprise:
     image: caronc/apprise:latest
@@ -94,7 +94,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/donetick/:/donetick-data/:rw
-      - ./donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
+      - ./configs/donetick/selfhosted.yaml:/config/selfhosted.yaml:ro
 
   degoog:
     image: ghcr.io/fccview/degoog:latest
@@ -347,8 +347,8 @@ services:
     profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
-      - ./nsd/db.bob.house.1:/zones/db.bob.house:ro
+      - ./configs/nsd/nsd.conf:/etc/nsd/nsd.conf:ro
+      - ./configs/nsd/db.bob.house.1:/zones/db.bob.house:ro
 
   nsd20:
     build:
@@ -377,8 +377,8 @@ services:
     profiles: [ docker2, ]
     security_opt: [ no-new-privileges=true, ]
     volumes:
-      - ./nsd/nsd.conf:/etc/nsd/nsd.conf:ro
-      - ./nsd/db.bob.house.20:/zones/db.bob.house:ro
+      - ./configs/nsd/nsd.conf:/etc/nsd/nsd.conf:ro
+      - ./configs/nsd/db.bob.house.20:/zones/db.bob.house:ro
 
   ntfy:
     image: binwiederhier/ntfy:latest
@@ -402,7 +402,7 @@ services:
     security_opt: [ no-new-privileges=true, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/ntfy/:/var/cache/ntfy/:rw
-      - ./ntfy.yml:/etc/ntfy/server.yml:ro
+      - ./configs/ntfy.yml:/etc/ntfy/server.yml:ro
 
   nuget:
     image: bagetter/bagetter:latest

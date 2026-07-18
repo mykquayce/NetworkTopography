@@ -42,7 +42,7 @@ services:
     user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/leafwiki/:/app/data/:rw
-      - ./leafwiki.css:/app/data/custom.css:ro
+      - ./configs/leafwiki.css:/app/data/custom.css:ro
 
   miasma:
     image: austinweeks/miasma:${MIASMA_IMAGE_TAG?:missing miasma image tag}
