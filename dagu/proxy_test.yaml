@@ -42,13 +42,13 @@ steps:
       items:
         - cname: "apache.bob.house"
           host: "ransom.bob.house"
-          container_name: "networktopography-apache-1"
+          container_name: "stacks-apache-1"
         - cname: "squid.bob.house"
           host: "freeman.bob.house"
-          container_name: "networktopography-squid-1"
+          container_name: "stacks-squid-1"
         - cname: "gluetun-freeman.bob.house"
           host: "freeman.bob.house"
-          container_name: "networktopography-gluetun-1"
+          container_name: "stacks-gluetun-1"
     with:
       dag: service_test_processor
       params:

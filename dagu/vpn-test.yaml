@@ -7,11 +7,11 @@ steps:
     parallel:
       items:
         - host: freeman.bob.house
-          container: networktopography-gluetun-1
+          container: stacks-gluetun-1
         - host: ransom.bob.house
-          container: networktopography-gluetun-1
+          container: stacks-gluetun-1
         - host: tana.bob.house
-          container: networktopography-gluetun-1
+          container: stacks-gluetun-1
     with:
       dag: server-processor
       params:

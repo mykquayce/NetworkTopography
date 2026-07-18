@@ -67,7 +67,7 @@ steps:
       host: tana.bob.house
       key: /run/secrets/id_rsa
       known_host_file: /run/secrets/known_hosts
-      command: docker compose --file /opt/git/NetworkTopography/docker-compose.yml down kiwix
+      command: docker compose --file /opt/git/stacks/docker-compose.yml down kiwix
     depends: cleanup
     preconditions:
       - condition: "${bookloop.output.needed}"
@@ -87,7 +87,7 @@ steps:
       host: tana.bob.house
       key: /run/secrets/id_rsa
       known_host_file: /run/secrets/known_hosts
-      command: docker compose --file /opt/git/NetworkTopography/docker-compose.yml up --detach kiwix
+      command: docker compose --file /opt/git/stacks/docker-compose.yml up --detach kiwix
     depends: [shutdown_kiwix, download_loop]
   - id: format
     run: |

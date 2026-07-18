@@ -8,7 +8,7 @@
         href: https://adguard01.bob.house
         icon: adguard-home.png
         server: freeman-docker
-        container: networktopography-adguard01-1
+        container: stacks-adguard01-1
         widget:
           type: adguard
           url: https://adguard01.bob.house
@@ -19,7 +19,7 @@
         href: https://adguard20.bob.house
         icon: adguard-home.png
         server: freeman-docker
-        container: networktopography-adguard20-1
+        container: stacks-adguard20-1
         widget:
           type: adguard
           url: https://adguard20.bob.house
@@ -30,19 +30,19 @@
         href: https://apache.bob.house
         icon: apache.png
         server: ransom-docker
-        container: networktopography-apache-1
+        container: stacks-apache-1
     - Apprise: &apprise
         description: Push Notifications that work with just about every platform!
         href: https://apprise.bob.house
         icon: apprise.png
         server: ransom-docker
-        container: networktopography-apprise-1
+        container: stacks-apprise-1
     - Authentik: &authentik
         description: Bring all of your authentication into a unified platform
         href: https://authentik.bob.house
         icon: authentik.png
         server: freeman-docker
-        container: networktopography-authentik-server-1
+        container: stacks-authentik-server-1
         widget:
           type: authentik
           url: https://authentik.bob.house
@@ -53,13 +53,13 @@
         href: https://baikal.bob.house
         icon: baikal.png
         server: freeman-docker
-        container: networktopography-baikal-1
+        container: stacks-baikal-1
     - Change Detection: &changedetection
         description: Web page change detection, website watcher, restock monitor and notification service
         href: https://changedetection.bob.house/
         icon: changedetection.svg
         server: ransom-docker
-        container: networktopography-changedetection-1
+        container: stacks-changedetection-1
         widget:
           type: changedetectionio
           url: https://changedetection.bob.house/
@@ -69,55 +69,55 @@
         href: https://dagu.bob.house/
         icon: /icons/dagu.png
         server: freeman-docker
-        container: networktopography-dagu-1
+        container: stacks-dagu-1
     - degoog: &degoog
         description: Search engine aggregator with a comprehensive plugin/extension system
         href: https://degoog.bob.house/
         icon: /icons/degoog.svg
         server: ransom-docker
-        container: networktopography-degoog-1
+        container: stacks-degoog-1
     - Docker Registry: &dockerregistry
         description: UI for your private docker registry
         href: https://registry-ui.bob.house/
         icon: docker-moby.svg
         server: ransom-docker
-        container: networktopography-registry-1
+        container: stacks-registry-1
     - Donetick: &donetick
         description: Simplify Tasks & Chores, Together
         href: https://donetick.bob.house/
         icon: donetick.png
         server: ransom-docker
-        container: networktopography-donetick-1
+        container: stacks-donetick-1
     - Dozzle: &dozzle
         description: Real-time log viewer for docker containers
         href: https://dozzle.bob.house/
         icon: dozzle.svg
         server: freeman-docker
-        container: networktopography-dozzle-1
+        container: stacks-dozzle-1
     - draw.io: &drawio
         description: a JavaScript, client-side editor for general diagramming
         href: https://drawio.bob.house
         icon: draw-io.svg
         server: ransom-docker
-        container: networktopography-drawio-1
+        container: stacks-drawio-1
     - drydock: &drydock
         description: Open source container update monitoring
         href: https://drydock.bob.house
         icon: /icons/drydock.png
         server: ransom-docker
-        container: networktopography-drydock-1
+        container: stacks-drydock-1
     - Feishin: &feishin
         description: A modern self-hosted music player
         href: https://feishin.bob.house
         icon: feishin.png
         server: tana-docker
-        container: networktopography-feishin-1
+        container: stacks-feishin-1
     - Forgejo: &forgejo
         description: A lightweight software forge focused on scaling, federation, and privacy
         href: https://git.bob.house/
         icon: forgejo.png
         server: freeman-docker
-        container: networktopography-forgejo-1
+        container: stacks-forgejo-1
         widget:
           type: gitea
           url: https://git.bob.house
@@ -127,13 +127,13 @@
         href: https://freshrss.bob.house/
         icon: freshrss.svg
         server: ransom-docker
-        container: networktopography-freshrss-1
+        container: stacks-freshrss-1
     - Frigate: &frigate
         description: NVR with realtime local object detection for IP cameras
         href: https://frigate.bob.house/
         icon: frigate.svg
         server: shaxs-docker
-        container: networktopography-frigate-1
+        container: stacks-frigate-1
         widget:
           type: frigate
           url: https://frigate.bob.house/
@@ -143,13 +143,13 @@
         href: https://ganymede.bob.house/
         icon: /icons/ganymede.png
         server: tana-docker
-        container: networktopography-ganymede-1
+        container: stacks-ganymede-1
     - Gatus: &gatus
         description: Automated developer-oriented status page
         href: https://gatus.bob.house/
         icon: gatus.svg
         server: freeman-docker
-        container: networktopography-gatus-1
+        container: stacks-gatus-1
         widget:
           type: gatus
           url: https://gatus.bob.house
@@ -158,12 +158,12 @@
         href: https://glance.bob.house/
         icon: glance.png
         server: freeman-docker
-        container: networktopography-glance-1
+        container: stacks-glance-1
     - Glances BILLUPS: &glancesbillups
         href: https://glances-billups.bob.house/
         icon: glances.png
         server: billups-docker
-        container: networktopography-glances-1
+        container: stacks-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -217,7 +217,7 @@
         href: https://glances-freeman.bob.house/
         icon: glances.png
         server: freeman-docker
-        container: networktopography-glances-1
+        container: stacks-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -271,7 +271,7 @@
         href: https://glances-kayshon.bob.house/
         icon: glances.png
         server: kayshon-docker
-        container: networktopography-glances-1
+        container: stacks-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -325,7 +325,7 @@
         href: https://glances-ransom.bob.house/
         icon: glances.png
         server: ransom-docker
-        container: networktopography-glances-1
+        container: stacks-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -379,7 +379,7 @@
         href: https://glances-shaxs.bob.house/
         icon: glances.png
         server: shaxs-docker
-        container: networktopography-glances-1
+        container: stacks-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -433,7 +433,7 @@
         href: https://glances-tana.bob.house/
         icon: glances.png
         server: tana-docker
-        container: networktopography-glances-1
+        container: stacks-glances-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -493,7 +493,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: freeman-docker
-        container: networktopography-gluetun-1
+        container: stacks-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-freeman.bob.house/
@@ -503,7 +503,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: ransom-docker
-        container: networktopography-gluetun-1
+        container: stacks-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-ransom.bob.house/
@@ -513,7 +513,7 @@
         description: VPN client for multiple VPN providers using OpenVPN or Wireguard, DNS over TLS
         icon: gluetun.svg
         server: tana-docker
-        container: networktopography-gluetun-1
+        container: stacks-gluetun-1
         widget:
           type: gluetun
           url: https://gluetun-tana.bob.house/
@@ -524,13 +524,13 @@
         href: https://go2rtc.bob.house/
         icon: go2rtc.png
         server: freeman-docker
-        container: networktopography-go2rtc-1
+        container: stacks-go2rtc-1
     - Grafana: &grafana
         description: The open and composable observability and data visualization platform
         href: https://grafana.bob.house/
         icon: grafana.svg
         server: ransom-docker
-        container: networktopography-grafana-1
+        container: stacks-grafana-1
         widget:
           type: grafana
           url: https://grafana.bob.house
@@ -579,19 +579,19 @@
         href: https://httpbin.bob.house/
         icon: /icons/httpbin.png
         server: ransom-docker
-        container: networktopography-httpbin-1
+        container: stacks-httpbin-1
     - IT-Tools: &ittools
         description: Collection of handy online tools for developers, with great UX
         href: https://it-tools.bob.house/
         icon: it-tools.svg
         server: ransom-docker
-        container: networktopography-it-tools-1
+        container: stacks-it-tools-1
     - Jellyfin: &jellyfin
         description: Your media, on your terms
         href: https://jellyfin.bob.house/web/
         icon: jellyfin.svg
         server: tana-docker
-        container: networktopography-jellyfin-1
+        container: stacks-jellyfin-1
         widgets:
           - type: jellyfin
             url: https://jellyfin.bob.house
@@ -621,7 +621,7 @@
         href: https://jellyseerr.bob.house/
         icon: jellyseerr.svg
         server: tana-docker
-        container: networktopography-jellyseerr-1
+        container: stacks-jellyseerr-1
         widget:
           type: jellyseerr
           url: https://jellyseerr.bob.house
@@ -631,19 +631,19 @@
         href: https://jsonpath.bob.house/
         icon: /icons/jsonpath.svg
         server: ransom-docker
-        container: networktopography-jsonpath-1
+        container: stacks-jsonpath-1
     - kiwix: &kiwix
         description: When there is No Internet, there is Kiwix
         href: https://kiwix.bob.house/
         icon: kiwix-light.png
         server: tana-docker
-        container: networktopography-kiwix-1
+        container: stacks-kiwix-1
     - Kopia BILLUPS: &kopiabillups
         description: Cross-platform backup tool
         href: https://kopia-billups.bob.house/
         icon: kopia.svg
         server: billups-docker
-        container: networktopography-kopia-1
+        container: stacks-kopia-1
         widget:
           type: kopia
           url: https://kopia-billups.bob.house
@@ -654,7 +654,7 @@
         href: https://kopia-freeman.bob.house/
         icon: kopia.svg
         server: freeman-docker
-        container: networktopography-kopia-1
+        container: stacks-kopia-1
         widget:
           type: kopia
           url: http://kopia:51515
@@ -665,7 +665,7 @@
         href: https://kopia-kayshon.bob.house/
         icon: kopia.svg
         server: kayshon-docker
-        container: networktopography-kopia-1
+        container: stacks-kopia-1
         widget:
           type: kopia
           url: https://kopia-kayshon.bob.house
@@ -676,7 +676,7 @@
         href: https://kopia-ransom.bob.house/
         icon: kopia.svg
         server: ransom-docker
-        container: networktopography-kopia-1
+        container: stacks-kopia-1
         widget:
           type: kopia
           url: https://kopia-ransom.bob.house
@@ -687,7 +687,7 @@
         href: https://kopia-shaxs.bob.house/
         icon: kopia.svg
         server: shaxs-docker
-        container: networktopography-kopia-1
+        container: stacks-kopia-1
         widget:
           type: kopia
           url: https://kopia-shaxs.bob.house
@@ -698,7 +698,7 @@
         href: https://kopia-tana.bob.house/
         icon: kopia.svg
         server: tana-docker
-        container: networktopography-kopia-1
+        container: stacks-kopia-1
         widget:
           type: kopia
           url: https://kopia-tana.bob.house
@@ -709,13 +709,13 @@
         href: https://www.bob.house/
         icon: /icons/leafwiki.svg
         server: kayshon-docker
-        container: networktopography-leafwiki-1
+        container: stacks-leafwiki-1
     - Lidarr: &lidarr
         description: Looks and smells like Sonarr but made for music
         href: https://lidarr.bob.house/
         icon: lidarr.svg
         server: tana-docker
-        container: networktopography-lidarr-1
+        container: stacks-lidarr-1
         widget:
           type: lidarr
           url: https://lidarr.bob.house
@@ -725,25 +725,25 @@
         href: https://metube.bob.house/
         icon: metube.svg
         server: tana-docker
-        container: networktopography-metube-1
+        container: stacks-metube-1
     - Miasma: &miasma
         description: Trap AI web scrapers in an endless poison pit
         href: https://miasma.bob.house/
         icon: /icons/miasma.svg
         server: kayshon-docker
-        container: networktopography-miasma-1
+        container: stacks-miasma-1
     - moodist: &moodist
         description: Ambient sounds for focus and calm
         href: https://moodist.bob.house/?share=%7B%22rain-on-window%22%3A0.24%2C%22crowd%22%3A0.96%2C%22inside-a-train%22%3A0.64%2C%22brown-noise%22%3A0.24%7D
         icon: moodist.png
         server: ransom-docker
-        container: networktopography-moodist-1
+        container: stacks-moodist-1
     - Navidrome: &navidrome
         description: 🎧☁️ Your Personal Streaming Service
         href: https://navidrome.bob.house/app/
         icon: navidrome-light.png
         server: tana-docker
-        container: networktopography-navidrome-1
+        container: stacks-navidrome-1
         widget:
           type: navidrome
           url: https://navidrome.bob.house
@@ -755,13 +755,13 @@
         href: https://nodered.bob.house
         icon: node-red.svg
         server: tana-docker
-        container: networktopography-nodered-1
+        container: stacks-nodered-1
     - ntfy: &ntfy
         description: Send push notifications to your phone or desktop via PUT/POST
         href: https://ntfy.bob.house/{{HOMEPAGE_VAR_NTFY_TOPIC}}
         icon: ntfy.svg
         server: ransom-docker
-        container: networktopography-ntfy-1
+        container: stacks-ntfy-1
         widgets:
           - type: prometheusmetric
             url: https://prometheus.bob.house
@@ -789,19 +789,19 @@
         href: https://nuget.bob.house/
         icon: microsoft.svg
         server: ransom-docker
-        container: networktopography-nuget-1
+        container: stacks-nuget-1
     - Open WebUI: &openwebui
         description: An extensible, feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline
         href: https://open-webui.bob.house
         icon: open-webui-light.webp
         server: billups-docker
-        container: networktopography-open-webui-1
+        container: stacks-open-webui-1
     - Paperless-ngx: &paperlessngx
         description: A community-supported open-source document management system
         href: https://paperless-ngx.bob.house
         icon: paperless-ngx.svg
         server: ransom-docker
-        container: networktopography-paperless-ngx-1
+        container: stacks-paperless-ngx-1
         widget:
           type: paperlessngx
           url: https://paperless-ngx.bob.house
@@ -811,19 +811,19 @@
         href: https://pinepods.bob.house/
         icon: pinepods.png
         server: tana-docker
-        container: networktopography-pinepods-1
+        container: stacks-pinepods-1
     - Planka: &planka
         description: Realtime kanban board for workgroups
         href: https://planka.bob.house/
         icon: planka.svg
         server: ransom-docker
-        container: networktopography-planka-1
+        container: stacks-planka-1
     - Portainer: &portainer
         description: Making Docker and Kubernetes management easy
         href: https://portainer.bob.house/
         icon: portainer.svg
         server: freeman-docker
-        container: networktopography-portainer-1
+        container: stacks-portainer-1
         widgets:
           - type: portainer
             url: https://portainer.bob.house
@@ -846,7 +846,7 @@
         href: https://prometheus.bob.house/
         icon: prometheus.svg
         server: freeman-docker
-        container: networktopography-prometheus-1
+        container: stacks-prometheus-1
         widget:
           type: prometheus
           url: https://prometheus.bob.house
@@ -855,7 +855,7 @@
         href: https://prowlarr.bob.house/
         icon: prowlarr.svg
         server: tana-docker
-        container: networktopography-prowlarr-1
+        container: stacks-prowlarr-1
         widget:
           type: prowlarr
           url: https://prowlarr.bob.house
@@ -865,7 +865,7 @@
         href: https://qbittorrent.bob.house
         icon: qbittorrent.svg
         server: tana-docker
-        container: networktopography-qbittorrent-1
+        container: stacks-qbittorrent-1
         widget:
           type: qbittorrent
           url: https://qbittorrent.bob.house
@@ -876,13 +876,13 @@
         href: https://rabbitmq.bob.house/
         icon: rabbitmq.png
         server: ransom-docker
-        container: networktopography-rabbitmq-1
+        container: stacks-rabbitmq-1
     - Radarr: &radarr
         description: Movie organizer/manager for usenet and torrent users
         href: https://radarr.bob.house/
         icon: radarr.svg
         server: tana-docker
-        container: networktopography-radarr-1
+        container: stacks-radarr-1
         widget:
           type: radarr
           url: https://radarr.bob.house
@@ -893,19 +893,19 @@
         href: https://readeck.bob.house/
         icon: readeck.png
         server: ransom-docker
-        container: networktopography-readeck-1
+        container: stacks-readeck-1
     - Restfox: &restfox
         description: Offline-First Minimalistic HTTP & Socket Testing Client
         href: https://restfox.bob.house/
         icon: /icons/restfox.png
         server: ransom-docker
-        container: networktopography-restfox-1
+        container: stacks-restfox-1
     - SABnzbd: &sabnzbd
         description: Free and easy binary newsreader
         href: https://sabnzbd.bob.house/
         icon: sabnzbd.svg
         server: tana-docker
-        container: networktopography-sabnzbd-1
+        container: stacks-sabnzbd-1
         widget:
           type: sabnzbd
           url: https://sabnzbd.bob.house
@@ -915,7 +915,7 @@
         href: https://scrutiny.bob.house/web/
         icon: scrutiny-light.png
         server: tana-docker
-        container: networktopography-scrutiny-1
+        container: stacks-scrutiny-1
         widget:
           type: scrutiny
           url: https://scrutiny.bob.house
@@ -924,19 +924,19 @@
         href: https://sickgear.bob.house/
         icon: sickbeard.svg
         server: tana-docker
-        container: networktopography-sickgear-1
+        container: stacks-sickgear-1
     - Snipo: &snipo
         description: Single-user snippet-manager web app
         href: https://snipo.bob.house/
         icon: /icons/snipo.png
         server: ransom-docker
-        container: networktopography-snipo-1
+        container: stacks-snipo-1
     - Sonarr: &sonarr
         description: Usenet and BitTorrent PVR
         href: https://sonarr.bob.house/
         icon: sonarr.svg
         server: tana-docker
-        container: networktopography-sonarr-1
+        container: stacks-sonarr-1
         widget:
           type: sonarr
           url: https://sonarr.bob.house
@@ -947,13 +947,13 @@
         href: https://speakr.bob.house
         icon: /icons/speakr.png
         server: billups-docker
-        container: networktopography-speakr-1
+        container: stacks-speakr-1
     - Speedtest: &speedtest
         description: Free & Open-Source HTML5 Network Performance Estimation Tool
         href: https://speedtest.bob.house/
         icon: openspeedtest.png
         server: ransom-docker
-        container: networktopography-speedtest-tracker-1
+        container: stacks-speedtest-tracker-1
         widget:
           type: speedtest
           url: https://speedtest.bob.house
@@ -965,13 +965,13 @@
         href: https://sshwifty.bob.house/
         icon: sshwifty.svg
         server: freeman-docker
-        container: networktopography-sshwifty-1
+        container: stacks-sshwifty-1
     - Traefik BILLUPS: &traefikbillups
         description: HTTP reverse proxy and load balancer
         href: https://traefik-billups.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: billups-docker
-        container: networktopography-traefik-1
+        container: stacks-traefik-1
         widget:
           type: traefik
           url: https://traefik-billups.bob.house
@@ -980,7 +980,7 @@
         href: https://traefik-freeman.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: freeman-docker
-        container: networktopography-traefik-1
+        container: stacks-traefik-1
         widget:
           type: traefik
           url: https://traefik-freeman.bob.house
@@ -996,7 +996,7 @@
         href: https://traefik-ransom.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: ransom-docker
-        container: networktopography-traefik-1
+        container: stacks-traefik-1
         widget:
           type: traefik
           url: https://traefik-ransom.bob.house
@@ -1005,7 +1005,7 @@
         href: https://traefik-shaxs.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: shaxs-docker
-        container: networktopography-traefik-1
+        container: stacks-traefik-1
         widget:
           type: traefik
           url: https://traefik-shaxs.bob.house
@@ -1014,7 +1014,7 @@
         href: https://traefik-tana.bob.house/dashboard/
         icon: traefik-proxy.svg
         server: tana-docker
-        container: networktopography-traefik-1
+        container: stacks-traefik-1
         widget:
           type: traefik
           url: https://traefik-tana.bob.house
@@ -1023,19 +1023,19 @@
         href: https://trilium.bob.house/
         icon: trilium.svg
         server: ransom-docker
-        container: networktopography-trilium-1
+        container: stacks-trilium-1
     - Tunarr: &tunarr
         description: IPTV backed by Plex/Jellyfin/Emby
         href: https://tunarr.bob.house/web
         icon: tunarr.svg
         server: tana-docker
-        container: networktopography-tunarr-1
+        container: stacks-tunarr-1
     - Vikunja: &vikunja
         description: The to-do app to organize your life
         href: https://vikunja.bob.house/
         icon: vikunja.svg
         server: ransom-docker
-        container: networktopography-vikunja-1
+        container: stacks-vikunja-1
         widget:
           type: vikunja
           url: https://vikunja.bob.house
@@ -1047,25 +1047,25 @@
         href: https://windows-tana.bob.house/
         icon: windows-7.png
         server: tana-docker
-        container: networktopography-windows-1
+        container: stacks-windows-1
     - Wireshark TANA: &wiresharkstana
         description: Powerful, open-source network protocol analyser
         href: https://wireshark-tana.bob.house/
         icon: wireshark.webp
         server: tana-docker
-        container: networktopography-wireshark-1
+        container: stacks-wireshark-1
     - Youtarr: &youtarr
         description: Automates downloading, organizing, and scheduling YouTube channel content
         href: https://youtarr.bob.house/
         icon: youtarr.png
         server: tana-docker
-        container: networktopography-youtarr-1
+        container: stacks-youtarr-1
     - ZIM API: &zimapi
         description: Wrapper API for the Kiwix official Download Repository
         href: https://zimapi.bob.house/library
         icon: /icons/zim.png
         server: ransom-docker
-        container: networktopography-zimapi-1
+        container: stacks-zimapi-1
 
 - Main:
     - Change Detection: *changedetection

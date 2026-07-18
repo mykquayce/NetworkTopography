@@ -1,7 +1,7 @@
 endpoints:
   - name: adguard01
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-adguard01-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-adguard01-1/json
     conditions: &conditions-definition
       - "[BODY].State.Running == true"
       - "[RESPONSE_TIME] < 50"
@@ -11,650 +11,650 @@ endpoints:
 
   - name: adguard20
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-adguard20-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-adguard20-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: apache
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-apache-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-apache-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: apprise
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-apprise-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-apprise-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: authentik-postgresql
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-authentik-postgresql-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-authentik-postgresql-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: authentik-server
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-authentik-server-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-authentik-server-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: authentik-worker
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-authentik-worker-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-authentik-worker-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: baikal
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-baikal-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-baikal-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: changedetection
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-changedetection-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-changedetection-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: dagu
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-dagu-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-dagu-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: degoog
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-degoog-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-degoog-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: donetick
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-donetick-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-donetick-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: dozzle
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-dozzle-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-dozzle-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: drawio
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-drawio-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-drawio-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: drydock
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-drydock-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-drydock-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: feishin
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-feishin-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-feishin-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: forgejo
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-forgejo-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-forgejo-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: forgejo-db
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-forgejo-db-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-forgejo-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: freshrss
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-freshrss-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-freshrss-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: frigate
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-frigate-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/stacks-frigate-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: ganymede
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-ganymede-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-ganymede-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: ganymede-db
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-ganymede-db-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-ganymede-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: gatus
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-gatus-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-gatus-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glance
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-glance-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-glance-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glances BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-glances-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glances FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-glances-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glances KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-glances-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/stacks-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glances RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-glances-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glances SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-glances-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/stacks-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: glances TANA
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-glances-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-glances-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: gluetun FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: gluetun RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: gluetun TANA
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-gluetun-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-gluetun-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: go2rtc
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-go2rtc-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-go2rtc-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: grafana
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-grafana-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-grafana-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: homepage
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-homepage-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-homepage-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: httpbin
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-httpbin-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-httpbin-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: it-tools
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-it-tools-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-it-tools-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: jellyfin
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-jellyfin-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-jellyfin-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: jellyseerr
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-jellyseerr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-jellyseerr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: jsonpath
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-jsonpath-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-jsonpath-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kiwix
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-kiwix-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-kiwix-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kopia BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kopia FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kopia KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/stacks-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kopia RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kopia SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/stacks-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: kopia TANA
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-kopia-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-kopia-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: leafwiki
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-leafwiki-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/stacks-leafwiki-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: lidarr
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-lidarr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-lidarr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: metube
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-metube-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-metube-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: miasma
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-miasma-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/stacks-miasma-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: moodist
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-moodist-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-moodist-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: navidrome
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-navidrome-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-navidrome-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: nodered
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-nodered-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-nodered-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: nsd01
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-nsd01-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-nsd01-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: nsd20
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-nsd20-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-nsd20-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: ntfy
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-ntfy-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-ntfy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: nuget
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-nuget-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-nuget-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: ollama
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-ollama-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-ollama-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: open-webui
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-open-webui-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-open-webui-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: paperless-ngx
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-paperless-ngx-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-paperless-ngx-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: paperless-ngx-db
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-paperless-ngx-db-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-paperless-ngx-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: paperless-ngx-redis
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-paperless-ngx-redis-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-paperless-ngx-redis-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: pinepods
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-pinepods-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-pinepods-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: planka
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-planka-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-planka-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: planka-db
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-planka-db-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-planka-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: portainer
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-portainer-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-portainer-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: prometheus
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-prometheus-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-prometheus-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: prowlarr
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-prowlarr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-prowlarr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: rabbitmq
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-rabbitmq-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-rabbitmq-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: readeck
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-readeck-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-readeck-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: registry
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-registry-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-registry-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: registry-ui
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-registry-ui-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-registry-ui-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: restfox
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-restfox-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-restfox-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: qbittorrent
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-qbittorrent-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-qbittorrent-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: radarr
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-radarr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-radarr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: sabnzbd
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-sabnzbd-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-sabnzbd-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: scrutiny
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-scrutiny-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-scrutiny-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: sickgear
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-sickgear-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-sickgear-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: snipo
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-snipo-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-snipo-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: sonarr
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-sonarr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-sonarr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: socket-proxy BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: socket-proxy FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: socket-proxy KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/stacks-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: socket-proxy RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: socket-proxy SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/stacks-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: socket-proxy TANA
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-socket-proxy-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-socket-proxy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: speakr
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-speakr-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-speakr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: squid
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-squid-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-squid-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: sshwifty
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-sshwifty-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-sshwifty-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: speedtest-tracker
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-speedtest-tracker-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-speedtest-tracker-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: traefik BILLUPS
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: traefik FREEMAN
     group: containers
-    url: http://freeman.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
+    url: http://freeman.bob.house:2375/v1.52/containers/stacks-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: traefik KAYSHON
     group: containers
-    url: http://kayshon.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
+    url: http://kayshon.bob.house:2375/v1.52/containers/stacks-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: traefik RANSOM
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: traefik SHAXS
     group: containers
-    url: http://shaxs.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
+    url: http://shaxs.bob.house:2375/v1.52/containers/stacks-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: traefik TANA
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-traefik-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-traefik-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: trilium
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-trilium-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-trilium-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: trivy
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-trivy-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-trivy-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: tunarr
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-tunarr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-tunarr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: vikunja
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-vikunja-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-vikunja-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: vikunja-db
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-vikunja-db-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-vikunja-db-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: whisper-asr
     group: containers
     enabled: false
-    url: http://billups.bob.house:2375/v1.52/containers/networktopography-whisper-asr-1/json
+    url: http://billups.bob.house:2375/v1.52/containers/stacks-whisper-asr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: windows-tana
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-windows-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-windows-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: wireshark-tana
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-wireshark-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-wireshark-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: youtarr-tana
     group: containers
-    url: http://tana.bob.house:2375/v1.52/containers/networktopography-youtarr-1/json
+    url: http://tana.bob.house:2375/v1.52/containers/stacks-youtarr-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
 
   - name: zimapi
     group: containers
-    url: http://ransom.bob.house:2375/v1.52/containers/networktopography-zimapi-1/json
+    url: http://ransom.bob.house:2375/v1.52/containers/stacks-zimapi-1/json
     conditions: *conditions-definition
     alerts: *alerts-definition
