@@ -105,7 +105,6 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     cap_drop: [ ALL, ]
-    cap_add: [ DAC_OVERRIDE, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -122,8 +121,11 @@ services:
       default: null
       traefik: null
     profiles: [ media, ]
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/log/, ]
+    tmpfs:
+      - /config/log/:noexec,nosuid,uid=1000,gid=1000
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/jellyfin/:/config/:rw
       - /mnt/md1/anime/:/media/anime/:rw
@@ -164,7 +166,8 @@ services:
     profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /app/config/logs/, ]
+    tmpfs: [ "/app/config/logs/:noexec,nosuid,uid=1000,gid=1000", ]
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/jellyseerr/:/app/config/:rw
 
@@ -186,13 +189,13 @@ services:
     profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
+    user: 1000:1000
     volumes:
       - /mnt/md1/downloads/zim/:/data/:ro
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -201,8 +204,8 @@ services:
       traefik:
         condition: service_healthy
     environment:
-      PGID: "0"
-      PUID: "0"
+      PGID: "1000"
+      PUID: "1000"
       TZ: Etc/UTC
     labels:
       traefik.docker.network: traefik-network
@@ -216,7 +219,8 @@ services:
     profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,nosuid,uid=1000,gid=1000', ]
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/lidarr/:/config/:rw
       - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
@@ -226,7 +230,6 @@ services:
   metube:
     image: ghcr.io/alexta69/metube:latest
     cap_drop: [ ALL, ]
-    cap_add: [ SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -236,8 +239,8 @@ services:
       STATE_DIR: /data/state/
       TEMP_DIR: /data/temp/
       YTDL_OPTIONS: '{"cookiefile":"/cookies/cookies.txt","writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"Exec","exec_cmd":"chmod 0664","when":"after_move"},{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}'
-      PGID: "0"
-      PUID: "0"
+      PGID: "1000"
+      PUID: "1000"
     labels:
       traefik.docker.network: traefik-network
       traefik.http.routers.metube-router.entrypoints: lan
@@ -249,7 +252,8 @@ services:
       traefik: null
     profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /data/temp/, ]
+    tmpfs: [ "/data/temp/:exec,nosuid,uid=1000,gid=1000", ]
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/metube/:/data/:rw
       - ${REPOS_DIR:-/opt/repos}/Configurations/cookies.txt:/cookies/cookies.txt:ro
@@ -268,19 +272,22 @@ services:
       ND_SCANSCHEDULE: 1h
       ND_SESSIONTIMEOUT: 24h
     labels:
+      traefik.docker.network: traefik-network
       traefik.http.routers.navidrome-router.entrypoints: lan
       traefik.http.routers.navidrome-router.rule: Host(`navidrome.bob.house`)
       traefik.http.routers.navidrome-router.tls: "true"
       traefik.http.services.navidrome-service.loadbalancer.server.port: "4533"
     networks:
+      default: null
       traefik: null
     profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /data/cache/, ]
+    tmpfs: [ "/data/cache/:noexec,nosuid,uid=1000,gid=1000", /run/, ]
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/navidrome/:/data/:rw
-      - /mnt/md1/music/:/music/:ro
+      - /mnt/md1/music/:/music/:rw
 
   nodered:
     image: nodered/node-red:latest
@@ -429,13 +436,12 @@ services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       gluetun:
         condition: service_healthy
     environment:
-      PUID: "0"
-      PGID: "0"
+      PUID: "1000"
+      PGID: "1000"
       TZ: Etc/UTC
       WEBUI_PORT: "8080"
       TORRENTING_PORT: "6881"
@@ -443,8 +449,13 @@ services:
       traefik.enable: "false"
     network_mode: service:gluetun
     profiles: [ media, ]
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/qBittorrent/GeoDB/, /config/qBittorrent/logs/, ]
+    tmpfs:
+      - /config/qBittorrent/GeoDB/
+      - /config/qBittorrent/logs/
+      - /run/:exec,nosuid,uid=1000,gid=1000
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/qbittorrent/:/config/:rw
       - /mnt/md1/qbittorrent/:/downloads/:rw
@@ -452,7 +463,6 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -461,8 +471,8 @@ services:
       traefik:
         condition: service_healthy
     environment:
-      PGID: "0"
-      PUID: "0"
+      PGID: "1000"
+      PUID: "1000"
       TZ: Etc/UTC
     labels:
       traefik.docker.network: traefik-network
@@ -476,7 +486,8 @@ services:
     read_only: true
     profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,nosuid,uid=1000,gid=1000', ]
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/radarr/:/config/:rw
       - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
@@ -486,14 +497,13 @@ services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     cap_drop: [ ALL, ]
-    cap_add: [ SETGID, SETUID, ]
     depends_on:
       traefik:
         condition: service_healthy
     environment:
       HAS_IPV6: "false"
-      PGID: "0"
-      PUID: "0"
+      PGID: "1000"
+      PUID: "1000"
       TZ: Etc/UTC
     labels:
       traefik.docker.network: traefik-network
@@ -505,8 +515,13 @@ services:
       default: null
       traefik: null
     profiles: [ media, ]
+    read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/logs/, ]
+    tmpfs:
+      - /config/logs/:noexec,nosuid,uid=1000,gid=1000
+      - /run/:exec,nosuid,uid=1000,gid=1000
+      - /tmp/
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/sabnzbd/:/config/:rw
       - /mnt/md1/downloads/complete/:/config/Downloads/complete/:rw
@@ -543,7 +558,6 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, SETGID, SETUID, ]
     depends_on:
       qbittorrent:
         condition: service_started
@@ -552,8 +566,8 @@ services:
       traefik:
         condition: service_healthy
     environment:
-      PGID: "0"
-      PUID: "0"
+      PGID: "1000"
+      PUID: "1000"
       TZ: Etc/UTC
     extra_hosts:
       - "ntfy.bob.house=192.168.20.65"
@@ -569,7 +583,8 @@ services:
     profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,mode=777', ]
+    tmpfs: [ /config/Backups/, /config/logs/, '/run/:exec,nosuid,uid=1000,gid=1000', ]
+    user: 1000:1000
     volumes:
       - ${DATA_DIR:-/opt/appdata}/sonarr/:/config/:rw
       - /mnt/md0/tvshows/:/data/media/tvshows/:rw
@@ -579,8 +594,9 @@ services:
   tunarr:
     image: ghcr.io/chrisbenincasa/tunarr:latest-vaapi
     cap_drop: [ ALL, ]
-    cap_add: [ DAC_OVERRIDE, ]
     depends_on:
+      jellyfin:
+        condition: service_healthy
       traefik:
         condition: service_healthy
     devices:
@@ -598,7 +614,7 @@ services:
     profiles: [ media, ]
     read_only: true
     security_opt: [ no-new-privileges=true, ]
-    tmpfs: [ /config/tunarr/backups/, /config/tunarr/cache/, /config/tunarr/logs/, /tunarr/streams/, '/root/.cache/:exec', ]
+    tmpfs: [ /config/tunarr/backups/, /config/tunarr/cache/, /config/tunarr/logs/, /tunarr/streams/, '/root/.cache/:exec', /tmp/, ]
     volumes:
       - ${DATA_DIR:-/opt/appdata}/tunarr/:/config/tunarr/:rw
       - /mnt/md1/MediaThumbnails/tunarr/:/config/tunarr/images/:rw
@@ -681,7 +697,6 @@ services:
   youtarr:
     image: dialmaster/youtarr:latest
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, DAC_OVERRIDE, FOWNER, ]
     depends_on:
       traefik:
         condition: service_healthy
@@ -720,6 +735,7 @@ services:
     read_only: true
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /app/jobs/, /storage/rclone/storagebox/youtube/, /tmp/, ]
+    user: 1000:1000
     volumes:
       - /mnt/md1/youtarr/:/usr/src/app/data/:rw
       - ${DATA_DIR:-/opt/appdata}/youtarr/images/:/app/server/images/:rw
@@ -728,7 +744,6 @@ services:
   youtarr-db:
     image: mariadb:10
     cap_drop: [ ALL, ]
-    cap_add: [ CHOWN, DAC_READ_SEARCH, SETGID, SETUID, ]
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-file-per-table=1 --innodb-large-prefix=ON
     env_file:
       - ${REPOS_DIR:-/opt/repos}/Configurations/youtarr.env
@@ -751,4 +766,5 @@ services:
     profiles: [ media, ]
     security_opt: [ no-new-privileges=true, ]
     tmpfs: [ /tmp/, ]
+    user: 1000:1000
     volumes: [ "${DATA_DIR:-/opt/appdata}/youtarr/db/:/var/lib/mysql/:rw", ]
