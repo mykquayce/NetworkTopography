@@ -49,9 +49,6 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/repos}/Configurations/gluetun.env
     labels:
-      dd.tag.family: loose
-      dd.watch: "true"
-      dd.watch.digest: "true"
       traefik.docker.network: traefik-network
 
       traefik.http.routers.degoog-router.entrypoints: lan
