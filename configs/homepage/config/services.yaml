@@ -919,12 +919,6 @@
         widget:
           type: scrutiny
           url: https://scrutiny.bob.house
-    - Sick Gear: &sickgear
-        description: Fully automate TV enjoyment
-        href: https://sickgear.bob.house/
-        icon: sickbeard.svg
-        server: tana-docker
-        container: stacks-sickgear-1
     - Snipo: &snipo
         description: Single-user snippet-manager web app
         href: https://snipo.bob.house/
@@ -1159,7 +1153,6 @@
     - qBittorrent: *qbittorrent
     - Radarr: *radarr
     - SABnzbd: *sabnzbd
-    - Sick Gear: *sickgear
     - Sonarr: *sonarr
     - Tunarr: *tunarr
     - Windows TANA: *windowstana

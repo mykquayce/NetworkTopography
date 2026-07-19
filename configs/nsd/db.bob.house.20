@@ -4,7 +4,7 @@ $TTL 7200
 ; SOA
 
 @       IN      SOA    ransom.bob.house. hostmaster.bob.house. (
-                                         2026071400 ; Serial
+                                         2026071900 ; Serial
                                          7200       ; Refresh
                                          1800       ; Retry
                                          1209600    ; Expire
@@ -130,7 +130,6 @@ qbittorrent         IN        CNAME                tana
 radarr              IN        CNAME                tana
 sabnzbd             IN        CNAME                tana
 scrutiny            IN        CNAME                tana
-sickgear            IN        CNAME                tana
 sonarr              IN        CNAME                tana
 traefik-tana        IN        CNAME                tana
 tunarr              IN        CNAME                tana
