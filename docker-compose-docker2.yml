@@ -639,7 +639,7 @@ services:
       - ${REPOS_DIR:-/opt/repos}/Configurations/registry.env
     labels:
       dev.dozzle.group: registry
-      traefik.docker.network: registry-network
+      traefik.docker.network: traefik-network
       traefik.http.routers.registry-router.entrypoints: lan
       traefik.http.routers.registry-router.rule: Host(`registry.bob.house`)
       traefik.http.routers.registry-router.tls: "true"
