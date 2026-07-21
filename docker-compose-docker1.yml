@@ -7,6 +7,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.link.template: https://github.com/AdguardTeam/AdGuardHome/releases/tag/v$${major}.$${minor}.$${patch}
       dd.tag.family: loose
       dd.tag.include: ^v\d+\.\d+\.\d+$$
       dd.watch: "true"
@@ -98,6 +99,11 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/repos}/Configurations/authentik.env
     labels:
+      # https://github.com/goauthentik/authentik/releases/tag/version%2F2026.5.5
+      dd.link.template: https://github.com/goauthentik/authentik/releases/tag/version%2F$${major}.$${minor}.$${patch}
+      dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
+      dd.watch: "true"
       dev.dozzle.group: authentik
       traefik.docker.network: traefik-network
       traefik.http.routers.authentik-router.entrypoints: lan
@@ -128,6 +134,11 @@ services:
     env_file:
       - ${REPOS_DIR:-/opt/repos}/Configurations/authentik.env
     labels:
+      # https://github.com/goauthentik/authentik/releases/tag/version%2F2026.5.5
+      dd.link.template: https://github.com/goauthentik/authentik/releases/tag/version%2F$${major}.$${minor}.$${patch}
+      dd.tag.family: loose
+      dd.tag.include: ^v\d+\.\d+\.\d+$$
+      dd.watch: "true"
       dev.dozzle.group: authentik
       traefik.enable: "false"
     networks:
@@ -174,6 +185,7 @@ services:
       traefik:
         condition: service_healthy
     labels:
+      dd.link.template: https://github.com/dagucloud/dagu/releases/tag/v$${major}.$${minor}.$${patch}
       dd.tag.family: loose
       dd.tag.include: ^\d+\.\d+\.\d+$$
       dd.watch: "true"

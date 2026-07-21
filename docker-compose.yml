@@ -143,6 +143,7 @@ services:
       retries: 3
       start_period: 5s
     labels:
+      dd.link.template: https://github.com/Tecnativa/docker-socket-proxy/releases/tag/v$${major}.$${minor}.$${patch}
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: traefik-network
@@ -201,6 +202,7 @@ services:
       timeout: 10s
       retries: 5
     labels:
+      dd.link.template: https://github.com/traefik/traefik/releases/tag/v$${major}.$${minor}.$${patch}
       dd.tag.family: loose
       dd.watch: "true"
       traefik.docker.network: traefik-network
