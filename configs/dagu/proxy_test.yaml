@@ -161,7 +161,7 @@ steps:
     action: http.request
     with:
       method: GET
-      url: "http://${host}:2375/v1.52/containers/${container_name}/json"
+      url: "http://${host}:2375/v1.55/containers/${container_name}/json"
       headers:
         Accept: application/x-ns-proxy-autoconfig
         User-Apent: Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405

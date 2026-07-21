@@ -59,6 +59,7 @@ Add-Watch -Tag 'kiwix' -ExtractText '/wiktionary_en_all_.+?\.zim/' -Uri 'https:/
 
 Add-Watch -Tag 'software' -title 'https://github.com/awesome-selfhosted/awesome-selfhosted' -Uri 'https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted/refs/heads/master/README.md'
 Add-Watch -Tag 'software' -Uri 'https://docs.docker.com/desktop/release-notes/'
+Add-Watch -Tag 'software' -Uri 'https://docs.docker.com/reference/api/engine/version-history/'
 Add-Watch -Tag 'software' -IncludeFilters '#supported-versions-table' -Uri 'https://dotnet.microsoft.com/en-us/download/dotnet'
 Add-Watch -Tag 'software' -IncludeFilters 'json:$.IDS[0].downloadInfo.DownloadURL' -Title 'Nvidia drivers' -Uri 'https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=942&osID=57&languageCode=1078&beta=0&isWHQL=1&dltype=-1&dch=1&upCRD=0&qnf=0&ctk=null&sort1=1&numberOfResults=1'
 Add-Watch -Tag 'software' -Uri 'https://ubuntu.com/download/server'
